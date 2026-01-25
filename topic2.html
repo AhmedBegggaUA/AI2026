@@ -1,0 +1,1436 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>4. Reinforcement Learning &#8212; Agentes Inteligentes IA</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'topic2';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="5. Graph Neural Networks" href="practice0.html" />
+    <link rel="prev" title="2. Graph Neural Networks" href="topic1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Agentes Inteligentes IA - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Agentes Inteligentes IA - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI2026
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intelligent Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bloque1_Introducci%C3%B3n.html">1. The Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithmic Reasoning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic1.html">2. Graph Neural Networks</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reinforcement Learning</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Reinforcement Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">5. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice2.html">6. Reinforcement Learning</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftopic2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/topic2.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Reinforcement Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-rl">4.1. Why RL?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-decision-processes">4.2. Markov Decision Processes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">4.2.1. Motivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#future-return">4.2.2. Future Return</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#value-function">4.2.3. Value Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimal-policy-and-optimal-value">4.2.4. Optimal Policy and Optimal Value</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-mdps">4.3. Monte Carlo MDPs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#future-rewards">4.3.1. Future Rewards</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#epsilon-greedy-policy">4.3.2. <span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy Policy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploration-vs-exploitation">4.3.3. Exploration vs Exploitation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-difference-and-sarsa">4.4. Temporal Difference and SARSA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-policy-vs-off-policy">4.5. On-Policy vs Off-Policy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q-learning">4.6. Q-Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-q-learning">4.7. Deep Q-Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-big-picture">4.7.1. The Big Picture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#image-based-inputs">4.7.2. Image-based inputs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensure-markov-property">4.7.3. Ensure Markov property</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn-arquitecture">4.7.4. CNN Arquitecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#experience-replay">4.7.5. Experience Replay</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-vs-target-network">4.7.6. Policy vs Target Network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overall-model">4.7.7. Overall Model</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="reinforcement-learning">
+<h1><span class="section-number">4. </span>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this heading">#</a></h1>
+<section id="why-rl">
+<h2><span class="section-number">4.1. </span>Why RL?<a class="headerlink" href="#why-rl" title="Permalink to this heading">#</a></h2>
+<p>Agents are, by definition, designed to <strong><span style="color:#2f6004">interact with an environment</span></strong>. They need such interaction in order to accomplish a given task. The level of success for that task depends on <span style="color:#2f6004"><strong>how well the agent learns</strong> from the environment to perform the proper actions</span>.</p>
+<p>Agents perform the <strong><span style="color:#2f6004">observe-react loop</span></strong>. In <a class="reference internal" href="#rlagent"><span class="std std-numref">Fig. 4.1</span></a> we show this loop for the Breakout Atari game:</p>
+<ol class="arabic simple">
+<li><p><strong>Observation</strong>. The problem (e.g playing a game in this case) is coded by the environment (movements and rules). The agent is able to observe the <strong><span style="color:#2f6004">state of the environment</span></strong>. Ideally, the environment state should contain all relevant information that’s necessary for the agent
+to make decisions. In the Atari game, the environment is given by the pixels configurations of the top wall and that of the ball to bounce.</p></li>
+<li><p><strong>Actions</strong>. Given an observation, the agent reacts by performing a legal <strong><span style="color:#2f6004">action</span></strong> (e.g. moving the paddle left, right or don’t move it,  in order to bounce the incoming ball properly). Since actions do affect the state of the environment in a different way, the agent should select</p></li>
+<li><p><strong>Rewards</strong>. How can the agent benefit from the experience of previous games? Well, the enviromnent does not only returns the state but the <strong><span style="color:#2f6004">reward to the action taken by the agent</span></strong>. Such feedback is key to learn a given strategy for winning. In the Atary game, shuch a reward <em>(positivre, negative or zero value)</em> is related to the number of bricks of the wall browen by the ball.</p></li>
+</ol>
+<figure class="align-center" id="rlagent">
+<a class="reference internal image-reference" href="_images/RLAgent.png"><img alt="_images/RLAgent.png" src="_images/RLAgent.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.1 </span><span class="caption-text">Atari game agent. Environment and observation-react loop. <a class="reference external" href="https://colab.research.google.com/github/tensorflow/agents/blob/master/docs/tutorials/0_intro_rl.ipynb">Credit</a>.</span><a class="headerlink" href="#rlagent" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><span style="color:#2f6004"><strong>Goal of the agent</strong>. Maximize the accumulated rewards over time.</span> In other words, the agent must optimize the reward function (something similar to the MC-agent explained in the previous topic). However, herein such a maximization leads to <strong>learn a policy</strong> (a guide to interact with the environment).</p>
+<p><span style="color:#2f6004"><strong>Policy</strong>. Maps every possible state to the probabilities of choosing different actions.</span> This helps not only to guide the agent through the environment but to maximize the cumulative reward.</p>
+<p>Therefore, <strong><span style="color:#2f6004">the agent is basically a learning algorithm</span></strong>. Reiforcement Learing is the paradigm that leads to learn optimal policies.</p>
+</section>
+<section id="markov-decision-processes">
+<h2><span class="section-number">4.2. </span>Markov Decision Processes<a class="headerlink" href="#markov-decision-processes" title="Permalink to this heading">#</a></h2>
+<section id="motivation">
+<h3><span class="section-number">4.2.1. </span>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading">#</a></h3>
+<p>In “Distrinite Mathematics” (Matemática Discreta) we studied Markov Chains in an abstract way. Basically it is worth to remember a couple of concepts:</p>
+<ol class="arabic simple">
+<li><p><strong>State transitions</strong>. Markov Chains are encoded by <strong>transition matrices</strong> which declare the probability <span class="math notranslate nohighlight">\(p(s'_{t+1}|s_t)\)</span>, i.e. the probability of making a transition from state <span class="math notranslate nohighlight">\(s\)</span> to state <span class="math notranslate nohighlight">\(s'\)</span> in time <span class="math notranslate nohighlight">\(t\)</span>. Both states belong to the “state space” <span class="math notranslate nohighlight">\({\cal S}\)</span>.</p></li>
+<li><p><strong>Markov property</strong>. The probability <span class="math notranslate nohighlight">\(p(s'_{t+1}|s_t)\)</span> at time <span class="math notranslate nohighlight">\(t\)</span> is “memoryless”, i.e. the conditional probability forgets what happened before <span class="math notranslate nohighlight">\(t\)</span>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+p(s'_{t+1}|s_t) = p(s'_{t+1}|s_t,s_{t-1},\ldots,s_0)\;.
+\]</div>
+<p>Markov Decision Processes (MDPs) incorporate two new elements to the Markov machinery:</p>
+<ol class="arabic simple">
+<li><p><strong>Actions</strong>. The definition <span class="math notranslate nohighlight">\(p(s'_{t+1}|s_t)\)</span> is incomplete. The word “Decision” in MDPs means that such a probability can be different for any of the available/legal actions <span class="math notranslate nohighlight">\(a\)</span> belonging to the “action space” <span class="math notranslate nohighlight">\({\cal A}\)</span>. In other words, the correct definition is</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+p(s'|s,a)\;\text{where}\;\;s',s\in {\cal S}, a\in {\cal A}\;,
+\]</div>
+<p>where we drop the time indexes for the sake of simplicty. As we will see shortly, <span class="math notranslate nohighlight">\(p(s'|s,a)\)</span> implies that <strong>every action has its own transition matrix</strong>.</p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Rewards</strong>. Reaching the state <span class="math notranslate nohighlight">\(s'\)</span> via any action <span class="math notranslate nohighlight">\(a\)</span> implies receiving a (numerical)”reward” <span class="math notranslate nohighlight">\(R(s,a)\)</span> which can be positive, negative or zero.</p></li>
+</ol>
+<p>In order to motivate MDPs, we use the <strong>service-dog problem</strong>. This is a classic example. Herein we loosely follow the book <a class="reference external" href="https://link.springer.com/book/10.1007/978-1-4842-9606-6">The Art of Reinforcement Learning</a> (available in Springer via UA library).</p>
+<p>In <a class="reference internal" href="#service-dog"><span class="std std-numref">Fig. 4.2</span></a>, we illustrate a basic setup for the service-dog problem.</p>
+<ol class="arabic simple">
+<li><p>Our objective is to <strong>train a dog</strong> that lies outside to find an object (which is in room 3).</p></li>
+<li><p>The topology of the setup shows that the dog can only access to the building via room 2 and then either go to room 1 or room 3 (where the object is).</p></li>
+<li><p>Once the object is found, the dog stays in room 3.</p></li>
+</ol>
+<figure class="align-center" id="service-dog">
+<a class="reference internal image-reference" href="_images/Service-dog.png"><img alt="_images/Service-dog.png" src="_images/Service-dog.png" style="width: 800px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.2 </span><span class="caption-text">Service-dog setup. <a class="reference external" href="https://link.springer.com/book/10.1007/978-1-4842-9606-6">Credit</a>.</span><a class="headerlink" href="#service-dog" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The states are:</p>
+<div class="math notranslate nohighlight">
+\[
+{\cal S}=\{\underbrace{\text{Outside}}_{s_0},\underbrace{\text{Room1}}_{s_1},\underbrace{\text{Room2}}_{s_2}, \underbrace{\text{Room3}}_{s_3}, \underbrace{\text{Found}}_{s_4}\}\;.
+\]</div>
+<p>Instead of having a “unique” graph encoding the transitions and their probabilities, we do have a “graph per action”. We consider the following actions”:</p>
+<div class="math notranslate nohighlight">
+\[
+{\cal A}=\{\underbrace{\text{GoRoom1}}_{a_0},\underbrace{\text{GoRoom2}}_{a_1}, \underbrace{\text{GoRoom3}}_{a_2}, \underbrace{\text{GoOutside}}_{a_3}, \underbrace{\text{GoInside}}_{a_4},\underbrace{\text{Search}}_{a_5}\}\;.
+\]</div>
+<p>In <a class="reference internal" href="#trans"><span class="std std-numref">Fig. 4.3</span></a>, we show the transition matrices for the six actions. For instance:</p>
+<figure class="align-center" id="trans">
+<a class="reference internal image-reference" href="_images/Trans.png"><img alt="_images/Trans.png" src="_images/Trans.png" style="width: 800px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.3 </span><span class="caption-text">Transition matrices for service-dog actions. Created by Gemini.</span><a class="headerlink" href="#trans" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><strong>GoRoom3</strong>. This room can only be accesed from room 2. Therefore, <strong><span style="color:#2f6004">under this action</span></strong> there is a probability of <span class="math notranslate nohighlight">\(0.9\)</span> to stay in room 2 and only <span class="math notranslate nohighlight">\(0.1\)</span> to go towards to room 1. However, there is a probability <span class="math notranslate nohighlight">\(0.1\)</span> to stay in room 2 and <span class="math notranslate nohighlight">\(0.9\)</span> to go to room 3. This shows the “intentionality” of the agent to approach the goal. In addition, when applied to any other state, the agent stays in that state with probability <span class="math notranslate nohighlight">\(1.0\)</span>.</p></li>
+<li><p><strong>GoRoom2</strong> follows a similar logic. It opens the possibility to go to room 1 or room3 but it is biased towards room 3.</p></li>
+<li><p><strong>GoRoom1</strong> is obviously biased towards returning to room 2 since this is key to access room 3. However, when the agent is at room 3 we introduce a large bias to return to room 2.</p></li>
+<li><p><strong>GoOutside</strong>. This can only be done from room 2 and we prefer this because the dog can play outside.</p></li>
+<li><p><strong>GoInside</strong>. We incentivate the dog to go to room 2 because we want to teach him how to reach the goal.</p></li>
+<li><p><strong>Search</strong>. This action is really simple: once the dog is in room 3 it has a <span class="math notranslate nohighlight">\(0.9\)</span> probability of founding the item, thus reaching the goal.</p></li>
+</ul>
+<p>In <a class="reference internal" href="#superposed-graph"><span class="std std-numref">Fig. 4.4</span></a>, we combine all the transition matrix in a unique graph. Try the isolate the graph of one of the “actions”.</p>
+<figure class="align-center" id="superposed-graph">
+<a class="reference internal image-reference" href="_images/superposed-graph.png"><img alt="_images/superposed-graph.png" src="_images/superposed-graph.png" style="width: 800px; height: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.4 </span><span class="caption-text">Superposed graph considering all transition matrices. Created by Gemini.</span><a class="headerlink" href="#superposed-graph" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>As you can see, <strong><span style="color:#2f6004">in RL actions do not refer (in general) to atomic predicates but to stategies</span></strong> (or “behaviors” in the autonomous robots jargon).</p>
+<p><strong>Concering rewards</strong>. If we want to incentivate the dog to seach the item instead of playing indefinitely in the garden, we may use the following individual “state-action rewards”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">Room1</span><span class="p">:</span>
+    <span class="n">GoRoom1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room1&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoRoom2</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room2&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoRoom3</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room3&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoOutside</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Outside&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoInside</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room1&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">Search</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room1&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">}</span>
+  <span class="n">Room2</span><span class="p">:</span>
+    <span class="n">GoRoom1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room1&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoRoom2</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room2&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoRoom3</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room3&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoOutside</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Outside&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoInside</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room1&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">Search</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room2&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">}</span>
+  <span class="n">Room3</span><span class="p">:</span>
+    <span class="n">GoRoom1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room1&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoRoom2</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room2&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoRoom3</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room3&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoOutside</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Outside&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoInside</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room1&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">Search</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Found&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">}</span>
+  <span class="n">Outside</span><span class="p">:</span>
+    <span class="n">GoRoom1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room1&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoRoom2</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room2&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoRoom3</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room3&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoOutside</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Outside&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">GoInside</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Room1&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">}</span>
+    <span class="n">Search</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Outside&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">}</span>
+  <span class="n">Found</span><span class="p">:</span>
+    <span class="n">GoRoom1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Found&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+    <span class="n">GoRoom2</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Found&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+    <span class="n">GoRoom3</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Found&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+    <span class="n">GoOutside</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Found&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+    <span class="n">GoInside</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Found&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+    <span class="n">Search</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Found&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The <strong>reward function</strong> <span class="math notranslate nohighlight">\({\cal R}\)</span> maps pairs of states and actions to numerical values <span class="math notranslate nohighlight">\(R(s,a)\)</span>. Since the agent tands to take actions that maximize the rewards, we have:</p>
+<ul class="simple">
+<li><p>For <span class="math notranslate nohighlight">\(\text{Room1}\)</span> and <span class="math notranslate nohighlight">\(\text{Room2}\)</span>, the agent is incentivated to leave the room and not to search (rewards <span class="math notranslate nohighlight">\(-1\)</span> and <span class="math notranslate nohighlight">\(-2\)</span> respectively).</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(\text{Room3}\)</span>, there is a high positive reward for searching (<span class="math notranslate nohighlight">\(+10\)</span> units).</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(\text{Outside}\)</span>, the dog is incentivated to go inside and not to search.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\(\text{Found}\)</span> there is a neutral incentivation (reward <span class="math notranslate nohighlight">\(0\)</span>). This is typical of a final state.</p></li>
+</ul>
+</section>
+<section id="future-return">
+<h3><span class="section-number">4.2.2. </span>Future Return<a class="headerlink" href="#future-return" title="Permalink to this heading">#</a></h3>
+<p>Suppose that we perform several <strong>episodes</strong>. An episode is a sequence of <strong>legal</strong> (non-zero transition probabilities in the respective action transition matrices) pairs of state-action. In the table below, we show a couple of episodes of <span class="math notranslate nohighlight">\(6\)</span> movements each:</p>
+<p><span class="math notranslate nohighlight">\(
+\begin{aligned}
+&amp;\begin{array}{cccc}
+\text{Episode}  &amp; t &amp; \text{Pair} &amp; R_t = R(s,a)\\
+\hline
+1 &amp; 0 &amp;(\text{Outside},\text{GoOutside}) &amp; -1\\
+  &amp; 1 &amp;(\text{Outside},\text{GoRoom2})   &amp; -1\\ 
+  &amp; 2 &amp;(\text{Room2},\text{GoRoom2})     &amp; -1\\ 
+  &amp; 3 &amp;(\text{Room2},\text{GoRoom3})     &amp; -1\\
+  &amp; 4 &amp;(\text{Room3},\text{Search})      &amp; 10\\ 
+  &amp; 5 &amp;(\text{Found},\text{GoRoom3})     &amp; 0 \\
+\hline
+2 &amp; 0 &amp;(\text{Outside},\text{GoRoom2})   &amp; -1\\
+  &amp; 1 &amp;(\text{Room2},\text{GoRoom1})     &amp; -1\\
+  &amp; 2 &amp;(\text{Room1},\text{GoRoom1})     &amp; -1\\
+  &amp; 3 &amp;(\text{Room1},\text{GoRoom1})     &amp; -1\\
+  &amp; 4 &amp;(\text{Room1},\text{GoRoom2})     &amp; -1\\
+  &amp; 5 &amp;(\text{Room2},\text{Search})      &amp; -2\\
+\end{array}
+\end{aligned}
+\)</span></p>
+<p>The <strong>return</strong> <span class="math notranslate nohighlight">\(G_t\)</span> for an episode is defined as follows</p>
+<div class="math notranslate nohighlight">
+\[
+G_t = R_t + \gamma R_{t+1} + \gamma^2 R_{t+2} + \gamma^3 R_{t+3} + \ldots  
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\gamma \in (0,1)\)</span> is a “discount factor” just to avoid “infinite returns” (indefinitely adding negative rewards). In other words, the weight of a given return decays with time.</p>
+<p>Then, for episode 1 we have the following return</p>
+<div class="math notranslate nohighlight">
+\[
+G_0 = R_0 + \gamma R_1 + \ldots + \gamma^5 R_5
+\]</div>
+<p>For <span class="math notranslate nohighlight">\(\gamma=0.9\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+G_0 = -1 + -1\cdot 0.9 -1\cdot 0.9^2 - 1\cdot 0.9^3 + 10\cdot 0.9^4 + 0 = 3.122\;.
+\]</div>
+<p>Similarly, for episode 2, we have</p>
+<div class="math notranslate nohighlight">
+\[
+G_0 = -1 - 1\cdot 0.9 - 1\cdot 0.9^2 - 1\cdot 0.9^3 - 1\cdot 0.9^4 - 2\cdot 0.9^5 = -5.276\;.
+\]</div>
+<p>This second episode returns a smaller reward since in the “horizon” of <span class="math notranslate nohighlight">\(6\)</span> time steps, the agent (1) loops in room 1 and then performs a search in the wrong room (room 2).</p>
+</section>
+<section id="value-function">
+<h3><span class="section-number">4.2.3. </span>Value Function<a class="headerlink" href="#value-function" title="Permalink to this heading">#</a></h3>
+<p>Consider the following property of <span class="math notranslate nohighlight">\(G_t\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+G_t &amp;=R_t + \gamma R_{t+1} + \gamma^2 R_{t+2} + \gamma^3 R_{t+3} + \ldots\\
+    &amp;=R_t + \gamma\cdot(R_{t+1}+ \gamma R_{t+2}+ \gamma^2 R_{t+3} + \ldots)\\
+    &amp;=R_t + \gamma\cdot G_{t+1}\;.
+\end{align}
+\end{split}\]</div>
+<p>In other words, future returns are computed by the inmediate return at <span class="math notranslate nohighlight">\(t\)</span> plus the discount of the future return from <span class="math notranslate nohighlight">\(t+1\)</span> onwards.</p>
+<p>Although this recursion is intriguing, comparing future returs for deciding what state is more valuable for maximizing the total return is <strong>time dependent</strong> (the evaluation depends on the chosen <span class="math notranslate nohighlight">\(t\)</span>). <span style="color:#2f6004">We need a measure which is <strong>state-dependent</strong> instead</span>. This is the <strong><span style="color:#2f6004">value function</span></strong>.</p>
+<p><strong>Value function</strong> Given a state <span class="math notranslate nohighlight">\(s\)</span>, its value function <span class="math notranslate nohighlight">\(V(s)\)</span> <span style="color:#2f6004">accounts from the <strong>expected reward</strong> from it, defined as follows</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+V(s) &amp;= \mathbb{E}[G_t|s_t=s]\\
+     &amp;= \mathbb{E}[R_t + \gamma G_{t+1}|s_t=s]\\
+     &amp;= \mathbb{E}[R_t + \gamma V_{t+1}(s)|s_t=s]\;.\\
+\end{align}
+\end{split}\]</div>
+<p>or, more precisely</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+V(s) = \sum_{a\in {\cal A}}[R(s,a)+ \gamma\sum_{s'\in {\cal S}}p(s'|s,a)V(s')]\;.\\
+\end{split}\]</div>
+<p>Herein, “expectation” relies on incorporate the probabilities <span class="math notranslate nohighlight">\(p(s'|s,a)\)</span> and the sum over all actions. The above equation is known as the <strong>Bellman Equation</strong>. This indicates a close link with Dynamic Programing (DP).</p>
+<p>Of course, Bellman Equation is recursive. If so, how do we really compute <span class="math notranslate nohighlight">\(V(s)\)</span>? As in DP, we are going to do it <strong>iteratively</strong>:</p>
+<ol class="arabic simple">
+<li><p>Let us assume that <span class="math notranslate nohighlight">\(V(s)=0\)</span> for all <span class="math notranslate nohighlight">\(s\in{\cal S}\)</span> initially.</p></li>
+<li><p>Next, in the next iteration let us take the value function provided by the most successful action:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+V(s) = \max_{a}\left[R(s,a) + \gamma\sum_{s'\in {\cal S}}p(s'|s,a)V(s')\right]
+\]</div>
+<ol class="arabic simple" start="3">
+<li><p>Then, for each new <span class="math notranslate nohighlight">\(V(s)\)</span> get the increment <span class="math notranslate nohighlight">\(\delta\)</span> in absolute value and take the maximum of all these absolute values.</p></li>
+<li><p>If such maximum is below a given <span class="math notranslate nohighlight">\(\epsilon\)</span>, declare convergence and stop!</p></li>
+</ol>
+<p>This algorithm (which is not unique) is called the <strong><span style="color:#2f6004">value iteration</span></strong>:</p>
+<div class="proof algorithm admonition" id="Value-Iteration">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.1 </span> (Value-Iteration)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> Given <span class="math notranslate nohighlight">\(\gamma\)</span> and tolerance <span class="math notranslate nohighlight">\(\epsilon\)</span></p>
+<p><strong>Output</strong> <span class="math notranslate nohighlight">\(V(s),\forall s\in {\cal S}\)</span>.</p>
+<ol class="arabic simple">
+<li><p>Initialize: <span class="math notranslate nohighlight">\(V(s)=0,\forall s\in {\cal S}\)</span></p></li>
+<li><p><strong>while</strong> <span class="math notranslate nohighlight">\(\neg\)</span>convergence:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\delta = 0\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(s\in {\cal S}\)</span>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(v=V(s)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(V(s) = \max_{a}\left[R(s,a) + \gamma\sum_{s'\in {\cal S}}p(s'|s,a)V(s')\right]\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\delta = \max (\delta, |v - V(s)|)\)</span></p></li>
+</ol>
+</li>
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(\delta &lt;\epsilon\)</span> <strong>then</strong> <strong>break</strong></p></li>
+</ol>
+</li>
+</ol>
+<p><strong>return</strong> <span class="math notranslate nohighlight">\(V(s),s\in {\cal S}\)</span></p>
+</section>
+</div></section>
+<section id="optimal-policy-and-optimal-value">
+<h3><span class="section-number">4.2.4. </span>Optimal Policy and Optimal Value<a class="headerlink" href="#optimal-policy-and-optimal-value" title="Permalink to this heading">#</a></h3>
+<p>The Value-Iteration does not only provides <span class="math notranslate nohighlight">\(V(s)\)</span> but <span class="math notranslate nohighlight">\(V_{\ast}(s)\)</span> <strong>the optimal</strong> <span class="math notranslate nohighlight">\(V(s)\)</span>. Why?</p>
+<p>Firstly, note that the Bellman Equation sums over all actions and then weigths the existing values by the states conditioned on the probabilities of such actions. This is something similar to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+V^{k+1}(s) = \sum_{a\in {\cal A}}[R(s,a)+ \gamma\sum_{s'\in {\cal S}}p(s'|s,a)V^{k}(s')]\;.\\
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(V^0(s)=0,\forall s\in {\cal S}\)</span>.</p>
+<p>However, the Bellman Equation (which is aligned with the optimality principle of DP) retains only the best value of each iteration, i.e. the one coming for taking the best action:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+V^{k+1}(s) = \max_{a\in {\cal A}}[R(s,a)+ \gamma\sum_{s'\in {\cal S}}p(s'|s,a)V^{k}(s')]\;.\\
+\end{split}\]</div>
+<p>Note that at each iteration we consider the <strong>best action for each state</strong>. This sounds very “deterministic” here, but in general <span style="color:#2f6004">each state <span class="math notranslate nohighlight">\(s\)</span> has associated an <strong>unknown</strong> probability distribution <span class="math notranslate nohighlight">\(\pi(a|s)\)</span> determining the chance that an action <span class="math notranslate nohighlight">\(a\)</span> is taken at state <span class="math notranslate nohighlight">\(s\)</span></span>. Such a mapping is a <strong><span style="color:#2f6004">policy</span></strong>.</p>
+<p>Note that</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{a\in {\cal A}}\pi(a|s)=1\;,\forall s\in{\cal S}\;.
+\]</div>
+<p>Actually, the function <span class="math notranslate nohighlight">\(V(s)\)</span> is <strong>heavily dependent on the policy followed</strong>. We denote this by rewriting the Bellman Equation as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+V_{\pi}(s) = \sum_{a\in {\cal A}}\pi(a|s)\left[R(s,a)+ \gamma\sum_{s'\in {\cal S}}p(s'|s,a)V_{\pi}(s')\right]\;,\\
+\end{split}\]</div>
+<p>which returns the value for <span class="math notranslate nohighlight">\(s\)</span> <strong>following the policy</strong> <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+<p><strong>Optimal Policy</strong>. A policy <span class="math notranslate nohighlight">\(\pi\)</span> is optimal (and we denote it by <span class="math notranslate nohighlight">\(\pi_{\ast}(a|s)\)</span>) if it satisfies:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\pi_{\ast}(a|s) = 
+\begin{cases}
+     1 &amp;\;\text{if}\; a =\arg\max_{a\in{\cal A}}\left[R(s,a) + \gamma\sum_{s'\in {\cal S}}p(s'|s,a)V_{\ast}(s')\right] \\[2ex]
+     0
+     &amp;\;\text{otherwise}\\[2ex]
+\end{cases}
+\end{split}\]</div>
+<p>From the above formula, it is quite evident that the optimal policy <span class="math notranslate nohighlight">\(pi_{\ast}\)</span> is derived as soon as we now the optimal value <span class="math notranslate nohighlight">\(V_{\ast}\)</span>. This is done in the following algorithm:</p>
+<div class="proof algorithm admonition" id="Optimal-Policy">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.2 </span> (Optimal-Policy)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> Given optimal value <span class="math notranslate nohighlight">\(V_{\ast}(s),\forall s\in{\cal S}\)</span>.</p>
+<p><strong>Output</strong> <span class="math notranslate nohighlight">\(\pi_{\ast}(a|s),\forall s\in {\cal S}\)</span>.</p>
+<ol class="arabic">
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(s\in {\cal S}\)</span>:</p>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(a_{\ast}=\arg\max_{a\in{\cal A}}\left[R(s,a) + \gamma\sum_{s'\in {\cal S}}p(s'|s,a)V_{\ast}(s')\right]\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(a\in {\cal A}(s)\)</span>:</p>
+<ol class="arabic">
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(a=a_{\ast}\)</span>:</p>
+<p><strong>then</strong> <span class="math notranslate nohighlight">\(\pi(a|s)=1\)</span> <strong>else</strong> <span class="math notranslate nohighlight">\(\pi(a|s)=0\)</span></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p><strong>return</strong> <span class="math notranslate nohighlight">\(\pi\)</span></p>
+</section>
+</div><p><strong>Application to service dog</strong>. Given the above setting, the optimal values and policies are the following (the convergence is fast):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Optimal</span> <span class="n">Value</span> <span class="n">Function</span> <span class="p">(</span><span class="n">V</span><span class="o">*</span><span class="p">):</span>
+<span class="n">State</span>	<span class="n">Optimal</span> <span class="n">Value</span>
+<span class="mi">0</span>	<span class="n">Room1</span>	<span class="mf">6.955562</span>
+<span class="mi">1</span>	<span class="n">Room2</span>	<span class="mf">7.814274</span>
+<span class="mi">2</span>	<span class="n">Room3</span>	<span class="mf">9.890110</span>
+<span class="mi">3</span>	<span class="n">Outside</span>	<span class="mf">6.955562</span>
+<span class="mi">4</span>	<span class="n">Found</span>	<span class="mf">0.000000</span>
+
+<span class="n">Optimal</span> <span class="n">Policy</span> <span class="p">(</span><span class="n">π</span><span class="o">*</span><span class="p">):</span>
+<span class="n">State</span>	<span class="n">Optimal</span> <span class="n">action</span>
+<span class="mi">0</span>	<span class="n">Room1</span>	<span class="n">GoRoom3</span>
+<span class="mi">1</span>	<span class="n">Room2</span>	<span class="n">GoRoom3</span>
+<span class="mi">2</span>	<span class="n">Room3</span>	<span class="n">Search</span>
+<span class="mi">3</span>	<span class="n">Outside</span>	<span class="n">GoInside</span>
+<span class="mi">4</span>	<span class="n">Found</span>	<span class="n">GoRoom1</span>
+</pre></div>
+</div>
+<p><strong>Optimal values</strong>. First of all, note that the value functions are quite illustrative of how promising is to reach the objective from any state: <span class="math notranslate nohighlight">\(6.9\)</span> from room 1, <span class="math notranslate nohighlight">\(7.8\)</span> from room 2 and <span class="math notranslate nohighlight">\(9.8\)</span> from room 3. Observe that the value for oustide (<span class="math notranslate nohighlight">\(6.9\)</span>) is equal than that for room 1, indicating that these states are equally far from promising the target. Finally, once the target is reached, the value is <span class="math notranslate nohighlight">\(0\)</span>.</p>
+<p><strong>Optimal Policy</strong>. In In <a class="reference internal" href="#gop"><span class="std std-numref">Fig. 4.5</span></a>, we show the probabilities that lead to the optimal policy, together with their corresponding best action.</p>
+<figure class="align-center" id="gop">
+<a class="reference internal image-reference" href="_images/graph-optimal-policy.png"><img alt="_images/graph-optimal-policy.png" src="_images/graph-optimal-policy.png" style="width: 800px; height: 150px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.5 </span><span class="caption-text">Graph of the optimal policy for the service-dog problem. Created by Gemini.</span><a class="headerlink" href="#gop" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="monte-carlo-mdps">
+<h2><span class="section-number">4.3. </span>Monte Carlo MDPs<a class="headerlink" href="#monte-carlo-mdps" title="Permalink to this heading">#</a></h2>
+<p>DP-like Reinforcement Learning <span style="color:#2f6004">assumes that the agent has full access to a <strong>model of the environment</strong></span>. Such a model (rewards and transition probabilities) is specified by the Bellman Equation.</p>
+<p>However, in environments with a larger number of states and/or actions, it is quite difficult to specify all the rewards and the state transitions. Even when this is possible, the evaluation of the Bellman Equation for each state is very time consuming.</p>
+<p><strong>The Grid Problem</strong>. Consider the <span class="math notranslate nohighlight">\(5\times 5\)</span> 2D grid in <a class="reference internal" href="#grid2d"><span class="std std-numref">Fig. 4.6</span></a>. We have:</p>
+<ol class="arabic simple">
+<li><p>A target state <span class="math notranslate nohighlight">\((4,4)\)</span> with a reward <span class="math notranslate nohighlight">\(+10\)</span> and a penalty/pit state <span class="math notranslate nohighlight">\((2,2)\)</span> with reward <span class="math notranslate nohighlight">\(-10\)</span>.</p></li>
+<li><p>The catalog of actions is quite simple</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+{\cal A} = \{\text{Up},\text{Down},\text{Left}, \text{Right}\}\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\text{Up}=(1,0)\)</span> increases the row index, <span class="math notranslate nohighlight">\(\text{Down}=(-1,0)\)</span> decreases it, <span class="math notranslate nohighlight">\(\text{Left}=(0,-1)\)</span> decreases the column index and, finally, <span class="math notranslate nohighlight">\(\text{Right}=(0,1)\)</span> increases it.</p>
+<ol class="arabic simple" start="3">
+<li><p>Concerning action rewards, applying any action (except where the destination is the target or the pit) has a reward <span class="math notranslate nohighlight">\(-1\)</span> forcing the agent to consume as few actions as possible.</p></li>
+</ol>
+<figure class="align-center" id="grid2d">
+<a class="reference internal image-reference" href="_images/Grid2D.png"><img alt="_images/Grid2D.png" src="_images/Grid2D.png" style="width: 600px; height: 550px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.6 </span><span class="caption-text">Grid2D Problem with final and pit states. Created by Gemini.</span><a class="headerlink" href="#grid2d" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In this particular setting, approaching the diagonal leads to a sub-optimal reward from <span class="math notranslate nohighlight">\((0,0)\)</span>. Therefore, it is not a good idea to use <span class="math notranslate nohighlight">\(\text{Up}\)</span> and <span class="math notranslate nohighlight">\(\text{Right}\)</span> alternatively in this case.</p>
+<p>Remember also, that solving a RL problem involves computing <span class="math notranslate nohighlight">\(V_{\ast}(s)\)</span> for all states <span class="math notranslate nohighlight">\((i,j), i,j=0,\ldots,4\)</span>. Herein, we have a quadratic mumber of states and the computation of <span class="math notranslate nohighlight">\(V_{\ast}(s)\)</span>  using Value-Iteration is also quadratic (linear per iteration with the number of states which is quadratic). This may be not assumible for larger grids.</p>
+<section id="future-rewards">
+<h3><span class="section-number">4.3.1. </span>Future Rewards<a class="headerlink" href="#future-rewards" title="Permalink to this heading">#</a></h3>
+<p><strong>Monte Carlo MDPs</strong> <span style="color:#2f6004">collect <strong>several episodes</strong> of state-action-state and their corresponding rewards and take their average as a means to <strong>learn-by-experience</strong></span>.</p>
+<p>Each episode have the following shape:</p>
+<div class="math notranslate nohighlight">
+\[
+(s_0, a_0, r_1), (s_1, a_1, r_2), \ldots, (s_{T-1}, a_{T-1}, r_T)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(T\)</span> is the maximum time of the episode since the <em>episode ends (or it is “done”) either if the pit or the target states are reached</em>.</p>
+<p><strong>Future rewards</strong>: At each episode, the future rewards are computed <em>backwards</em> as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+G(s_{T-1}) &amp;= r_{T}\\
+G(s_{T-2}) &amp;= r_{T-1} + \gamma G(s_{T-1})\\
+\ldots \\
+G(s_{1}) &amp;= r_{2} + \gamma G(s_{2})\\
+G(s_{0}) &amp;= r_{1} + \gamma G(s_{1})\\
+\end{align}
+\end{split}\]</div>
+<p>In order to save evaluation time, in <span style="color:#2f6004"><strong>Firs-visit Monte Carlo MDPs</strong></span>, future rewards are only evaluated at the <em>first time</em> each state <span class="math notranslate nohighlight">\(s_i\)</span> is visited, i.e. included in a triplet <span class="math notranslate nohighlight">\((s_t, a_t, r_{t+1})\)</span> of the episode.</p>
+<p>If the state <span class="math notranslate nohighlight">\(s\)</span> appears in <span class="math notranslate nohighlight">\(N_{s}\)</span> episodes, its global future rewards is the average:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar{G}(s)=\sum_{e=1}^{N_{s}} G(s,e)/N_{s}\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(G(s,e)\)</span> refers to the future value of <span class="math notranslate nohighlight">\(s\)</span> at the episode <span class="math notranslate nohighlight">\(e\)</span> (the first time it appears, if we follow the firs-time strategy).</p>
+</section>
+<section id="epsilon-greedy-policy">
+<h3><span class="section-number">4.3.2. </span><span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy Policy<a class="headerlink" href="#epsilon-greedy-policy" title="Permalink to this heading">#</a></h3>
+<p>Concerning the value function, as its computation depends on the choice of a set of actions, we assume that the learner follows a given policy <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
+<p>Remember that <span class="math notranslate nohighlight">\(V_{\pi}\)</span> is the value obtained by following a policy <span class="math notranslate nohighlight">\(\pi\)</span>. Using the Bellman Equation, we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+V_{\pi}(s) = \sum_{a\in {\cal A}}\pi(a|s)\underbrace{\left[R(s,a)+ \gamma\sum_{s'\in {\cal S}}p(s'|s,a)V_{\pi}(s')\right]}_{Q_{\pi}(s,a)}\;,\\
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(Q_{\pi}(s,a)\)</span> is the <span style="color:#2f6004"><strong>Q-value for action <span class="math notranslate nohighlight">\(a\)</span> and state <span class="math notranslate nohighlight">\(s\)</span></strong></span>.</p>
+<p>However, in Monte Carlo (which is <strong>model free</strong>) we cannot estimate <span class="math notranslate nohighlight">\(Q_{\pi}(s,a)\)</span> using the Bellman Equation. Instead, <strong>the policy can be decided on-the-fly</strong>.</p>
+<p>In the  <span style="color:#2f6004"><strong><span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy Policy</strong></span> we define the policy as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\pi(a|s)=
+\begin{cases}
+     1 - \epsilon + \frac{\epsilon}{|{\cal A}(s)|} &amp;\;\text{if}\; a =\arg\max_{a\in{\cal A}}Q_{\pi}(s,a) \\[2ex]
+     \frac{\epsilon}{|{\cal A}(s)|}
+     &amp;\;\text{otherwise}\;,\\[2ex]
+\end{cases}
+\end{split}\]</div>
+<p>where:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(Q_{\pi}(s,a)\)</span> are proposed by the Markov MDP.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon\in [0,1]\)</span> defines <strong>the probability of taking a random action</strong> from state <span class="math notranslate nohighlight">\(s\)</span>, where <span class="math notranslate nohighlight">\({\cal A}(s)\)</span> is the set of legal actions one can take from this state and <span class="math notranslate nohighlight">\(|{\cal A}(s)|\)</span> the number of these legal actions.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\epsilon = 0\)</span>, the agent selects the (so-far) optimal policy with probability <span class="math notranslate nohighlight">\(1\)</span>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\epsilon = 1\)</span>, the agent selects either the so-far optimal optimal policy or any other with probability <span class="math notranslate nohighlight">\(\frac{1}{|{\cal A}(s)|}\)</span>.</p></li>
+</ol>
+<p>Let us define the <span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy Policy Algorithm</p>
+<div class="proof algorithm admonition" id="Epsilon-Policy">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.3 </span> (Epsilon-Policy)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> Current state <span class="math notranslate nohighlight">\(s\)</span>, Q-values, <span class="math notranslate nohighlight">\(Q_{\pi}(s,a)\)</span>, <span class="math notranslate nohighlight">\({\cal A}(s)\)</span>, <span class="math notranslate nohighlight">\(\epsilon\)</span>.</p>
+<p><strong>Output</strong> Estimated Optimal action <span class="math notranslate nohighlight">\(a^{\ast}\)</span>.</p>
+<ol class="arabic">
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(\text{random}(0,1)&lt;\epsilon\)</span> <strong>then</strong>:</p>
+<p># Exploration: Choose a random action:</p>
+<ol class="arabic simple">
+<li><p><strong>return</strong> <span class="math notranslate nohighlight">\(\text{randomChoice}({\cal A}(s))\)</span></p></li>
+</ol>
+</li>
+<li><p><strong>else</strong>:</p>
+<p># Exploitation: Choose arg-max action:</p>
+<ol class="arabic">
+<li><p><span class="math notranslate nohighlight">\(\text{max_q} = -\infty\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{best_actions} =\emptyset\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(a\in {\cal A}(s)\)</span>, <span class="math notranslate nohighlight">\(q\in Q_\pi(s,a)\)</span>:</p>
+<ol class="arabic">
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(q&gt;\text{max_q}\)</span>:</p>
+<p><strong>then</strong> <span class="math notranslate nohighlight">\(\text{max_q}=q\)</span>, <span class="math notranslate nohighlight">\(\text{best_actions}=\{a\}\)</span></p>
+</li>
+<li><p><strong>else if</strong> <span class="math notranslate nohighlight">\(q==\text{max_q}\)</span>:</p>
+<p><strong>then</strong> <span class="math notranslate nohighlight">\(\text{best_actions}=\text{best_actions}\cup \{a\}\)</span></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p><strong>return</strong> <span class="math notranslate nohighlight">\(\text{randomChoice}(\text{best_actions})\)</span></p>
+</section>
+</div><p>Let us now integrate the above algorithm with a global Monte Carlo MDP.</p>
+<div class="proof algorithm admonition" id="Epsilon-Policy-Q">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.4 </span> (Epsilon-Policy-Q)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong>  Episodes <span class="math notranslate nohighlight">\(K\)</span>, times per episode <span class="math notranslate nohighlight">\(T\)</span></p>
+<p><strong>Output</strong> <span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy <span class="math notranslate nohighlight">\(Q_{\pi\ast}\)</span></p>
+<ol class="arabic simple">
+<li><p><strong>Initialize</strong>. <span class="math notranslate nohighlight">\(i=0\)</span>, <span class="math notranslate nohighlight">\(Q_{\pi}(s,a)=0\)</span>, <span class="math notranslate nohighlight">\(N(s,a)=0\)</span>, <span class="math notranslate nohighlight">\(G(s,a)=0\)</span> <span class="math notranslate nohighlight">\(\forall s\in {\cal S}, a\in {\cal A}\)</span>.</p></li>
+<li><p><strong>for</strong> episode <span class="math notranslate nohighlight">\(i\)</span>:</p>
+<ol class="arabic simple">
+<li><p>Select initial state <span class="math notranslate nohighlight">\(s_0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{history}=\emptyset\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(t=\{1,\ldots,T\}\)</span></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(a_{t-1} = \text{Epsilon-Policy}\)</span>(<span class="math notranslate nohighlight">\(s_{t-1}\)</span>, <span class="math notranslate nohighlight">\(Q_{\pi}(s_{t-1},a_{t-1})\)</span>, <span class="math notranslate nohighlight">\({\cal A}(s_{t-1})\)</span>, <span class="math notranslate nohighlight">\(\epsilon\)</span>)</p></li>
+<li><p>Make triplet <span class="math notranslate nohighlight">\((s_{t-1},a_{t-1},r_t)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{history} = \text{history}\cup \{(s_{t-1},a_{t-1},r_t)\}\)</span></p></li>
+</ol>
+</li>
+<li><p><span class="math notranslate nohighlight">\(G=0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{visited_state_actions}=\emptyset\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(t\in\text{reversed}(\text{history})\)</span>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\((s_{t-1},a_{t-1},r_t) = \text{history}[t]\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(G = r_t + \gamma * G\)</span></p></li>
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\((s_{t-1},a_{t-1})\not\in \text{visited_state_actions}\)</span></p></li>
+<li><p><strong>then</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\text{visited_state_actions} = \text{visited_state_actions}\cup (s_{t-1},a_{t-1})\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(G(s_{t-1},a_{t-1}) = G(s_{t-1},a_{t-1}) + G\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(N(s_{t-1},a_{t-1}) = N(s_{t-1},a_{t-1}) + 1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(Q_{\pi}(s_{t-1},a_{t-1})= \frac{G(s_{t-1},a_{t-1})}{N(s_{t-1},a_{t-1})}\)</span></p></li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p><span class="math notranslate nohighlight">\(i = i + 1\)</span></p></li>
+</ol>
+</li>
+</ol>
+<p><strong>return</strong> <span class="math notranslate nohighlight">\(Q_{\pi\ast}\)</span></p>
+</section>
+</div><p><span class="math notranslate nohighlight">\(\text{Epsilon-Policy}\)</span> is a subroutine of <span class="math notranslate nohighlight">\(\text{Epsilon-Policy-Q}\)</span>. Actually, for each episode we:</p>
+<ol class="arabic simple">
+<li><p><ins>Select an initial state</ins> <span class="math notranslate nohighlight">\(s_0\)</span> to start the episode. As the action corresponding to this state is unknonw and it has to be determined by the <span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy method, we call <span class="math notranslate nohighlight">\(\text{Epsilon-Policy}\)</span> to get such action <span class="math notranslate nohighlight">\(a_{0}\)</span>. This leads to the first reward <span class="math notranslate nohighlight">\(r_1\)</span> and the first triplet <span class="math notranslate nohighlight">\((s_0,a_0,r_1)\)</span> is added to the <span class="math notranslate nohighlight">\(\text{history}\)</span> of the episode. The <strong>for</strong> loop in line <span class="math notranslate nohighlight">\(2.3\)</span> runs until the history for this episode is completed and all the <span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy actions are included therein.</p></li>
+<li><p><ins>Evaluate the Future Rewards</ins>. Once we have the history of the episode, we can proceed to compute the future rewards as specified in the Monte Carlo MPD. However it is worth to invert time in the sequence since <span class="math notranslate nohighlight">\(G(s_t)=r_{t+1} + \gamma G(s_{t+1})\)</span>.</p></li>
+<li><p><ins>First-visit and <span class="math notranslate nohighlight">\(Q\)</span> update</ins>. If the pair <span class="math notranslate nohighlight">\((s_{t-1},a_{t-1})\)</span> appears from the first time in the time-reversed history of the episode, it is time to update the number of total times it appears and the variable <span class="math notranslate nohighlight">\(G(s_{t-1},a_{t-1})\)</span> which accumulates the future rewards. The variable <span class="math notranslate nohighlight">\(Q_{\pi}(s_{t-1},a_{t-1})\)</span> results for an obvious ratio. Note that herein <strong>we do not use the Bellman Equation</strong>.</p></li>
+</ol>
+<p>Given the <span class="math notranslate nohighlight">\(Q_{\pi}(s,a),\forall s\in{\cal S}, a\in{\cal A}\)</span>, we store in each <span class="math notranslate nohighlight">\(s\)</span> the maximum value of <span class="math notranslate nohighlight">\(Q_{\pi}(s,a)\)</span> for any action <span class="math notranslate nohighlight">\(a\)</span>. We show the result in <a class="reference internal" href="#grid2d-q"><span class="std std-numref">Fig. 4.7</span></a>:</p>
+<figure class="align-center" id="grid2d-q">
+<a class="reference internal image-reference" href="_images/Grid2D-Q.png"><img alt="_images/Grid2D-Q.png" src="_images/Grid2D-Q.png" style="width: 600px; height: 550px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.7 </span><span class="caption-text">Optimal Q-values for Grid2D Problem with final and pit states. Created by Gemini.</span><a class="headerlink" href="#grid2d-q" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Once we have “approximated” <span class="math notranslate nohighlight">\(Q_{\pi}\)</span> it is trivial to compute <span class="math notranslate nohighlight">\(\pi(a|s)\)</span> as in</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\pi(a|s)=
+\begin{cases}
+     1 - \epsilon + \frac{\epsilon}{|{\cal A}(s)|} &amp;\;\text{if}\; a =\arg\max_{a\in{\cal A}}Q_{\pi}(s,a) \\[2ex]
+     \frac{\epsilon}{|{\cal A}(s)|}
+     &amp;\;\text{otherwise}\;.\\[2ex]
+\end{cases}
+\end{split}\]</div>
+<p>The optimal policy with this <span class="math notranslate nohighlight">\(\epsilon\)</span> method is shown in <a class="reference internal" href="#grid2d-p"><span class="std std-numref">Fig. 4.8</span></a>:</p>
+<figure class="align-center" id="grid2d-p">
+<a class="reference internal image-reference" href="_images/Grid2D-P.png"><img alt="_images/Grid2D-P.png" src="_images/Grid2D-P.png" style="width: 600px; height: 550px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.8 </span><span class="caption-text"><span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy Policy for Grid2D Problem with final and pit states. Created by Gemini.</span><a class="headerlink" href="#grid2d-p" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Basically, the <span class="math notranslate nohighlight">\(\text{Epsilon-Policy-Q}\)</span> algorithm <span style="color:#2f6004">builts the optimal policy in a greedy way that <strong>improves a simple random policy</strong> <span class="math notranslate nohighlight">\((\epsilon=1)\)</span></span>. In addition, <span style="color:#2f6004">the agent is <strong>learning from its experience</strong></span> due to the Monte Carlo process where the <span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy policy estimation is embedded!</p>
+</section>
+<section id="exploration-vs-exploitation">
+<h3><span class="section-number">4.3.3. </span>Exploration vs Exploitation<a class="headerlink" href="#exploration-vs-exploitation" title="Permalink to this heading">#</a></h3>
+<p>Note that in the <span class="math notranslate nohighlight">\(\text{Epsilon Policy-Q}\)</span> algorithm, we call the <span class="math notranslate nohighlight">\(\text{Epsilon Policy}\)</span> subroutine  in order to select an action. However, the resulting best action (so far) depends on <span class="math notranslate nohighlight">\(Q_{\pi}\)</span>, which is unknonwn in the early stages of <span class="math notranslate nohighlight">\(\text{Epsilon Policy-Q}\)</span>. As the Monte Carlo MDP builds up <span class="math notranslate nohighlight">\(Q_{\pi}\)</span>, the actions are more and more informative.</p>
+<p>Indeed, for a given <span class="math notranslate nohighlight">\(Q_{\pi}\)</span> the call to <span class="math notranslate nohighlight">\(\text{Epsilon Policy}\)</span> relies on <span style="color:#2f6004"><strong>a fixed</strong> <span class="math notranslate nohighlight">\(\epsilon\)</span></span> which declares how “random” the choice can be. However, as the obtained action is more and more informative as the MDP goes on, it makes sense to <span style="color:#2f6004"><strong>update</strong> <span class="math notranslate nohighlight">\(\epsilon\)</span></span> to have an impact on</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\pi(a|s)=
+\begin{cases}
+     1 - \epsilon + \frac{\epsilon}{|{\cal A}(s)|} &amp;\;\text{if}\; a =\arg\max_{a\in{\cal A}}Q_{\pi}(s,a) \\[2ex]
+     \frac{\epsilon}{|{\cal A}(s)|}
+     &amp;\;\text{otherwise}\;.\\[2ex]
+\end{cases}
+\end{split}\]</div>
+<p>We seek a <strong>trade-off</strong> between:</p>
+<p><strong>Exploration</strong>. We start by a <strong>high value</strong> of <span class="math notranslate nohighlight">\(\epsilon\)</span> (more random when there is less knowledge of<span class="math notranslate nohighlight">\(Q_{\pi}\)</span>).</p>
+<p><strong>Exploitation</strong>. As <span class="math notranslate nohighlight">\(Q_{\pi}\)</span> emerges, we exploit it to make better and better (more informed) decisions. This is associated with <strong>decreasing vaiues</strong> of <span class="math notranslate nohighlight">\(\epsilon\)</span>.</p>
+<p>In <a class="reference internal" href="#explore"><span class="std std-numref">Fig. 4.9</span></a> we show the accumulated reward per stage as we modify <span class="math notranslate nohighlight">\(\epsilon\)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\epsilon^{t+1} = \max(\epsilon_{min}, \epsilon^{t}\cdot \epsilon_{decay})
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\epsilon_{min}=0.01\)</span> is the minimum (less random) achievable <span class="math notranslate nohighlight">\(\epsilon\)</span>, <span class="math notranslate nohighlight">\(\epsilon_{decay}=0.999\)</span> is the decay factor and <span class="math notranslate nohighlight">\(\epsilon^{0}=1\)</span>. This reminds us the <strong>temperature scheduling during annealing</strong>.</p>
+<figure class="align-center" id="explore">
+<a class="reference internal image-reference" href="_images/Explore.png"><img alt="_images/Explore.png" src="_images/Explore.png" style="width: 800px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.9 </span><span class="caption-text">Total accumulated reward for a dynamic <span class="math notranslate nohighlight">\(\epsilon\)</span>.</span><a class="headerlink" href="#explore" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>How can we analyze the above figure?</p>
+<ol class="arabic simple">
+<li><p><strong>Initial Exploration</strong>. Note that at the <ins>early stages</ins> (0-200), the cumulative reward is very random (large oscillations along time), low, and even negative. The agent is trying many random actions which usually leads to fall in penalizing states or choosing long paths to reach the target. Large oscillations show that the agent is just “probing” or “sensing” the environment</p></li>
+<li><p><strong>Transition</strong>. At the <ins>mid stages</ins> (200-700), as epsilon decays the agent reduces its exploration and favors actions that, according to a more informed <span class="math notranslate nohighlight">\(Q_{\pi}\)</span>, seem more promising in terms of cumulative rewards. Although there are still oscillations, the cumulative rewards increase on average. This shows that the agent is “discovering” and “reinforcing” the most efficient paths and/or avoiding penalizing states.</p></li>
+<li><p><strong>Exploitation</strong>. Close to the <ins>end of training</ins> (700-1000), <span class="math notranslate nohighlight">\(\epsilon\)</span> approaches its minimal value (0.01). In this stage, the agent mainly exploits the knowledge it has, i.e. the <span class="math notranslate nohighlight">\(Q_{\pi}\)</span>. As a result, there is an stabilization of the cumulative reward in high values. In this case, the consistent peaks around <span class="math notranslate nohighlight">\(+3\)</span> (+10 reward for reaching the target and -1 per each of the typically 7 steps to reach it) show that the agent follows an optimal policy by the end of the training.</p></li>
+</ol>
+</section>
+</section>
+<section id="temporal-difference-and-sarsa">
+<h2><span class="section-number">4.4. </span>Temporal Difference and SARSA<a class="headerlink" href="#temporal-difference-and-sarsa" title="Permalink to this heading">#</a></h2>
+<p>Monte Carlo MDPs are ideal free-model strategies for “episodic environments” (where there are well defined steps), but they <span style="color:#2f6004"><strong>are not suitable for continuing learning</strong></span> (there is no natural ending of the task).</p>
+<p>In addition, Monte Carlo MDPs impose the <span style="color:#2f6004"><strong>update of the value function at the end of each episode</strong></span>.</p>
+<p><span style="color:#2f6004"><strong>Temporal Difference (TD)</strong></span> solves these two problems by updating incrementally their values by following this well-known formula:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{New_Estimate} = \text{Old_Estimate} + \text{Step_Size}(\text{Target}-\text{Old_Estimate})\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\text{Target}\)</span> is <span class="math notranslate nohighlight">\(G_t\)</span> which leads to</p>
+<div class="math notranslate nohighlight">
+\[
+V_{\pi}(S_t)\leftarrow V_{\pi}(S_t) + \alpha \left(\underbrace{r_{t+1} + \gamma\cdot V_{\pi}(S_{t+1})}_{G_t} - V_{\pi}(S_t)\right)\;,
+\]</div>
+<p>and <span class="math notranslate nohighlight">\(\alpha\)</span> (hyper-parameter) is the step-size or “learning rate”. This parameter replaces <span class="math notranslate nohighlight">\(1/N(S_t)\)</span> since in TD we do not count <span class="math notranslate nohighlight">\(N(S_t)\)</span>.</p>
+<p>Note that for the estimation of <span class="math notranslate nohighlight">\(V_{\pi}(S_t)\)</span> we need tuples <span class="math notranslate nohighlight">\((s,a,r',s')\)</span>, where both <span class="math notranslate nohighlight">\(r'\)</span> and <span class="math notranslate nohighlight">\(s'\)</span> refer to <span class="math notranslate nohighlight">\(t+1\)</span> (reward and state after applying action <span class="math notranslate nohighlight">\(a\)</span>).</p>
+<p><span style="color:#2f6004"><strong>State-Action-Reward-State-Action (SARSA)</strong></span>. SARSA is an extension of considering tuples <span class="math notranslate nohighlight">\((s,a,r',s')\)</span> to tuples <span class="math notranslate nohighlight">\((s,a,r',s',a')\)</span>.</p>
+<p>Actually, the SARSA’s update rule is</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\pi}(s_t,a_t)\leftarrow Q_{\pi}(s_t,a_t) + \alpha \left(r_{t+1} + \gamma\cdot Q_{\pi}(s_{t+1},a_{t+1}) - Q_{\pi}(s_t,a_t)\right)\;,
+\]</div>
+<div class="proof algorithm admonition" id="SARSA">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.5 </span> (SARSA)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong>  Episodes <span class="math notranslate nohighlight">\(K\)</span>, times per episode <span class="math notranslate nohighlight">\(T\)</span>, <span class="math notranslate nohighlight">\(\alpha\)</span> learning rate, <span class="math notranslate nohighlight">\(\epsilon_{min}\)</span>, <span class="math notranslate nohighlight">\(\epsilon_{decay}\)</span></p>
+<p><strong>Output</strong> <span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy SARSA <span class="math notranslate nohighlight">\(Q_{\pi\ast}\)</span></p>
+<ol class="arabic simple">
+<li><p><strong>Initialize</strong>. <span class="math notranslate nohighlight">\(i=0\)</span>, <span class="math notranslate nohighlight">\(Q_{\pi}(s,a)=0\)</span>, <span class="math notranslate nohighlight">\(N(s,a)=0\)</span>, <span class="math notranslate nohighlight">\(\forall s\in {\cal S}, a\in {\cal A}\)</span>, <span class="math notranslate nohighlight">\(\epsilon=1\)</span>.</p></li>
+<li><p><strong>for</strong> episode <span class="math notranslate nohighlight">\(i\)</span>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\text{current_s} = \text{Select_Initial_State()}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a_{t-1} = \text{Epsilon-Policy}\)</span>(<span class="math notranslate nohighlight">\(\text{current_s}\)</span>, <span class="math notranslate nohighlight">\(Q_{\pi}\)</span>, <span class="math notranslate nohighlight">\({\cal A}(\text{current_s})\)</span>, <span class="math notranslate nohighlight">\(\epsilon\)</span>)</p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(t=\{1,\ldots,T\}\)</span></p>
+<ol class="arabic simple">
+<li><p>Make <span class="math notranslate nohighlight">\((s_{t-1},a_{t-1},r_t)\rightarrow s_t\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(a_{t} = \text{Epsilon-Policy}\)</span>(<span class="math notranslate nohighlight">\(s_{t}\)</span>, <span class="math notranslate nohighlight">\(Q_{\pi}\)</span>, <span class="math notranslate nohighlight">\({\cal A}(s_{t})\)</span>, <span class="math notranslate nohighlight">\(\epsilon\)</span>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{old_q}=Q_{\pi}(s_{t-1},a_{t-1})\)</span></p></li>
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(\text{done}(s_{t})\)</span>:</p></li>
+<li><p><strong>then</strong> <span class="math notranslate nohighlight">\(\text{target_q}=r_t\)</span></p></li>
+<li><p><strong>else</strong> <span class="math notranslate nohighlight">\(\text{target_q}=r_t + \gamma\cdot Q_{\pi}(s_t,a_t)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(Q_{\pi}(s_{t-1},a_{t-1}) = \text{old_q} + \alpha\cdot(\text{target_q} -\text{old_q})\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Update}:\)</span> <span class="math notranslate nohighlight">\(\text{current_s} = s_{t}\)</span>, <span class="math notranslate nohighlight">\(a_{t-1} = a_{t}\)</span></p></li>
+</ol>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon = \max(\epsilon_{min}, \epsilon\cdot \epsilon_{decay})\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(i = i + 1\)</span></p></li>
+</ol>
+</li>
+</ol>
+<p><strong>return</strong> <span class="math notranslate nohighlight">\(Q_{\pi\ast}\)</span></p>
+</section>
+</div><p>Some precisions about the above algorithm:</p>
+<ol class="arabic simple">
+<li><p><ins>Episodes?</ins>. Although we follow the episodic structure of the Monte Carlo algorithm, herein episodes are only used to find an initial state to follow (such as a trajectory). Note that just before the end of each “episode” we update the <span class="math notranslate nohighlight">\(\epsilon\)</span>. Therefore, the process can be seen as <span class="math notranslate nohighlight">\(K\)</span> stages or <strong>epochs</strong>, each one with <span class="math notranslate nohighlight">\(T\)</span> steps, of a continuing learning algorithm. But, <span style="color:#2f6004"><strong>conceptually <span class="math notranslate nohighlight">\(K\)</span> can be unbounded</strong></span>.</p></li>
+<li><p><ins>Tuples</ins>. The SARSA algorithm just builds tuples <span class="math notranslate nohighlight">\((s,a,r,s',s')\)</span> to update <span class="math notranslate nohighlight">\(Q_{\pi}(s_{t-1},a_{t-1})\)</span>, i.e. <span class="math notranslate nohighlight">\(Q_{\pi}(s,a)\)</span> from old <span class="math notranslate nohighlight">\(Q_{\pi}(s,a)\)</span> and new <span class="math notranslate nohighlight">\(Q_{\pi}(s',a')\)</span>. This is why we need two calls to <span class="math notranslate nohighlight">\(\text{Epsilon-Policy}\)</span> (one for <span class="math notranslate nohighlight">\(a_{t-1}\)</span> and another for <span class="math notranslate nohighlight">\(a_{t}\)</span>). Finally, the <span class="math notranslate nohighlight">\(\text{done}(s_{t})\)</span> function just stops if we hit a target state or a penalizing state.</p></li>
+<li><p><ins>Online learning</ins>. SARSA does not need to end an episode to get an estimation of <span class="math notranslate nohighlight">\(Q_{\pi}\)</span>. <span style="color:#2f6004"><strong>The update is done as soon as the information is available</strong></span>. This means “online” and this strategy is also useful for non-episodic (more realistic) problems.</p></li>
+</ol>
+<p>In <a class="reference internal" href="#grid2d-sarsa"><span class="std std-numref">Fig. 4.10</span></a> we show the maximum values of <span class="math notranslate nohighlight">\(Q_{\pi\ast}\)</span> for the SARSA algorithm where we have: <span class="math notranslate nohighlight">\(K=1000\)</span>, <span class="math notranslate nohighlight">\(T=100\)</span>, <span class="math notranslate nohighlight">\(\alpha = 0.1\)</span>, <span class="math notranslate nohighlight">\(\gamma = 0.9\)</span>, <span class="math notranslate nohighlight">\(\epsilon = 1.0\)</span>, <span class="math notranslate nohighlight">\(\epsilon_{min}=0.01\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{decay}=0.995\)</span>.</p>
+<figure class="align-center" id="grid2d-sarsa">
+<a class="reference internal image-reference" href="_images/Grid2D-SARSA.png"><img alt="_images/Grid2D-SARSA.png" src="_images/Grid2D-SARSA.png" style="width: 600px; height: 550px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.10 </span><span class="caption-text">Optimal Q-values for Grid2D Problem with final and pit states for SARSA. Created by Gemini.</span><a class="headerlink" href="#grid2d-sarsa" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="on-policy-vs-off-policy">
+<h2><span class="section-number">4.5. </span>On-Policy vs Off-Policy<a class="headerlink" href="#on-policy-vs-off-policy" title="Permalink to this heading">#</a></h2>
+<p>SARSA is an <span style="color:#2f6004"><strong>on-policy</strong></span> algorithm since:</p>
+<ol class="arabic simple">
+<li><p>It uses actions that are <strong>really selected</strong> by the agent’s policy (e.g. <span class="math notranslate nohighlight">\(\epsilon-\)</span>greedy).</p></li>
+<li><p>SARSA learns <span class="math notranslate nohighlight">\(Q_{\pi}\)</span> from the policy <span class="math notranslate nohighlight">\(\pi\)</span> that the agent is <strong>really following</strong>, including his exploration behavior</p></li>
+<li><p>As a result, SARSA looks for the <strong>optimal policy considering the agent’s exploration</strong>.</p></li>
+</ol>
+<p><span style="color:#2f6004"><strong>On-Policy</strong> strategies may lead to <strong>very conservative policies</strong> in dangerous environments (since it penalizes the high-risky states, even if the optimal path goes through them)</span>.</p>
+<p><span style="color:#2f6004"><strong>Off-policy exploration</strong></span>, however, is an strategy where the behavior policy and the target policy are <strong>different</strong>.</p>
+<p><span style="color:#2f6004">Off-policy reinforcement learning algorithms are often <strong>more powerful</strong> because they can use experience generated by a different behavior policy, which may be more exploratory than the target
+policy</span>.</p>
+<p><strong>Summarizing</strong>: On-policy is learing from <strong>what I do</strong> whereas Off-policy is learning from <strong>what others do</strong>.</p>
+</section>
+<section id="q-learning">
+<h2><span class="section-number">4.6. </span>Q-Learning<a class="headerlink" href="#q-learning" title="Permalink to this heading">#</a></h2>
+<p>Q-Learning is a TD algorithm and it is the most used <strong>Off-policy</strong> algorithm. <span style="color:#2f6004">It learns the optimal policy <strong>independently</strong> of the agent’s behavior</span>. How?</p>
+<p>In SARSA, we follow the updating rule</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\pi}(s_t,a_t)\leftarrow Q_{\pi}(s_t,a_t) + \alpha \left(r_{t+1} + \gamma\cdot \mathbf{Q_{\pi}(s_{t+1},a_{t+1})} - Q_{\pi}(s_t,a_t)\right)\;,
+\]</div>
+<p>However, in Q-Learning we do</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\pi}(s_t,a_t)\leftarrow Q_{\pi}(s_t,a_t) + \alpha \left(r_{t+1} + \gamma\cdot \mathbf{\max_{a'}Q_{\pi}(s_{t+1},a')} - Q_{\pi}(s_t,a_t)\right)\;,
+\]</div>
+<p>where we highlight (in bold type) the differences:</p>
+<ul class="simple">
+<li><p><strong>On-Policy</strong>. SARSA is On-Policy because action <span class="math notranslate nohighlight">\(a_{t+1}\)</span> is selected from an <span class="math notranslate nohighlight">\(\epsilon-\)</span>greedy policy which is the *<em>same</em> than the one used for selecting <span class="math notranslate nohighlight">\(a_{t}\)</span>.</p></li>
+<li><p><strong>Off-policy</strong>. Q-Learning is Off-Policy because the action <span class="math notranslate nohighlight">\(a_{t+1}\)</span> (i.e. <span class="math notranslate nohighlight">\(a'\)</span>) is the one that maximizes <span class="math notranslate nohighlight">\(Q_{\pi}\)</span> for <span class="math notranslate nohighlight">\(s_{t+1}\)</span>. In other words, it is <strong>independent</strong> from the choice of <span class="math notranslate nohighlight">\(a_{t}\)</span> which (typically) relies on an <span class="math notranslate nohighlight">\(\epsilon-\)</span>greedy policy.</p></li>
+</ul>
+<p>In other words, <span style="color:#2f6004">Q-Learning operates on the best possible target <strong>even if this action has not been taken by the current policy</strong></span>.</p>
+<div class="proof algorithm admonition" id="Q-Learning">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.6 </span> (Q-Learning)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong>  Episodes <span class="math notranslate nohighlight">\(K\)</span>, times per episode <span class="math notranslate nohighlight">\(T\)</span>, <span class="math notranslate nohighlight">\(\alpha\)</span> learning rate, <span class="math notranslate nohighlight">\(\epsilon_{min}\)</span>, <span class="math notranslate nohighlight">\(\epsilon_{decay}\)</span></p>
+<p><strong>Output</strong> <span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy Q-Learning <span class="math notranslate nohighlight">\(Q_{\pi\ast}\)</span></p>
+<ol class="arabic simple">
+<li><p><strong>Initialize</strong>. <span class="math notranslate nohighlight">\(i=0\)</span>, <span class="math notranslate nohighlight">\(Q_{\pi}(s,a)=0\)</span>, <span class="math notranslate nohighlight">\(N(s,a)=0\)</span>, <span class="math notranslate nohighlight">\(\forall s\in {\cal S}, a\in {\cal A}\)</span>, <span class="math notranslate nohighlight">\(\epsilon=1\)</span>.</p></li>
+<li><p><strong>for</strong> episode <span class="math notranslate nohighlight">\(i\)</span>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\text{current_s} = \text{Select_Initial_State()}\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(t=\{1,\ldots,T\}\)</span></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(a_{t-1} = \text{Epsilon-Policy}\)</span>(<span class="math notranslate nohighlight">\(\text{current_s}\)</span>, <span class="math notranslate nohighlight">\(Q_{\pi}\)</span>, <span class="math notranslate nohighlight">\({\cal A}(\text{current_s})\)</span>, <span class="math notranslate nohighlight">\(\epsilon\)</span>)</p></li>
+<li><p>Make <span class="math notranslate nohighlight">\((\text{current_s},a_{t-1},r_t)\rightarrow s_t\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{old_q}=Q_{\pi}(s_{t-1},a_{t-1})\)</span></p></li>
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(\text{done}(s_{t})\)</span>:</p></li>
+<li><p><strong>then</strong> <span class="math notranslate nohighlight">\(\text{max_q}=0.0\)</span></p></li>
+<li><p><strong>else</strong> <span class="math notranslate nohighlight">\(\text{max_q}= \max_{a'} Q_{\pi}(s_t,a')\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(Q_{\pi}(s_{t-1},a_{t-1}) = \text{old_q} + \alpha\cdot(r_t +\gamma\cdot\text{max_q} -\text{old_q})\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{Update}:\)</span> <span class="math notranslate nohighlight">\(\text{current_s} = s_{t}\)</span></p></li>
+</ol>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon = \max(\epsilon_{min}, \epsilon\cdot \epsilon_{decay})\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(i = i + 1\)</span></p></li>
+</ol>
+</li>
+</ol>
+<p><strong>return</strong> <span class="math notranslate nohighlight">\(Q_{\pi\ast}\)</span></p>
+</section>
+</div><p>where there is no a double loop and the variable <span class="math notranslate nohighlight">\(\text{max_q}\)</span> replaces <span class="math notranslate nohighlight">\(\text{target_q}\)</span> in SARSA, showing clearly that both come from potentially different policies.</p>
+<p>In <a class="reference internal" href="#grid2d-q-learning"><span class="std std-numref">Fig. 4.11</span></a> we show the maximum values of <span class="math notranslate nohighlight">\(Q_{\pi\ast}\)</span> for the SARSA algorithm where we have: <span class="math notranslate nohighlight">\(K=1000\)</span>, <span class="math notranslate nohighlight">\(T=100\)</span>, <span class="math notranslate nohighlight">\(\alpha = 0.1\)</span>, <span class="math notranslate nohighlight">\(\gamma = 0.9\)</span>, <span class="math notranslate nohighlight">\(\epsilon = 1.0\)</span>, <span class="math notranslate nohighlight">\(\epsilon_{min}=0.01\)</span> and <span class="math notranslate nohighlight">\(\epsilon_{decay}=0.995\)</span>.</p>
+<figure class="align-center" id="grid2d-q-learning">
+<a class="reference internal image-reference" href="_images/Grid2D-Q-Learning.png"><img alt="_images/Grid2D-Q-Learning.png" src="_images/Grid2D-Q-Learning.png" style="width: 600px; height: 550px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.11 </span><span class="caption-text">Optimal Q-values for Grid2D Problem with final and pit states for Q-Learning. Created by Gemini.</span><a class="headerlink" href="#grid2d-q-learning" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In comparison with SARSA:</p>
+<ol class="arabic simple">
+<li><p>Q-Learning produces higher values for the optimal Q as the agent is closer to the target, and smaller ones at states far from the target. As we are maximizing the total reward, target states (and/or states with high reward) become attractors.</p></li>
+<li><p>Q-Learning gives higher values than SARSA to states close to ‘dangerous’ (low-reward) states. A metaphor of this is walking through close to a cliff.</p></li>
+</ol>
+<p>In other words, <span style="color:#2f6004"><strong>Q-Learning is eager than SARSA</strong> which is more convenient when the agent has to avoid dangerous (low-reward) states</span>.</p>
+<p><strong>Global Comparison</strong>. In <a class="reference internal" href="#explore-comparison"><span class="std std-numref">Fig. 4.12</span></a> we compare the evolution of the cumulative rewards for Monte Carlo, SARSA and Q-Learning. Note that TD strategies such as SARSA and Q-Learing do have <span style="color:#2f6004"><strong>lower variance</strong> in the y-axis wrt Monte Carlo</span>. In addition, they <strong>converge faster</strong> than Monte Carlo.</p>
+<figure class="align-center" id="explore-comparison">
+<a class="reference internal image-reference" href="_images/Explore-Comparison.png"><img alt="_images/Explore-Comparison.png" src="_images/Explore-Comparison.png" style="width: 800px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.12 </span><span class="caption-text">Total accumulated rewards for a dynamic <span class="math notranslate nohighlight">\(\epsilon\)</span>. Comparing Monte Carlo, SARSA and Q-Learning.</span><a class="headerlink" href="#explore-comparison" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="deep-q-learning">
+<h2><span class="section-number">4.7. </span>Deep Q-Learning<a class="headerlink" href="#deep-q-learning" title="Permalink to this heading">#</a></h2>
+<section id="the-big-picture">
+<h3><span class="section-number">4.7.1. </span>The Big Picture<a class="headerlink" href="#the-big-picture" title="Permalink to this heading">#</a></h3>
+<p>Let us replace the classical Q-Learning equation</p>
+<div class="math notranslate nohighlight">
+\[
+Q_{\pi}(s_t,a_t)\leftarrow Q_{\pi}(s_t,a_t) + \alpha \left(r_{t+1} + \gamma\cdot \max_{a'}Q_{\pi}(s_{t+1},a') - Q_{\pi}(s_t,a_t)\right)\;,
+\]</div>
+<p>by finding a Neural Network (parameterized by <span class="math notranslate nohighlight">\(\Theta\)</span>) that minimizes</p>
+<div class="math notranslate nohighlight">
+\[
+J(\Theta) = \mathbb{E}_{(s,a,r,s')}\left[\left(r + \gamma\cdot \max_{a'}\hat{Q}_{\pi}(s',a';\Theta) - \hat{Q}_{\pi}(s,a;\Theta)\right)^2\right]\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{Q}\)</span> are the parameterized version of <span class="math notranslate nohighlight">\(Q\)</span> according to <span class="math notranslate nohighlight">\(\Theta\)</span>. In other words, <span style="color:#2f6004">Deep Q-Learning relies on finding <strong>optimal Q-Learning updates</strong> according  to <strong>mimimize the difference between the current and targe policy</strong></span>.</p>
+<p><strong>How do we feed the NN?</strong>. Instead of feeding the NN via pairs <span class="math notranslate nohighlight">\((s,a)\)</span> it seems more convemient to use <span class="math notranslate nohighlight">\(s\)</span> as input and place the <span class="math notranslate nohighlight">\(\hat{Q}_{\pi}(s,a_i;\Theta)\)</span> in the output layer. In this way, we learn to adjust <span class="math notranslate nohighlight">\(\Theta\)</span> to minimize <span class="math notranslate nohighlight">\(J(\Theta)\)</span> by reducing the disparities between what does the NN expects from a given <span class="math notranslate nohighlight">\(\Theta\)</span> and what it must really statisfy. We summarizde this I/O mapping in <a class="reference internal" href="#dqn-feed"><span class="std std-numref">Fig. 4.13</span></a>.</p>
+<p>Obviuosly, the reference values are provided by something like an <span class="math notranslate nohighlight">\(\epsilon-\)</span>greedy policy.</p>
+<figure class="align-center" id="dqn-feed">
+<a class="reference internal image-reference" href="_images/DQN-Feed.png"><img alt="_images/DQN-Feed.png" src="_images/DQN-Feed.png" style="width: 500px; height: 200px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.13 </span><span class="caption-text">Feeding a NN in Deep Q-Learning. Adapted from <a class="reference external" href="https://link.springer.com/book/10.1007/978-1-4842-9606-6">The Art of Reinforcement Learning</a>.</span><a class="headerlink" href="#dqn-feed" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="image-based-inputs">
+<h3><span class="section-number">4.7.2. </span>Image-based inputs<a class="headerlink" href="#image-based-inputs" title="Permalink to this heading">#</a></h3>
+<p>NNs are effective when dealing with high-dimesional input spaces such as images. Although this is not the case of typical RL problems (service dog, grid2D, taxi, cart pole) where we take <strong>low-dimensional</strong> samples such as <span class="math notranslate nohighlight">\((s,a,r,s')\)</span> or <span class="math notranslate nohighlight">\((s,a,r,s',a')\)</span>.</p>
+<p>However, in more realistic RL problems such as <strong>Atari games</strong> (shown in the intro to this topic) you have a complex environment or state representation. For instance in <a class="reference internal" href="#rlagent"><span class="std std-numref">Fig. 4.1</span></a> a picture captures the paddle’s position, the ball’s position and the location of the (surviving) top bricks for <strong>Atari Breakout</strong>.</p>
+<p>In this regard, <span style="color:#2f6004">a <strong>snapshot</strong> (image) is a good description of the state <span class="math notranslate nohighlight">\(s\)</span></span>. However there are some <strong>pre-processing</strong> to do:</p>
+<ol class="arabic simple">
+<li><p><ins>Grayscale</ins>. In many games, such as Atari Breakout, color information is not relevant and can be discarded.</p></li>
+<li><p><ins>Reshape</ins>. If we want to leverage the power of <strong>Convolutional Networks</strong> (CNNs) it is convenient to transform the (original) rectangular images into square ones.</p></li>
+</ol>
+</section>
+<section id="ensure-markov-property">
+<h3><span class="section-number">4.7.3. </span>Ensure Markov property<a class="headerlink" href="#ensure-markov-property" title="Permalink to this heading">#</a></h3>
+<p>Remember that one of the key pre-conditions for RL (seen as a MDP) is that the implicit chain of successive states must satisfy the Markov Condition: <span class="math notranslate nohighlight">\(p(s'_{t+1}|s_t) = p(s'_{t+1}|s_t,s_{t-1},\ldots,s_0)\)</span>. To that end, consecutive snapshots have to be  <strong>decorrelated</strong> (i.i.d. samples), which is not true if the paddle hits a ball and we take four consequtive images of the ball’s trajectory: <em>the last position of the ball is heavily dependent on the other three</em>.</p>
+<p><span style="color:#2f6004">The standard way of decorrelating consecutive images is to <strong>split the images stream in blocks of <span class="math notranslate nohighlight">\(k\)</span> frames</strong> (say <span class="math notranslate nohighlight">\(k=4\)</span>) and do <strong>consider each block as a state</strong></span>.</p>
+<p>Obviously the ideal value of <span class="math notranslate nohighlight">\(k\)</span> depends on the video frequency, but the result is that the CNN’s input will be a tensor of size <span class="math notranslate nohighlight">\(W\times H\times k\)</span> where <span class="math notranslate nohighlight">\(W=H\)</span>. Typically <span class="math notranslate nohighlight">\(W=84\)</span> and <span class="math notranslate nohighlight">\(k=4\)</span> for the Atari Breakout.</p>
+<p>In <a class="reference internal" href="#dqn-stacked"><span class="std std-numref">Fig. 4.14</span></a>, we show <span class="math notranslate nohighlight">\(k=4\)</span> frames forming a state. Note that the first three do not have de Markov property which is enabled by the fourth (change of trajectory).</p>
+<figure class="align-center" id="dqn-stacked">
+<a class="reference internal image-reference" href="_images/DQN-Stacked.png"><img alt="_images/DQN-Stacked.png" src="_images/DQN-Stacked.png" style="width: 800px; height: 250px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.14 </span><span class="caption-text">Stacked frames forming a “visual state”. Generated by Gemini.</span><a class="headerlink" href="#dqn-stacked" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="cnn-arquitecture">
+<h3><span class="section-number">4.7.4. </span>CNN Arquitecture<a class="headerlink" href="#cnn-arquitecture" title="Permalink to this heading">#</a></h3>
+<p>As a result, the CNN maps <span class="math notranslate nohighlight">\(k\)</span> consecutive frames of the game (encoding <span class="math notranslate nohighlight">\(s\)</span>) to <span class="math notranslate nohighlight">\(n\)</span> actions. in Atari Breakout <span class="math notranslate nohighlight">\(n=4\)</span> since we have the following actions:</p>
+<div class="math notranslate nohighlight">
+\[
+{\cal A}=\{0:\text{No Operation},1:\text{Move Paddle Right}, 2:\text{Fire}, 3:\text{Move Paddle Left}\}\;.
+\]</div>
+<p>Therefore, the CNN arquitecture (named <strong>DQN</strong>) is quite straight (several 2D Convolutions of increasing filters (each one followed by a ReLU), a flatteing followed by some full-connected networks or Perceptrons and one final layer with <span class="math notranslate nohighlight">\(n=4\)</span> features encoding the for the input states Q-values):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DQN</span><span class="p">(</span>
+  <span class="p">(</span><span class="n">conv1</span><span class="p">):</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">conv2</span><span class="p">):</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">conv3</span><span class="p">):</span> <span class="n">Conv2d</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+  <span class="p">(</span><span class="n">fc1</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">3136</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="p">(</span><span class="n">fc2</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>whose computational graph in Pytorch is in <a class="reference internal" href="#dqn-target-architecture"><span class="std std-numref">Fig. 4.15</span></a></p>
+<figure class="align-center" id="dqn-target-architecture">
+<a class="reference internal image-reference" href="_images/dqn_target_architecture.png"><img alt="_images/dqn_target_architecture.png" src="_images/dqn_target_architecture.png" style="width: 500px; height: 700px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.15 </span><span class="caption-text">CNN architecture for the Atari Breakout game. Generated by Gemini.</span><a class="headerlink" href="#dqn-target-architecture" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Note that the first <span class="math notranslate nohighlight">\(4\)</span> features in the first <span class="math notranslate nohighlight">\(\text{Conv2d}\)</span> correspond to the <span class="math notranslate nohighlight">\(k=4\)</span> frames and the last <span class="math notranslate nohighlight">\(4\)</span> features (<span class="math notranslate nohighlight">\(\text{out_features}\)</span>) in <span class="math notranslate nohighlight">\(\text{fc2}\)</span> correspond to <span class="math notranslate nohighlight">\(n=4\)</span> actions.</p>
+</section>
+<section id="experience-replay">
+<h3><span class="section-number">4.7.5. </span>Experience Replay<a class="headerlink" href="#experience-replay" title="Permalink to this heading">#</a></h3>
+<p>This is another element of Deep Q-Learning.<span style="color:#2f6004"><strong>Experience replay</strong> relies on collecting a buffer of <span class="math notranslate nohighlight">\(N\)</span> tuples <span class="math notranslate nohighlight">\((s,a,r,s',\text{done})\)</span> and then take a <strong>mini-batch</strong> of random samples from it.</span></p>
+<p>The motivation of this technique is as follows. Feeding the network <span class="math notranslate nohighlight">\(\Theta\)</span> with chains of tuples <span class="math notranslate nohighlight">\((s,a,r,s',\text{done})\)</span> leads to a poor use of data and slow learning. Remember that Stochastic Gradient Descent (SGD) operates on groups of I/O pairs the get an average gradient direction.  Experience Replay <strong>is aligned with SGD</strong> as well as it produces an additional source of <strong>decorrelation</strong>.</p>
+<figure class="align-center" id="replay">
+<a class="reference internal image-reference" href="_images/Replay.jpg"><img alt="_images/Replay.jpg" src="_images/Replay.jpg" style="width: 500px; height: 250px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.16 </span><span class="caption-text">Experience reply role in Deep Q-Learning. <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S2092678220300418">Credit</a>.</span><a class="headerlink" href="#replay" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Note that, as the data in the mini-batch may come from states taken long ago,
+experience replay is NOT ALIGNED with <strong>On-policy</strong> methods such as SARSA.</p>
+</section>
+<section id="policy-vs-target-network">
+<h3><span class="section-number">4.7.6. </span>Policy vs Target Network<a class="headerlink" href="#policy-vs-target-network" title="Permalink to this heading">#</a></h3>
+<p>The ‘vanilla’ DQN has a unique network for predicting <span class="math notranslate nohighlight">\(\hat{Q}_{\pi}\)</span> and then update</p>
+<div class="math notranslate nohighlight">
+\[
+J(\Theta) = \mathbb{E}_{(s,a,r,s')}\left[\left(r + \gamma\cdot \max_{a'}\hat{Q}_{\pi}(s',a';\Theta) - \hat{Q}_{\pi}(s,a;\Theta)\right)^2\right]\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Theta\)</span> denotes the parameters of the so called <strong>policy network</strong>. However, <span style="color:#2f6004">DQN also maintains another network, known as <strong>target network</strong>, which is structurally identical to the policy network</span>.</p>
+<p>Therefore, we have</p>
+<div class="math notranslate nohighlight">
+\[
+J(\Theta) = \mathbb{E}_{(s,a,r,s')}\left[\left(r + \gamma\cdot \max_{a'}\hat{Q}_{\pi}(s',a';\Theta^{-}) - \hat{Q}_{\pi}(s,a;\Theta)\right)^2\right]\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Theta^{-}\)</span> are the weights of the target network. <span style="color:#2f6004">These weights are <strong>initially random</strong> and they are copied from <span class="math notranslate nohighlight">\(\Theta\)</span> every <span class="math notranslate nohighlight">\(C\)</span> number of updates</span>.</p>
+<p>Why? Let us see:</p>
+<ol class="arabic simple">
+<li><p><ins>Sequence of optimizations</ins>. Formally using the target network as an ‘old version’ of the policy network leads to a sequence of optimization problems (once per stage where such old version is <strong>kept constant</strong>).</p></li>
+<li><p><ins>Stability</ins>. This modification makes the algorithm more stable compared to standard online Q-learning, where an update that increases <span class="math notranslate nohighlight">\(Q_{\pi}(s,a)\)</span> often also increases <span class="math notranslate nohighlight">\(Q_{\pi}(s',a')\)</span> for all actions and hence also increases the target, possibly leading to oscillations or divergence of the policy. Note that the target network is kept <strong>temporarily constant</strong>.</p></li>
+</ol>
+</section>
+<section id="overall-model">
+<h3><span class="section-number">4.7.7. </span>Overall Model<a class="headerlink" href="#overall-model" title="Permalink to this heading">#</a></h3>
+<p>Taking all the above considerations together, the DQN algorithm proceeds as follows. Herein, we use the version introduced in the Nature paper <a class="reference external" href="https://www.nature.com/articles/nature14236">Human-level control through deep reinforcement learning</a>:</p>
+<div class="proof algorithm admonition" id="DQN">
+<p class="admonition-title"><span class="caption-number">Algorithm 4.7 </span> (DQN)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong>  Episodes <span class="math notranslate nohighlight">\(K\)</span>, times per episode <span class="math notranslate nohighlight">\(T\)</span>, <span class="math notranslate nohighlight">\(\gamma\)</span> discount factor, <span class="math notranslate nohighlight">\(\epsilon_{min}\)</span>, <span class="math notranslate nohighlight">\(\epsilon_{decay}\)</span></p>
+<p><strong>Output</strong> <span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy Deep Q-Learning <span class="math notranslate nohighlight">\(Q_{\pi\ast}\)</span></p>
+<ol class="arabic simple">
+<li><p><strong>Initialize</strong>. Replay buffer <span class="math notranslate nohighlight">\({\cal D}\)</span> to capacity <span class="math notranslate nohighlight">\(N\)</span>, action-value function <span class="math notranslate nohighlight">\(Q\)</span> with random weights <span class="math notranslate nohighlight">\(\Theta\)</span>, action value function <span class="math notranslate nohighlight">\(\hat{Q}\)</span> with weights <span class="math notranslate nohighlight">\(\Theta^{-}=\Theta\)</span>
+.</p></li>
+<li><p><strong>for</strong> episode <span class="math notranslate nohighlight">\(i\)</span>:</p>
+<ol class="arabic simple">
+<li><p>Initialize sequence <span class="math notranslate nohighlight">\(s_1=\{\mathbf{x}_1\}\)</span> and pre-processed sequence <span class="math notranslate nohighlight">\(\phi_1=\phi(s_1)\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(t=\{1,\ldots,T\}\)</span></p>
+<ol class="arabic simple">
+<li><p>With probability <span class="math notranslate nohighlight">\(\epsilon\)</span> select a random action <span class="math notranslate nohighlight">\(a_t\)</span></p></li>
+<li><p>Othwerwise select <span class="math notranslate nohighlight">\(a_t = \arg\max_{a}Q(\phi(s_t),a;\Theta)\)</span></p></li>
+<li><p>Execute <span class="math notranslate nohighlight">\(a_t\)</span> in the emulator and observe reward <span class="math notranslate nohighlight">\(r_{t+1}\)</span> and image <span class="math notranslate nohighlight">\(\mathbf{x}_{t+1}\)</span></p></li>
+<li><p>Set <span class="math notranslate nohighlight">\(s_{t+1}=(s_t,a_t,\mathbf{x}_{t+1})\)</span> and pre-process <span class="math notranslate nohighlight">\(\phi(s_{t+1})\)</span></p></li>
+<li><p>Store transition <span class="math notranslate nohighlight">\((\phi_t,a_t,r_{t+1},\phi_{t+1})\)</span> in <span class="math notranslate nohighlight">\({\cal D}\)</span></p></li>
+<li><p>Sample random mini-batch of transitions <span class="math notranslate nohighlight">\((\phi_j,a_j,r_{j+1},\phi_{j+1})\)</span> from <span class="math notranslate nohighlight">\({\cal D}\)</span></p></li>
+<li><p>Set <span class="math notranslate nohighlight">\(y_j = \begin{cases}
+                 r_{j+1} &amp;\;\text{if}\;\text{episode terminates at step}\; j+1 \\[2ex]
+                 r_{j+1} + \gamma\cdot\max_{a'}\hat{Q}(\phi_{j+1},a';\Theta^{-})
+                 &amp;\;\text{otherwise}\;.\\[2ex]
+             \end{cases}\)</span></p></li>
+<li><p>Perform gradient descent step on <span class="math notranslate nohighlight">\(\left(y_j-Q(\phi_j,a_j\;\Theta)\right)^2\)</span> <strong>wrt parameters</strong> <span class="math notranslate nohighlight">\(\Theta\)</span></p></li>
+<li><p>Every <span class="math notranslate nohighlight">\(C\)</span> steps reset <span class="math notranslate nohighlight">\(\hat{Q}=Q\)</span> (trasfer parameters <span class="math notranslate nohighlight">\(\Theta^{-}\leftarrow \Theta\)</span>)</p></li>
+</ol>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon = \max(\epsilon_{min}, \epsilon\cdot \epsilon_{decay})\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(i = i + 1\)</span></p></li>
+</ol>
+</li>
+</ol>
+<p><strong>return</strong> <span class="math notranslate nohighlight">\(Q_{\pi\ast}\)</span></p>
+</section>
+</div><p>In order to monitorize the training performance of DQN, we register the moving average (mean of the <span class="math notranslate nohighlight">\(50\)</span> previous episodes) as we show in <a class="reference internal" href="#dqn-training"><span class="std std-numref">Fig. 4.17</span></a></p>
+<figure class="align-center" id="dqn-training">
+<a class="reference internal image-reference" href="_images/DQN-Training.png"><img alt="_images/DQN-Training.png" src="_images/DQN-Training.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4.17 </span><span class="caption-text">Experience reply role in Deep Q-Learning. Generated by Gemini.</span><a class="headerlink" href="#dqn-training" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Note that the agent’s moving average increases, sometimes decreases, but on average improves with time. The large oscillations show that there is still room for improvement.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topic1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Graph Neural Networks</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="practice0.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>Graph Neural Networks</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-rl">4.1. Why RL?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-decision-processes">4.2. Markov Decision Processes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">4.2.1. Motivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#future-return">4.2.2. Future Return</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#value-function">4.2.3. Value Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimal-policy-and-optimal-value">4.2.4. Optimal Policy and Optimal Value</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-mdps">4.3. Monte Carlo MDPs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#future-rewards">4.3.1. Future Rewards</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#epsilon-greedy-policy">4.3.2. <span class="math notranslate nohighlight">\(\epsilon-\)</span>Greedy Policy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploration-vs-exploitation">4.3.3. Exploration vs Exploitation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-difference-and-sarsa">4.4. Temporal Difference and SARSA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-policy-vs-off-policy">4.5. On-Policy vs Off-Policy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#q-learning">4.6. Q-Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-q-learning">4.7. Deep Q-Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-big-picture">4.7.1. The Big Picture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#image-based-inputs">4.7.2. Image-based inputs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensure-markov-property">4.7.3. Ensure Markov property</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cnn-arquitecture">4.7.4. CNN Arquitecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#experience-replay">4.7.5. Experience Replay</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-vs-target-network">4.7.6. Policy vs Target Network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overall-model">4.7.7. Overall Model</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Universidad de Alicante
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
