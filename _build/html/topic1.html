@@ -1,0 +1,1886 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>2. Graph Neural Networks &#8212; Agentes Inteligentes IA</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'topic1';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. Graph Neural Networks" href="practice0.html" />
+    <link rel="prev" title="1. The Project" href="bloque1_Introducci%C3%B3n.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Agentes Inteligentes IA - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Agentes Inteligentes IA - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI2026
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intelligent Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bloque1_Introducci%C3%B3n.html">1. The Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithmic Reasoning</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Graph Neural Networks</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">4. Graph Neural Networks</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftopic1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/topic1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Graph Neural Networks</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">2. Graph Neural Networks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-gnns">2.1. Why GNNs?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context-is-everything">2.1.1. Context is everything</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-consider-context-during-training">2.1.1.1. How do we consider context during training?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers-as-graphs">2.1.1.2. Transformers as graphs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#masking-and-sequentiality">2.1.1.3. Masking and sequentiality</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-power-of-aggregation">2.1.2. The power of aggregation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gnns-basic-architecture">2.2. GNNs basic architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-attention-networks">2.3. Graph Attention Networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homophily-vs-heterophily">2.4. Homophily vs Heterophily</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cora-dataset">2.4.1. The Cora Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-texas-dataset">2.4.2. The Texas Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-heterophily">2.4.3. Solving Heterophily</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithmic-neuralization">3. Algorithmic Neuralization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-algorithmic-reasoning">3.1. Neural Algorithmic Reasoning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritmic-alignment">3.2. Algoritmic Alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combinatorial-neuralization">3.3. Combinatorial Neuralization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-maximum-clique">3.3.1. The Maximum Clique</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bron-kerbosh-algorithm">3.3.2. Bron-Kerbosh Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-motzkin-strauss-relaxation">3.3.3. The Motzkin-Strauss Relaxation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#replicator-dynamics">3.3.4. Replicator Dynamics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-with-gnns">3.3.5. Integration with GNNs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="graph-neural-networks">
+<h1><span class="section-number">2. </span>Graph Neural Networks<a class="headerlink" href="#graph-neural-networks" title="Permalink to this heading">#</a></h1>
+<section id="why-gnns">
+<h2><span class="section-number">2.1. </span>Why GNNs?<a class="headerlink" href="#why-gnns" title="Permalink to this heading">#</a></h2>
+<p>Let us start by defining our multi-dimensional vectors <span class="math notranslate nohighlight">\(\mathbf{x}\in\mathbb{R}^d\)</span> to <span class="math notranslate nohighlight">\(\text{Train}\)</span> and <span class="math notranslate nohighlight">\(\text{Test}\)</span>. Then, in our <strong>usual</strong> vectorial setting, the aim of a Neural Network, say a Multi-Layer perceptron (MLP) is to learn a <strong>latent space</strong> where the projections <span class="math notranslate nohighlight">\(\mathbf{h}\in\mathbb{R}^{d'}\)</span> (with <span class="math notranslate nohighlight">\(d'\ll d\)</span>) of the inputs <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> do minimize a given loss function, such as the cross entropy wrt <span class="math notranslate nohighlight">\(\text{Train}\)</span>. This is usually expressed as follows</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h} = \text{MLP}_{\Theta}(\mathbf{x}_{\text{Test}})\;,\text{where}\;\; \Theta =\arg\min_{\Omega} \text{CE}(\mathbf{x}_{\text{Train}})\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Omega\)</span> is the parameter space where the unknowns <span class="math notranslate nohighlight">\(\Theta\)</span> of the learner do “live”.</p>
+<p>By virtue of functional composition, a MLP is just the staking of many non-linear functions called <strong>layers</strong> <span class="math notranslate nohighlight">\(\text{L}^{l}\)</span>, with <span class="math notranslate nohighlight">\(l\ge 1\)</span>. Using recursion, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{L}^{(l)}=
+\begin{cases}
+     \sigma^{(l)}(\mathbf{W}^{(l)}\mathbf{h}^{(l-1)} + \mathbf{b}^{(l)}) &amp;\;\text{if}\;  l&gt; 1 \\[2ex]
+     \sigma^{(1)}(\mathbf{W}^{(1)}\mathbf{x} + \mathbf{b}^{(1)})
+     &amp;\;\text{otherwise}\\[2ex]
+\end{cases}
+\end{split}\]</div>
+<p>The above definition is <em>ambiguous on purpose</em>. Why?</p>
+<ul class="simple">
+<li><p>Firstly, the <strong>embedding</strong> <span class="math notranslate nohighlight">\(\mathbf{h}^{(l)}\)</span> resulting from <strong>the function</strong> <span class="math notranslate nohighlight">\(\text{L}^{(l)}\)</span> is given by the composition</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}^{(l)}=\text{L}^{(l)}\circ \text{L}^{(l-1)}\;.
+\]</div>
+<ul class="simple">
+<li><p>However, instead of using a functional notation for <span class="math notranslate nohighlight">\(\text{L}^{(l-1)}\)</span>, we use the resulting embedding <span class="math notranslate nohighlight">\(\mathbf{h}^{(l-1)}\)</span> of that layer. Note that the base case of the recursion is <span class="math notranslate nohighlight">\(\mathbf{h}^{(0)}=\mathbf{x}\)</span>, which corresponds to <span class="math notranslate nohighlight">\(\text{L}^{(1)}\)</span>.</p></li>
+</ul>
+<p>Therefore, if the MLP has <span class="math notranslate nohighlight">\(L\)</span> layers, we can consider it as the following function:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{MLP}(\mathbf{x})=\text{L}^{(L-1)}\circ \text{L}^{(L-2)}\circ\ldots\circ \text{L}^{(1)}\;.
+\]</div>
+<p>In terms of results, <span class="math notranslate nohighlight">\(\mathbf{h}=\mathbf{h}^{(L)}\)</span> results the following processing chain:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}\xleftarrow{\Theta^{(L)}} \mathbf{h}^{(L-1)}\xleftarrow{\Theta^{(L-1)}}\mathbf{h}^{(L-2)}\xleftarrow{\Theta^{(L-2)}} \ldots\xleftarrow{\Theta^{(1)}}\mathbf{h}^{(0)}\;.
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Theta^{(l)}=(\mathbf{W}^{(l)},\mathbf{h}^{(l)},\sigma^{(l)})\)</span> are the parameters (weights, biases and non-linear activations) characterizing each layer. Actually,</p>
+<div class="math notranslate nohighlight">
+\[
+\Omega = \Theta^{(L)}\times \Theta^{(L-1)}\times\ldots\times \Theta^{(1)}
+\]</div>
+<p>is usually a huge (parameter) space!</p>
+<p><strong>Learning as search</strong>. As a result, learning via MLPs (or NNs in general) can be seen as findind the parameters <span class="math notranslate nohighlight">\(\Theta\in\Omega\)</span> of a <em>composed function</em> <span class="math notranslate nohighlight">\(\text{MLP}_{\Theta}\)</span> that best maps inputs <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> to outputs <span class="math notranslate nohighlight">\(\mathbf{h}\)</span>.</p>
+<section id="context-is-everything">
+<h3><span class="section-number">2.1.1. </span>Context is everything<a class="headerlink" href="#context-is-everything" title="Permalink to this heading">#</a></h3>
+<p>Evolved NNs such as the <a class="reference external" href="https://huggingface.co/docs/transformers/en/index">Transformers</a>, the state-of-the-art core of LLMs and other AI agents, do leverage the concept of <strong>context</strong>. In short, inputs <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> do not appear isolated but in <strong>streams</strong> (this is valid for words in texts as well as for patches in images).</p>
+<p>Therefore, when an input <span class="math notranslate nohighlight">\(\mathbf{x}_k\)</span> is seen as a part of a stream</p>
+<div class="math notranslate nohighlight">
+\[
+\ldots\;\underbrace{\mathbf{x}_{k-\frac{h}{2}}\;\mathbf\;{x}_{k-\frac{h}{2}+1}\;\ldots\;\mathbf{x}_{k-1}}_{\text{left context}}\mathbf{x}_k\;\underbrace{\mathbf{x}_{k+1}\;\ldots\;\mathbf{x}_{k+h-1}\mathbf{x}_{k+\frac{h}{2}}}_{\text{right context}}\;\ldots
+\]</div>
+<p>its <strong>context</strong> is given by the previous (left context) and the subsequent (right context) inputs in the stream. In general, this context is <em>finite up to the memory resources</em> and its size is given by <span class="math notranslate nohighlight">\(h\)</span>. For instance, for <span class="math notranslate nohighlight">\(h=4\)</span> we should have</p>
+<div class="math notranslate nohighlight">
+\[
+\ldots\;\underbrace{\mathbf{x}_{k-2}\;\mathbf\;{x}_{k-1}}_{\text{left context}}\mathbf{x}_k\;\underbrace{\mathbf{x}_{k+1}\;\mathbf{x}_{k+2}}_{\text{right context}}\;\ldots
+\]</div>
+<section id="how-do-we-consider-context-during-training">
+<h4><span class="section-number">2.1.1.1. </span>How do we consider context during training?<a class="headerlink" href="#how-do-we-consider-context-during-training" title="Permalink to this heading">#</a></h4>
+<p>In Transformers, the driving mechanism is <a class="reference external" href="https://arxiv.org/abs/1706.03762">Self Attention</a>. Let us break it up via an example.</p>
+<p>Consider for instance the following input stream:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{H} = 
+\underbrace{\text{&quot;The}}_{\mathbf{h}_1}\;
+\underbrace{\text{animal}}_{\mathbf{h}_2}\;  
+\underbrace{\text{didn't}}_{\mathbf{h}_3}\;
+\underbrace{\text{cross}}_{\mathbf{h}_4}\;
+\underbrace{\text{the}}_{\mathbf{h}_5}\;    
+\underbrace{\text{street}}_{\mathbf{h}_6}\; 
+\underbrace{\text{because}}_{\mathbf{h}_7}\; 
+\underbrace{\textbf{it}}_{\mathbf{h}_8}\;  
+\underbrace{\text{was}}_{\mathbf{h}_9}\; 
+\underbrace{\text{too}}_{\mathbf{h}_{10}}\; 
+\underbrace{\text{tired.&quot;}}_{\mathbf{h}_{N=11}}\;      
+\]</div>
+<p>This input stream is considered a <span class="math notranslate nohighlight">\(N\times d_{model}\)</span> <strong>matrix</strong> <span class="math notranslate nohighlight">\(\mathbf{H}\)</span> where each row is the <strong>numerical embedding</strong> of a term/word <span class="math notranslate nohighlight">\(\mathbf{h}_1,\mathbf{h}_2,\ldots,\)</span> each one <em>encoding</em> numerically the basic semantics of each word (“The”, “animal”, etc). All the embeddings do have dimension <span class="math notranslate nohighlight">\(d_{model}\)</span>.</p>
+<p>All the embeddings are learnable and the may play three different roles:</p>
+<ul class="simple">
+<li><p><strong>Query (Q)</strong>: The Query vector for a word determines what information it is looking for from other words in the sequence. It’s the “selector” or “questioner.”</p></li>
+<li><p><strong>Key (K)</strong>: The Key vector for a word determines how relevant it is to other words’ queries. It’s what the Query vectors are compared against.</p></li>
+<li><p><strong>Value (V)</strong>: The Value vector for a word contains the information that will be passed on to other words, weighted by their attention scores. It’s the actual content being communicated.</p></li>
+</ul>
+<p>By creating these separate vectors, the self-attention mechanism can learn to <strong>capture different aspects of the word’s meaning and its relationship to other words</strong>. The interaction between Queries and Keys determines the attention weights, which in turn dictate how much of each Value vector contributes to the final output representation of a word. This allows the model to dynamically weigh the importance of different words in the input sequence when processing a specific word.</p>
+<p>Keys, queries and values are taken from <em>dictionaries</em>. For instance, we query a dictionary “it” and when the query matches a key entry in the dictionary, we retrieve a value (description).</p>
+<p>Then, given an initial embedding, say <span class="math notranslate nohighlight">\(\mathbf{h}_{\omega}\)</span>, say <span class="math notranslate nohighlight">\(\omega=\text{&quot;it&quot;}\)</span>, we obtain its “flavor” as Key, Query and Value by linear projection:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{K}_{\omega}=\mathbf{W}_K\mathbf{h}_{\omega},\;\;
+\mathbf{Q}_{\omega}=\mathbf{W}_Q\mathbf{h}_{\omega},\;\;\text{and}\;\;
+\mathbf{V}_{\omega}=\mathbf{W}_V\mathbf{h}_{\omega}\;.
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{W}_K\)</span>, <span class="math notranslate nohighlight">\(\mathbf{W}_Q\)</span> and <span class="math notranslate nohighlight">\(\mathbf{W}_V\)</span> are <strong>learnable matrices</strong> of respective size <span class="math notranslate nohighlight">\(d_{model}\times d_k\)</span>, <span class="math notranslate nohighlight">\(d_{model}\times d_q\)</span> and <span class="math notranslate nohighlight">\(d_{model}\times d_v\)</span>. Actually, these matrices work as separated MLPs.</p>
+<p><strong>NOTE</strong>: since <em>Keys and Queries should ideally match</em>, it is usually assumed that <span class="math notranslate nohighlight">\(d_k=d_q\)</span>. However, <span class="math notranslate nohighlight">\(d_v\)</span> can be different from <span class="math notranslate nohighlight">\(d_k\)</span> and <span class="math notranslate nohighlight">\(d_q\)</span>. This is done, for instance, to accomodate a richer semantics as it happens in real dictionaries. It is also typical to make <span class="math notranslate nohighlight">\(d_v\)</span> smaller for efficiency reasons.
+<br></br>
+<span style="color:#2f6004">
+<strong>How do we know that “it” refers to “animal” in this case?</strong>.
+</span>
+<br></br>
+Well, the basic mechanism to built the Transformer’s result wrt a given query (say “it”) is as follows:</p>
+<p><strong>Unormalized</strong>. Given the Query <span class="math notranslate nohighlight">\(\mathbf{Q}_{\omega=\text{&quot;it&quot;}}\)</span>, we should acount for the level of correlation between it and each of the Keys. In maths, the correlation between two vectors <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is usually done via the dot product <span class="math notranslate nohighlight">\(\langle \mathbf{u}, \mathbf{v}\rangle := \mathbf{u}\mathbf{v}^T\)</span> (projection of the first on the second):</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{Q}_{\omega=\text{&quot;it&quot;}}\mathbf{K}^T_{\omega'}\;\;\text{with}\;\;\omega'\in \{\text{&quot;The&quot;},\text{&quot;animal&quot;},\ldots,\text{&quot;tired.&quot;}\}\;.
+\]</div>
+<p>Each of the above products <em>results in a scalar value</em>, say <span class="math notranslate nohighlight">\(S_{(\omega=\text{&quot;it&quot;},\omega')}\)</span>. Then, from the viewpoint of the “it” Query, we have a sequence of correlations:</p>
+<div class="math notranslate nohighlight">
+\[
+S_{(\omega=\text{&quot;it&quot;},\omega'=\text{&quot;The&quot;})}\;,
+S_{(\omega=\text{&quot;it&quot;},\omega'=\text{&quot;animal&quot;})}\;,\ldots,\;
+S_{(\omega=\text{&quot;it&quot;},\omega'=\text{&quot;tired.&quot;})}\;.
+\]</div>
+<p>Since each of these values can be either positive or negative, we transform the above sequence into a <a class="reference external" href="https://medium.com/&#64;touhid3.1416/the-surprisingly-simple-math-behind-transformer-attention-mechanism-d354fbb4fef6">probability distribution</a> by means of the softmax function.</p>
+<p>Remind that <span class="math notranslate nohighlight">\(\text{Softmax}(\mathbf{x}_i):=\mathbf{\exp(\mathbf{x}_i)/\sum_{i'} \exp(\mathbf{x}_{i'})}\)</span> operates on a vector/sequence <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and the result is highly biased towards the maximal values of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, where it assigns a <span class="math notranslate nohighlight">\(1\)</span>, and the smallest ones, where it assigns a <span class="math notranslate nohighlight">\(0\)</span>. The authors of <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention is all You Need</a> pointed out that, when the dot product is large in magnitude, the softmax is pushed to regions where gradient is small, thus difficulting learning. This is why the dot products are scaled by <span class="math notranslate nohighlight">\(\frac{1}{\sqrt{d_k}}\)</span>.</p>
+<p>In short, softmaxing each row and stacking the rows leads to create the following <span class="math notranslate nohighlight">\(N\times N\)</span> matrix:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{S}:=\text{Softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sum_{\omega'} S_{\omega,\omega'}=1\;\forall\omega\)</span> (each row adds up to <span class="math notranslate nohighlight">\(1\)</span>).</p>
+<p><strong>The values</strong>. In parallel to the computation of the softmax coefficients, we have yet projected the <em>actual semantics</em> of each term, which is contained in the  <strong>values</strong> <span class="math notranslate nohighlight">\(\mathbf{V}_{\omega'}\)</span> of the respective terms.</p>
+<p>Then, the new values embedding (say for <span class="math notranslate nohighlight">\(\mathbf{V}_{\omega}\)</span>) results from the weighted sum</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}_{\omega} := \sum_{\omega'}S_{(\omega,\omega')}\mathbf{V}_{\omega'}\;.
+\]</div>
+<p>Then, <span class="math notranslate nohighlight">\(\mathbf{h}_{\omega}\)</span> is a simple way of expressing the <strong>contextual semantics</strong> of <span class="math notranslate nohighlight">\(\mathbf{V}_{\omega}\)</span>. If <span class="math notranslate nohighlight">\(\omega=\text{&quot;it&quot;}\)</span>, then <span class="math notranslate nohighlight">\(\mathbf{h}_{\omega}\)</span> will combine all the values proportionally to how “it” <strong>attends</strong> (or matches) each of the Keys.</p>
+<p>More compactly, the notation</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V}) :=
+\text{Softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V}\;,
+\]</div>
+<p>returns an attention matrix.</p>
+<p>This process is summarized in <a class="reference internal" href="#attention"><span class="std std-numref">Fig. 2.1</span></a>.</p>
+<figure class="align-center" id="attention">
+<a class="reference internal image-reference" href="_images/AttentionScheme.png"><img alt="_images/AttentionScheme.png" src="_images/AttentionScheme.png" style="width: 600px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.1 </span><span class="caption-text">Full context for the meaning of “it”. Image partially generated by Gemini.</span><a class="headerlink" href="#attention" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>On the learning of the input Keys, Querys and Values</strong>. Herein, it is important to note that the embedding for the word “animal”, for instance, is <em>unique</em> and learnable. This is why we project this embedding on <span class="math notranslate nohighlight">\(\mathbf{W}_K\)</span>, <span class="math notranslate nohighlight">\(\mathbf{W}_Q\)</span> and <span class="math notranslate nohighlight">\(\mathbf{W}_V\)</span> to get the “flavor” of the “same word” as Key, Query or Value, when required.</p>
+</section>
+<section id="transformers-as-graphs">
+<h4><span class="section-number">2.1.1.2. </span>Transformers as graphs<a class="headerlink" href="#transformers-as-graphs" title="Permalink to this heading">#</a></h4>
+<p>Looking at <span class="math notranslate nohighlight">\(\mathbf{S}:=\text{Softmax}\left(\frac{\mathbf{K}\mathbf{Q}^T}{\sqrt{d_k}}\right)\)</span> we can see <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> as an <em>attributed graph</em> where <span class="math notranslate nohighlight">\(\mathbf{S}\in\mathbb{R}^{M\times M}\)</span> is an <em>attributed adjacency matrix</em> and <span class="math notranslate nohighlight">\(\mathbf{S}_{(\omega,\omega')}\in [0,1]\)</span> is the corresponding attention weight of <span class="math notranslate nohighlight">\(\mathbf{Q}_{\omega}\)</span> wrt to <span class="math notranslate nohighlight">\(\mathbf{K}_{\omega'}\)</span>.</p>
+<p>Take now a global look to <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> (see <a class="reference internal" href="#attentionge"><span class="std std-numref">Fig. 2.2</span></a>):</p>
+<figure class="align-center" id="attentionge">
+<a class="reference internal image-reference" href="_images/AttentionGraphE.png"><img alt="_images/AttentionGraphE.png" src="_images/AttentionGraphE.png" style="width: 800px; height: 250px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Attention as an attributed graph. Image partially generated by Gemini.</span><a class="headerlink" href="#attentionge" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Note that nodes have <strong>self-loops</strong> corresponding to self-attentions (diagonal elements <span class="math notranslate nohighlight">\(\mathbf{S}_{(\omega,\omega)}\)</span>) because they appear to be relevant as themselves. However, not all of them are equally relevant.</p>
+<p>In particular, the word “animal” attends mostly itself, whereas “it” attends also “animal” (obviously) and “tired” (because it is a property of the animal). The remaining terms have very low self-attentions (below <span class="math notranslate nohighlight">\(0.01\)</span> they do not appear in the Figure).</p>
+<p><strong>NOTE</strong>: This graph changes dynamically, as well as the embbedings and the weights of the Query, Key and Value matrices.</p>
+<p><strong>Update as Message Passing</strong>. Finally, the update</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}_{\omega} := \sum_{\omega'}S_{(\omega,\omega')}\mathbf{V}_{\omega'}\;.
+\]</div>
+<p>can be seen as if all nodes <span class="math notranslate nohighlight">\(\omega'\)</span> in the graph send a message <span class="math notranslate nohighlight">\(\mathbf{V}_{\omega'}\)</span> to node <span class="math notranslate nohighlight">\(\omega\)</span>, where this message is modulated by <span class="math notranslate nohighlight">\(S_{(\omega,\omega')}\)</span>. As a result, the node <span class="math notranslate nohighlight">\(\omega\)</span> updates its state!</p>
+<p>In <a class="reference internal" href="#attentionge"><span class="std std-numref">Fig. 2.2</span></a>, <span class="math notranslate nohighlight">\(\mathbf{h}_{\omega=\text{&quot;it&quot;}}\)</span> is mainly updated by the current value of “animal” as well as by the existing value of “it” (self-attention).</p>
+</section>
+<section id="masking-and-sequentiality">
+<h4><span class="section-number">2.1.1.3. </span>Masking and sequentiality<a class="headerlink" href="#masking-and-sequentiality" title="Permalink to this heading">#</a></h4>
+<p>Despite the above visualization of the attention graph is explanatory, <em>it is not used during the actual forward pass or training of a Transformer model</em>.</p>
+<p><strong>Attention Masking</strong> (see optional mask in <a class="reference internal" href="#attention"><span class="std std-numref">Fig. 2.1</span></a>) is used to prevent certain terms/tokens from attending to other tokens. The most common type of masking relevant to sequential processing is <strong>look-ahead masking</strong> (also known as causal masking), which is typically used in the decoder of a Transformer. In look-ahead masking, the attention scores for future tokens are set to a very low value (effectively zero after softmax) so that a token can only attend to tokens that come before it in the sequence. <em>This is essential for tasks like language generation where the model should not have access to future information</em>.</p>
+<p>We have rebuilt this graph to attend only past tokens in <a class="reference internal" href="#attentionseq"><span class="std std-numref">Fig. 2.3</span></a>.</p>
+<figure class="align-center" id="attentionseq">
+<a class="reference internal image-reference" href="_images/SequentialAttention.png"><img alt="_images/SequentialAttention.png" src="_images/SequentialAttention.png" style="width: 600px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Sequential attention. Image partially generated by Gemini.</span><a class="headerlink" href="#attentionseq" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Now, self-attention increases (attend the present, as well as past, but not future). In other words, <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> is zero above the diagonal!I.e.:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}_{\omega} := \sum_{\omega'\le\omega}S_{(\omega,\omega')}\mathbf{V}_{\omega'}\;.
+\]</div>
+<p>Since these <strong>decoder-enforcing</strong> Transformers use the past and present to predict (generate) the future, they are usually called <strong>next token machines</strong>.</p>
+<p>This is the usual setting for LLMs (Language-based Transformers) and it <strong>limits the expresiveness</strong> of the Transformer (as we will see later). However, in Vision Language Models or VLMs (Vision Transformers or ViT), free attention is applied. Therein, tokes are “sequentialized” image patches and it is logical that a patch can attend any other patch.</p>
+</section>
+</section>
+<section id="the-power-of-aggregation">
+<h3><span class="section-number">2.1.2. </span>The power of aggregation<a class="headerlink" href="#the-power-of-aggregation" title="Permalink to this heading">#</a></h3>
+<p><strong>Message Passing</strong> is implicit in certain types of Transformers. This is one of the ingredients that make Transformers so powerful.</p>
+<p>As we have seen, Message Passing (MP) provides a flexible combination of the ouput of three MLPs (Queries, Keys and Values) running in parallel for the same inputs.</p>
+<p>However, Transformers usually <strong>process sequences</strong> (NLP) or transform objects (ViT) into sequences to further processing. But <strong>What if the objects to process are not sequences, but graphs or networks?</strong></p>
+<p>This latter point is important, since <strong>graphs are not ordered structures</strong>. Indeed, the expressive power of graph relies on fthe fact they are <strong>invariant to any order</strong>.</p>
+<p><br></br>
+<span style="color:#2f6004">
+<strong>Graphs are permutation invariant</strong>.
+</span>
+<br></br>
+Let <span class="math notranslate nohighlight">\(G = (V, E)\)</span> denote a graph, where <span class="math notranslate nohighlight">\(V = \{v_1, v_2, \ldots, v_N\}\)</span> represents the set of <span class="math notranslate nohighlight">\(N\)</span> nodes and <span class="math notranslate nohighlight">\(E \subseteq V \times V\)</span> represents the set of edges. We use the adjacency matrix <span class="math notranslate nohighlight">\(\mathbf{A} \in \{0, 1\}^{N \times N}\)</span> to encode the graph structure, where <span class="math notranslate nohighlight">\(\mathbf{A}_{ij} = 1\)</span> if there exists an edge between nodes <span class="math notranslate nohighlight">\(v_i\)</span> and <span class="math notranslate nohighlight">\(v_j\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{A}_{ij} = 0\)</span> otherwise.</p>
+<p><strong>Node features and labels</strong>. Each node <span class="math notranslate nohighlight">\(v_i\)</span> is associated with a feature vector <span class="math notranslate nohighlight">\(\mathbf{x}_i \in \mathbb{R}^d\)</span>, where <span class="math notranslate nohighlight">\(d\)</span> is the dimensionality of the feature space. These features are collectively represented as a matrix <span class="math notranslate nohighlight">\(\mathbf{X} \in \mathbb{R}^{N \times d}\)</span>, where the <span class="math notranslate nohighlight">\(i\)</span>-th row corresponds to the feature vector of node <span class="math notranslate nohighlight">\(v_i\)</span>. For <strong>supervised node classification</strong>, a subset of nodes <span class="math notranslate nohighlight">\(V_L \subset V\)</span> have associated labels <span class="math notranslate nohighlight">\(y_i \in \{1, 2, \ldots, C\}\)</span>, where <span class="math notranslate nohighlight">\(C\)</span> is the number of classes.</p>
+<p><strong>Example</strong>. In <a class="reference internal" href="#graphinit"><span class="std std-numref">Fig. 2.4</span></a>, we show a graph with nodes</p>
+<div class="math notranslate nohighlight">
+\[V=\{A,B,C,D,E\}\]</div>
+<p>and edges</p>
+<div class="math notranslate nohighlight">
+\[
+E=\{(A,B),(A,C),(B,C),(C,D),(C,E),(D,E)\}\;.
+\]</div>
+<p>In this case, the graph is <em>undirected</em> which means that if <span class="math notranslate nohighlight">\((i,j)\in E\)</span> then <span class="math notranslate nohighlight">\((j,i)\in E\)</span> and we do not need to denote both edges.</p>
+<figure class="align-center" id="graphinit">
+<a class="reference internal image-reference" href="_images/Graph1.png"><img alt="_images/Graph1.png" src="_images/Graph1.png" style="width: 600px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.4 </span><span class="caption-text">Initial graph with features. Image partially generated by Gemini.</span><a class="headerlink" href="#graphinit" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Features and labels</strong>. Note the we show the features <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> of each node <span class="math notranslate nohighlight">\(i\)</span> and their <em>ground-truth labels</em> <span class="math notranslate nohighlight">\(y_i\)</span>. In this example, we have <span class="math notranslate nohighlight">\(d=2\)</span> features per node and <span class="math notranslate nohighlight">\(C=2\)</span> classes.</p>
+<p>Looking at the features, we have that nodes <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are consistently associated with class <span class="math notranslate nohighlight">\(0\)</span>: in this class <span class="math notranslate nohighlight">\(\mathbf{x}_i(1)&gt; \mathbf{x}_i(2)\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}_i(2)\ge 0.5\)</span>. Similarly, nodes <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(D\)</span> are consistently associated with class <span class="math notranslate nohighlight">\(1\)</span>: <span class="math notranslate nohighlight">\(\mathbf{x}_i(1)&gt; \mathbf{x}_i(2)\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}_i(1)\ge 0.5\)</span>. However, the features of node <span class="math notranslate nohighlight">\(C\)</span> place it in between both classes.</p>
+<p>Independently of the training-test split (which is irrelevant to this example) <span style="color:#2f6004"><strong>a linear separation will be hard in this case</strong></span>, because of node <span class="math notranslate nohighlight">\(C\)</span>. Thus, for a simple MLP we will obtain something close to the decision in <a class="reference internal" href="#mlpinit"><span class="std std-numref">Fig. 2.5</span></a></p>
+<figure class="align-center" id="mlpinit">
+<a class="reference internal image-reference" href="_images/MLP1.png"><img alt="_images/MLP1.png" src="_images/MLP1.png" style="width: 600px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.5 </span><span class="caption-text">Simple MLP classification. Image partially generated by Gemini.</span><a class="headerlink" href="#mlpinit" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Graphs provide local context</strong>. The reason of the above lack of performance quite obvious: MLPs deal with node features <strong>independently</strong>. However, since <span style="color:#2f6004"><strong>graphs implement pairwise relations between variables</strong></span>, it is expected that neighboring nodes do have similar properties, in particular their labels. When neighboring tend to share the same label, this is know as <strong>homophily</strong>.</p>
+<p>By <strong>ignoring graph edges</strong> and the context provided by the neighborhood, an MLP fails to capture the relational patterns that are often indicative of a node’s class in graph-structured data.</p>
+<p><strong>Invariant aggregation</strong>. Suppose now, that for any node <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span>, we <em>aggregate the features of its neighbors</em> and pass the aggretation, instead of passing directly its features to the MLP. In other words, all we do is to  feed the MLP with a *new embedding that accounts for the local context of each node. Such embedding, <span class="math notranslate nohighlight">\(\mathbf{h}_i\)</span>, is <span style="color:#2f6004"><strong>aggregated in an invariant way wrt the order of the neighbors</strong></span>. This means that we can only use functions such as the SUM, MEAN and the MAX as aggregators:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}_i := \sum_{j\in \mathcal{N}(i)\cup \{i\}}\mathbf{x}_j,\;\; \mathbf{h}_i :=\frac{1}{|{\cal N}(i)|}\sum_{j\in \mathcal{N}(i) \bigcup \{i\}}\mathbf{x}_j,\;\;\text{or}\;
+\;\mathbf{h}_i :=\max_{j\in \mathcal{N}(i)\bigcup \{i\}}\mathbf{x}_j\;, 
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{N}(i)\)</span> denotes the <em>neighbors</em> of node <span class="math notranslate nohighlight">\(v_i\)</span>. Note that the features of <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> are included in the update, as if there was a self-loop for each node in the graph (as self-attention in Transformers).</p>
+<p>Under invariant aggregation, the result <span class="math notranslate nohighlight">\(\mathbf{h}_i\)</span> is the same independently of the order in wich the neighbors are processed. Thus, graphs do have a more flexible coding than sequences.</p>
+<p>In <a class="reference internal" href="#mlpagg"><span class="std std-numref">Fig. 2.6</span></a>, we see that the representations <span class="math notranslate nohighlight">\(\mathbf{h}_i\)</span> of nodes <span class="math notranslate nohighlight">\(A/B\)</span> and <span class="math notranslate nohighlight">\(C/D\)</span> collapse in the same point, thus facilitating the MLP decision, and the representation of <span class="math notranslate nohighlight">\(C\)</span> is <em>attracted</em> to the area of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>:</p>
+<figure class="align-center" id="mlpagg">
+<a class="reference internal image-reference" href="_images/MLP2.png"><img alt="_images/MLP2.png" src="_images/MLP2.png" style="width: 700px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.6 </span><span class="caption-text">Simple MLP classification of aggregated features. Image partially generated by Gemini.</span><a class="headerlink" href="#mlpagg" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><br></br>
+<span style="color:#2f6004">
+<strong>Exercise</strong>. Given the above example. What is the representation after applying a second aggregation (use sum as invariant)? Explain the result:
+</span>
+<br></br>
+<span style="color:#2f6004">
+First of all, let us compute the embeddings for the first aggregation. We separate aggregation (from neighbors) and update:
+<br></br>
+</span>
+<span style="color:#2f6004">
+<span class="math notranslate nohighlight">\(
+\begin{aligned}
+&amp;\begin{array}{cccc}
+\text{Node}  &amp; \text{Neighbors} &amp; \text{Aggregation} &amp; \text{Update} &amp;\text{Result}\\\hline
+v_A &amp; \{B,C\} &amp; [0.8\;0.7]+[0.2\;0.9] &amp; [1.0\;0.5] &amp; [2.0\; 2.1]\\
+v_B &amp; \{A,C\} &amp; [1.0\;0.5]+[0.2\;0.9] &amp; [0.8\;0.7] &amp; [2.0\; 2.1]\\
+v_C &amp; \{A,B,D,E\} &amp; [1.0\;0.5]+[0.8\;0.7] + [0.5\;0.1] + [0.9\;0.3] &amp; [0.2\;0.9] &amp; [3.3\;2.5]\\
+v_D &amp; \{C,E\} &amp; [0.2\;0.9] + [0.9\;0.3] &amp; [0.5\;0.1] &amp; [1.6\; 1.3]\\
+v_E &amp; \{C,D\} &amp; [0.2\;0.9] + [0.5\;0.1] &amp; [0.9\;0.3] &amp; [1.6\; 1.3]\\
+\end{array}
+\end{aligned}
+\)</span>
+</span>
+<br></br></p>
+</section>
+</section>
+<section id="gnns-basic-architecture">
+<h2><span class="section-number">2.2. </span>GNNs basic architecture<a class="headerlink" href="#gnns-basic-architecture" title="Permalink to this heading">#</a></h2>
+<p>In short, given an input graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> (which may change via <a class="reference external" href="https://ellisalicante.org/tutorials/GraphRewiring">rewiring</a>), each of the <span class="math notranslate nohighlight">\(L\)</span> layers of a GNN has three components:</p>
+<ol class="arabic simple">
+<li><p><strong>Message passing</strong>. Each node sends its interal state (its current embedding) to its neighbors (possibily including itsef).</p></li>
+<li><p><strong>Aggregation</strong>. Each node receives a message from its adjacend neighbors. This message is usually weighted by a <strong>confidence coefficient</strong>. Then, all messages are aggregated using an order invariant operator (SUM, MEAN, MAX).</p></li>
+<li><p><strong>Update</strong>. The new internal state is built both on the aggregation and its <em>projection</em> via an MLP.</p></li>
+</ol>
+<p>All these steps are summarized in <a class="reference internal" href="#gnnarchitecture"><span class="std std-numref">Fig. 2.7</span></a> where we highlight the last MLP layer for classification/regression:</p>
+<figure class="align-center" id="gnnarchitecture">
+<a class="reference internal image-reference" href="_images/GNNArchitecture.png"><img alt="_images/GNNArchitecture.png" src="_images/GNNArchitecture.png" style="width: 800px; height: 700px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.7 </span><span class="caption-text">GNN architecture (for the example graph). Image partially generated by Gemini.</span><a class="headerlink" href="#gnnarchitecture" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In a more formal way, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}_i^{(l+1)} := \text{UPDATE}^{(l)} \left( \mathbf{h}_i^{(l)}, \text{AGGREGATE}^{(l)} \left( \{ \text{MESSAGE}^{(l)}(\mathbf{h}_i^{(l)}, \mathbf{h}_j^{(l)}, \mathbf{e}_{ij}) : j \in \mathcal{N}(i)\cup \{i\} \} \right) \right)
+\]</div>
+<p>which is basically coincident (for the SUM) with</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}_i^{(l+1)} :=\sigma^{(l)}\left(\mathbf{W}^{(l)} \left(\sum_{j \in \mathcal{N}(i)\cup \{i\}}\alpha_{ij}\mathbf{h}_i^{(l)}
+\right)+ b^{(l)}\right) = \text{MLP}^{(l)}_{\Theta}\left(\sum_{j \in \mathcal{N}(i)\cup \{i\}}\alpha_{ij}\mathbf{h}_i^{(l)}\right)\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha_{ij}\)</span> are <em>learnable attention coefficients</em> (see below). In short, <span style="color:#2f6004"><strong>a GNN layer is an MLP of the aggregation</strong></span>.</p>
+<p>In matricial form we have (droping the attention coefficients and biases for the sake of clarity):</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{H}^{(l+1)} := \sigma^{(l)}(\mathbf{W}^{(l)}\tilde{\mathbf{A}}\mathbf{H}^{(l)})\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\tilde{\mathbf{A}}=\mathbf{A} + \mathbf{I}\)</span> is the adjacency matrix with self-loops (ones in the diagonal). Therefore <span class="math notranslate nohighlight">\(\mathbf{H}^{(l+1)}\)</span> is an <span class="math notranslate nohighlight">\(N\times d^{(l+1)}\)</span> matrix, where <span class="math notranslate nohighlight">\(d^{(l+1)}\)</span> is the output dimension of the <span class="math notranslate nohighlight">\(l-\)</span>th MLP. Then, this matrix  encapsulates the <em>new</em> embedding of the nodes in its rows.</p>
+<p>In addition, the expression <span class="math notranslate nohighlight">\(\tilde{\mathbf{A}}\mathbf{H}^{(l)}\)</span>, where <span class="math notranslate nohighlight">\(\mathbf{H}^{(l)}\)</span> is an <span class="math notranslate nohighlight">\(N\times d^{(l)}\)</span> matrix (with usually <span class="math notranslate nohighlight">\(d^{(l)}\ge d^{(l+1)}\)</span>) which  compacts all the aggregations, since:</p>
+<div class="math notranslate nohighlight">
+\[
+(\tilde{\mathbf{A}}\mathbf{H}^{(l)})_{ij}=
+\langle\tilde{\mathbf{A}}_{i:},\mathbf{H}^{(l)}_{j:}\rangle = 
+\sum_{j}\tilde{\mathbf{A}}_{ij}\mathbf{H}^{(l)}_{ij}\;.
+\]</div>
+<p>Note that the matrix <span class="math notranslate nohighlight">\(\tilde{\mathbf{A}}\)</span> is kept constant along all the layers (unless we apply <em>rewiring</em>).</p>
+</section>
+<section id="graph-attention-networks">
+<h2><span class="section-number">2.3. </span>Graph Attention Networks<a class="headerlink" href="#graph-attention-networks" title="Permalink to this heading">#</a></h2>
+<p>The (above) vanilla GNN was introduced by <a class="reference external" href="https://arxiv.org/abs/1609.02907">Kipf &amp; Welling</a>. Later on, <a class="reference external" href="https://arxiv.org/abs/1704.01212">Gilmer et al.</a> coined the term Message Passing Neural Networks (MPNNs) and reviewed emerging variants of the vanilla model. In particular, the Kipf-Welling model has an spectral interpretation for modulating message passing (we will get back to this point later on).</p>
+<p>Vanilla GNNs (aka <strong>Graph Convolutional Networks</strong> or <strong>GCNs</strong>) have an important <strong>limitation</strong>: they <strong><span style="color:#2f6004">blindly aggregate messages coming from all neighbors</span></strong>:</p>
+<ul class="simple">
+<li><p>This is effective in homophilic regimes where neighors do not only share labels but do have similar feature vectors.</p></li>
+<li><p>In more general settings, however, neighboring features can be quite different even when their corresponding nodes share the same label.</p></li>
+<li><p>If this <strong>constant attention</strong> is hold (all messages are born equal) we may bias the aggregation and thus create a <strong>sub-optimal latent space</strong>.</p></li>
+</ul>
+<p><strong>Graph Attention Networks</strong> or <strong>GATs</strong>, by <a class="reference external" href="https://arxiv.org/pdf/1710.10903">Velickovic et al.</a>,  address this problem by computing and learning <strong>attention coefficients</strong> <span class="math notranslate nohighlight">\(\alpha_{ij}\)</span> as follows:</p>
+<ol class="arabic simple">
+<li><p>Given an edge <span class="math notranslate nohighlight">\((i,j)\)</span> in the graph, its <em>un-normalized attention coefficient</em> (after projection of node embeddings <span class="math notranslate nohighlight">\(\mathbf{h}_i\)</span> and <span class="math notranslate nohighlight">\(\mathbf{h}_j\)</span>) are:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+e_{ij}:=\mathbf{a}\left(\mathbf{W}\mathbf{h}_i,\mathbf{W}\mathbf{h}_i\right)\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{a}:\mathbb{R}^d\times \mathbb{R}^d\rightarrow \mathbb{R}\)</span> is a MLP parameterized by <span class="math notranslate nohighlight">\(\mathbf{a}\in\mathbb{R}^{2d}\)</span>. Why?</p>
+<ol class="arabic simple" start="2">
+<li><p>This MLP <em>concatenates</em> the inputs <span class="math notranslate nohighlight">\(\mathbf{W}\mathbf{h}_i\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{W}\mathbf{h}_j\)</span> where the notation is</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{W}\mathbf{h}_i||\mathbf{W}\mathbf{h}_j\;,
+\]</div>
+<p>and this is why <span class="math notranslate nohighlight">\(\mathbf{a}\in\mathbb{R}^{2d}\)</span>.</p>
+<ol class="arabic simple" start="3">
+<li><p>Given a concatenation <span class="math notranslate nohighlight">\(\mathbf{W}\mathbf{h}_i||\mathbf{W}\mathbf{h}_j\)</span> the MLP proceeds as follows:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\alpha_{ij}:=\text{Softmax}(e_{ij})=\frac{\exp(e_{ij})}{\sum_{k\in {\cal N}(i)} \exp(e_{ik})}
+\]</div>
+<p>where, in the following, <span class="math notranslate nohighlight">\({\cal N}(i)\)</span> is equivalent by default to <span class="math notranslate nohighlight">\({\cal N}(i)\cup \{i\}\)</span> (includes itself).</p>
+<p>In more detail, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\alpha_{ij}:=\frac{\exp\left(\text{LeakyReLU}(\mathbf{a}^T(\mathbf{W}\mathbf{h}_i||\mathbf{W}\mathbf{h}_j)\right)}{\sum_{k\in {\cal N}(i)}\exp\left(\text{LeakyReLU}(\mathbf{a}^T(\mathbf{W}\mathbf{h}_i||\mathbf{W}\mathbf{h}_k)\right)}\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\text{LeakyReLU}\)</span> denotes the <a class="reference external" href="https://docs.pytorch.org/docs/stable/generated/torch.nn.LeakyReLU.html">corresponding non-linearity with negative slope</a>.</p>
+<ol class="arabic simple" start="4">
+<li><p>Once we have computed the <span class="math notranslate nohighlight">\(\alpha_{ij}\)</span> (as in the Transformer), we use them to UPDATE the state:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}^{(l+1)}_i:=\sigma\left(\sum_{j\in{\cal N}(i)}\alpha_{ij}\mathbf{W}\mathbf{h}^{(l)}_j\right)\;.
+\]</div>
+<ol class="arabic simple" start="5">
+<li><p>Finally, as in the Transformer (although omitted by clarity) we may learn different types of attention. This is called <strong>multi-head attention</strong> and now <span class="math notranslate nohighlight">\(\mathbf{h}'_i\)</span> is the concatenation of <span class="math notranslate nohighlight">\(K\)</span> different attentional results as follows:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}^{(l+1)}_i:=||_{k=1}^K \sigma\left(\sum_{j\in{\cal N}(i)}\alpha_{ij}^k\mathbf{W}^k\mathbf{h}^{(l)}_j\right)\;.
+\]</div>
+<p>In other words, the same message is projected in a different way and modulated by the specific set of coefficients for this <span class="math notranslate nohighlight">\(k\)</span> attentional head. The final result is the concatenation of all the partial results.</p>
+<ol class="arabic simple" start="6">
+<li><p>Concatenation works well in intermediate GAT layers but if we have a final GAT layer previous to softmaxing, it is better to average the outputs produced by each attention head:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}^{(l+1)}_i:=\sigma\left(\frac{1}{K}\sum_k\sum_{j\in{\cal N}(i)}\alpha_{ij}^k\mathbf{W}^k\mathbf{h}^{(l)}_j\right)\;.
+\]</div>
+<p>This is summarized in <a class="reference internal" href="#gat"><span class="std std-numref">Fig. 2.8</span></a>. On the left, we illustrate the MLP for computing the attention coefficients. Right: hypothetical graph with <span class="math notranslate nohighlight">\(K=3\)</span> attention heads (different colors). Visualize this as <span class="math notranslate nohighlight">\(K\)</span> superposed graphs whose nodal representation of different colors should be concatenated (or averaged). In this figure, we have preserved the traditional vector notation (arrows).</p>
+<figure class="align-center" id="gat">
+<a class="reference internal image-reference" href="_images/GAT.png"><img alt="_images/GAT.png" src="_images/GAT.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.8 </span><span class="caption-text">GAT. Image from the original paper: <a class="reference external" href="https://arxiv.org/pdf/1710.10903">Graph Attention Networks</a>.</span><a class="headerlink" href="#gat" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="homophily-vs-heterophily">
+<h2><span class="section-number">2.4. </span>Homophily vs Heterophily<a class="headerlink" href="#homophily-vs-heterophily" title="Permalink to this heading">#</a></h2>
+<section id="the-cora-dataset">
+<h3><span class="section-number">2.4.1. </span>The Cora Dataset<a class="headerlink" href="#the-cora-dataset" title="Permalink to this heading">#</a></h3>
+<p>Let us exemplify the advantages of vanilla GNNs vs MLPs and GATs <strong>in the homophilic regime</strong> with the study of the <a class="reference external" href="https://graphsandnetworks.com/the-cora-dataset/">Cora dataset</a>. This is a graph of 2708 scientific publications as nodes. The nodes are classified into one of <span class="math notranslate nohighlight">\(C=7\)</span> classes attenting to their publication’s type. The features of each node is a 0/1 vector indicating the absence/presence of a word in a dictionary of <span class="math notranslate nohighlight">\(d=1433\)</span> words. There are <span class="math notranslate nohighlight">\(5429\)</span> (directed) links indicating that one papers cites another paper. In <code class="xref std std-numref docutils literal notranslate"><span class="pre">Cora</span></code> we show the largest connected compoment of Cora using undirected edges as in <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/">PyTorch Geometric</a>:</p>
+<figure class="align-center" id="cora">
+<a class="reference internal image-reference" href="_images/Cora.png"><img alt="_images/Cora.png" src="_images/Cora.png" style="width: 800px; height: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.9 </span><span class="caption-text">Largest component of the Cora dataset. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#cora" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Know your dataset</strong>. The basic statistics of Cora are in <a class="reference internal" href="#cora-stats"><span class="std std-numref">Fig. 2.10</span></a>. Note that in addition to the number of nodes and their degree, there are some specifications for the train-test split. In particular, in the following experiment <strong>only <span class="math notranslate nohighlight">\(5\%\)</span> of the nodes are used for training</strong>.</p>
+<figure class="align-center" id="cora-stats">
+<a class="reference internal image-reference" href="_images/Cora-Stats.png"><img alt="_images/Cora-Stats.png" src="_images/Cora-Stats.png" style="width: 800px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.10 </span><span class="caption-text">Cora dataset stats. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#cora-stats" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Homophily degree</strong>. A fundamental statistic for understanding whether GNNs can beat MLPs is the fraction of nodes whose neighbors do have the same class. This is the so-called <strong>edge-homophily ratio</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+h = \frac{|\{(v_i, v_j) \in E : y_i = y_j\}|}{|E|}
+\]</div>
+<p>If <span class="math notranslate nohighlight">\(h=0\)</span>, it is expected that MLP beats GNNs, whereas for <span class="math notranslate nohighlight">\(h=1\)</span> it is expected the opposite. For Cora, we have that <span class="math notranslate nohighlight">\(h^{Cora}=0.81\)</span> which indicates that aggregation is more promising than MLPs for <strong>semi-supervised node classification</strong>.</p>
+<p><strong>Comparing MLPs, vanilla GNNs and GATs</strong>. We follow the general trend of using two layers + softmax. Remember that a MLP can be seen as a <strong>sequence of downscaling composing functions</strong> taking the initial feature dimension <span class="math notranslate nohighlight">\(\text{num_features}=1433\)</span>, mapping the to a <span class="math notranslate nohighlight">\(\text{hidden dimension}=16\)</span> and finally to the <span class="math notranslate nohighlight">\(\text{num_classes}=7\)</span>. This follows the quasi-logarithmic downscaling rule
+<span class="math notranslate nohighlight">\(
+O(10^3)\rightarrow O(10^1)\rightarrow O(10^0)\;.
+\)</span></p>
+<p>The Torch snippet is given below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.functional</span> <span class="kn">import</span> <span class="n">F</span>
+<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">Linear</span>
+<span class="k">class</span> <span class="nc">MLP</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">hidden_channels</span> <span class="o">=</span> <span class="mi">16</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MLP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># 2-layer MLP</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lin1</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_features</span><span class="p">,</span> <span class="n">hidden_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lin2</span> <span class="o">=</span> <span class="n">Linear</span><span class="p">(</span><span class="n">hidden_channels</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_classes</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">):</span>
+        <span class="c1"># edge_index is not used</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lin1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">relu</span><span class="p">()</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lin2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For the GCN and GAT layers we use two convolutional layers + softmax. The convolutional layers (respectively <span class="math notranslate nohighlight">\(\text{GCNConv}\)</span> and <span class="math notranslate nohighlight">\(\text{GATConv}\)</span> are provided by Pytorch Geometric):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch_geometric.nn</span> <span class="kn">import</span> <span class="n">GCNConv</span>
+<span class="kn">from</span> <span class="nn">torch.functional</span> <span class="kn">import</span> <span class="n">F</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    In PyTorch, you define a model by subclassing torch.nn.Module and defining a forward() method which receives input data and returns output data.</span>
+<span class="sd">    The forward() method can use other modules defined in the constructor as submodules, and it can use arbitrary operators on Tensors, including loops and conditional statements.</span>
+<span class="sd">    This approach is very flexible, and you can use it to define models of arbitrary complexity.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="k">class</span> <span class="nc">GCN</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Arguments of __init__:</span>
+<span class="sd">            * hidden_channels: The number of hidden units.</span>
+<span class="sd">            * dataset.num_features: The number of input features.</span>
+<span class="sd">            * dataset.num_classes: The number of output classes.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            * self.conv1: The first GCN layer.</span>
+<span class="sd">            * self.conv2: The second GCN layer.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">hidden_channels</span> <span class="o">=</span> <span class="mi">16</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GCN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># 2-layer GCN</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">GCNConv</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_features</span><span class="p">,</span> <span class="n">hidden_channels</span><span class="p">)</span> <span class="c1"># 16 hidden units</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">GCNConv</span><span class="p">(</span><span class="n">hidden_channels</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_classes</span><span class="p">)</span> <span class="c1"># dataset.num_classes output units</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Arguments of forward:</span>
+<span class="sd">            * x: The input features.</span>
+<span class="sd">            * edge_index: The edge indices.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            * F.softmax(x, dim=1): The output of the model.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">))</span> <span class="c1"># ReLU activation</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">)</span> <span class="c1"># Dropout: 50% of the nodes are randomly dropped out during training</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Log softmax activation</span>
+</pre></div>
+</div>
+<p>and</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch_geometric.nn</span> <span class="kn">import</span> <span class="n">GATConv</span>
+<span class="kn">from</span> <span class="nn">torch.functional</span> <span class="kn">import</span> <span class="n">F</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    In PyTorch, you define a model by subclassing torch.nn.Module and defining a forward() method which receives input data and returns output data.</span>
+<span class="sd">    The forward() method can use other modules defined in the constructor as submodules, and it can use arbitrary operators on Tensors, including loops and conditional statements.</span>
+<span class="sd">    This approach is very flexible, and you can use it to define models of arbitrary complexity.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="k">class</span> <span class="nc">GAT</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Arguments of __init__:</span>
+<span class="sd">            * hidden_channels: The number of hidden units.</span>
+<span class="sd">            * dataset.num_features: The number of input features.</span>
+<span class="sd">            * dataset.num_classes: The number of output classes.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            * self.conv1: The first GCN layer.</span>
+<span class="sd">            * self.conv2: The second GCN layer.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">hidden_channels</span> <span class="o">=</span> <span class="mi">16</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GAT</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># 2-layer GAT</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">GATConv</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">num_features</span><span class="p">,</span> <span class="n">hidden_channels</span><span class="p">)</span> <span class="c1"># 16 hidden units</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">GATConv</span><span class="p">(</span><span class="n">hidden_channels</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">num_classes</span><span class="p">)</span> <span class="c1"># dataset.num_classes output units</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Arguments of forward:</span>
+<span class="sd">            * x: The input features.</span>
+<span class="sd">            * edge_index: The edge indices.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            * F.softmax(x, dim=1): The output of the model.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">))</span> <span class="c1"># ReLU activation</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">)</span> <span class="c1"># Dropout: 50% of the nodes are randomly dropped out during training</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Log softmax activation</span>
+</pre></div>
+</div>
+<p>For the GAT we use a single <strong>attention head</strong> (set by default)</p>
+<p><strong>Latent spaces</strong>. We train the above models with the <strong>train/test/validaton split</strong> of <span class="math notranslate nohighlight">\(48/32/20\)</span>: <span class="math notranslate nohighlight">\(48\%\)</span> of the nodes for training, <span class="math notranslate nohighlight">\(32\%\)</span> for testing and <span class="math notranslate nohighlight">\(20\%\)</span> for validations. First we split the nodes in <span class="math notranslate nohighlight">\(80\%\)</span> for training and <span class="math notranslate nohighlight">\(20\%\)</span> for testing. Then we split the training nodes in <span class="math notranslate nohighlight">\(48\%\)</span> for training and <span class="math notranslate nohighlight">\(32\%\)</span> for validation over the <span class="math notranslate nohighlight">\(80\%\)</span> of the nodes.</p>
+<p>We perform <span class="math notranslate nohighlight">\(10\)</span> runs with with same random seeds. In <a class="reference internal" href="#cora-latent"><span class="std std-numref">Fig. 2.11</span></a> we show the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">t-SNE</a> projections of the respective latent spaces.</p>
+<figure class="align-center" id="cora-latent">
+<a class="reference internal image-reference" href="_images/Cora-Latent.png"><img alt="_images/Cora-Latent.png" src="_images/Cora-Latent.png" style="width: 800px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.11 </span><span class="caption-text">Cora: GCN (vanilla GNN), MLP and GAT latent spaces. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#cora-latent" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In <a class="reference internal" href="#cora-accuracy"><span class="std std-numref">Fig. 2.12</span></a> we show the respective accuracies. As expected in an homophilic dataset, where the power of aggregation is maximal, both GCN (vanilla GNN) and GAT outperform the MLP. Here are the means and stds for the respective ten runs of each each model:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\text{GCN:}\; 80.55 \pm 1.18\\
+\text{MLP:}\; 75.42 \pm 1.50\\
+\text{GAT:}\; 79.37 \pm 1.48\\
+\end{aligned}
+\end{split}\]</div>
+<p>Note that GCN slightly improves GAT since in the homophilic setting the value of attention is overrided by aggregation. In other words, making different neighboring nodes that tend to be similar has no point. In this case, the GAT tends to inhibit such attention.</p>
+<figure class="align-center" id="cora-accuracy">
+<a class="reference internal image-reference" href="_images/Cora-Accuracy.png"><img alt="_images/Cora-Accuracy.png" src="_images/Cora-Accuracy.png" style="width: 800px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.12 </span><span class="caption-text">Cora: GCN (vanilla GNN), MLP and GAT accuracies. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#cora-accuracy" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="the-texas-dataset">
+<h3><span class="section-number">2.4.2. </span>The Texas Dataset<a class="headerlink" href="#the-texas-dataset" title="Permalink to this heading">#</a></h3>
+<p>Texas dataset is included in <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.WebKB.html">WebKB dataset</a>. The WebKB is a webpage dataset collected from computer science departments of various universities by Carnegie Mellon University. We use one of the three subdatasets of it, Cornell, Texas, and Wisconsin, where nodes represent web pages, and edges are hyperlinks between them. Node features are the bag-of-words representation of web pages. The web pages are manually classified into <span class="math notranslate nohighlight">\(C=5\)</span> categories, student, project, course, staff, and faculty.</p>
+<p>The Texas homophily is quite small: <span class="math notranslate nohighlight">\(h^{Texas}=0.11\)</span>. This means that the likelihood of finding two neighboring nodes with the same label is <span class="math notranslate nohighlight">\(0.11\)</span>.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/Texas.png"><img alt="_images/Texas.png" src="_images/Texas.png" style="width: 800px; height: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.13 </span><span class="caption-text">Largest component of the Texas dataset. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="texas-stats">
+<a class="reference internal image-reference" href="_images/Texas-Stats.png"><img alt="_images/Texas-Stats.png" src="_images/Texas-Stats.png" style="width: 800px; height: 150px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.14 </span><span class="caption-text">Texas dataset stats. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#texas-stats" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Results</strong>. Training the three models under the same conditions as above, we obtain the following latent spaces.</p>
+<figure class="align-center" id="texas-latent">
+<a class="reference internal image-reference" href="_images/Texas-Latent.png"><img alt="_images/Texas-Latent.png" src="_images/Texas-Latent.png" style="width: 800px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.15 </span><span class="caption-text">Texas: GCN (vanilla GNN), MLP and GAT latent spaces. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#texas-latent" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>These latent spaces are quite ilustrative of the power of MLP vs leveraging the graph structure as in GCN of GAT. In this heterophilic regime where is very likely that neighboring nodes have different labels, the best choice is undoubtely the MLP:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\text{GCN:}\; 84.05 \pm 6.22\\
+\text{MLP:}\; 92.16 \pm 4.59\\
+\text{GAT:}\; 81.08 \pm 7.93\\
+\end{aligned}
+\end{split}\]</div>
+<figure class="align-center" id="texas-accuracy">
+<a class="reference internal image-reference" href="_images/Texas-Accuracy.png"><img alt="_images/Texas-Accuracy.png" src="_images/Texas-Accuracy.png" style="width: 800px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.16 </span><span class="caption-text">Texas: GCN (vanilla GNN), MLP and GAT accuracies. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#texas-accuracy" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Indeed, the GCN outperforms the GAT. However, in general terms, GATs tend to have a similar performance to that of the MLP. Note that herein we are using a single attention head. Increasing the number of heads improves the results but not enough to beat the MLP in general.</p>
+</section>
+<section id="solving-heterophily">
+<h3><span class="section-number">2.4.3. </span>Solving Heterophily<a class="headerlink" href="#solving-heterophily" title="Permalink to this heading">#</a></h3>
+<p>Solving the heterophilic problem seems a long shot for GATs. The main reason is that GATs <strong>cannot jump</strong> neighbors to find homologs. This is the case of <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0893608024007548">Diffusion-Jump GNNs</a>. The basic architecture of networks are summarized in <a class="reference internal" href="#dj"><span class="std std-numref">Fig. 2.17</span></a>:</p>
+<figure class="align-center" id="dj">
+<a class="reference internal image-reference" href="_images/D-J-Architecture.png"><img alt="_images/D-J-Architecture.png" src="_images/D-J-Architecture.png" style="width: 800px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.17 </span><span class="caption-text">Diffusion-Jumps GNNs. Multi-hop attention.</span><a class="headerlink" href="#dj" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The ingredients of the approach are as follows:</p>
+<ol class="arabic simple">
+<li><p><strong>Multi-Hop</strong> arquitecture. Instead of stacking GNN layers, we combine different layers in parallel (vertically). Each layer encodes a <strong>jump</strong> over the input graph. The first one <span class="math notranslate nohighlight">\(J^0\)</span> corresponds to the MLP (no jump). Then, we have <span class="math notranslate nohighlight">\(J^1,J^2,\ldots,J^K\)</span>.</p></li>
+<li><p><strong>Distance-slicing</strong>. The jump order <span class="math notranslate nohighlight">\(0,1,2,\ldots,K\)</span> is given by slicing the distances between nodes. Thus, layer <span class="math notranslate nohighlight">\(J^k\)</span> links nodes whose distance is greater than those linked at <span class="math notranslate nohighlight">\(J^{k-1}\)</span> and smaller or equal than those linked at <span class="math notranslate nohighlight">\(J^{k+1}\)</span>. Distances are provided by a method called <strong>diffusion</strong> (basically a random-walk distance).</p></li>
+<li><p><strong>Adjacency</strong>. The original adjacency, denoted jump <span class="math notranslate nohighlight">\(J^K\)</span> is added to deal with homophilic graphs, where no jump is required. In advance, we do not know whether the graph is homophilic or not.</p></li>
+<li><p><strong>Attention coefficients</strong> Each layer <span class="math notranslate nohighlight">\(k\)</span> produces an embedding <span class="math notranslate nohighlight">\(\mathbf{h}_k\)</span> and we learn attention coefficients <span class="math notranslate nohighlight">\(\alpha_k\)</span> so that the best combination of jumps is used in classification. This adds flexibility to the classifier. Note that <span class="math notranslate nohighlight">\(\sum_{k=1}^K\alpha_k=1\)</span> as in softmax.</p></li>
+</ol>
+<figure class="align-center" id="dj-table">
+<a class="reference internal image-reference" href="_images/D-J-Table.png"><img alt="_images/D-J-Table.png" src="_images/D-J-Table.png" style="width: 800px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.18 </span><span class="caption-text">Diffusion-Jumps GNNs performance wrt alternatives.</span><a class="headerlink" href="#dj-table" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In <a class="reference internal" href="#dj-table"><span class="std std-numref">Fig. 2.18</span></a>, we show that Diffusion-Jump GNNs outperform the alternatives for many heterophilic graphs, in particular the MLP.</p>
+</section>
+</section>
+</section>
+<section id="algorithmic-neuralization">
+<h1><span class="section-number">3. </span>Algorithmic Neuralization<a class="headerlink" href="#algorithmic-neuralization" title="Permalink to this heading">#</a></h1>
+<section id="neural-algorithmic-reasoning">
+<h2><span class="section-number">3.1. </span>Neural Algorithmic Reasoning<a class="headerlink" href="#neural-algorithmic-reasoning" title="Permalink to this heading">#</a></h2>
+<p>Neural Algorithmic Reasoning (NAR) stands for the <strong><span style="color:#2f6004">simulation/approximation of algorithms via neural architectures</span></strong>. In this regard, it is key to:</p>
+<ol class="arabic simple">
+<li><p>Envision the algorithm <span class="math notranslate nohighlight">\({\cal A}\)</span> as a function <span class="math notranslate nohighlight">\({\cal A}:\mathbf{I}\rightarrow\mathbf{O}\)</span> which maps inputs to outputs.</p></li>
+<li><p>Given the inputs in <span class="math notranslate nohighlight">\(\mathbf{I}\)</span>, the algorithm <span class="math notranslate nohighlight">\({\cal A}\)</span> is a <a class="reference external" href="https://en.wikipedia.org/wiki/Computable_function">computable function</a>: it basically (i) manipulates the input, (ii) builds internal/auxiliar variables, and (iii) produces the desired output in <span class="math notranslate nohighlight">\(\mathbf{O}\)</span>.</p></li>
+<li><p>Find a Neural Network that <strong>aligns well</strong> with <span class="math notranslate nohighlight">\({\cal A}'s\)</span> computations. What does it mean?</p></li>
+</ol>
+</section>
+<section id="algoritmic-alignment">
+<h2><span class="section-number">3.2. </span>Algoritmic Alignment<a class="headerlink" href="#algoritmic-alignment" title="Permalink to this heading">#</a></h2>
+<p>The best example of algorithmic alignment is <strong>Dynamic Programing</strong> (DP). Actually, DPs and GNNs interplay happens as follows:</p>
+<ol class="arabic simple">
+<li><p><strong>Implicit graph structure</strong>. Many DP algorithms (shortest path, MST) operate naturally on a graph, but all of them can be set as a multi-stage graph where local decisions become part of optimal ones. For instance, the equation</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+x[v] = \min_{u\in {\cal N}(v)}x[u] + w(u,v)\;.
+\]</div>
+<p>encodes a <a class="reference external" href="https://en.wikipedia.org/wiki/Relaxation_(iterative_method)">relaxation</a> step where the shortest distance <span class="math notranslate nohighlight">\(x[v]\)</span> between vertex <span class="math notranslate nohighlight">\(v\)</span> and origin <span class="math notranslate nohighlight">\(s\)</span> is updated on behalf of is neighbors <span class="math notranslate nohighlight">\(u\)</span> and the weigths <span class="math notranslate nohighlight">\(w(u,v)\)</span>. Other non-graph algorithms such as the DP solver of the knapsack problem can be possed in a similar way.</p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Nodes and messages</strong>. The target of NAR is to <strong>chase a nodal latent space</strong> whose decoding mimics the performance of the classical algorithm. These latent representations are proxys of the variables and they are placed in the nodes. Then, their update can be seen as message passing + invariant aggregation. This is illustrated in <a class="reference internal" href="#bf-align"><span class="std std-numref">Fig. 3.1</span></a>.</p></li>
+</ol>
+<figure class="align-center" id="bf-align">
+<a class="reference internal image-reference" href="_images/Bellman-Align.png"><img alt="_images/Bellman-Align.png" src="_images/Bellman-Align.png" style="width: 800px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3.1 </span><span class="caption-text">Bellman-Ford Alignment. Adapted from <a class="reference external" href="https://www.jmlr.org/papers/volume24/21-0449/21-0449.pdf">Neural Execution of Algorithms</a>.</span><a class="headerlink" href="#bf-align" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Note that <span class="math notranslate nohighlight">\(\mathbf{U}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{M}\)</span> are MLPs and <span class="math notranslate nohighlight">\(\bigoplus\)</span> is the invariant aggregation function (MAX,SUM,MEAN).</p>
+<ol class="arabic simple" start="3">
+<li><p><strong>NAR is Data-driven</strong>. Despite the nice alignment between GNNs and DP algorithms, NAR trains these GNNs by scrapping the algorithm variables (e.g. distances, pointers) and finding latent spaces whose reconstruction matches the desired result via backpropagation. As <strong><span style="color:#2f6004">NAR does not ensures that the resulting NN reduces the complexity of the original algorithm</span></strong>, it only provides an explanation of how the GNN generalizes to unseen instances.</p></li>
+</ol>
+</section>
+<section id="combinatorial-neuralization">
+<h2><span class="section-number">3.3. </span>Combinatorial Neuralization<a class="headerlink" href="#combinatorial-neuralization" title="Permalink to this heading">#</a></h2>
+<p>In this subject, we shift the focus to <strong>combinatorial problems</strong>, where neuralization is more challenging. These problems are usually NP-Hard. If so, there exist <strong>polynomial approximations</strong> for some of them. Think for instance of the <strong>normalized cut</strong> (optimal bipartition), which is nicely approximated by the Fiedler vector. In this case, the polynomial approximation relies on computing the second eigenvector of the graph Laplacian.</p>
+<p>Very recently, <a class="reference external" href="https://rua.ua.es/entities/publication/3bff3b7f-f7cf-4fb5-a430-d7c4c0ca99ff">Ahmed Begga’s PhD Thesis</a> has addressed the problem of <strong><span style="color:#2f6004">neuralizing spectral clustering</span></strong>. Some inspiring ideas:</p>
+<ol class="arabic simple">
+<li><p><strong>Mathematical formulation</strong>. Computing the main <span class="math notranslate nohighlight">\(k\)</span> eigenvectors <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span>, columns of the <span class="math notranslate nohighlight">\(|V|\times k\)</span> matrix <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>, of the normalized Laplacian <span class="math notranslate nohighlight">\({\cal L}\)</span> has a closed mathematical formulation:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{X} = \arg\min_{\Omega} f(\mathbf{X}):=\sum_{i=1}^K\mathbf{x}_i^T{\cal L}\mathbf{x}_i\;\;\text{s.t}\;\; \mathbf{X}^T\mathbf{X}=\mathbf{I}\;.
+\]</div>
+<p>In other words, <span class="math notranslate nohighlight">\(f(\mathbf{X})\)</span> is a loss that we have to minimize in order to learn <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> whose columns must be mutually perpendicular. Numerical solvers such as the <a class="reference external" href="https://en.wikipedia.org/wiki/Lanczos_algorithm">Lanczos method</a> proceed in a different way, but they <strong>cannot scale for very large graphs</strong>.</p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Double loss</strong>. From a GNN viewpoint, the columns of <span class="math notranslate nohighlight">\(\mathbf{X}\)</span> must be generated by <span class="math notranslate nohighlight">\(|V|\)</span> embeddings using message passing + invariant aggregation. These embeddings must be, in general, not only compatible with the <span class="math notranslate nohighlight">\(L_{eig}:=f(\mathbf{X})\)</span> loss, but also with that of downstream task (node classification, graph classification, link prediction) that the GNN attemps to solve. We minimize <span class="math notranslate nohighlight">\(L_{eig} + L_{task}\)</span>.</p></li>
+<li><p><strong>Empirical Eigenvectors</strong>. Minimizing <span class="math notranslate nohighlight">\(L_{eig} + L_{task}\)</span> leads to data-driven eigenvectors <span class="math notranslate nohighlight">\(\mathbf{X}\)</span>. In other words, they are orthogonal but biased towards solving the task. For instance, they absorb the label information to contribute to classify graphs or to be good positional encoders in Graph Transformers.</p></li>
+<li><p><strong>Generalization</strong>. Learning eigenvectors is not yet graph dependent since they can be transferred to other graphs with similar spectral properties. The main questions are (1) <strong><span style="color:#2f6004">what graphs support a better approximation of their eigenvectors</span></strong> and (2) <strong><span style="color:#2f6004">how expressive is the generalization</span></strong>.</p></li>
+</ol>
+<p>In the following, we are going to apply these lessons to neuralize the <strong>Maximum Clique problem</strong>, another NP-Hard problem yet studied in previous courses.</p>
+<section id="the-maximum-clique">
+<h3><span class="section-number">3.3.1. </span>The Maximum Clique<a class="headerlink" href="#the-maximum-clique" title="Permalink to this heading">#</a></h3>
+<p><strong>Maximum Clique</strong>. Remember that given an undirected graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span>, with <span class="math notranslate nohighlight">\(n=|V|\)</span> nodes and edges <span class="math notranslate nohighlight">\(E\subseteq V\times V\)</span>, whe have:</p>
+<ul class="simple">
+<li><p>A <em>clique</em> is a subset <span class="math notranslate nohighlight">\(C\subseteq V\)</span> of nodes where all nodes are mutually adjacent. In other words, they induce a complete subgraph <span class="math notranslate nohighlight">\(K_{|C|}\)</span> of size <span class="math notranslate nohighlight">\(|C|\)</span> in <span class="math notranslate nohighlight">\(G\)</span>.</p></li>
+<li><p>A <em>maximal clique</em> is a clique not contained in another larger clique.</p></li>
+<li><p>The <em>maximum clique</em> is the maximal clique with the largest cardinality.</p></li>
+</ul>
+<p>For instance, for the graph in <a class="reference internal" href="#clique-toy"><span class="std std-numref">Fig. 3.2</span></a>, with <span class="math notranslate nohighlight">\(n=5\)</span> nodes, the maximum clique is given by <span class="math notranslate nohighlight">\(U = \{1,2,3\}\)</span> with cardinality <span class="math notranslate nohighlight">\(3\)</span>. However, there are two maximal cliques: (a) the one defined by the edge <span class="math notranslate nohighlight">\((3,4)\)</span>, with cardinality <span class="math notranslate nohighlight">\(2\)</span> and (b) the one defined by the isolated node <span class="math notranslate nohighlight">\(5\)</span>, with obvious cardinality <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<figure class="align-center" id="clique-toy">
+<a class="reference internal image-reference" href="_images/Clique-Toy.png"><img alt="_images/Clique-Toy.png" src="_images/Clique-Toy.png" style="width: 500px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3.2 </span><span class="caption-text">Example graph with <span class="math notranslate nohighlight">\(3\)</span> maximal cliques and one maximum clique.</span><a class="headerlink" href="#clique-toy" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>NP-Hard</strong>. The problem of finding the maximum clique in <span class="math notranslate nohighlight">\(G\)</span> is known to be NP-Hard since: a) its brute-force method requires exploring all the <span class="math notranslate nohighlight">\(2^n\)</span> subsets of <span class="math notranslate nohighlight">\(G\)</span> (subsetness flavor), and b) there is not a polynomial algorithm known, solving it exactly.</p>
+</section>
+<section id="bron-kerbosh-algorithm">
+<h3><span class="section-number">3.3.2. </span>Bron-Kerbosh Algorithm<a class="headerlink" href="#bron-kerbosh-algorithm" title="Permalink to this heading">#</a></h3>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Bron%E2%80%93Kerbosch_algorithm">Bron-Kerbosh</a> (BK) algorithm  <em>enumerates</em> all the maximal cliques of an input graph <span class="math notranslate nohighlight">\(G\)</span>.</p>
+<div class="proof algorithm admonition" id="Bellman-Ford">
+<p class="admonition-title"><span class="caption-number">Algorithm 3.1 </span> (Bron-Kerbosh)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> Given a graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span></p>
+<p><strong>Output</strong> Returns all its maximal cliques.</p>
+<p><strong>function</strong> <span class="math notranslate nohighlight">\(\text{BK}\)</span>(<span class="math notranslate nohighlight">\(R\)</span>, <span class="math notranslate nohighlight">\(P\)</span>, <span class="math notranslate nohighlight">\(X\)</span>):</p>
+<ol class="arabic simple">
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(P=\emptyset\)</span> and <span class="math notranslate nohighlight">\(X=\emptyset\)</span> <strong>then</strong> <strong>return</strong> <span class="math notranslate nohighlight">\(R\)</span></p></li>
+<li><p><strong>for</strong> each <span class="math notranslate nohighlight">\(v\in P\)</span>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\text{BK}\)</span>(<span class="math notranslate nohighlight">\(R\cup \{v\}\)</span>, <span class="math notranslate nohighlight">\(P\cap {\cal N}(v)\)</span>, <span class="math notranslate nohighlight">\(X\cap {\cal N}(v)\)</span>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(P = P-\{v\}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(X = X\cup \{v\}\)</span></p></li>
+</ol>
+</li>
+</ol>
+</section>
+</div><p>The algorithm is initially called with <span class="math notranslate nohighlight">\(\text{BK}(\emptyset,V,\emptyset)\)</span> showing that:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(R\)</span> is the <strong>current clique</strong>. This set will grow in each recursive call (step <span class="math notranslate nohighlight">\(2.1\)</span>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(P\)</span> is the <strong>candidate set</strong>. This set considers only the neighours of the current vertex <span class="math notranslate nohighlight">\(v\)</span> (step <span class="math notranslate nohighlight">\(2.1\)</span>) and <span class="math notranslate nohighlight">\(v\)</span> is excluded from it when a recursive call backtracks (step <span class="math notranslate nohighlight">\(2.2\)</span>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(X\)</span> is the <strong>exclusion set</strong>. This set considers only the neighours of the current vertex <span class="math notranslate nohighlight">\(v\)</span> that have been yet excluded (step <span class="math notranslate nohighlight">\(2.1\)</span>) and <span class="math notranslate nohighlight">\(v\)</span> is included in it when a recursive call backtracks (step <span class="math notranslate nohighlight">\(2.3\)</span>).</p></li>
+<li><p><strong>Backtracking</strong> happens when either <span class="math notranslate nohighlight">\(P\neq\emptyset\)</span> or <span class="math notranslate nohighlight">\(X\neq\emptyset\)</span>.</p></li>
+</ul>
+<p>Applying the algorithm to <a class="reference internal" href="#clique-toy"><span class="std std-numref">Fig. 3.2</span></a>, the resulting execution tree in <a class="reference internal" href="#bk-exex"><span class="std std-numref">Fig. 3.3</span></a> shows how the maximal cliques (red leaves of the tree) are built level-by-level, i.e. increnentally.</p>
+<p>In the worst case, this incremental execution explores the <span class="math notranslate nohighlight">\(2^{n}\)</span> subsets of <span class="math notranslate nohighlight">\(V\)</span> to determine whether they form a clique as well as its  corresponding size.</p>
+<figure class="align-center" id="bk-exex">
+<a class="reference internal image-reference" href="_images/BK-exec.png"><img alt="_images/BK-exec.png" src="_images/BK-exec.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3.3 </span><span class="caption-text">BK algorithm for the toy graph. Red leaves are maximal cliques.</span><a class="headerlink" href="#bk-exex" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In the following table, we sketch the recursion. From <ins>left to right</ins>, each column is a new recursive call. From <ins>right to left</ins> we recover the call’s result (callback) and lauch a new call if possible.</p>
+<p><span class="math notranslate nohighlight">\(
+\begin{aligned}
+\begin{array}{llll}
+\text{BK}(\emptyset,\{1,\ldots,5\},\emptyset) &amp;  &amp;  &amp;\\
+ &amp;  \text{BK}(\{1\},\{2,3\},\emptyset) &amp; \\ 
+ &amp;  &amp;\text{BK}(\{1,2\},\{3\},\emptyset) &amp; \\ 
+ &amp; &amp; &amp;\text{BK}(\{1,2,3\},\emptyset,\emptyset)\\
+ &amp; &amp; &amp;\textbf{return}\\
+ &amp; &amp; &amp; R=\{1,2,3\}\\
+ &amp;  &amp; P=P-\{3\} = \emptyset &amp; \\
+ &amp;  &amp; X=X\cup\{3\} = \{3\} &amp; \\
+ &amp;  P=P-\{2\} = \{3\} &amp; \\
+ &amp;  X=X\cup\{2\} = \{2\} &amp; \\
+ &amp;  &amp;\text{BK}(\{1,3\},\{\},\{2\}) &amp; \\ 
+ &amp;  &amp;\text{out:}\; P=\emptyset, X\neq\emptyset &amp; \\ 
+ &amp;  P=P-\{3\} = \{\} &amp; \\
+ &amp;  X=X\cup\{3\} = \{2,3\} &amp; \\
+ &amp;  \text{out: end loop} &amp; \\
+ P=P-\{1\} = \{2,\ldots,5\} &amp; \\
+ X=X\cup\{1\} = \{1\} &amp; \\
+ v=2 &amp;\\
+ {\cal N}(2)=\{1,3\} &amp;\\
+ P\cap  {\cal N}(2) = \{3\} &amp;\\
+ &amp;  \text{BK}(\{2\},\{3\},\{1\}) &amp; \\
+ &amp;  &amp;\text{BK}(\{2,3\},\emptyset,\{1\}) &amp; \\ 
+ &amp;  &amp;\text{out:}\; P=\emptyset, X\neq\emptyset &amp; \\ 
+  &amp;  P=P-\{3\} = \{\} &amp; \\
+ &amp;  X=X\cup\{3\} = \{1,3\} &amp; \\
+ &amp;  \text{out: end loop} &amp; \\
+ P=P-\{2\} = \{3,4,5\} &amp; \\
+ X=X\cup\{2\} = \{1,2\} &amp; \\
+ v=3 &amp;\\
+ {\cal N}(3)=\{1,2,4\} &amp;\\
+ P\cap  {\cal N}(3) = \{4\} &amp;\\
+ X\cap  {\cal N}(3) = \{\} &amp;\\
+&amp;  \text{BK}(\{3\},\{4\},\{1,2\}) &amp; \\
+&amp;  &amp;\text{BK}(\{3,4\},\emptyset,\emptyset) &amp; \\
+&amp;  &amp;\textbf{return}\;R=\{3,4\}\\
+&amp; P=P-\{4\} = \{\} &amp; \\
+&amp; X=X\cup\{4\} = \{1,2,4\} &amp; \\
+&amp;  \text{out: end loop} &amp; \\
+P=P-\{3\} = \{4,5\} &amp; \\
+X=X\cup\{3\} = \{1,2,3\} &amp; \\
+v=4 &amp;\\
+{\cal N}(4)=\{3\} &amp;\\
+P\cap  {\cal N}(4) = \{\} &amp;\\
+X\cap  {\cal N}(4) = \{3\} &amp;\\
+ &amp;  \text{BK}(\{4\},\emptyset,\{3\}) &amp; \\
+ &amp;  \text{out:}\; P=\emptyset, X\neq\emptyset &amp; \\
+P=P-\{4\} = \{5\} &amp; \\
+X=X\cup\{4\} = \{1,2,3,4\} &amp; \\
+v=5 &amp;\\
+{\cal N}(5)=\{\} &amp;\\
+P\cap  {\cal N}(4) = \{\} &amp;\\
+X\cap  {\cal N}(4) = \{\} &amp;\\
+ &amp;  \text{BK}(\{5\},\emptyset,\emptyset) &amp; \\
+ &amp;  \textbf{return}\;R=\{5\}\\
+P=P-\{5\} = \{\} &amp; \\
+X=X\cup\{5\} = \{1,2,3,4,5\} &amp; \\
+\text{out: end loop} &amp; \\
+\text{end algorithm} &amp; \\
+\end{array}
+\end{aligned}
+\)</span></p>
+<p>The recursion is initiated by setting R and X to be the empty set and P to be the vertex set of the graph. Within each recursive call, the algorithm considers the vertices in P in turn; if there are no such vertices, it either reports R as a maximal clique (if X is empty), or backtracks. For each vertex v chosen from P, it makes a recursive call in which v is added to R and in which P and X are restricted to the neighbor set N(v) of v, which finds and reports all clique extensions of R that contain v. Then, it moves v from P to X to exclude it from consideration in future cliques and continues with the next vertex in P.</p>
+</section>
+<section id="the-motzkin-strauss-relaxation">
+<h3><span class="section-number">3.3.3. </span>The Motzkin-Strauss Relaxation<a class="headerlink" href="#the-motzkin-strauss-relaxation" title="Permalink to this heading">#</a></h3>
+<p>One of the more intriguing aspects of the polinomial approximators for  NP-Hard problems is that they are <strong><span style="color:#2f6004">contiuous</span></strong><span style="color:#2f6004">: the original discrete problem is transformed into a continous one to avoid the combinatorial explosion</span>.</p>
+<p>For the Maximum Clique, the Bron-Kerbosk algorithmic enumeration takes <span class="math notranslate nohighlight">\(O(2^n)\)</span> steps in the worst case since it <strong>builds the solution step-by-step</strong>, i.e. incrementally.</p>
+<p>However, a continuous version of Bron-Kerbosh <strong>should suggest to explore a complete solution at a time</strong>.</p>
+<p>How can this be done?</p>
+<p><strong>The simplex</strong>. Consider, for instance, the cherry graph in <a class="reference internal" href="#cherry-simplex"><span class="std std-numref">Fig. 3.4</span></a>. Since the graph has three vertices, <span class="math notranslate nohighlight">\(n=3\)</span>, we are going to encode a candidate clique as a 3-dimensional vector <span class="math notranslate nohighlight">\((x_1,x_2,x_3)\)</span> where the component <span class="math notranslate nohighlight">\(x_i\)</span> encodes <strong>the probability that the vertex <span class="math notranslate nohighlight">\(i\)</span> belongs to the clique</strong>. As a result, we have <span class="math notranslate nohighlight">\(x_1 + x_2 + x_3=1\)</span> and <span class="math notranslate nohighlight">\(x_i\ge 0\)</span> for <span class="math notranslate nohighlight">\(i=1,2,3\)</span>. This space, denoted as <span class="math notranslate nohighlight">\(\Delta_3\)</span>, and encoding all the probability distributions of <span class="math notranslate nohighlight">\(3\)</span> variables is called the <strong>simplex</strong>.</p>
+<p>Let us focus on <a class="reference internal" href="#cherry-simplex"><span class="std std-numref">Fig. 3.4</span></a>:</p>
+<figure class="align-center" id="cherry-simplex">
+<a class="reference internal image-reference" href="_images/Cherry-Simplex.png"><img alt="_images/Cherry-Simplex.png" src="_images/Cherry-Simplex.png" style="width: 700px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3.4 </span><span class="caption-text">The cherry graph and its simplex. Credit: from <a class="reference external" href="https://arxiv.org/pdf/2305.08519">Beretta et al.</a></span><a class="headerlink" href="#cherry-simplex" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<ul class="simple">
+<li><p><strong>First-order cliques</strong>. As we have <span class="math notranslate nohighlight">\(n=3\)</span> nodes, the simplex can be  represented by a triangle. The vertices of these triangle are respectively <span class="math notranslate nohighlight">\(\mathbf{x}^{\{1\}}=(1,0,0)\)</span>, <span class="math notranslate nohighlight">\(\mathbf{x}^{\{2\}}=(0,1,0)\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^{\{3\}}=(0,0,1)\)</span>. These vertices <em>encode cliques of 1 node</em>, and the node is the one whose index is <span class="math notranslate nohighlight">\(1\)</span>.</p></li>
+<li><p><strong>Second-order cliques</strong>. The cherry graph has 2 cliques of size 2: <span class="math notranslate nohighlight">\(\{1,3\}\)</span> and <span class="math notranslate nohighlight">\(\{2,3\}\)</span>. These cliques are encoded as follows: <span class="math notranslate nohighlight">\(\mathbf{x}^{\{1,3\}}=(0.5,0,0.5)\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^{\{2,3\}}=(0,0.5,0.5)\)</span>. Note that this is because the cliques do represent probability distributions.</p></li>
+<li><p><strong>Third-order cliques</strong>. Since <span class="math notranslate nohighlight">\(n=3\)</span>, it could be possible to have a clique of size 3: if the edge <span class="math notranslate nohighlight">\((1,3)\)</span> does exist we should have that <span class="math notranslate nohighlight">\(\mathbf{x}^{\{1,2,3\}}=(\frac{1}{3},\frac{1}{3},\frac{1}{3})\)</span> is a valid clique where each node has the same probability of being in it.</p></li>
+</ul>
+<p>Although there are not third-order cliques in the cherry graph, the simplex <span class="math notranslate nohighlight">\(\Delta_3\)</span> includes points that encode them. This is the problem of a continuous representation: <strong><span style="color:#2f6004">all the possible cliques of a graph with <span class="math notranslate nohighlight">\(n\)</span> nodes are encoded in <span class="math notranslate nohighlight">\(\Delta_n\)</span> but they do not necessarilly exist</span></strong>.</p>
+<p><strong>The cost function</strong>. Given the simplex as the <strong>search space</strong> of our maximum clique, we should design a cost function <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span> for <span class="math notranslate nohighlight">\(\mathbf{x}\in\Delta_n\)</span> which is <strong><span style="color:#2f6004">maximum for large cliques</span></strong>. But <strong>only those exixting</strong> in the graph!</p>
+<p>Not surprisingly,a good candidate is the (quadratic) function <span class="math notranslate nohighlight">\(\mathbf{x}^T\mathbf{A}\mathbf{x}\)</span>, where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is the adjacency matrix. Why?</p>
+<ol class="arabic simple">
+<li><p><ins>Out of the simplex</ins>. The <strong>characteristic</strong> vector <span class="math notranslate nohighlight">\(\mathbf{x}\in\{0,1\}^n\)</span>, <strong>encodes of a subset</strong> <span class="math notranslate nohighlight">\(U\subseteq V\)</span>, if we set <span class="math notranslate nohighlight">\(x_i=1\)</span> if <span class="math notranslate nohighlight">\(i\in U\)</span> and  <span class="math notranslate nohighlight">\(x_i=0\)</span> otherwise. Then, <span class="math notranslate nohighlight">\(\mathbf{x}^T\mathbf{A}\mathbf{x}\)</span> <strong><span style="color:#2f6004">counts twice the number of edges between the nodes in <span class="math notranslate nohighlight">\(U\)</span></span></strong>.</p></li>
+</ol>
+<p><em>Intuition</em>. Let <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> be symmetric with zero diagonal (the graph is undirected and it does not have self-loops). Then, each row <span class="math notranslate nohighlight">\(i\)</span> of the column vector <span class="math notranslate nohighlight">\((\mathbf{A}\mathbf{x})_i\)</span> tells us how many neighbors of node <span class="math notranslate nohighlight">\(i\)</span> do belong to the subset <span class="math notranslate nohighlight">\(U\)</span> encoded by <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
+<p>As an example, consider the adjacency of the cherry graph:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{A} = 
+\begin{bmatrix}
+0 &amp; 0 &amp; 1\\
+0 &amp; 0 &amp; 1\\
+1 &amp; 1 &amp; 0\\
+\end{bmatrix}
+\end{split}\]</div>
+<p>and the column vector <span class="math notranslate nohighlight">\(\mathbf{x}=[1\;1\;0]^T\)</span>, encoding the subset <span class="math notranslate nohighlight">\(U=\{1,2\}\)</span> we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{A}\mathbf{x} = \begin{bmatrix}
+0 &amp; 0 &amp; 1\\
+0 &amp; 0 &amp; 1\\
+1 &amp; 1 &amp; 0\\
+\end{bmatrix}\cdot
+\begin{bmatrix}
+1\\
+1\\
+0\\
+\end{bmatrix}
+= 
+\begin{bmatrix}
+0 &amp;\text{node 1 has 0 neighors in U}\\
+1 &amp;\;\text{node 2 has 0 neighors in U}\\
+2 &amp;\;\text{node 3 has 2 neighors in U: 1 and 2}\;.\\
+\end{bmatrix} 
+\end{split}\]</div>
+<p>Now, for deciphering the meaning of <span class="math notranslate nohighlight">\(\mathbf{x}^T\mathbf{A}\mathbf{x}\)</span> in this setting, take now the “square” in our example:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+1 &amp; 1 &amp; 0
+\end{bmatrix}
+\cdot 
+\begin{bmatrix}
+0\\
+0\\
+2\\
+\end{bmatrix}
+= 1\cdot 0 + 1\cdot 0 + 0\cdot 0 = 0\;,
+\end{split}\]</div>
+<p>showing that the elements <span class="math notranslate nohighlight">\(U=\{1,2\}\)</span> are <em>not connected</em>. In other words, there is no edge between them!</p>
+<p>However, if we include node 3 in the set, we have (for <span class="math notranslate nohighlight">\(U=\{1,2,3\}\)</span>) and <span class="math notranslate nohighlight">\(\mathbf{x}=[1\;1\;1]^T\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{A}\mathbf{x}= 
+\begin{bmatrix}
+0 &amp; 0 &amp; 1\\
+0 &amp; 0 &amp; 1\\
+1 &amp; 1 &amp; 0\\
+\end{bmatrix}\cdot
+\begin{bmatrix}
+1\\
+1\\
+1\\
+\end{bmatrix}
+= 
+\begin{bmatrix}
+1 &amp;\text{node 1 has 1 neighor in U: 3}\\
+1 &amp;\;\text{node 2 has 1 neighors in U: 3}\\
+2 &amp;\;\text{node 3 has 2 neighors in U: 1 and 2}\;.\\
+\end{bmatrix}
+\end{split}\]</div>
+<p>And now the “square” is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+1 &amp; 1 &amp; 1
+\end{bmatrix}
+\cdot 
+\begin{bmatrix}
+1\\
+1\\
+2\\
+\end{bmatrix}
+= 1\cdot 1 + 1\cdot 1 + 1\cdot 2 = 4\;,
+\end{split}\]</div>
+<p>showing that there are <span class="math notranslate nohighlight">\(2\)</span> edges between the nodes in <span class="math notranslate nohighlight">\(U\)</span>.</p>
+<p><em>Proof</em>. Since <span class="math notranslate nohighlight">\(A_{ij}=1\)</span> when there is an edge between <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>,  the expression <span class="math notranslate nohighlight">\(\mathbf{x}^T\mathbf{A}\mathbf{x}\)</span> can be rewritten as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x}^T\mathbf{A}\mathbf{x}:=\sum_{i\in V}x_i\sum_{j\in V}A_{ij}x_j =\sum_{i\in V}\sum_{j\in V}x_iA_{ij}x_j = 2\cdot \sum_{(i,j)\in E}x_ix_j\;.
+\]</div>
+<p>Note that in the above expression we count the undirected edge <span class="math notranslate nohighlight">\((i,j)\)</span> twice (as <span class="math notranslate nohighlight">\((i,j)\)</span> and as <span class="math notranslate nohighlight">\((j,i)\)</span>) if <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is symmetric.</p>
+<ol class="arabic simple" start="2">
+<li><p><ins>In the simplex</ins>. Let <span class="math notranslate nohighlight">\(C = \{v_1,v_2,\ldots,v_k\}\)</span> a clique of size <span class="math notranslate nohighlight">\(k\)</span>. The simplex coordinates of the <span class="math notranslate nohighlight">\(n\ge k\)</span> nodes are: <span class="math notranslate nohighlight">\(\frac{1}{k}\)</span> if the vertex belongs to <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(0\)</span> otherwise.</p></li>
+</ol>
+<p>Since <span class="math notranslate nohighlight">\(x_i\)</span> is not zero <em>only</em> for <span class="math notranslate nohighlight">\(i\in C\)</span> we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i\in V}\sum_{j\in V}x_iA_{ij}x_j = \sum_{i\in C}\sum_{j\in C}x_iA_{ij}x_j =\sum_{i\in C}\sum_{j\in C}\frac{1}{k}A_{ij}\frac{1}{k} = \frac{1}{k^2}\sum_{i\in C}\sum_{j\in C}A_{ij}\;.
+\]</div>
+<p>As in a clique of size <span class="math notranslate nohighlight">\(k\)</span>, every vertex is linked with <span class="math notranslate nohighlight">\(k-1\)</span> other vertices, we can rewrite the above expression as</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{k^2}\sum_{i\in C}\sum_{j\in C, j\neq i}A_{ij}\;.
+\]</div>
+<p>How to evaluate the above double sum?
+For each i, there are <span class="math notranslate nohighlight">\(k-1\)</span> elements in C different from it. Therefore, the double sum is <span class="math notranslate nohighlight">\(k\cdot (k-1)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i\in C}\sum_{j\in C, j\neq i}A_{ij} = k\cdot (k-1)\;.
+\]</div>
+<p>As a result, <strong><span style="color:#2f6004">for <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> encoding a clique</span></strong> we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x}^T\mathbf{A}\mathbf{x}=\frac{k\cdot (k-1)}{k^2}=\frac{k-1}{k} = 1 - \frac{1}{k}\;.
+\]</div>
+<p>As <span class="math notranslate nohighlight">\(k\)</span> increases, its inverse decreases and then <span class="math notranslate nohighlight">\(\mathbf{x}^T\mathbf{A}\mathbf{x}\)</span> grows with the size of the clique!</p>
+<p><br></br>
+<span style="color:#2f6004">
+<strong>Exercise</strong>. Given <span class="math notranslate nohighlight">\(K_3\)</span> (the complete graph with <span class="math notranslate nohighlight">\(n=3\)</span> vertices), describe its simplex and compute the values of the quadratic loss <span class="math notranslate nohighlight">\(f(\mathbf{x})=\mathbf{x}^T\mathbf{A}\mathbf{x}\)</span> for all its cliques:
+</span>
+<br></br>
+<span style="color:#2f6004">
+Note that <span class="math notranslate nohighlight">\(K_3\)</span> is nothing but the cherry graph with an additional undirected edge <span class="math notranslate nohighlight">\((1,2)\)</span>. Then its adjacency is:
+<br></br>
+</span>
+<span style="color:#2f6004">
+<span class="math notranslate nohighlight">\(
+\mathbf{A}= 
+\begin{bmatrix}
+0 &amp; 1 &amp; 1\\
+1 &amp; 0 &amp; 1\\
+1 &amp; 1 &amp; 0\\
+\end{bmatrix}
+\)</span>
+</span>
+<br></br>
+<span style="color:#2f6004">
+<strong>First-order cliques</strong>. These are the three vertices of the simplex:  <span class="math notranslate nohighlight">\(\mathbf{x}^{\{1\}}=(1,0,0)\)</span>, <span class="math notranslate nohighlight">\(\mathbf{x}^{\{2\}}=(0,1,0)\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^{\{3\}}=(0,0,1)\)</span>. Note that <span class="math notranslate nohighlight">\(f(\mathbf{x})=\mathbf{x}^T\mathbf{A}\mathbf{x}=1-\frac{1}{1}=0\)</span> for all of them. Simply check it as follows:
+</span>
+<br></br>
+<span style="color:#2f6004">
+<span class="math notranslate nohighlight">\(
+\begin{bmatrix}
+1 &amp; 0 &amp; 0\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+0 &amp; 1 &amp; 1\\
+1 &amp; 0 &amp; 1\\
+1 &amp; 1 &amp; 0\\
+\end{bmatrix}\cdot
+\begin{bmatrix}
+1 \\
+0 \\
+0 \\
+\end{bmatrix} = 
+\begin{bmatrix}
+1 &amp; 0 &amp; 0\\
+\end{bmatrix}\cdot
+\begin{bmatrix}
+0 \\
+0 \\
+1 \\
+\end{bmatrix} = 1\cdot 0 + 0\cdot 0 + 0\cdot 1 = 0\;. 
+\)</span>
+</span>
+<br></br>
+<span style="color:#2f6004">
+<strong>Second-order cliques</strong>. One per edge in <span class="math notranslate nohighlight">\(K_3\)</span>:  <span class="math notranslate nohighlight">\(\mathbf{x}^{\{1,2\}}=(\frac{1}{2},\frac{1}{2},0)\)</span>, <span class="math notranslate nohighlight">\(\mathbf{x}^{\{1,3\}}=(\frac{1}{2},0,\frac{1}{2})\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^{\{2,3\}}=(0,\frac{1}{2},\frac{1}{2})\)</span>. Note that <span class="math notranslate nohighlight">\(f(\mathbf{x})=\mathbf{x}^T\mathbf{A}\mathbf{x}=1-\frac{1}{2}=0.5\)</span> for all of them. Simply check it as follows:
+</span>
+<br></br>
+<span style="color:#2f6004">
+<span class="math notranslate nohighlight">\(
+\begin{bmatrix}
+\frac{1}{2} &amp; \frac{1}{2} &amp; 0\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+0 &amp; 1 &amp; 1\\
+1 &amp; 0 &amp; 1\\
+1 &amp; 1 &amp; 0\\
+\end{bmatrix}\cdot
+\begin{bmatrix}
+\frac{1}{2} \\
+\frac{1}{2} \\
+0 \\
+\end{bmatrix} = 
+\begin{bmatrix}
+\frac{1}{2} &amp; \frac{1}{2} &amp; 0\\
+\end{bmatrix}\cdot
+\begin{bmatrix}
+\frac{1}{2} \\
+\frac{1}{2} \\
+1 \\
+\end{bmatrix} = \frac{1}{2}\cdot \frac{1}{2} + \frac{1}{2}\cdot \frac{1}{2} + 0\cdot 1 = \frac{1}{4} + \frac{1}{4} = \frac{1}{2} = 0.5\;. 
+\)</span>
+</span>
+<br></br>
+<span style="color:#2f6004">
+<strong>Third-order cliques</strong>. The one given by the three vertices:  <span class="math notranslate nohighlight">\(\mathbf{x}^{\{1,2,3\}}=(\frac{1}{3},\frac{1}{3},\frac{1}{3})\)</span>. Note that <span class="math notranslate nohighlight">\(f(\mathbf{x})=\mathbf{x}^T\mathbf{A}\mathbf{x}=1-\frac{1}{3}=\frac{2}{3}\approx 0.6666\)</span>. Simply check it as follows:
+</span>
+<br></br>
+<span style="color:#2f6004">
+<span class="math notranslate nohighlight">\(
+\begin{bmatrix}
+\frac{1}{3} &amp; \frac{1}{3} &amp; \frac{1}{3}\\
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+0 &amp; 1 &amp; 1\\
+1 &amp; 0 &amp; 1\\
+1 &amp; 1 &amp; 0\\
+\end{bmatrix}\cdot
+\begin{bmatrix}
+\frac{1}{3} \\
+\frac{1}{3} \\
+\frac{1}{3} \\
+\end{bmatrix} = 
+\begin{bmatrix}
+\frac{1}{3} &amp; \frac{1}{3} &amp; \frac{1}{3}\\
+\end{bmatrix}\cdot
+\begin{bmatrix}
+\frac{2}{3} \\
+\frac{2}{3} \\
+\frac{2}{3} \\
+\end{bmatrix} = 3\cdot \frac{1}{3}\cdot \frac{2}{3} = \frac{2}{3}\approx 0.6666\;. 
+\)</span>
+</span>
+<br></br>
+<strong>Continuous formulation of the Maximum Clique</strong>. Given an undirected  graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> with nodes <span class="math notranslate nohighlight">\(V=\{1,2,\ldots,n\}\)</span>, edges <span class="math notranslate nohighlight">\(E\subseteq V\times V\)</span>, and adjacency matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, the maximum clique is given by the following point in the simplex <span class="math notranslate nohighlight">\(\Delta_n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x}^{\ast}= \arg\max_{\mathbf{x}\in\Delta_n}f(\mathbf{x})=\mathbf{x}^T\mathbf{A}\mathbf{x}\;.
+\]</div>
+<p>If the clique number <span class="math notranslate nohighlight">\(\omega(G)=k\)</span>, i.e. the maximum clique <span class="math notranslate nohighlight">\(C\)</span> has size <span class="math notranslate nohighlight">\(k\)</span>, then <span class="math notranslate nohighlight">\(f(\mathbf{x})= 1 - \frac{1}{k}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^{\ast}\)</span> is as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{x}^{\ast}_i =
+\begin{cases}
+     \frac{1}{k} &amp;\;\text{if}\; i\in C \\[2ex]
+     0&amp;\;\text{otherwise}\\[2ex]
+\end{cases}
+\end{split}\]</div>
+<p><strong>Spurious solutions</strong>. As the simplex <span class="math notranslate nohighlight">\(\Delta_n\)</span> is continuous, it is possible that do exist <strong>maximizers</strong> of <span class="math notranslate nohighlight">\(f(\mathbf{x})=\mathbf{x}^T\mathbf{A}\mathbf{x}\)</span> <strong>that do not correspond to maximum cliques</strong>. This is the case of <span class="math notranslate nohighlight">\(\tilde{\mathbf{x}}=(\frac{1}{4},\frac{1}{4},\frac{1}{2})\)</span> in <a class="reference internal" href="#cherry-simplex"><span class="std std-numref">Fig. 3.4</span></a> (the cherry graph). Let us see what is the cost of this solution:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{x}^T\mathbf{A}\mathbf{x} = 
+\begin{bmatrix}
+\frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{2}\\
+\end{bmatrix}\cdot
+\begin{bmatrix}
+0 &amp; 0 &amp; 1\\
+0 &amp; 0 &amp; 1\\
+1 &amp; 1 &amp; 0\\
+\end{bmatrix}\cdot
+\begin{bmatrix}
+\frac{1}{4}\\
+\frac{1}{4}\\
+\frac{1}{2}\\
+\end{bmatrix}
+= 
+\begin{bmatrix}
+\frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{2}\\
+\end{bmatrix}\cdot
+\begin{bmatrix}
+\frac{1}{2}\\
+\frac{1}{2}\\
+\frac{1}{2}\\
+\end{bmatrix} = 
+2\cdot \frac{1}{4}\cdot\frac{1}{2} + \frac{1}{4}=0.5\;.
+\end{split}\]</div>
+<p>Note that the cherry graph does not have cliques of size <span class="math notranslate nohighlight">\(3\)</span> and all their cliques of size <span class="math notranslate nohighlight">\(2\)</span> (<span class="math notranslate nohighlight">\(\mathbf{x}^{\{1,3\}}=(\frac{1}{2},0,\frac{1}{2}))\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}^{\{2,3\}}=(0,\frac{1}{2},\frac{1}{2})\)</span>) have also a cost of <span class="math notranslate nohighlight">\(0.5\)</span> (please check).</p>
+<p>Therefore,  <strong><span style="color:#2f6004">spurious solutions</span></strong><span style="color:#2f6004"> are solutions having maximal value but their representation do not correspond to a maximum clique</span>.</p>
+<p><strong>Modified cost function</strong>. The maths linking the Maximum Clique problem with the maximization of <span class="math notranslate nohighlight">\(\mathbf{x}^T\mathbf{A}\mathbf{x}\)</span> date from the sixties and they are due to Motzkin-Strauss. In the nineties, with the birth of <strong>energy minimization methods</strong>, they were updated by my colleague <a class="reference external" href="https://www.dsi.unive.it/~pelillo/papers/NeuralComputation%201999.pdf">Marcello Pelillo et al.</a>. In this regard, they proposed the following cost function for avoiding spurious solutions:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{f}(\mathbf{x}):= \underbrace{\mathbf{x}^T\mathbf{A}\mathbf{x}}_{f(\mathbf{x})} + \frac{1}{2}\mathbf{x}^T\mathbf{x}\;.
+\]</div>
+<p>We have <strong>two intepretations for the new cost function</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Regularization</strong>. As <span class="math notranslate nohighlight">\(\mathbf{x}^T\mathbf{x}=\sum_{i}x_i^2\)</span>, if two solutions do have the same <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span> value, we prefer the one with the largest modulus (i.e. smallest values of their denominators). In the above example (cherry graph), note that</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\hat{f}(\mathbf{x}^{\{1,3\}}) = 0.5 + \frac{1}{2}\left(\left(\frac{1}{2}\right)^2 + 0^2 + \left(\frac{1}{2}\right)^2\right) = 0.5 + \frac{1}{2}\cdot\frac{6}{16} = 0.5 + 0.25 = 0.75\;,
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\hat{f}(\tilde{\mathbf{x}}) = 0.5 + \frac{1}{2}\left(\left(\frac{1}{4}\right)^2 + \left(\frac{1}{4}\right)^2 + \left(\frac{1}{2}\right)^2\right) = 0.5 + \frac{1}{2}\cdot\frac{2}{4} = 0.5 + 0.1875 = 0.6875\;.
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Half self-loop</strong>. As <span class="math notranslate nohighlight">\(\hat{f}(\mathbf{x})=\mathbf{x}^T\left(\mathbf{A} + \frac{1}{2}\mathbf{I}\right)\mathbf{x}\)</span>, we bias the adjacency by introducing self loops as in a GNN. The weight of each self loop is formally <span class="math notranslate nohighlight">\(1/2\)</span> and this is equivalent to regularization.</p></li>
+</ol>
+<p>Whereas <strong>regularizarion</strong> reduces the costs of spurious solutions, <strong>self-loops</strong> do the same by enforcing self-loops in the diagonal of the adjacency.</p>
+</section>
+<section id="replicator-dynamics">
+<h3><span class="section-number">3.3.4. </span>Replicator Dynamics<a class="headerlink" href="#replicator-dynamics" title="Permalink to this heading">#</a></h3>
+<p>The simplex and the cost function associated with it is just the first step to solve the Maximum Clique problem, even in a continuous way. We need a <strong>continous search procedure</strong> to find <span class="math notranslate nohighlight">\(\mathbf{x}^{\ast}\)</span>.</p>
+<p><strong>Replicator equation</strong>. We are going to <strong><span style="color:#2f6004">play an evolutionary game</span></strong> known as the  <a class="reference external" href="https://en.wikipedia.org/wiki/Replicator_equation">replicator equation</a>.</p>
+<p>Suppose we want to find the point <span class="math notranslate nohighlight">\(\mathbf{x}^{\ast}\)</span> starting from any other point <span class="math notranslate nohighlight">\(\mathbf{x}(0)\)</span> by means of a (continous) trajectory:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x}(t)\rightarrow\mathbf{x}(t+1)=\mathbf{x}(t)+d\mathbf{x}(t)\cdot dt\;
+\]</div>
+<p>that we expect to converge to <span class="math notranslate nohighlight">\(\mathbf{x}^{\ast}\)</span>. The trajectory is governed by the following differential equations (one per dimension):</p>
+<div class="math notranslate nohighlight">
+\[
+dx_i(t) = x_i(t)\cdot\left(\pi_i(t)-\phi(t)\right)\;\text{for}\;\;i=1,2,\ldots,n\;, 
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\phi(t)=\sum_{j=1}^n\pi_j(t)x_j(t)\;.
+\]</div>
+<p>In the above formulation, we have that:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(x_i(t)\)</span> defines the proportion of <strong>type</strong> <span class="math notranslate nohighlight">\(i\)</span> at time <span class="math notranslate nohighlight">\(t\)</span> in a population: <span class="math notranslate nohighlight">\(\sum_i x_i(t)=1\)</span> as in the simplex.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\pi_i(t)\)</span> defines the <strong>fitness of type</strong> i at time <span class="math notranslate nohighlight">\(t\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\phi(t)\)</span> defines the <strong>average fitness</strong> of all the types.</p></li>
+</ol>
+<p>This formulation models <strong>natural selection</strong> since strategies (types) with fitness larger than the average increase in frequency whereas the others decrease along time (assuming a static population).</p>
+<p>Note that the process stops when <span class="math notranslate nohighlight">\(dx_i(t)=0\)</span> for all <span class="math notranslate nohighlight">\(i\)</span>. In other words, the process <strong><span style="color:#2f6004">converges to a types distribution (point in the <span class="math notranslate nohighlight">\(\Delta_n\)</span> simplex) where <span class="math notranslate nohighlight">\(\pi_i(t)=\phi_i(t)\)</span> for all <span class="math notranslate nohighlight">\(i\)</span></span></strong>.</p>
+<p><strong>Replicator dynamics for the Maximum Clique</strong>. In order to apply the above equations to find <span class="math notranslate nohighlight">\(\mathbf{x}^{\ast}\)</span> we define <span class="math notranslate nohighlight">\(\pi_i(t)\)</span> and <span class="math notranslate nohighlight">\(\phi_i(t)\)</span> as follows:</p>
+<ul class="simple">
+<li><p><em>Payoff matrix</em>. The adjacency <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is assumed to be a payoff matrix. . A component <span class="math notranslate nohighlight">\(A_{ij}\)</span> (or in general <span class="math notranslate nohighlight">\(W_{ij}\ge 0\)</span>)represents the payoff of an individual playing strategy <span class="math notranslate nohighlight">\(i\)</span> against an opponent playing strategy <span class="math notranslate nohighlight">\(j\)</span>.</p></li>
+</ul>
+<p>This is a simple linear model that means that payoff is “proportional” to current fitness</p>
+<ul class="simple">
+<li><p>Therefore: given <span class="math notranslate nohighlight">\(\pi(t)=\mathbf{A}\mathbf{x}(t)\)</span>, <span class="math notranslate nohighlight">\(\pi_i(t)\)</span> means the <strong>expected payoff</strong> for <span class="math notranslate nohighlight">\(i\)</span> since <span class="math notranslate nohighlight">\(\pi_i(t)=\sum_{j=1}^nA_{ij}x_j(t)\)</span>.</p></li>
+<li><p>Then, the <strong>mean payoff</strong> for the entire population is</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\phi_i(t)=\sum_{i=1}^n\pi_i(t)x_j(t)=\sum_{i=1}^nA_{ij}x_i(t)x_j(t)=\mathbf{x}(t)^T\mathbf{A}\mathbf{x}(t)\;.
+\]</div>
+<ul class="simple">
+<li><p>Therefore, for the Maximum Clique we have the following equations:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+dx_i(t) = x_i(t)\left((\mathbf{A}\mathbf{x}(t))_i-\mathbf{x}(t)^T\mathbf{A}\mathbf{x}(t)\right)\;.
+\]</div>
+<p>As a result</p>
+<div class="math notranslate nohighlight">
+\[
+x_i(t+1) = x_i(t) + x_i(t)\left((\mathbf{A}\mathbf{x}(t))_i-\mathbf{x}(t)^T\mathbf{A}\mathbf{x}(t)\right)\cdot dt\;. 
+\]</div>
+<p>Then we normalize <span class="math notranslate nohighlight">\(\mathbf{x}(t+1)\)</span> so that it is still inside the simplex <span class="math notranslate nohighlight">\(\Delta_n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+x_i(t+1)\leftarrow \frac{x_i(t+1)}{\sum_{i=1}^n x_i(t+1)}\;.
+\]</div>
+<p>These calculations are translated to the following algorithm (Replicator Dynamics):</p>
+<div class="proof algorithm admonition" id="R-D">
+<p class="admonition-title"><span class="caption-number">Algorithm 3.2 </span> (Replicator Dynamics)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> Given an initial <span class="math notranslate nohighlight">\(\mathbf{x}(0)\in\Delta_n\)</span></p>
+<p><strong>Output</strong> Convergence point  <span class="math notranslate nohighlight">\(\mathbf{x}^{\ast}=\mathbf{x}(T)\)</span> after <span class="math notranslate nohighlight">\(T\)</span> generations.</p>
+<p><span class="math notranslate nohighlight">\(dt = 0.001\)</span></p>
+<p><strong>for</strong> <span class="math notranslate nohighlight">\(t=0,1,\ldots,T-1\)</span>:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(
+d\mathbf{x}(t) = \mathbf{x}(t)\ast\left(\mathbf{A}\mathbf{x}(t)-\mathbf{x}(t)^T\mathbf{A}\mathbf{x}(t)\right)\;.
+\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{x}(t+1) = \mathbf{x}(t) + d\mathbf{x}(t)\cdot dt\;.\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{x}(t+1)=\frac{\mathbf{x}(t)}{\sum_{i=1}^n x_i(t+1)}\;.\)</span></p></li>
+</ol>
+<p><strong>return</strong> <span class="math notranslate nohighlight">\(\mathbf{x}(T)\)</span></p>
+</section>
+</div><p>where <span class="math notranslate nohighlight">\(\ast\)</span> is the <strong>componentwise product</strong>: <span class="math notranslate nohighlight">\(\mathbf{x}\ast\mathbf{y}=\sum_ix_iy_i\)</span>.</p>
+<p><strong>Initialization</strong>. The usual (neutral) initialization for this algorithm is <span class="math notranslate nohighlight">\(\mathbf{x}(0) = (\frac{1}{n},\frac{1}{n},\ldots,\frac{1}{n})\)</span> (this is the uniform distribution or <strong><span style="color:#2f6004">barycenter</span></strong>).</p>
+<p><strong>Iterations</strong>. In this version, both <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(dt\)</span> specify a fixed number of iterations. The algorithm can be improved by stopping when  <span class="math notranslate nohighlight">\(\max_i|x_i(t+1)-x_i(t)|&lt;\epsilon\)</span>, where <span class="math notranslate nohighlight">\(\epsilon\)</span> is a tolerance.</p>
+<p><strong>Example</strong>. Let us get the graph in <a class="reference internal" href="#clique-toy"><span class="std std-numref">Fig. 3.2</span></a> with <span class="math notranslate nohighlight">\(n=5\)</span> nodes and explore its replicator dynamics.</p>
+<p>The adjacency is as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{A}=\begin{bmatrix}
+0 &amp; 1 &amp; 1 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+1 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+\end{bmatrix}
+\end{split}\]</div>
+<p>The barycenter is <span class="math notranslate nohighlight">\(\mathbf{x}(0)=\left(\frac{1}{5},\frac{1}{5},\frac{1}{5},\frac{1}{5}\right)\)</span>.</p>
+<p>Using <span class="math notranslate nohighlight">\(dt=0.01\)</span> and <span class="math notranslate nohighlight">\(T=5000\)</span>, the first <span class="math notranslate nohighlight">\(5\)</span> points of the trajectory are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="mf">0.2</span>        <span class="mf">0.2</span>        <span class="mf">0.2</span>        <span class="mf">0.2</span>        <span class="mf">0.2</span>       <span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.20016</span>    <span class="mf">0.20016</span>    <span class="mf">0.20056</span>    <span class="mf">0.19976</span>    <span class="mf">0.19936</span>   <span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.2003199</span>  <span class="mf">0.2003199</span>  <span class="mf">0.20112006</span> <span class="mf">0.19951974</span> <span class="mf">0.19872039</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.20047971</span> <span class="mf">0.20047971</span> <span class="mf">0.20168017</span> <span class="mf">0.19927923</span> <span class="mf">0.19808118</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.20063942</span> <span class="mf">0.20063942</span> <span class="mf">0.20224032</span> <span class="mf">0.19903847</span> <span class="mf">0.19744237</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>where the rows correspond to time steps <span class="math notranslate nohighlight">\(0\ldots 4\)</span> and cols to variables <span class="math notranslate nohighlight">\(x_1,\ldots,x_5\)</span>.</p>
+<p>Note that:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_1\)</span> becomes equal to <span class="math notranslate nohighlight">\(x_2\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_3\)</span> grows slower than <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_4\)</span> and <span class="math notranslate nohighlight">\(x_5\)</span> decrease.</p></li>
+</ul>
+<p>If we plot <span class="math notranslate nohighlight">\(x_i(t)\)</span> separately, as in <a class="reference internal" href="#clique-toy-rd"><span class="std std-numref">Fig. 3.5</span></a>, note that the trajectories <span class="math notranslate nohighlight">\(x_1(t)\)</span>, <span class="math notranslate nohighlight">\(x_2(t)\)</span> and <span class="math notranslate nohighlight">\(x_3(t)\)</span> (in red) converge to the same point (approximately <span class="math notranslate nohighlight">\(0.3333 = \frac{1}{3}\)</span>) whereas <span class="math notranslate nohighlight">\(x_4(t)\)</span> and <span class="math notranslate nohighlight">\(x_5(t)\)</span> converge to <span class="math notranslate nohighlight">\(0\)</span>, and the algorithm returns <span class="math notranslate nohighlight">\(\mathbf{x}(T)=(\frac{1}{3},\frac{1}{3},\frac{1}{3},0,0)\)</span>, showing that the maximum clique is <span class="math notranslate nohighlight">\(C=\{1,2,3\}\)</span>.</p>
+<figure class="align-center" id="clique-toy-rd">
+<a class="reference internal image-reference" href="_images/Clique-Toy-RD.png"><img alt="_images/Clique-Toy-RD.png" src="_images/Clique-Toy-RD.png" style="width: 700px; height: 750px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3.5 </span><span class="caption-text">Maximum clique (in red) for the example graph in <a class="reference internal" href="#clique-toy"><span class="std std-numref">Fig. 3.2</span></a>.</span><a class="headerlink" href="#clique-toy-rd" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Increasing Maximization Theorem</strong>. Given a non-negative and symmetric payoff matrix <span class="math notranslate nohighlight">\(\mathbf{W}\)</span>. Then <span class="math notranslate nohighlight">\(f(\mathbf{x}(t))=\mathbf{x}^T(t)\mathbf{W}\mathbf{x}(t)\)</span> is <strong><span style="color:#2f6004">strictly increasing</span></strong> <span style="color:#2f6004">along any nonconstant trajectory of Replicator Dynamics.</span></p>
+<p>This means that <span class="math notranslate nohighlight">\(\frac{d}{dt}f(\mathbf{x}(t))&gt;0\)</span> i.e <span class="math notranslate nohighlight">\(f(\mathbf{x}(t+1))&gt;f(\mathbf{x}(t))\)</span> unless <span class="math notranslate nohighlight">\(\mathbf{x}(t)\)</span> is a stationary point.</p>
+<p>In addition, <span style="color:#2f6004">Replicator dymanics converge to a <strong>unique stationary point</strong></span>.</p>
+<p>Therefore, we can stop the RD when <span class="math notranslate nohighlight">\(|ƒ(\mathbf{x}(t+1))-ƒ(\mathbf{x}(t))|&lt;\epsilon\)</span>. See for instance in <a class="reference internal" href="#clique-toy-f"><span class="std std-numref">Fig. 3.6</span></a> which corresponds to the dymanics in <a class="reference internal" href="#clique-toy-rd"><span class="std std-numref">Fig. 3.5</span></a>.</p>
+<figure class="align-center" id="clique-toy-f">
+<a class="reference internal image-reference" href="_images/Clique-Toy-F.png"><img alt="_images/Clique-Toy-F.png" src="_images/Clique-Toy-F.png" style="width: 400px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3.6 </span><span class="caption-text">Evolution of the cost function the example graph in <a class="reference internal" href="#clique-toy"><span class="std std-numref">Fig. 3.2</span></a>.</span><a class="headerlink" href="#clique-toy-f" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Limitations</strong>. RD <strong>works well</strong> when the input graph has a unique large clique in comparison with the sizes of other cliques in the graph. This is the case of the graph in <a class="reference internal" href="#clique-large"><span class="std std-numref">Fig. 3.7</span></a> with <span class="math notranslate nohighlight">\(n=10\)</span> nodes and a unique clique of size <span class="math notranslate nohighlight">\(k=4\)</span>.</p>
+<figure class="align-center" id="clique-large">
+<a class="reference internal image-reference" href="_images/Clique-Large.png"><img alt="_images/Clique-Large.png" src="_images/Clique-Large.png" style="width: 700px; height: 750px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3.7 </span><span class="caption-text">Large graph with a maximum clique of <span class="math notranslate nohighlight">\(k=4\)</span> nodes.</span><a class="headerlink" href="#clique-large" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>As we can see in <a class="reference internal" href="#clique-large-rd"><span class="std std-numref">Fig. 3.8</span></a>, variables <span class="math notranslate nohighlight">\(x_0\)</span>, <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span> and <span class="math notranslate nohighlight">\(x_5\)</span> converge to <span class="math notranslate nohighlight">\(\frac{1}{4}\)</span>, whereas the remaining variables converge to zero. Then, the solution <span class="math notranslate nohighlight">\(\mathbf{x}(T)=(\frac{1}{4},\frac{1}{4},\frac{1}{4},0,0,\frac{1}{4},0,0,0,0)\)</span> is consistent with the maximum clique <span class="math notranslate nohighlight">\(C=\{0,1,2,5\}\)</span>.</p>
+<figure class="align-center" id="clique-large-rd">
+<a class="reference internal image-reference" href="_images/Clique-Large-RD.png"><img alt="_images/Clique-Large-RD.png" src="_images/Clique-Large-RD.png" style="width: 700px; height: 720px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3.8 </span><span class="caption-text">Maximum clique (in red) for the example graph in <a class="reference internal" href="#clique-large"><span class="std std-numref">Fig. 3.7</span></a>.</span><a class="headerlink" href="#clique-large-rd" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>However, <strong><span style="color:#2f6004">RD works not so well when there are some maximal (not maximum) cliques competing with the MC</span></strong>. We address this point in the following exercise.</p>
+<p><br></br>
+<span style="color:#2f6004">
+<strong>Exercise</strong>. Given the large graph <span class="math notranslate nohighlight">\(G\)</span> in <a class="reference internal" href="#clique-large"><span class="std std-numref">Fig. 3.7</span></a>, the maximum clique is <span class="math notranslate nohighlight">\(C=\{0,1,2,5\}\)</span>. The corresponding Replicator Dynamics in <a class="reference internal" href="#clique-large-rd"><span class="std std-numref">Fig. 3.8</span></a> describe the evolution of <span class="math notranslate nohighlight">\(\mathbf{x}(t)\)</span> while <span class="math notranslate nohighlight">\(f(\mathbf{x}(t))=\mathbf{x}^T(t)\mathbf{A}\mathbf{x}(t)\)</span> is maximized.
+</span>
+<br></br></p>
+<figure class="align-center" id="clique-large-rd2">
+<a class="reference internal image-reference" href="_images/Clique-Large-RD2.png"><img alt="_images/Clique-Large-RD2.png" src="_images/Clique-Large-RD2.png" style="width: 700px; height: 520px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3.9 </span><span class="caption-text">Maximum clique (in red) for the example graph in <a class="reference internal" href="#clique-large"><span class="std std-numref">Fig. 3.7</span></a> slightly modified.</span><a class="headerlink" href="#clique-large-rd2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><br></br>
+<span style="color:#2f6004">
+The Replicator Dynamics in <a class="reference internal" href="#clique-large-rd2"><span class="std std-numref">Fig. 3.9</span></a> correspond to the same graph, but <span class="math notranslate nohighlight">\(G\)</span> has been slightly modified by adding an edge. <strong>Explain what edge can be</strong>.
+</span>
+<br></br>
+<span style="color:#2f6004">
+<strong>Answer</strong>. First of all, we observe that RD converges to the same solution as before, i.e. <span class="math notranslate nohighlight">\(\mathbf{x}(T)=(\frac{1}{4},\frac{1}{4},\frac{1}{4},0,0,\frac{1}{4},0,0,0,0)\)</span>. What differs now is <strong>how RD varies in between</strong> <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(T\)</span>.
+</span>
+<br></br>
+<span style="color:#2f6004">
+Note that <span class="math notranslate nohighlight">\(x_3\)</span>, not belonging to the Maximal Clique (MC), initially grows, deviating significantly from other vertices that “clearly” do not belong to the MC. This indicates that the new edge seems to be rooted in vertex <span class="math notranslate nohighlight">\(3\)</span>.
+</span>
+<br></br>
+<span style="color:#2f6004">
+Observing now the dynamics of the vertices beloning to the MC (in red), note that their respective curves are now more different or distant than in <a class="reference internal" href="#clique-large-rd"><span class="std std-numref">Fig. 3.8</span></a>. This means that their membership to the MC is not clear in the first stages of the search.
+Again, the most different dynamics are given by <span class="math notranslate nohighlight">\(x_0\)</span>.
+</span>
+<br></br>
+<span style="color:#2f6004">
+Could we state that <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(3\)</span> are connected? Well, this is plausible since linked nodes tend to share/couple their RDs (this is basically why nodes in the MC converge to the same point).
+</span>
+<br></br>
+<span style="color:#2f6004">
+A nice way of testing this hypothesis is that adding edge <span class="math notranslate nohighlight">\((0,3)\)</span> creates 2 maximal (not maximum) cliques of size 3: <span class="math notranslate nohighlight">\(C_1=\{0,3,5\}\)</span> and <span class="math notranslate nohighlight">\(C_2=\{0,3,7\}\)</span>. The existence of maximal cliques which are <strong>competing with the MC</strong> complicates the RDs and makes them more “open” in the early stages of the search.<br />
+</span>
+<br></br></p>
+</section>
+<section id="integration-with-gnns">
+<h3><span class="section-number">3.3.5. </span>Integration with GNNs<a class="headerlink" href="#integration-with-gnns" title="Permalink to this heading">#</a></h3>
+<p><strong>Motivation</strong>. In principle, Replicator Dynamics are able of approximating the MC (specially if we use <span class="math notranslate nohighlight">\(\mathbf{A}+\frac{1}{2}\mathbf{I}\)</span> instead of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> for avoiding spurious solutions). Actually, this is the method provided by the <a class="reference external" href="https://gurobi-optimods.readthedocs.io/en/latest/index.html">Gurobi framework</a> for finding graph isomorphims via identifying the MC.</p>
+<p>However, <span style="color:#2f6004">we want to learn from the experience</span> in order to <strong><span style="color:#2f6004">initialize the Replicator Dynamics closer to the optimum instead of launching it  at the barycenter</span></strong>.</p>
+<p><strong>Main idea</strong>. Let us train a GNN to optimize <span class="math notranslate nohighlight">\(f(\mathbf{x})\)</span> (or <span class="math notranslate nohighlight">\(\hat{f}(\mathbf{x})\)</span>). Doing that requires <strong>four</strong> basic steps (see <a class="reference internal" href="#gnn-rd"><span class="std std-numref">Fig. 3.10</span></a>):</p>
+<ol class="arabic simple">
+<li><p><strong>Provide node features</strong>. We need informative node features <span class="math notranslate nohighlight">\(\mathbf{x}_i\in\mathbb{R}^d\)</span> for initializing the nodal embeddings <span class="math notranslate nohighlight">\(\mathbf{h}_i\)</span> forming the latent space. These features can be as simple as the node degree or as complex of a positional encoding such as a set of eigenvectors of the Laplacian.</p></li>
+<li><p><strong>Add a Softmax layer</strong>. After the final (or <span class="math notranslate nohighlight">\(K\)</span>) aggregation layer of the GNN we need a linear layer so that an initial simplex point <span class="math notranslate nohighlight">\(\mathbf{p}\)</span> can be predicted for all the final nodal embeddings <span class="math notranslate nohighlight">\(\mathbf{h}_i^{(K)}\)</span>. However, in order to force <span class="math notranslate nohighlight">\(\mathbf{p}\)</span> to be a simplex point we “softmax” it, which leads to <span class="math notranslate nohighlight">\(\sum_ip_i=1\)</span> and <span class="math notranslate nohighlight">\(p_i\ge 0\;\forall i\)</span>.</p></li>
+<li><p><strong>Replicator Dynamics</strong>. In training time, it is possible to add a “few” (3-4) iterations of RD. In this regard, we use the <strong>discrete version of RD</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+p_i(t+1)=p_i(t)\cdot\frac{(\mathbf{A}\mathbf{p}(t))_i}{\mathbf{p}(t)^T\mathbf{A}\mathbf{p}(t)}\;.
+\]</div>
+<p>This expression is clearly derivable. However, in inference/test time, the same expression is “frozen” and it starts from the initial <span class="math notranslate nohighlight">\(\mathbf{p}\)</span> predicted by the NN.</p>
+<figure class="align-center" id="gnn-rd">
+<a class="reference internal image-reference" href="_images/GNN-RD.png"><img alt="_images/GNN-RD.png" src="_images/GNN-RD.png" style="width: 800px; height: 220px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3.10 </span><span class="caption-text">Graph Neural Network with RD. Note that RD are derivable (i.e. they contribute to the gradient). Once frozen, they can be used in inference time as well. Herein, the number of iterations is unlimited.</span><a class="headerlink" href="#gnn-rd" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<ol class="arabic simple" start="4">
+<li><p><strong>RD Decoder</strong>. In inference/test time, once the NN predicts <span class="math notranslate nohighlight">\(\mathbf{p}^{\ast}\)</span> we must extract what nodes belong to the MC using the probabilities in <span class="math notranslate nohighlight">\(\mathbf{p}^{\ast}\)</span>. We do it as follows:</p></li>
+</ol>
+<div class="proof algorithm admonition" id="R-D-Decoder">
+<p class="admonition-title"><span class="caption-number">Algorithm 3.3 </span> (RD-Decoder)</p>
+<section class="algorithm-content" id="proof-content">
+<p><strong>Inputs</strong> Given a final <span class="math notranslate nohighlight">\(\mathbf{p}^{\ast}\)</span> and a threshold <span class="math notranslate nohighlight">\(\delta\in [0.5,1)\)</span></p>
+<p><strong>Output</strong> Nodes <span class="math notranslate nohighlight">\(v_i\in G\)</span> forming the MC.</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(p^{\ast}_{\sigma(1)}\ge p^{\ast}_{\sigma(2)}\ge,\ldots,\ge p^{\ast}_{\sigma(n)} = \text{Sort}(-\mathbf{p}^{\ast})\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\({\cal C}=\emptyset\)</span></p></li>
+<li><p><strong>for</strong> <span class="math notranslate nohighlight">\(n\in \{\sigma(1),\sigma(2),\ldots,\sigma(n)\}\)</span>:</p>
+<ol class="arabic simple">
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\((\mathbf{p}^{\ast}_n &lt; \delta)\)</span> &amp; <span class="math notranslate nohighlight">\((|{\cal C}|&gt;0)\)</span>
+<strong>then</strong> <strong>break</strong></p></li>
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\(\text{Can_Extend}({\cal C},n)\)</span>
+<strong>then</strong> <span class="math notranslate nohighlight">\({\cal C}={\cal C}\cup \{n\}\)</span></p></li>
+</ol>
+</li>
+</ol>
+<p><strong>return</strong> <span class="math notranslate nohighlight">\({\cal C}\)</span></p>
+</section>
+</div><p>This RD-Decoder is really simple. It is a greedy strategy that starts with high probability nodes and adds them to the candidate MC provided that: (a) the probability is good enough, and (b) the added node forms a clique wrt to the existing nodes in the clique.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="bloque1_Introducci%C3%B3n.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>The Project</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="practice0.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Graph Neural Networks</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">2. Graph Neural Networks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-gnns">2.1. Why GNNs?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context-is-everything">2.1.1. Context is everything</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-consider-context-during-training">2.1.1.1. How do we consider context during training?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transformers-as-graphs">2.1.1.2. Transformers as graphs</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#masking-and-sequentiality">2.1.1.3. Masking and sequentiality</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-power-of-aggregation">2.1.2. The power of aggregation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gnns-basic-architecture">2.2. GNNs basic architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-attention-networks">2.3. Graph Attention Networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homophily-vs-heterophily">2.4. Homophily vs Heterophily</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cora-dataset">2.4.1. The Cora Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-texas-dataset">2.4.2. The Texas Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-heterophily">2.4.3. Solving Heterophily</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithmic-neuralization">3. Algorithmic Neuralization</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-algorithmic-reasoning">3.1. Neural Algorithmic Reasoning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algoritmic-alignment">3.2. Algoritmic Alignment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combinatorial-neuralization">3.3. Combinatorial Neuralization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-maximum-clique">3.3.1. The Maximum Clique</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bron-kerbosh-algorithm">3.3.2. Bron-Kerbosh Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-motzkin-strauss-relaxation">3.3.3. The Motzkin-Strauss Relaxation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#replicator-dynamics">3.3.4. Replicator Dynamics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-with-gnns">3.3.5. Integration with GNNs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Universidad de Alicante
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

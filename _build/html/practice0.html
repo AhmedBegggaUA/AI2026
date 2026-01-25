@@ -1,0 +1,1727 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>4. Graph Neural Networks &#8212; Agentes Inteligentes IA</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practice0';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="2. Graph Neural Networks" href="topic1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Agentes Inteligentes IA - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Agentes Inteligentes IA - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI2026
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intelligent Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bloque1_Introducci%C3%B3n.html">1. The Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithmic Reasoning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic1.html">2. Graph Neural Networks</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practices</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Graph Neural Networks</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpractice0.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/practice0.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Graph Neural Networks</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-0-introduction-to-graphs-and-message-passing">4.1. Practical Session 0: Introduction to Graphs and Message Passing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">4.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">4.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-fundamentals">4.1.3. Graph Fundamentals</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-creating-synthetic-graph-data">4.2. Part 1: Creating Synthetic Graph Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-graph-with-networkx">4.2.1. Building a Graph with NetworkX</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-graph-structure">4.2.2. Visualizing the Graph Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-synthetic-node-features">4.2.3. Creating Synthetic Node Features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-node-labels">4.2.4. Assigning Node Labels</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-converting-to-pytorch-geometric-format">4.3. Part 2: Converting to PyTorch Geometric Format</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-pytorch-geometric">4.3.1. Introduction to PyTorch Geometric</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-networkx-graph-to-pyg-data">4.3.2. Converting NetworkX Graph to PyG Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-train-validation-test-splits">4.3.3. Creating Train/Validation/Test Splits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-the-over-smoothing-problem">4.4. Part 3: The Over-Smoothing Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-repeated-aggregation-causes-information-mixing">4.4.1. Why Repeated Aggregation Causes Information Mixing</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evolution-of-node-representations-across-layers">4.4.1.1. Evolution of Node Representations Across Layers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-intuition">4.4.1.2. Mathematical Intuition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-implications">4.4.1.3. Practical Implications</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-understanding-message-passing">4.5. Part 4: Understanding Message Passing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-core-idea-behind-gnns">4.5.1. The Core Idea Behind GNNs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">4.5.2. Mathematical Formulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-form">4.5.2.1. Vector Form</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-form">4.5.2.2. Matrix Form</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-message-passing-from-scratch">4.5.3. Implementing Message Passing from Scratch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-matrix-implementation">4.5.4. Efficient Matrix Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-effect-of-message-passing">4.5.5. Visualizing the Effect of Message Passing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-multi-layer-perceptrons-mlps">4.6. Part 5: Multi-Layer Perceptrons (MLPs)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-mlp">4.6.1. What is an MLP?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-for-node-classification-baseline">4.6.2. MLP for Node Classification (Baseline)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-graph-neural-networks">4.7. Part 6: Graph Neural Networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-message-passing-to-gnns">4.7.1. From Message Passing to GNNs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-convolutional-network-gcn">4.7.2. Graph Convolutional Network (GCN)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-a-gnn-with-pytorch-geometric">4.7.3. Implementing a GNN with PyTorch Geometric</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-pipeline">4.7.4. Training Pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-training-loop">4.7.5. Complete Training Loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-experiments">4.7.6. Running the Experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-training-progress">4.7.7. Visualizing Training Progress</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-learned-embeddings">4.7.8. Visualizing Learned Embeddings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-7-loading-real-world-datasets">4.8. Part 7: Loading Real-World Datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cora-dataset">4.8.1. The Cora Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-citeseer-dataset">4.8.2. The Citeseer Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-custom-synthetic-dataset">4.9. Exercise 1: Custom Synthetic Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">4.9.1. Objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">4.9.2. Task Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">4.9.3. Deliverables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">4.9.4. Evaluation Criteria</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-node-classification-experiments">4.10. Exercise 2: Node Classification Experiments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.10.1. Objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.10.2. Task Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters-to-explore">4.10.3. Hyperparameters to Explore</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.10.4. Deliverables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-questions">4.10.5. Analysis Questions</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="graph-neural-networks">
+<h1><span class="section-number">4. </span>Graph Neural Networks<a class="headerlink" href="#graph-neural-networks" title="Permalink to this heading">#</a></h1>
+<section id="practical-session-0-introduction-to-graphs-and-message-passing">
+<h2><span class="section-number">4.1. </span>Practical Session 0: Introduction to Graphs and Message Passing<a class="headerlink" href="#practical-session-0-introduction-to-graphs-and-message-passing" title="Permalink to this heading">#</a></h2>
+<section id="introduction">
+<h3><span class="section-number">4.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
+<p>In this practical session, we will explore the fundamentals of <strong>Graph Neural Networks (GNNs)</strong>, a powerful class of deep learning models designed to operate on graph-structured data. Unlike traditional neural networks that assume data lies on a regular grid (such as images) or in sequences (such as text), GNNs can handle data with arbitrary connectivity patterns, making them ideal for social networks, molecular structures, citation networks, and many other domains.</p>
+<p>The goal of this tutorial is to guide you through the complete pipeline: from creating synthetic graph data using <strong>NetworkX</strong>, to understanding the <strong>message passing</strong> mechanism that underlies all GNNs, and finally implementing and training a Graph Neural Network using <strong>PyTorch Geometric (PyG)</strong>.</p>
+</section>
+<section id="prerequisites">
+<h3><span class="section-number">4.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
+<p>Before starting, ensure you have the necessary libraries installed. We will use NetworkX for graph manipulation, PyTorch Geometric for GNN implementations, and standard scientific Python libraries:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>networkx<span class="w"> </span>torch_geometric<span class="w"> </span>matplotlib<span class="w"> </span>scikit-learn
+</pre></div>
+</div>
+</section>
+<section id="graph-fundamentals">
+<h3><span class="section-number">4.1.3. </span>Graph Fundamentals<a class="headerlink" href="#graph-fundamentals" title="Permalink to this heading">#</a></h3>
+<p>A graph <span class="math notranslate nohighlight">\(G = (V, E)\)</span> consists of a set of <strong>nodes</strong> (or vertices) <span class="math notranslate nohighlight">\(V\)</span> and a set of <strong>edges</strong> <span class="math notranslate nohighlight">\(E\)</span> that connect pairs of nodes. Each node <span class="math notranslate nohighlight">\(v \in V\)</span> can have an associated <strong>feature vector</strong> <span class="math notranslate nohighlight">\(\mathbf{x}_v \in \mathbb{R}^d\)</span>, and in supervised learning tasks, each node may also have a <strong>label</strong> <span class="math notranslate nohighlight">\(y_v\)</span>.</p>
+<p>In the context of machine learning on graphs, we typically represent the graph structure using an <strong>adjacency matrix</strong> <span class="math notranslate nohighlight">\(\mathbf{A} \in \{0, 1\}^{|V| \times |V|}\)</span>, where <span class="math notranslate nohighlight">\(A_{ij} = 1\)</span> if there is an edge between nodes <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>, and <span class="math notranslate nohighlight">\(A_{ij} = 0\)</span> otherwise. The node features are stacked into a <strong>feature matrix</strong> <span class="math notranslate nohighlight">\(\mathbf{X} \in \mathbb{R}^{|V| \times d}\)</span>, where each row corresponds to the feature vector of a node.</p>
+<figure class="align-center" id="graphstructure">
+<img alt="_images/graph_structure.png" src="_images/graph_structure.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 4.1 </span><span class="caption-text">A graph with 6 nodes and their corresponding adjacency matrix representation.</span><a class="headerlink" href="#graphstructure" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="part-1-creating-synthetic-graph-data">
+<h2><span class="section-number">4.2. </span>Part 1: Creating Synthetic Graph Data<a class="headerlink" href="#part-1-creating-synthetic-graph-data" title="Permalink to this heading">#</a></h2>
+<section id="building-a-graph-with-networkx">
+<h3><span class="section-number">4.2.1. </span>Building a Graph with NetworkX<a class="headerlink" href="#building-a-graph-with-networkx" title="Permalink to this heading">#</a></h3>
+<p>NetworkX is a Python library for the creation, manipulation, and study of complex networks. You should already be familiar with its basic functionality. Let us start by creating a synthetic graph that we will use throughout this tutorial.</p>
+<p>We will create a graph with multiple communities, where nodes within the same community share similar features. This structure will make it easier to understand how GNNs can learn to classify nodes based on both their features and their neighborhood.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Set random seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Parameters for our synthetic graph</span>
+<span class="n">num_nodes</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">num_classes</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">nodes_per_class</span> <span class="o">=</span> <span class="n">num_nodes</span> <span class="o">//</span> <span class="n">num_classes</span>
+<span class="n">feature_dim</span> <span class="o">=</span> <span class="mi">16</span>
+
+<span class="c1"># Create a stochastic block model graph</span>
+<span class="c1"># This generates a graph with community structure</span>
+<span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="n">nodes_per_class</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_classes</span>
+<span class="c1"># Probability matrix: higher probability within communities</span>
+<span class="n">p_intra</span> <span class="o">=</span> <span class="mf">0.3</span>  <span class="c1"># Probability of edge within same community</span>
+<span class="n">p_inter</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># Probability of edge between different communities</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">),</span> <span class="n">p_inter</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">p_intra</span><span class="p">)</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">stochastic_block_model</span><span class="p">(</span><span class="n">sizes</span><span class="p">,</span> <span class="n">probs</span><span class="p">,</span> <span class="n">seed</span> <span class="o">=</span> <span class="mi">42</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of nodes: </span><span class="si">{</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of edges: </span><span class="si">{</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="visualizing-the-graph-structure">
+<h3><span class="section-number">4.2.2. </span>Visualizing the Graph Structure<a class="headerlink" href="#visualizing-the-graph-structure" title="Permalink to this heading">#</a></h3>
+<p>Before proceeding, it is important to visualize our graph to understand its structure:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the ground truth community assignments</span>
+<span class="n">node_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span> <span class="o">//</span> <span class="n">nodes_per_class</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">)])</span>
+
+<span class="c1"># Create a color map for visualization</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#e41a1c&#39;</span><span class="p">,</span> <span class="s1">&#39;#377eb8&#39;</span><span class="p">,</span> <span class="s1">&#39;#4daf4a&#39;</span><span class="p">,</span> <span class="s1">&#39;#984ea3&#39;</span><span class="p">]</span>
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">colors</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">node_labels</span><span class="p">]</span>
+
+<span class="c1"># Draw the graph</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span> <span class="o">=</span> <span class="mi">42</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span> <span class="o">=</span> <span class="n">node_colors</span><span class="p">,</span> <span class="n">node_size</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> 
+        <span class="n">edge_color</span> <span class="o">=</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Stochastic Block Model Graph with 4 Communities&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;sbm_graph.png&quot;</span><span class="p">,</span> <span class="n">dpi</span> <span class="o">=</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<figure class="align-center" id="sbmgraph">
+<img alt="_images/sbm_graph.png" src="_images/sbm_graph.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 4.2 </span><span class="caption-text">Visualization of the stochastic block model graph showing 4 communities.</span><a class="headerlink" href="#sbmgraph" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="creating-synthetic-node-features">
+<h3><span class="section-number">4.2.3. </span>Creating Synthetic Node Features<a class="headerlink" href="#creating-synthetic-node-features" title="Permalink to this heading">#</a></h3>
+<p>Now we need to assign feature vectors to each node. <strong>Critically, we will create features with very weak correlation to node labels.</strong> This is the key to demonstrating why GNNs outperform MLPs: the graph structure becomes essential for classification.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create class centers in the feature space with SMALL magnitude</span>
+<span class="c1"># The key difference: small class centers and large noise</span>
+<span class="n">class_centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">feature_dim</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.3</span>
+
+<span class="c1"># Assign features to nodes based on their class</span>
+<span class="c1"># Each node gets a WEAK class signal drowned in LARGE noise</span>
+<span class="n">node_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">feature_dim</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">):</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">node_labels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="c1"># Large noise dominates the weak class signal</span>
+    <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">feature_dim</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span>            <span class="c1"># Large noise</span>
+    <span class="n">weak_signal</span> <span class="o">=</span> <span class="n">class_centers</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.2</span>              <span class="c1"># Weak signal</span>
+    <span class="n">node_features</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">weak_signal</span> <span class="o">+</span> <span class="n">noise</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feature matrix shape: </span><span class="si">{</span><span class="n">node_features</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feature statistics - Mean: </span><span class="si">{</span><span class="n">node_features</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, Std: </span><span class="si">{</span><span class="n">node_features</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Why this matters:</strong> With weak features, an MLP trained on node features alone will achieve only ~60-70% accuracy, while a GCN that leverages the strong community structure in the graph will reach ~90%+ accuracy. This clearly demonstrates the power of graph structure.</p>
+</section>
+<section id="assigning-node-labels">
+<h3><span class="section-number">4.2.4. </span>Assigning Node Labels<a class="headerlink" href="#assigning-node-labels" title="Permalink to this heading">#</a></h3>
+<p>We have already assigned labels based on the community structure. Let us verify the label distribution:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count labels per class</span>
+<span class="n">unique</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">node_labels</span><span class="p">,</span> <span class="n">return_counts</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Label distribution:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">unique</span><span class="p">,</span> <span class="n">counts</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Class </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> nodes&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="part-2-converting-to-pytorch-geometric-format">
+<h2><span class="section-number">4.3. </span>Part 2: Converting to PyTorch Geometric Format<a class="headerlink" href="#part-2-converting-to-pytorch-geometric-format" title="Permalink to this heading">#</a></h2>
+<section id="introduction-to-pytorch-geometric">
+<h3><span class="section-number">4.3.1. </span>Introduction to PyTorch Geometric<a class="headerlink" href="#introduction-to-pytorch-geometric" title="Permalink to this heading">#</a></h3>
+<p><strong>PyTorch Geometric (PyG)</strong> is a library built upon PyTorch that provides efficient implementations of GNN layers and utilities for handling graph data. The central data structure in PyG is the <code class="docutils literal notranslate"><span class="pre">Data</span></code> object, which stores all information about a single graph.</p>
+<p>A PyG <code class="docutils literal notranslate"><span class="pre">Data</span></code> object typically contains:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: Node feature matrix with shape <code class="docutils literal notranslate"><span class="pre">[num_nodes,</span> <span class="pre">num_features]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">edge_index</span></code>: Graph connectivity in COO format with shape <code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">num_edges]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>: Node labels with shape <code class="docutils literal notranslate"><span class="pre">[num_nodes]</span></code></p></li>
+<li><p>Additional attributes as needed (edge features, masks, etc.)</p></li>
+</ul>
+</section>
+<section id="converting-networkx-graph-to-pyg-data">
+<h3><span class="section-number">4.3.2. </span>Converting NetworkX Graph to PyG Data<a class="headerlink" href="#converting-networkx-graph-to-pyg-data" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch_geometric.data</span> <span class="kn">import</span> <span class="n">Data</span>
+<span class="kn">from</span> <span class="nn">torch_geometric.utils</span> <span class="kn">import</span> <span class="n">from_networkx</span>
+
+<span class="c1"># Convert features and labels to PyTorch tensors</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">node_features</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">node_labels</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+
+<span class="c1"># Convert NetworkX graph to edge_index format</span>
+<span class="c1"># PyG uses COO format: edge_index[0] contains source nodes, edge_index[1] contains target nodes</span>
+<span class="n">edge_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">())</span>
+<span class="n">edge_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">edge_list</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span><span class="o">.</span><span class="n">t</span><span class="p">()</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+
+<span class="c1"># For undirected graphs, we need edges in both directions</span>
+<span class="n">edge_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">edge_index</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="mi">0</span><span class="p">)],</span> <span class="n">dim</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Create the PyG Data object</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span> <span class="o">=</span> <span class="n">edge_index</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of nodes: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">num_nodes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of edges: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">num_edges</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of features per node: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">num_node_features</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Has isolated nodes: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">has_isolated_nodes</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Has self-loops: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">has_self_loops</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is undirected: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">is_undirected</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="creating-train-validation-test-splits">
+<h3><span class="section-number">4.3.3. </span>Creating Train/Validation/Test Splits<a class="headerlink" href="#creating-train-validation-test-splits" title="Permalink to this heading">#</a></h3>
+<p>For node classification tasks, we need to split our nodes into training, validation, and test sets. Unlike traditional machine learning where we split samples, here we create <strong>masks</strong> that indicate which nodes belong to each set. This is because all nodes remain in the graph during training (we need the full graph structure), but we only compute the loss on training nodes.</p>
+<p>We will create splits for <strong>10 different runs</strong> to ensure robust evaluation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_masks</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">train_ratio</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">val_ratio</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">seed</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create train/val/test masks for node classification.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        num_nodes: Total number of nodes</span>
+<span class="sd">        num_classes: Number of classes</span>
+<span class="sd">        train_ratio: Fraction of nodes for training</span>
+<span class="sd">        val_ratio: Fraction of nodes for validation</span>
+<span class="sd">        seed: Random seed for reproducibility</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        train_mask, val_mask, test_mask as boolean tensors</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">)</span>
+    <span class="n">train_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_nodes</span> <span class="o">*</span> <span class="n">train_ratio</span><span class="p">)</span>
+    <span class="n">val_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_nodes</span> <span class="o">*</span> <span class="n">val_ratio</span><span class="p">)</span>
+    
+    <span class="n">train_idx</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+    <span class="n">val_idx</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">train_size</span><span class="p">:</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">]</span>
+    <span class="n">test_idx</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">train_size</span> <span class="o">+</span> <span class="n">val_size</span><span class="p">:]</span>
+    
+    <span class="n">train_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+    <span class="n">val_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+    <span class="n">test_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+    
+    <span class="n">train_mask</span><span class="p">[</span><span class="n">train_idx</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">val_mask</span><span class="p">[</span><span class="n">val_idx</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">test_mask</span><span class="p">[</span><span class="n">test_idx</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    
+    <span class="k">return</span> <span class="n">train_mask</span><span class="p">,</span> <span class="n">val_mask</span><span class="p">,</span> <span class="n">test_mask</span>
+
+
+<span class="c1"># Create masks for 10 different runs</span>
+<span class="n">num_runs</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">all_masks</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_runs</span><span class="p">):</span>
+    <span class="n">train_mask</span><span class="p">,</span> <span class="n">val_mask</span><span class="p">,</span> <span class="n">test_mask</span> <span class="o">=</span> <span class="n">create_masks</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">seed</span> <span class="o">=</span> <span class="n">run</span>
+    <span class="p">)</span>
+    <span class="n">all_masks</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;train&#39;</span><span class="p">:</span> <span class="n">train_mask</span><span class="p">,</span>
+        <span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="n">val_mask</span><span class="p">,</span>
+        <span class="s1">&#39;test&#39;</span><span class="p">:</span> <span class="n">test_mask</span>
+    <span class="p">})</span>
+    
+<span class="c1"># Verify the first split</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Run 0 - Train nodes: </span><span class="si">{</span><span class="n">all_masks</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;train&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Run 0 - Val nodes: </span><span class="si">{</span><span class="n">all_masks</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Run 0 - Test nodes: </span><span class="si">{</span><span class="n">all_masks</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;test&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="part-3-the-over-smoothing-problem">
+<h2><span class="section-number">4.4. </span>Part 3: The Over-Smoothing Problem<a class="headerlink" href="#part-3-the-over-smoothing-problem" title="Permalink to this heading">#</a></h2>
+<section id="why-repeated-aggregation-causes-information-mixing">
+<h3><span class="section-number">4.4.1. </span>Why Repeated Aggregation Causes Information Mixing<a class="headerlink" href="#why-repeated-aggregation-causes-information-mixing" title="Permalink to this heading">#</a></h3>
+<p>Before diving into the mechanics of message passing, we need to understand a critical limitation: <strong>what happens when we aggregate information from neighbors multiple times?</strong></p>
+<p>Consider a simple scenario with two neighboring nodes:</p>
+<ul class="simple">
+<li><p><strong>Node A</strong> (Class 0): Initially has distinctive features for Class 0</p></li>
+<li><p><strong>Node B</strong> (Class 1): Initially has distinctive features for Class 1</p></li>
+<li><p><strong>Edge A-B</strong>: These nodes are connected in the graph</p></li>
+</ul>
+<section id="evolution-of-node-representations-across-layers">
+<h4><span class="section-number">4.4.1.1. </span>Evolution of Node Representations Across Layers<a class="headerlink" href="#evolution-of-node-representations-across-layers" title="Permalink to this heading">#</a></h4>
+<p>When we perform message passing, we aggregate neighbor information. Mathematically, this can be expressed as multiplying by a normalized adjacency matrix <span class="math notranslate nohighlight">\(\tilde{\mathbf{A}}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{H}^{(l+1)} = \tilde{\mathbf{A}} \mathbf{H}^{(l)}\]</div>
+<p>This is essentially an <strong>averaging operation</strong>. Let’s trace what happens to our two nodes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Layer 0:   h_A = [1.0, 0.0]  (pure class 0)    |  h_B = [0.0, 1.0]  (pure class 1)
+
+Layer 1:   h_A ≈ [0.7, 0.3]  (mixed)           |  h_B ≈ [0.3, 0.7]  (mixed)
+
+Layer 2:   h_A ≈ [0.55, 0.45]                  |  h_B ≈ [0.45, 0.55]
+
+Layer 3:   h_A ≈ [0.52, 0.48]                  |  h_B ≈ [0.48, 0.52]
+
+...
+
+Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTICAL!)
+</pre></div>
+</div>
+<p><strong>The representations converge to the same value!</strong> This phenomenon is called <strong>over-smoothing</strong>: after many layers of aggregation, node representations become nearly identical, losing all discriminative information.</p>
+</section>
+<section id="mathematical-intuition">
+<h4><span class="section-number">4.4.1.2. </span>Mathematical Intuition<a class="headerlink" href="#mathematical-intuition" title="Permalink to this heading">#</a></h4>
+<p>The normalized adjacency matrix <span class="math notranslate nohighlight">\(\tilde{\mathbf{A}}\)</span> is a stochastic matrix (rows sum to 1). When we repeatedly multiply by it:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{H}^{(l)} = \tilde{\mathbf{A}}^l \mathbf{H}^{(0)}\]</div>
+<p>As <span class="math notranslate nohighlight">\(l \to \infty\)</span>, the matrix <span class="math notranslate nohighlight">\(\tilde{\mathbf{A}}^l\)</span> converges to a constant matrix where all rows are identical (the stationary distribution). This means:</p>
+<div class="math notranslate nohighlight">
+\[\lim_{l \to \infty} \mathbf{H}^{(l)} = \mathbf{1} \mathbf{c}^\top\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\mathbf{1}\)</span> is a vector of ones and <span class="math notranslate nohighlight">\(\mathbf{c}\)</span> is a constant vector. <strong>All nodes end up with identical representations!</strong></p>
+</section>
+<section id="practical-implications">
+<h4><span class="section-number">4.4.1.3. </span>Practical Implications<a class="headerlink" href="#practical-implications" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Why 2-3 layers are typical:</strong> Most GNNs use only 2-3 message passing layers before over-smoothing becomes severe</p></li>
+<li><p><strong>Why deeper is not always better:</strong> Adding more layers doesn’t improve performance; it hurts it due to over-smoothing</p></li>
+<li><p><strong>Skip connections help:</strong> Techniques like residual connections can mitigate over-smoothing by preserving original node features</p></li>
+<li><p><strong>Graph structure matters in shallow networks:</strong> With limited depth, the graph provides distinguishing information that features alone cannot</p></li>
+</ol>
+<p>This is why in our challenging dataset with weak node features, we rely on the graph structure—and why we use only 2 GCN layers, not 10!</p>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-4-understanding-message-passing">
+<h2><span class="section-number">4.5. </span>Part 4: Understanding Message Passing<a class="headerlink" href="#part-4-understanding-message-passing" title="Permalink to this heading">#</a></h2>
+<section id="the-core-idea-behind-gnns">
+<h3><span class="section-number">4.5.1. </span>The Core Idea Behind GNNs<a class="headerlink" href="#the-core-idea-behind-gnns" title="Permalink to this heading">#</a></h3>
+<p>The fundamental operation in Graph Neural Networks is <strong>message passing</strong> (also known as neighborhood aggregation). The key insight is that a node’s representation should depend not only on its own features but also on the features of its neighbors. By iteratively aggregating information from neighbors, each node can capture information from increasingly larger portions of the graph.</p>
+<p>Formally, the message passing framework consists of three steps at each layer <span class="math notranslate nohighlight">\(l\)</span>:</p>
+<ol class="arabic simple">
+<li><p><strong>Message</strong>: Each node creates a message to send to its neighbors</p></li>
+<li><p><strong>Aggregate</strong>: Each node aggregates messages from its neighbors</p></li>
+<li><p><strong>Update</strong>: Each node updates its representation based on the aggregated messages</p></li>
+</ol>
+</section>
+<section id="mathematical-formulation">
+<h3><span class="section-number">4.5.2. </span>Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Permalink to this heading">#</a></h3>
+<section id="vector-form">
+<h4><span class="section-number">4.5.2.1. </span>Vector Form<a class="headerlink" href="#vector-form" title="Permalink to this heading">#</a></h4>
+<p>For a single node <span class="math notranslate nohighlight">\(v\)</span>, the message passing operation can be written as:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}_v^{(l+1)} = \phi \left( \mathbf{h}_v^{(l)}, \bigoplus_{u \in \mathcal{N}(v)} \psi(\mathbf{h}_v^{(l)}, \mathbf{h}_u^{(l)}) \right)
+\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{h}_v^{(l)}\)</span> is the representation of node <span class="math notranslate nohighlight">\(v\)</span> at layer <span class="math notranslate nohighlight">\(l\)</span> (with <span class="math notranslate nohighlight">\(\mathbf{h}_v^{(0)} = \mathbf{x}_v\)</span>)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{N}(v)\)</span> is the set of neighbors of node <span class="math notranslate nohighlight">\(v\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\psi\)</span> is the <strong>message function</strong> that computes a message from neighbor <span class="math notranslate nohighlight">\(u\)</span> to node <span class="math notranslate nohighlight">\(v\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\bigoplus\)</span> is a permutation-invariant <strong>aggregation function</strong> (such as sum, mean, or max)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\phi\)</span> is the <strong>update function</strong> that combines the node’s current representation with the aggregated messages</p></li>
+</ul>
+</section>
+<section id="matrix-form">
+<h4><span class="section-number">4.5.2.2. </span>Matrix Form<a class="headerlink" href="#matrix-form" title="Permalink to this heading">#</a></h4>
+<p>For computational efficiency, message passing is typically implemented in matrix form. Consider a simple case where we aggregate neighbor features using a sum and then apply a linear transformation:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{H}^{(l+1)} = \sigma \left( \tilde{\mathbf{A}} \mathbf{H}^{(l)} \mathbf{W}^{(l)} \right)
+\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{H}^{(l)} \in \mathbb{R}^{|V| \times d_l}\)</span> is the matrix of all node representations at layer <span class="math notranslate nohighlight">\(l\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{W}^{(l)} \in \mathbb{R}^{d_l \times d_{l+1}}\)</span> is a learnable weight matrix</p></li>
+<li><p><span class="math notranslate nohighlight">\(\tilde{\mathbf{A}}\)</span> is a normalized version of the adjacency matrix (often <span class="math notranslate nohighlight">\(\mathbf{D}^{-1/2} \mathbf{A} \mathbf{D}^{-1/2}\)</span> where <span class="math notranslate nohighlight">\(\mathbf{D}\)</span> is the degree matrix)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma\)</span> is a non-linear activation function</p></li>
+</ul>
+<p>The matrix multiplication <span class="math notranslate nohighlight">\(\tilde{\mathbf{A}} \mathbf{H}^{(l)}\)</span> effectively performs the aggregation: each row of the result contains the sum (or weighted sum) of the features of a node’s neighbors.</p>
+</section>
+</section>
+<section id="implementing-message-passing-from-scratch">
+<h3><span class="section-number">4.5.3. </span>Implementing Message Passing from Scratch<a class="headerlink" href="#implementing-message-passing-from-scratch" title="Permalink to this heading">#</a></h3>
+<p>Let us implement a simple message passing layer manually to understand the mechanics:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+
+<span class="k">def</span> <span class="nf">simple_message_passing</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">,</span> <span class="n">weight_matrix</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform one step of message passing.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        x: Node features [num_nodes, in_features]</span>
+<span class="sd">        edge_index: Graph connectivity [2, num_edges]</span>
+<span class="sd">        weight_matrix: Learnable weights [in_features, out_features]</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Updated node features [num_nodes, out_features]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">num_nodes</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1"># Step 1: Transform features</span>
+    <span class="n">x_transformed</span> <span class="o">=</span> <span class="n">x</span> <span class="o">@</span> <span class="n">weight_matrix</span>  <span class="c1"># [num_nodes, out_features]</span>
+    
+    <span class="c1"># Step 2: Aggregate neighbor features</span>
+    <span class="c1"># Initialize output with zeros</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x_transformed</span><span class="p">)</span>
+    
+    <span class="c1"># Get source and target nodes</span>
+    <span class="n">source_nodes</span> <span class="o">=</span> <span class="n">edge_index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Nodes sending messages</span>
+    <span class="n">target_nodes</span> <span class="o">=</span> <span class="n">edge_index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Nodes receiving messages</span>
+    
+    <span class="c1"># Aggregate: for each edge, add source node&#39;s features to target node</span>
+    <span class="c1"># This is equivalent to multiplying by the adjacency matrix</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">edge_index</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">source_nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">tgt</span> <span class="o">=</span> <span class="n">target_nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">tgt</span><span class="p">]</span> <span class="o">+=</span> <span class="n">x_transformed</span><span class="p">[</span><span class="n">src</span><span class="p">]</span>
+    
+    <span class="c1"># Step 3: Normalize by node degree (mean aggregation)</span>
+    <span class="c1"># Count incoming edges for each node</span>
+    <span class="n">degree</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">edge_index</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)):</span>
+        <span class="n">tgt</span> <span class="o">=</span> <span class="n">target_nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">degree</span><span class="p">[</span><span class="n">tgt</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="c1"># Avoid division by zero</span>
+    <span class="n">degree</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">degree</span><span class="p">,</span> <span class="nb">min</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># Normalize</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span> <span class="o">/</span> <span class="n">degree</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># Step 4: Apply non-linearity</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="c1"># Test our implementation</span>
+<span class="n">in_features</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">num_node_features</span>
+<span class="n">out_features</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="c1"># Initialize random weights</span>
+<span class="n">W</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span>
+
+<span class="c1"># Perform message passing</span>
+<span class="n">h1</span> <span class="o">=</span> <span class="n">simple_message_passing</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Input shape: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output shape: </span><span class="si">{</span><span class="n">h1</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="efficient-matrix-implementation">
+<h3><span class="section-number">4.5.4. </span>Efficient Matrix Implementation<a class="headerlink" href="#efficient-matrix-implementation" title="Permalink to this heading">#</a></h3>
+<p>The loop-based implementation above is intuitive but slow. In practice, we use sparse matrix operations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch_geometric.utils</span> <span class="kn">import</span> <span class="n">degree</span>
+
+<span class="k">def</span> <span class="nf">efficient_message_passing</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">,</span> <span class="n">weight_matrix</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Efficient message passing using scatter operations.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        x: Node features [num_nodes, in_features]</span>
+<span class="sd">        edge_index: Graph connectivity [2, num_edges]</span>
+<span class="sd">        weight_matrix: Learnable weights [in_features, out_features]</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Updated node features [num_nodes, out_features]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">num_nodes</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1"># Transform features</span>
+    <span class="n">x_transformed</span> <span class="o">=</span> <span class="n">x</span> <span class="o">@</span> <span class="n">weight_matrix</span>
+    
+    <span class="c1"># Get source and target nodes</span>
+    <span class="n">source_nodes</span> <span class="o">=</span> <span class="n">edge_index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">target_nodes</span> <span class="o">=</span> <span class="n">edge_index</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="c1"># Gather source node features for each edge</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="n">x_transformed</span><span class="p">[</span><span class="n">source_nodes</span><span class="p">]</span>  <span class="c1"># [num_edges, out_features]</span>
+    
+    <span class="c1"># Scatter-add: aggregate messages to target nodes</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">x_transformed</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">scatter_add_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">target_nodes</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">expand_as</span><span class="p">(</span><span class="n">messages</span><span class="p">),</span> <span class="n">messages</span><span class="p">)</span>
+    
+    <span class="c1"># Normalize by degree</span>
+    <span class="n">deg</span> <span class="o">=</span> <span class="n">degree</span><span class="p">(</span><span class="n">target_nodes</span><span class="p">,</span> <span class="n">num_nodes</span> <span class="o">=</span> <span class="n">num_nodes</span><span class="p">)</span>
+    <span class="n">deg</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">deg</span><span class="p">,</span> <span class="nb">min</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span> <span class="o">/</span> <span class="n">deg</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># Apply non-linearity</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="c1"># Verify both implementations give the same result</span>
+<span class="n">h1_slow</span> <span class="o">=</span> <span class="n">simple_message_passing</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+<span class="n">h1_fast</span> <span class="o">=</span> <span class="n">efficient_message_passing</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Implementations match: </span><span class="si">{</span><span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">h1_slow</span><span class="p">,</span><span class="w"> </span><span class="n">h1_fast</span><span class="p">,</span><span class="w"> </span><span class="n">atol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-6</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="visualizing-the-effect-of-message-passing">
+<h3><span class="section-number">4.5.5. </span>Visualizing the Effect of Message Passing<a class="headerlink" href="#visualizing-the-effect-of-message-passing" title="Permalink to this heading">#</a></h3>
+<p>To understand what message passing accomplishes, let us visualize the node representations before and after applying message passing using <strong>t-SNE</strong> (t-distributed Stochastic Neighbor Embedding), a dimensionality reduction technique that preserves local structure:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
+
+<span class="k">def</span> <span class="nf">visualize_embeddings</span><span class="p">(</span><span class="n">embeddings</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Visualize node embeddings using t-SNE.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        embeddings: Node embeddings [num_nodes, embedding_dim]</span>
+<span class="sd">        labels: Node labels [num_nodes]</span>
+<span class="sd">        title: Plot title</span>
+<span class="sd">        filename: Output filename</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Apply t-SNE</span>
+    <span class="n">tsne</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">42</span><span class="p">,</span> <span class="n">perplexity</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">embeddings_2d</span> <span class="o">=</span> <span class="n">tsne</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">embeddings</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+    
+    <span class="c1"># Plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#e41a1c&#39;</span><span class="p">,</span> <span class="s1">&#39;#377eb8&#39;</span><span class="p">,</span> <span class="s1">&#39;#4daf4a&#39;</span><span class="p">,</span> <span class="s1">&#39;#984ea3&#39;</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">class_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_classes</span><span class="p">):</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">labels</span> <span class="o">==</span> <span class="n">class_idx</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">embeddings_2d</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="n">embeddings_2d</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">class_idx</span><span class="p">],</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Class </span><span class="si">{</span><span class="n">class_idx</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="mi">50</span>
+        <span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t-SNE Dimension 1&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;t-SNE Dimension 2&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dpi</span> <span class="o">=</span> <span class="mi">150</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="c1"># Visualize original features</span>
+<span class="n">visualize_embeddings</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> 
+    <span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> 
+    <span class="s2">&quot;Node Features Before Message Passing&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsne_before_mp.png&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Apply multiple rounds of message passing</span>
+<span class="n">W1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">feature_dim</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span>
+<span class="n">W2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span>
+
+<span class="n">h1</span> <span class="o">=</span> <span class="n">efficient_message_passing</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">W1</span><span class="p">)</span>
+<span class="n">h2</span> <span class="o">=</span> <span class="n">efficient_message_passing</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">edge_index</span><span class="p">,</span> <span class="n">W2</span><span class="p">)</span>
+
+<span class="c1"># Visualize after message passing</span>
+<span class="n">visualize_embeddings</span><span class="p">(</span>
+    <span class="n">h2</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+    <span class="s2">&quot;Node Features After 2 Layers of Message Passing&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tsne_after_mp.png&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-default" id="tsnebeforemp">
+<img alt="_images/tsne_before_mp.png" src="_images/tsne_before_mp.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 4.3 </span><span class="caption-text">t-SNE visualization showing node features before message passing.</span><a class="headerlink" href="#tsnebeforemp" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="tsneaftermp">
+<img alt="_images/tsne_after_mp.png" src="_images/tsne_after_mp.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 4.4 </span><span class="caption-text">t-SNE visualization showing node features after 2 layers of message passing.</span><a class="headerlink" href="#tsneaftermp" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The key observation is that after message passing, nodes of the same class tend to cluster together more tightly. This is because message passing allows nodes to incorporate information from their neighbors, and in a graph with community structure, neighbors are likely to belong to the same class.</p>
+</section>
+</section>
+<section id="part-5-multi-layer-perceptrons-mlps">
+<h2><span class="section-number">4.6. </span>Part 5: Multi-Layer Perceptrons (MLPs)<a class="headerlink" href="#part-5-multi-layer-perceptrons-mlps" title="Permalink to this heading">#</a></h2>
+<p>Before diving into GNNs, let us briefly review <strong>Multi-Layer Perceptrons (MLPs)</strong>, which form the building blocks of many neural network architectures, including GNNs.</p>
+<section id="what-is-an-mlp">
+<h3><span class="section-number">4.6.1. </span>What is an MLP?<a class="headerlink" href="#what-is-an-mlp" title="Permalink to this heading">#</a></h3>
+<p>An MLP is a feedforward neural network consisting of multiple layers of neurons. Each layer performs a linear transformation followed by a non-linear activation function:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}^{(l+1)} = \sigma(\mathbf{W}^{(l)} \mathbf{h}^{(l)} + \mathbf{b}^{(l)})
+\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{h}^{(l)}\)</span> is the input to layer <span class="math notranslate nohighlight">\(l\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{W}^{(l)}\)</span> is the weight matrix</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{b}^{(l)}\)</span> is the bias vector</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma\)</span> is a non-linear activation function (ReLU, Sigmoid, etc.)</p></li>
+</ul>
+</section>
+<section id="mlp-for-node-classification-baseline">
+<h3><span class="section-number">4.6.2. </span>MLP for Node Classification (Baseline)<a class="headerlink" href="#mlp-for-node-classification-baseline" title="Permalink to this heading">#</a></h3>
+<p>An important baseline for node classification is to use an MLP that processes each node’s features independently, ignoring the graph structure entirely:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="k">class</span> <span class="nc">MLP</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple Multi-Layer Perceptron for node classification.</span>
+<span class="sd">    This baseline ignores the graph structure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">,</span> <span class="n">hidden_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">dropout</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MLP</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">hidden_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># First layer</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># Second layer (output)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="c1"># Create MLP model</span>
+<span class="n">mlp_model</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span>
+    <span class="n">in_channels</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">num_node_features</span><span class="p">,</span>
+    <span class="n">hidden_channels</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span>
+    <span class="n">out_channels</span> <span class="o">=</span> <span class="n">num_classes</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mlp_model</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The key limitation of MLPs for graph data is that they treat each node independently. They cannot leverage the relational information encoded in the graph structure, which is often crucial for tasks like node classification in networks.</p>
+</section>
+</section>
+<section id="part-6-graph-neural-networks">
+<h2><span class="section-number">4.7. </span>Part 6: Graph Neural Networks<a class="headerlink" href="#part-6-graph-neural-networks" title="Permalink to this heading">#</a></h2>
+<section id="from-message-passing-to-gnns">
+<h3><span class="section-number">4.7.1. </span>From Message Passing to GNNs<a class="headerlink" href="#from-message-passing-to-gnns" title="Permalink to this heading">#</a></h3>
+<p>A <strong>Graph Neural Network</strong> is essentially a neural network that uses message passing to propagate information across the graph structure. By stacking multiple message passing layers (each with learnable parameters), the network can learn complex functions that depend on both node features and graph topology.</p>
+</section>
+<section id="graph-convolutional-network-gcn">
+<h3><span class="section-number">4.7.2. </span>Graph Convolutional Network (GCN)<a class="headerlink" href="#graph-convolutional-network-gcn" title="Permalink to this heading">#</a></h3>
+<p>The <strong>Graph Convolutional Network (GCN)</strong> introduced by Kipf and Welling (2017) is one of the most widely used GNN architectures. Each GCN layer performs:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{H}^{(l+1)} = \sigma \left( \hat{\mathbf{D}}^{-1/2} \hat{\mathbf{A}} \hat{\mathbf{D}}^{-1/2} \mathbf{H}^{(l)} \mathbf{W}^{(l)} \right)
+\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\hat{\mathbf{A}} = \mathbf{A} + \mathbf{I}\)</span> is the adjacency matrix with self-loops, and <span class="math notranslate nohighlight">\(\hat{\mathbf{D}}\)</span> is its degree matrix.</p>
+<p>The addition of self-loops ensures that a node’s own features are also considered during aggregation.</p>
+</section>
+<section id="implementing-a-gnn-with-pytorch-geometric">
+<h3><span class="section-number">4.7.3. </span>Implementing a GNN with PyTorch Geometric<a class="headerlink" href="#implementing-a-gnn-with-pytorch-geometric" title="Permalink to this heading">#</a></h3>
+<p>PyG provides efficient implementations of common GNN layers. Let us build a simple 2-layer GCN:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch_geometric.nn</span> <span class="kn">import</span> <span class="n">GCNConv</span>
+
+<span class="k">class</span> <span class="nc">GCN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Graph Convolutional Network for node classification.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">,</span> <span class="n">hidden_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">dropout</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GCN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">GCNConv</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">hidden_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">GCNConv</span><span class="p">(</span><span class="n">hidden_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">):</span>
+        <span class="c1"># First GCN layer</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># Second GCN layer</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">edge_index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="c1"># Create GCN model</span>
+<span class="n">gcn_model</span> <span class="o">=</span> <span class="n">GCN</span><span class="p">(</span>
+    <span class="n">in_channels</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">num_node_features</span><span class="p">,</span>
+    <span class="n">hidden_channels</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span>
+    <span class="n">out_channels</span> <span class="o">=</span> <span class="n">num_classes</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gcn_model</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Notice how the GCN layer takes both the node features <code class="docutils literal notranslate"><span class="pre">x</span></code> and the graph structure <code class="docutils literal notranslate"><span class="pre">edge_index</span></code> as input. This is the key difference from MLPs.</p>
+</section>
+<section id="training-pipeline">
+<h3><span class="section-number">4.7.4. </span>Training Pipeline<a class="headerlink" href="#training-pipeline" title="Permalink to this heading">#</a></h3>
+<p>We will use the standard PyTorch training pipeline. The key steps are:</p>
+<ol class="arabic simple">
+<li><p>Forward pass: Compute predictions</p></li>
+<li><p>Compute loss (only on training nodes)</p></li>
+<li><p>Backward pass: Compute gradients</p></li>
+<li><p>Update parameters</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">train_epoch</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">train_mask</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Train the model for one epoch.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        model: The neural network model</span>
+<span class="sd">        data: PyG Data object</span>
+<span class="sd">        optimizer: PyTorch optimizer</span>
+<span class="sd">        criterion: Loss function</span>
+<span class="sd">        train_mask: Boolean mask for training nodes</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Training loss</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    
+    <span class="c1"># Forward pass</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">MLP</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">edge_index</span><span class="p">)</span>
+    
+    <span class="c1"># Compute loss only on training nodes</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">train_mask</span><span class="p">],</span> <span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">train_mask</span><span class="p">])</span>
+    
+    <span class="c1"># Backward pass</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+
+
+<span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">mask</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluate the model on a set of nodes.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        model: The neural network model</span>
+<span class="sd">        data: PyG Data object</span>
+<span class="sd">        mask: Boolean mask for evaluation nodes</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Accuracy on the specified nodes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    
+    <span class="c1"># Forward pass</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">MLP</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">edge_index</span><span class="p">)</span>
+    
+    <span class="c1"># Get predictions</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># Compute accuracy</span>
+    <span class="n">correct</span> <span class="o">=</span> <span class="p">(</span><span class="n">pred</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">==</span> <span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span>
+</pre></div>
+</div>
+</section>
+<section id="complete-training-loop">
+<h3><span class="section-number">4.7.5. </span>Complete Training Loop<a class="headerlink" href="#complete-training-loop" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">masks</span><span class="p">,</span> <span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">lr</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">weight_decay</span> <span class="o">=</span> <span class="mf">5e-4</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run a complete training experiment.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        model: The neural network model</span>
+<span class="sd">        data: PyG Data object</span>
+<span class="sd">        masks: Dictionary with train/val/test masks</span>
+<span class="sd">        num_epochs: Number of training epochs</span>
+<span class="sd">        lr: Learning rate</span>
+<span class="sd">        weight_decay: L2 regularization strength</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary with training history and final metrics</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span> <span class="o">=</span> <span class="n">lr</span><span class="p">,</span> <span class="n">weight_decay</span> <span class="o">=</span> <span class="n">weight_decay</span><span class="p">)</span>
+    <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
+    
+    <span class="n">train_mask</span> <span class="o">=</span> <span class="n">masks</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">]</span>
+    <span class="n">val_mask</span> <span class="o">=</span> <span class="n">masks</span><span class="p">[</span><span class="s1">&#39;val&#39;</span><span class="p">]</span>
+    <span class="n">test_mask</span> <span class="o">=</span> <span class="n">masks</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]</span>
+    
+    <span class="n">history</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;train_loss&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;train_acc&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;val_acc&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;test_acc&#39;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+    
+    <span class="n">best_val_acc</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">best_test_acc</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">):</span>
+        <span class="c1"># Training</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">train_epoch</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">train_mask</span><span class="p">)</span>
+        
+        <span class="c1"># Evaluation</span>
+        <span class="n">train_acc</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">train_mask</span><span class="p">)</span>
+        <span class="n">val_acc</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">val_mask</span><span class="p">)</span>
+        <span class="n">test_acc</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">test_mask</span><span class="p">)</span>
+        
+        <span class="c1"># Store history</span>
+        <span class="n">history</span><span class="p">[</span><span class="s1">&#39;train_loss&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+        <span class="n">history</span><span class="p">[</span><span class="s1">&#39;train_acc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">train_acc</span><span class="p">)</span>
+        <span class="n">history</span><span class="p">[</span><span class="s1">&#39;val_acc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val_acc</span><span class="p">)</span>
+        <span class="n">history</span><span class="p">[</span><span class="s1">&#39;test_acc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_acc</span><span class="p">)</span>
+        
+        <span class="c1"># Track best model based on validation accuracy</span>
+        <span class="k">if</span> <span class="n">val_acc</span> <span class="o">&gt;</span> <span class="n">best_val_acc</span><span class="p">:</span>
+            <span class="n">best_val_acc</span> <span class="o">=</span> <span class="n">val_acc</span>
+            <span class="n">best_test_acc</span> <span class="o">=</span> <span class="n">test_acc</span>
+        
+        <span class="c1"># Print progress every 50 epochs</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">50</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2"> | Loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | &quot;</span>
+                  <span class="sa">f</span><span class="s2">&quot;Train: </span><span class="si">{</span><span class="n">train_acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | Val: </span><span class="si">{</span><span class="n">val_acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | Test: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="n">history</span><span class="p">,</span>
+        <span class="s1">&#39;best_val_acc&#39;</span><span class="p">:</span> <span class="n">best_val_acc</span><span class="p">,</span>
+        <span class="s1">&#39;best_test_acc&#39;</span><span class="p">:</span> <span class="n">best_test_acc</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="running-the-experiments">
+<h3><span class="section-number">4.7.6. </span>Running the Experiments<a class="headerlink" href="#running-the-experiments" title="Permalink to this heading">#</a></h3>
+<p>Now let us run experiments with both MLP and GCN across multiple runs:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hyperparameters</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">hidden_channels</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">weight_decay</span> <span class="o">=</span> <span class="mf">5e-4</span>
+
+<span class="c1"># Store results for all runs</span>
+<span class="n">mlp_results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">gcn_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_runs</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">50</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Run </span><span class="si">{</span><span class="n">run</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">num_runs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+    
+    <span class="c1"># Create new models for each run</span>
+    <span class="n">mlp</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">num_node_features</span><span class="p">,</span> <span class="n">hidden_channels</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+    <span class="n">gcn</span> <span class="o">=</span> <span class="n">GCN</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">num_node_features</span><span class="p">,</span> <span class="n">hidden_channels</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+    
+    <span class="c1"># Get masks for this run</span>
+    <span class="n">masks</span> <span class="o">=</span> <span class="n">all_masks</span><span class="p">[</span><span class="n">run</span><span class="p">]</span>
+    
+    <span class="c1"># Train MLP</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Training MLP:&quot;</span><span class="p">)</span>
+    <span class="n">mlp_result</span> <span class="o">=</span> <span class="n">run_experiment</span><span class="p">(</span><span class="n">mlp</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">masks</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">weight_decay</span><span class="p">)</span>
+    <span class="n">mlp_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mlp_result</span><span class="p">)</span>
+    
+    <span class="c1"># Train GCN</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Training GCN:&quot;</span><span class="p">)</span>
+    <span class="n">gcn_result</span> <span class="o">=</span> <span class="n">run_experiment</span><span class="p">(</span><span class="n">gcn</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">masks</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">weight_decay</span><span class="p">)</span>
+    <span class="n">gcn_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gcn_result</span><span class="p">)</span>
+
+<span class="c1"># Compute statistics</span>
+<span class="n">mlp_test_accs</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;best_test_acc&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">mlp_results</span><span class="p">]</span>
+<span class="n">gcn_test_accs</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;best_test_acc&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">gcn_results</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">50</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final Results (Test Accuracy)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MLP: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mlp_test_accs</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">mlp_test_accs</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GCN: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">gcn_test_accs</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">gcn_test_accs</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="visualizing-training-progress">
+<h3><span class="section-number">4.7.7. </span>Visualizing Training Progress<a class="headerlink" href="#visualizing-training-progress" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_training_curves</span><span class="p">(</span><span class="n">mlp_history</span><span class="p">,</span> <span class="n">gcn_history</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot training curves for MLP and GCN.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    
+    <span class="c1"># Loss curve</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mlp_history</span><span class="p">[</span><span class="s1">&#39;train_loss&#39;</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;MLP&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gcn_history</span><span class="p">[</span><span class="s1">&#39;train_loss&#39;</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;GCN&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Epoch&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Training Loss&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Training Loss&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
+    
+    <span class="c1"># Training accuracy</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mlp_history</span><span class="p">[</span><span class="s1">&#39;train_acc&#39;</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;MLP&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gcn_history</span><span class="p">[</span><span class="s1">&#39;train_acc&#39;</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;GCN&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Epoch&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Training Accuracy&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
+    
+    <span class="c1"># Validation accuracy</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mlp_history</span><span class="p">[</span><span class="s1">&#39;val_acc&#39;</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;MLP&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gcn_history</span><span class="p">[</span><span class="s1">&#39;val_acc&#39;</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;GCN&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Epoch&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Validation Accuracy&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dpi</span> <span class="o">=</span> <span class="mi">150</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="c1"># Plot for the first run</span>
+<span class="n">plot_training_curves</span><span class="p">(</span>
+    <span class="n">mlp_results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;history&#39;</span><span class="p">],</span>
+    <span class="n">gcn_results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;history&#39;</span><span class="p">],</span>
+    <span class="s2">&quot;training_curves.png&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-default" id="trainingcurves">
+<img alt="_images/training_curves.png" src="_images/training_curves.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 4.5 </span><span class="caption-text">Training curves comparing MLP and GCN performance over epochs.</span><a class="headerlink" href="#trainingcurves" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="visualizing-learned-embeddings">
+<h3><span class="section-number">4.7.8. </span>Visualizing Learned Embeddings<a class="headerlink" href="#visualizing-learned-embeddings" title="Permalink to this heading">#</a></h3>
+<p>Let us visualize the final node embeddings learned by the GCN:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">get_embeddings</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract node embeddings from the model (before the final layer).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">GCN</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">edge_index</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="c1"># Get embeddings from trained models</span>
+<span class="n">mlp</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">num_node_features</span><span class="p">,</span> <span class="n">hidden_channels</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+<span class="n">gcn</span> <span class="o">=</span> <span class="n">GCN</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">num_node_features</span><span class="p">,</span> <span class="n">hidden_channels</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">)</span>
+
+<span class="c1"># Train models (using first run masks)</span>
+<span class="n">masks</span> <span class="o">=</span> <span class="n">all_masks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">run_experiment</span><span class="p">(</span><span class="n">mlp</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">masks</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">weight_decay</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">run_experiment</span><span class="p">(</span><span class="n">gcn</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">masks</span><span class="p">,</span> <span class="n">num_epochs</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">weight_decay</span><span class="p">)</span>
+
+<span class="c1"># Get and visualize embeddings</span>
+<span class="n">mlp_emb</span> <span class="o">=</span> <span class="n">get_embeddings</span><span class="p">(</span><span class="n">mlp</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="n">gcn_emb</span> <span class="o">=</span> <span class="n">get_embeddings</span><span class="p">(</span><span class="n">gcn</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+<span class="n">visualize_embeddings</span><span class="p">(</span>
+    <span class="n">mlp_emb</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+    <span class="s2">&quot;MLP Learned Embeddings&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mlp_embeddings.png&quot;</span>
+<span class="p">)</span>
+
+<span class="n">visualize_embeddings</span><span class="p">(</span>
+    <span class="n">gcn_emb</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
+    <span class="s2">&quot;GCN Learned Embeddings&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;gcn_embeddings.png&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="part-7-loading-real-world-datasets">
+<h2><span class="section-number">4.8. </span>Part 7: Loading Real-World Datasets<a class="headerlink" href="#part-7-loading-real-world-datasets" title="Permalink to this heading">#</a></h2>
+<p>PyTorch Geometric provides easy access to many benchmark datasets commonly used in GNN research. Two of the most popular are <strong>Cora</strong> and <strong>Citeseer</strong>, both citation networks where nodes represent papers and edges represent citations.</p>
+<section id="the-cora-dataset">
+<h3><span class="section-number">4.8.1. </span>The Cora Dataset<a class="headerlink" href="#the-cora-dataset" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch_geometric.datasets</span> <span class="kn">import</span> <span class="n">Planetoid</span>
+
+<span class="c1"># Load the Cora dataset</span>
+<span class="n">cora_dataset</span> <span class="o">=</span> <span class="n">Planetoid</span><span class="p">(</span><span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Cora&#39;</span><span class="p">)</span>
+<span class="n">cora_data</span> <span class="o">=</span> <span class="n">cora_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cora Dataset Statistics:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of nodes: </span><span class="si">{</span><span class="n">cora_data</span><span class="o">.</span><span class="n">num_nodes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of edges: </span><span class="si">{</span><span class="n">cora_data</span><span class="o">.</span><span class="n">num_edges</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of features: </span><span class="si">{</span><span class="n">cora_data</span><span class="o">.</span><span class="n">num_node_features</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of classes: </span><span class="si">{</span><span class="n">cora_dataset</span><span class="o">.</span><span class="n">num_classes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Has train/val/test masks: </span><span class="si">{</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">cora_data</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;train_mask&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="the-citeseer-dataset">
+<h3><span class="section-number">4.8.2. </span>The Citeseer Dataset<a class="headerlink" href="#the-citeseer-dataset" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the Citeseer dataset</span>
+<span class="n">citeseer_dataset</span> <span class="o">=</span> <span class="n">Planetoid</span><span class="p">(</span><span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Citeseer&#39;</span><span class="p">)</span>
+<span class="n">citeseer_data</span> <span class="o">=</span> <span class="n">citeseer_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Citeseer Dataset Statistics:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of nodes: </span><span class="si">{</span><span class="n">citeseer_data</span><span class="o">.</span><span class="n">num_nodes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of edges: </span><span class="si">{</span><span class="n">citeseer_data</span><span class="o">.</span><span class="n">num_edges</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of features: </span><span class="si">{</span><span class="n">citeseer_data</span><span class="o">.</span><span class="n">num_node_features</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of classes: </span><span class="si">{</span><span class="n">citeseer_dataset</span><span class="o">.</span><span class="n">num_classes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="exercise-1-custom-synthetic-dataset">
+<h2><span class="section-number">4.9. </span>Exercise 1: Custom Synthetic Dataset<a class="headerlink" href="#exercise-1-custom-synthetic-dataset" title="Permalink to this heading">#</a></h2>
+<section id="objectives">
+<h3><span class="section-number">4.9.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
+<p>The objective of this exercise is to consolidate your understanding of graph data creation and the GNN pipeline by building a custom synthetic dataset from scratch.</p>
+</section>
+<section id="task-description">
+<h3><span class="section-number">4.9.2. </span>Task Description<a class="headerlink" href="#task-description" title="Permalink to this heading">#</a></h3>
+<p>You must create a synthetic graph dataset with the following specifications:</p>
+<ol class="arabic simple">
+<li><p><strong>Graph Structure</strong>: Create a graph with approximately <strong>2000 nodes</strong>. You can use any of the following methods:</p>
+<ul class="simple">
+<li><p>Stochastic Block Model (as shown in the tutorial)</p></li>
+<li><p>Barabasi-Albert preferential attachment model (<code class="docutils literal notranslate"><span class="pre">nx.barabasi_albert_graph</span></code>)</p></li>
+<li><p>Watts-Strogatz small-world model (<code class="docutils literal notranslate"><span class="pre">nx.watts_strogatz_graph</span></code>)</p></li>
+<li><p>A combination of different graph generators</p></li>
+</ul>
+</li>
+<li><p><strong>Node Features</strong>: Design synthetic features with dimensionality between 16 and 64. The features should have some correlation with the node labels but include enough noise to make the task challenging.</p></li>
+<li><p><strong>Node Labels</strong>: Assign labels to nodes for a classification task with <strong>at least 3 classes</strong>. The label assignment can be based on graph structure (communities), node degree, or any other meaningful criterion.</p></li>
+<li><p><strong>Data Splits</strong>: Create train/validation/test splits with the following ratios: 60% train, 20% validation, 20% test. Generate splits for <strong>10 independent runs</strong>.</p></li>
+</ol>
+</section>
+<section id="deliverables">
+<h3><span class="section-number">4.9.3. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The complete code for generating your custom dataset</p></li>
+<li><p>Visualizations of the graph structure showing the different classes</p></li>
+<li><p>A brief description (1-2 paragraphs) explaining your design choices for the graph structure, features, and labels</p></li>
+</ul>
+</section>
+<section id="evaluation-criteria">
+<h3><span class="section-number">4.9.4. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Correctness of the implementation</p></li>
+<li><p>Creativity in the dataset design</p></li>
+<li><p>Quality of the visualizations</p></li>
+<li><p>Clarity of the written description</p></li>
+</ul>
+</section>
+</section>
+<section id="exercise-2-node-classification-experiments">
+<h2><span class="section-number">4.10. </span>Exercise 2: Node Classification Experiments<a class="headerlink" href="#exercise-2-node-classification-experiments" title="Permalink to this heading">#</a></h2>
+<section id="id1">
+<h3><span class="section-number">4.10.1. </span>Objectives<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>The objective of this exercise is to implement and compare different models for node classification on both your custom dataset and standard benchmark datasets.</p>
+</section>
+<section id="id2">
+<h3><span class="section-number">4.10.2. </span>Task Description<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p><strong>Part A: Custom Dataset</strong></p>
+<p>Using the synthetic dataset you created in Exercise 1:</p>
+<ol class="arabic simple">
+<li><p>Implement and train an <strong>MLP baseline</strong> that ignores the graph structure</p></li>
+<li><p>Implement and train a <strong>2-layer GCN</strong></p></li>
+<li><p>Run experiments across your 10 data splits</p></li>
+<li><p>Report mean and standard deviation of test accuracy for both models</p></li>
+</ol>
+<p><strong>Part B: Benchmark Datasets</strong></p>
+<p>Using the Cora and Citeseer datasets loaded with PyTorch Geometric:</p>
+<ol class="arabic simple">
+<li><p>Train a <strong>2-layer GCN</strong> on both datasets</p></li>
+<li><p>Use the provided train/val/test masks</p></li>
+<li><p>Implement proper early stopping based on validation accuracy</p></li>
+<li><p>Report final test accuracies</p></li>
+</ol>
+</section>
+<section id="hyperparameters-to-explore">
+<h3><span class="section-number">4.10.3. </span>Hyperparameters to Explore<a class="headerlink" href="#hyperparameters-to-explore" title="Permalink to this heading">#</a></h3>
+<p>Experiment with at least the following hyperparameters and report their effects:</p>
+<ul class="simple">
+<li><p>Hidden layer dimensions: 16, 32, 64, 128</p></li>
+<li><p>Learning rate: 0.001, 0.01, 0.1</p></li>
+<li><p>Dropout rate: 0.0, 0.3, 0.5</p></li>
+<li><p>Weight decay: 0, 1e-4, 5e-4</p></li>
+<li><p>Optimizer: Adam, SGD</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3><span class="section-number">4.10.4. </span>Deliverables<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Complete code for all experiments</p></li>
+<li><p>A table summarizing results across all datasets and models</p></li>
+<li><p>Training curves (loss and accuracy) for at least one configuration per dataset</p></li>
+<li><p>t-SNE visualizations of the learned embeddings for both MLP and GCN</p></li>
+<li><p>A discussion (3-4 paragraphs) comparing MLP vs GCN performance and analyzing why the GCN performs better (or worse) on each dataset</p></li>
+</ul>
+</section>
+<section id="analysis-questions">
+<h3><span class="section-number">4.10.5. </span>Analysis Questions<a class="headerlink" href="#analysis-questions" title="Permalink to this heading">#</a></h3>
+<p>In your report, address the following questions:</p>
+<ol class="arabic simple">
+<li><p>How does the performance gap between MLP and GCN vary across datasets? What might explain these differences?</p></li>
+<li><p>How does the choice of hidden dimensions affect model performance? Is there a trade-off between model capacity and overfitting?</p></li>
+<li><p>What is the effect of dropout on training stability and final performance?</p></li>
+<li><p>Based on your t-SNE visualizations, how do the learned representations differ between MLP and GCN?</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topic1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Graph Neural Networks</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-0-introduction-to-graphs-and-message-passing">4.1. Practical Session 0: Introduction to Graphs and Message Passing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">4.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">4.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-fundamentals">4.1.3. Graph Fundamentals</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-creating-synthetic-graph-data">4.2. Part 1: Creating Synthetic Graph Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-graph-with-networkx">4.2.1. Building a Graph with NetworkX</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-graph-structure">4.2.2. Visualizing the Graph Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-synthetic-node-features">4.2.3. Creating Synthetic Node Features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-node-labels">4.2.4. Assigning Node Labels</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-converting-to-pytorch-geometric-format">4.3. Part 2: Converting to PyTorch Geometric Format</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-pytorch-geometric">4.3.1. Introduction to PyTorch Geometric</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-networkx-graph-to-pyg-data">4.3.2. Converting NetworkX Graph to PyG Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-train-validation-test-splits">4.3.3. Creating Train/Validation/Test Splits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-the-over-smoothing-problem">4.4. Part 3: The Over-Smoothing Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-repeated-aggregation-causes-information-mixing">4.4.1. Why Repeated Aggregation Causes Information Mixing</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evolution-of-node-representations-across-layers">4.4.1.1. Evolution of Node Representations Across Layers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-intuition">4.4.1.2. Mathematical Intuition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-implications">4.4.1.3. Practical Implications</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-understanding-message-passing">4.5. Part 4: Understanding Message Passing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-core-idea-behind-gnns">4.5.1. The Core Idea Behind GNNs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">4.5.2. Mathematical Formulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-form">4.5.2.1. Vector Form</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-form">4.5.2.2. Matrix Form</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-message-passing-from-scratch">4.5.3. Implementing Message Passing from Scratch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-matrix-implementation">4.5.4. Efficient Matrix Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-effect-of-message-passing">4.5.5. Visualizing the Effect of Message Passing</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-multi-layer-perceptrons-mlps">4.6. Part 5: Multi-Layer Perceptrons (MLPs)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-mlp">4.6.1. What is an MLP?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-for-node-classification-baseline">4.6.2. MLP for Node Classification (Baseline)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-graph-neural-networks">4.7. Part 6: Graph Neural Networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-message-passing-to-gnns">4.7.1. From Message Passing to GNNs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-convolutional-network-gcn">4.7.2. Graph Convolutional Network (GCN)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-a-gnn-with-pytorch-geometric">4.7.3. Implementing a GNN with PyTorch Geometric</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-pipeline">4.7.4. Training Pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-training-loop">4.7.5. Complete Training Loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-experiments">4.7.6. Running the Experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-training-progress">4.7.7. Visualizing Training Progress</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-learned-embeddings">4.7.8. Visualizing Learned Embeddings</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-7-loading-real-world-datasets">4.8. Part 7: Loading Real-World Datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cora-dataset">4.8.1. The Cora Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-citeseer-dataset">4.8.2. The Citeseer Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-custom-synthetic-dataset">4.9. Exercise 1: Custom Synthetic Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">4.9.1. Objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">4.9.2. Task Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">4.9.3. Deliverables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">4.9.4. Evaluation Criteria</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-node-classification-experiments">4.10. Exercise 2: Node Classification Experiments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.10.1. Objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.10.2. Task Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters-to-explore">4.10.3. Hyperparameters to Explore</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.10.4. Deliverables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-questions">4.10.5. Analysis Questions</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Universidad de Alicante
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

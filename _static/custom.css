@@ -1,0 +1,120 @@
+:root {
+    --pst-color-primary: #3f8403;
+    --pst-color-secondary: #baf679;
+    --pst-color-link: #2f6004;
+  }
+  
+  .navbar-brand {
+    color: var(--pst-color-primary) !important;
+  }
+  
+  .bd-sidebar {
+    background: linear-gradient(to bottom, #ffffff, #ffffff);
+  }
+  
+  .bd-toc {
+    background: linear-gradient(to bottom, #ffffff, #ffffff);
+  }
+
+    .bd-content {
+        background: linear-gradient(to bottom, #ffffff, #ffffff);
+    }
+
+    .bd-sidebar {
+        background: linear-gradient(to bottom,#ffffff, #ffffff);
+    }
+    .footer.bd-footer {
+        background: linear-gradient(to bottom, #ffffff, #ffffff);
+    }
+/* toda la pagina con un mismo fondo */
+body {
+    background: linear-gradient(to bottom, #ffffff, #ffffff);
+}
+body a, .content a, #main-content a {
+    color: #3f8403;
+  }
+/* Cambiamos el a para un especifico div, bd-container__inner bd-page-width */
+.bd-container__inner.bd-page-width a {
+    color: #3f8403;
+  }
+.bd-container__inner.bd-page-width a:hover {
+    color: #3f8403;
+  }
+  .bd-container__inner.bd-page-width a.reference.internal {
+    color: #3f8403;
+  }
+    .bd-container__inner.bd-page-width a.reference.internal:hover {
+        color: #3f8403;
+    }
+
+footer a {
+    color: #3f8403;
+  }
+  footer a:hover {
+    color: #3f8403;
+  }
+  footer a.reference.internal {
+    color: #3f8403;
+  }
+    footer a.reference.internal:hover {
+        color: #3f8403;
+    }
+    footer a.reference.external {
+        color: #3f8403;
+    }
+      footer a.reference.external:hover {
+          color: #3f8403;
+      }
+.prev-next-info p {
+    color: #3f8403;
+  }
+  .prev-next-info a {
+    color: #3f8403;
+  }
+    .prev-next-info a:hover {
+        color: #3f8403;
+    }
+    .prev-next-title p {
+        color: #3f8403;
+    }
+    .prev-next-info a.reference.internal {
+        color: #3f8403;
+    }
+      .prev-next-info a.reference.internal:hover {
+          color: #3f8403;
+      }
+      .prev-next-info a.reference.external {
+        color: #3f8403;
+    }
+      .prev-next-info a.reference.external:hover {
+          color: #3f8403;
+      }
+
+/* dentro del div .prev-next-info, hay un p con una clase prev-next-title, le cambiamos el color */
+.prev-next-info p.prev-next-title {
+    color: #3f8403;
+  }
+
+  .prev-next-info a.prev-next-title {
+    color: #3f8403;
+  }
+  .prev-next-title p {
+    color: #3f8403;
+  }
+
+  /* dentro del div .prev-next-info, hay un p con una clase prev-next-title, le cambiamos el color */
+.prev-next-info p.prev-next-title {
+    color: #3f8403;
+}
+
+.prev-next-info p.prev-next-subtitle {
+    color: #3f8403;
+}
+
+.prev-next-info a.prev-next-title {
+    color: #3f8403;
+}
+
+.prev-next-title p {
+    color: #3f8403;
+}
