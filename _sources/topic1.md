@@ -238,20 +238,85 @@ Since these **decoder-enforcing** Transformers use the past and present to predi
 
 This is the usual setting for LLMs (Language-based Transformers) and it **limits the expresiveness** of the Transformer (as we will see later). However, in Vision Language Models or VLMs (Vision Transformers or ViT), free attention is applied. Therein, tokes are "sequentialized" image patches and it is logical that a patch can attend any other patch. 
 
-#### The power of aggregation
+### The power of aggregation
 **Message Passing** is implicit in certain types of Transformers. This is one of the ingredients that make Transformers so powerful. 
 
 As we have seen, Message Passing (MP) provides a flexible combination of the ouput of three MLPs (Queries, Keys and Values) running in parallel for the same inputs. 
 
 However, Transformers usually **process sequences** (NLP) or transform objects (ViT) into sequences to further processing. But **What if the objects to process are not sequences, but graphs or networks?** 
 
-This latter point is important, since **graphs are not ordered structures**. Indeed, the expressive power of graph relies on fthe fact they are **invariant to any order**.
+This latter point is important, since **graphs are not ordered structures**. Indeed, <span style="color:#2f6004">the expressive power of graph relies on the fact they are **invariant to any order**</span>.
 
-<br></br>
-<span style="color:#2f6004">
-**Graphs are permutation invariant**. 
-</span>
-<br></br>
+#### Point Clouds and Invariance 
+In addition to Transformers, which can be seen as graphs (attention graphs), there is a problem where <span style="color:#2f6004">**permutation invariance**</span> becomes key: this problem is **Point-cloud recognition and segmentation** (see {numref}`PointCloud`). In the following, we see how traditional MLP architectures must introduce invariant operators to solve it, and this leads to a natural graph-based formulation. 
+
+
+```{figure} ./images/Topic1/PointCloud.png
+---
+name: PointCloud
+width: 700px
+align: center
+height: 350px
+---
+Point Cloud recognition and segmentation.[Credit](https://github.com/charlesq34/pointnet). 
+```
+
+##### Permutation Invariance
+An MLP does implement permutation invariance if this happens: 
+
+$$
+\text{MLP}_{\Theta}({\cal S}) = \text{MLP}_{\Theta}(\Pi({\cal S}))\;,
+$$
+
+where ${\cal S}=\{\mathbf{x}_1,\mathbf{x}_2,\ldots,\mathbf{x}_N\}$ is a set of $N$ points in $\mathbb{R}^d$ (where $d=3$ in 3D point clouds) and $\Pi:\{1,2,\ldots N\}\rightarrow \{1,2,\ldots N\}$ is a function that permutes the order in the points in ${\cal S}$:
+
+$$
+\Pi({\cal S})=\{\mathbf{x}_{\Pi(1)},\mathbf{x}_{\Pi(2)},\ldots,\mathbf{x}_{\Pi(N)}\}\;.
+$$
+
+For instance, in $\Pi(\{1,2,3,\ldots N\})=\{2,1,3,\ldots N\}$, $\Pi$ just permutes the first two elements. 
+
+Obviously, there are $N!$ possible permutations and the MLP has to give the same output. In other words, if the set ${\cal S_{plane}}$ must be classified as a plane, then $\Pi({\cal S_{plane}})$ must also be classifed as a plane by the same MLP.
+
+The solution is depicted in {numref}`PointNet`. The PointNet NN is a ground breaking development. Apparently is yet another (huge MLP) but we have some observations: 
+
+```{figure} ./images/Topic1/PointNet.png
+---
+name: PointNet
+width: 700px
+align: center
+height: 300px
+---
+PointNet for recognition and segmentation.[Credit](https://github.com/charlesq34/pointnet). 
+```
+
+1) **Input**. It is a tensor of $N\times 3$ (stack of $N$ 3D $(x,y,z)$ points). Note that if we have 3D models all of them are discretized to the same resolution ($N$ is a constant). In addition, tif two models correspond to the same category (say planes) they are **are not pre-aligned**, i.e. one is seen as a permutation of the other. 
+2) **1st T-Net**. T-Net is a NN with two objectives: (1) Learn a common $3\times 3$ transformation (alignment) with all the training point clouds, and (2) apply it to the $N\times 3$ input. 
+3) **1st MLP**. Transforms the $N\times 3$ output of the first T-Net into a $N\times 64$. This is basically necessary in order to add some context to the $(x,y,z)$ points: with $64$ overall dimensions it is possible to discriminate between corner points and surface points, etc. 
+4) **2nd T-Net**. Scaled version of the 1st one, now with a point cloud of $N\times 64$. 
+5) **2nd NLP**. Scaled version of the 1st MLP, now going from $64$ to $1024$ dimensions. 
+6) **Max Pooling**. This is the <span style="color:#2f6004">**invariant part of PointNet**</span>. Given the tensor of size $N\times 1024$ whose rows correspond to extended features of the $(x,y,z)$ points, now collapse into a unique $1\times 1024$ tensor taking the $\max$ at each dimension. This simple operation makes that identical input tensors but corresponding to the "same permutation" result in a similar $1\times 1024$ hash. 
+7) Once we have the global hash we can feed a **final MLP** of send it to feed the segmentation network with also a final MLP. 
+
+The solution is depicted in {numref}`PointNet++`. The PointNet++ NN improves PointNet as follows: 
+
+```{figure} ./images/Topic1/PointNet++.png
+---
+name: PointNet++
+width: 700px
+align: center
+height: 400px
+---
+PointNet++. Left: transformation of the 3D model of a table into a point cloud and then into a KNN graph. Right: enriched PointNet architecture where pooling is done according to the neighboring points in the graph. [Credit](https://arxiv.org/pdf/2311.02608) and Pytorch Geometric. 
+```
+
+1) **KNN graph**. The input to the NN is not a tensor but a graph where two points are linked if they are among the $K$ closer neighbors of each point. The nodes contain the $(x,y,z)$ features of the corresponding points. 
+
+2) **Discrete Convolution**. This is the name of the neighborhood aggregation plus an MLP which allows to capture the local context of each point span <span style="color:#2f6004">**in a permutation-invariant way**</span>. 
+
+3) **Downsampling**. Essentially a pooling. 
+
+#### Graphs implement Discrete Convolutions 
 Let $G = (V, E)$ denote a graph, where $V = \{v_1, v_2, \ldots, v_N\}$ represents the set of $N$ nodes and $E \subseteq V \times V$ represents the set of edges. We use the adjacency matrix $\mathbf{A} \in \{0, 1\}^{N \times N}$ to encode the graph structure, where $\mathbf{A}_{ij} = 1$ if there exists an edge between nodes $v_i$ and $v_j$, and $\mathbf{A}_{ij} = 0$ otherwise.
 
 **Node features and labels**. Each node $v_i$ is associated with a feature vector $\mathbf{x}_i \in \mathbb{R}^d$, where $d$ is the dimensionality of the feature space. These features are collectively represented as a matrix $\mathbf{X} \in \mathbb{R}^{N \times d}$, where the $i$-th row corresponds to the feature vector of node $v_i$. For **supervised node classification**, a subset of nodes $V_L \subset V$ have associated labels $y_i \in \{1, 2, \ldots, C\}$, where $C$ is the number of classes.
@@ -321,7 +386,7 @@ Simple MLP classification of aggregated features. Image partially generated by G
 
 <br></br>
 <span style="color:#2f6004"> 
-**Exercise**. Given the above example. What is the representation after applying a second aggregation (use sum as invariant)? Explain the result:
+**Exercise**. Given the above example. What is the representation after applying a second aggregation (use sum as invariant and no self-loops)? Explain the result:
 </span>
 <br></br>
 <span style="color:#2f6004"> 
@@ -332,15 +397,41 @@ First of all, let us compute the embeddings for the first aggregation. We separa
 $
 \begin{aligned}
 &\begin{array}{cccc}
-\text{Node}  & \text{Neighbors} & \text{Aggregation} & \text{Update} &\text{Result}\\\hline
-v_A & \{B,C\} & [0.8\;0.7]+[0.2\;0.9] & [1.0\;0.5] & [2.0\; 2.1]\\
-v_B & \{A,C\} & [1.0\;0.5]+[0.2\;0.9] & [0.8\;0.7] & [2.0\; 2.1]\\
-v_C & \{A,B,D,E\} & [1.0\;0.5]+[0.8\;0.7] + [0.5\;0.1] + [0.9\;0.3] & [0.2\;0.9] & [3.3\;2.5]\\
-v_D & \{C,E\} & [0.2\;0.9] + [0.9\;0.3] & [0.5\;0.1] & [1.6\; 1.3]\\
-v_E & \{C,D\} & [0.2\;0.9] + [0.5\;0.1] & [0.9\;0.3] & [1.6\; 1.3]\\
+\text{Node} &\text{State} & \text{Neighbors} & \text{Aggregation} & \text{Update} \\\hline
+v_A & [1.0\;0.5] & \{B,C\} & [0.8\;0.7]+[0.2\;0.9]  & [2.0\; 2.1]\\
+v_B & [0.8\;0.7] & \{A,C\} & [1.0\;0.5]+[0.2\;0.9]  & [2.0\; 2.1]\\
+v_C & [0.2\;0.9] & \{A,B,D,E\} & [1.0\;0.5]+[0.8\;0.7] + [0.5\;0.1] + [0.9\;0.3]  & [3.4\;2.5]\\
+v_D & [0.5\;0.1] & \{C,E\} & [0.2\;0.9] + [0.9\;0.3] & [1.6\; 1.3]\\
+v_E & [0.9\;0.3] & \{C,D\} & [0.2\;0.9] + [0.5\;0.1] & [1.6\; 1.3]\\
 \end{array}
 \end{aligned}
 $
+</span>
+<br></br>
+<span style="color:#2f6004"> 
+Note that after the first aggregation is also showed in {numref}`MLPAgg`. Two pairs of nodes $(A,B)$ and $(D,E)$ collapse in the same representation, which is good since they are homologs (same class). However, node $C$ which belongs to class $1$ does not collapse although it is closer to its homologs than to the other nodes. 
+<br></br>
+Now, supposing that "State" is not projected by an MLP (or simply that such proyection is the identity $\mathbf{I}$) we replace the column 
+"State" by the above results in "Udate" and recompute: 
+</span>
+<br></br>
+<span style="color:#2f6004"> 
+$
+\begin{aligned}
+&\begin{array}{cccc}
+\text{Node} &\text{State} & \text{Neighbors} & \text{Aggregation} & \text{Update} \\\hline
+v_A & [2.0\; 2.1] & \{B,C\} & [2.0\; 2.1]+[3.4\;2.5]  & [7.4\;6.7]\\
+v_B & [2.0\; 2.1] & \{A,C\} & [2.0\; 2.1]+[3.4\;2.5]  & [7.4\;6.7]\\
+v_C & [3.4\;2.5] & \{A,B,D,E\} & 2\cdot[2.0\; 2.1] + 2\cdot[1.6\; 1.3] & [10.6\;9.3]\\
+v_D & [1.6\; 1.3] & \{C,E\} & [3.4\;2.5] + [1.6\; 1.3] & [6.6\;5.1]\\
+v_E & [1.6\; 1.3] & \{C,D\} & [3.4\;2.5] + [1.6\; 1.3] & [6.6\;5.1]\\
+\end{array}
+\end{aligned}
+$
+</span>
+<br></br>
+<span style="color:#2f6004"> 
+As we can see, **homolog collapses still persists** and node $C$ is still to its category. Under this conditions, **an MLP on 'State' will make $C's$ features collapse with those of $A$ and $B$ as soon as $C$ is misclassified**.  
 </span>
 <br></br>
 
@@ -1558,7 +1649,7 @@ Graph Neural Network with RD. Note that RD are derivable (i.e. they contribute t
 
 3. **for** $n\in \{\sigma(1),\sigma(2),\ldots,\sigma(n)\}$: 
 
-    1. **if** $(\mathbf{p}^{\ast}_n < \delta)$ & $(|{\cal C}|>0)$
+    1. **if** $(\mathbf{p}^{\ast}_n < \epsilon)$ & $(|{\cal C}|>0)$
 **then** **break**
 
     2. **if** $\text{Can_Extend}({\cal C},n)$ 

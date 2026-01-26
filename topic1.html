@@ -387,15 +387,22 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#masking-and-sequentiality">2.1.1.3. Masking and sequentiality</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-power-of-aggregation">2.1.2. The power of aggregation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gnns-basic-architecture">2.2. GNNs basic architecture</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-attention-networks">2.3. Graph Attention Networks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homophily-vs-heterophily">2.4. Homophily vs Heterophily</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cora-dataset">2.4.1. The Cora Dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-texas-dataset">2.4.2. The Texas Dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-heterophily">2.4.3. Solving Heterophily</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-power-of-aggregation">2.2. The power of aggregation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#point-clouds-and-invariance">2.2.1. Point Clouds and Invariance</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-invariance">2.2.1.1. Permutation Invariance</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graphs-implement-discrete-convolutions">2.2.2. Graphs implement Discrete Convolutions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gnns-basic-architecture">2.3. GNNs basic architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-attention-networks">2.4. Graph Attention Networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homophily-vs-heterophily">2.5. Homophily vs Heterophily</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cora-dataset">2.5.1. The Cora Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-texas-dataset">2.5.2. The Texas Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-heterophily">2.5.3. Solving Heterophily</a></li>
 </ul>
 </li>
 </ul>
@@ -613,20 +620,71 @@ S_{(\omega=\text{&quot;it&quot;},\omega'=\text{&quot;tired.&quot;})}\;.
 <p>This is the usual setting for LLMs (Language-based Transformers) and it <strong>limits the expresiveness</strong> of the Transformer (as we will see later). However, in Vision Language Models or VLMs (Vision Transformers or ViT), free attention is applied. Therein, tokes are “sequentialized” image patches and it is logical that a patch can attend any other patch.</p>
 </section>
 </section>
+</section>
 <section id="the-power-of-aggregation">
-<h3><span class="section-number">2.1.2. </span>The power of aggregation<a class="headerlink" href="#the-power-of-aggregation" title="Permalink to this heading">#</a></h3>
+<h2><span class="section-number">2.2. </span>The power of aggregation<a class="headerlink" href="#the-power-of-aggregation" title="Permalink to this heading">#</a></h2>
 <p><strong>Message Passing</strong> is implicit in certain types of Transformers. This is one of the ingredients that make Transformers so powerful.</p>
 <p>As we have seen, Message Passing (MP) provides a flexible combination of the ouput of three MLPs (Queries, Keys and Values) running in parallel for the same inputs.</p>
 <p>However, Transformers usually <strong>process sequences</strong> (NLP) or transform objects (ViT) into sequences to further processing. But <strong>What if the objects to process are not sequences, but graphs or networks?</strong></p>
-<p>This latter point is important, since <strong>graphs are not ordered structures</strong>. Indeed, the expressive power of graph relies on fthe fact they are <strong>invariant to any order</strong>.</p>
-<p><br></br>
-<span style="color:#2f6004">
-<strong>Graphs are permutation invariant</strong>.
-</span>
-<br></br>
-Let <span class="math notranslate nohighlight">\(G = (V, E)\)</span> denote a graph, where <span class="math notranslate nohighlight">\(V = \{v_1, v_2, \ldots, v_N\}\)</span> represents the set of <span class="math notranslate nohighlight">\(N\)</span> nodes and <span class="math notranslate nohighlight">\(E \subseteq V \times V\)</span> represents the set of edges. We use the adjacency matrix <span class="math notranslate nohighlight">\(\mathbf{A} \in \{0, 1\}^{N \times N}\)</span> to encode the graph structure, where <span class="math notranslate nohighlight">\(\mathbf{A}_{ij} = 1\)</span> if there exists an edge between nodes <span class="math notranslate nohighlight">\(v_i\)</span> and <span class="math notranslate nohighlight">\(v_j\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{A}_{ij} = 0\)</span> otherwise.</p>
+<p>This latter point is important, since <strong>graphs are not ordered structures</strong>. Indeed, <span style="color:#2f6004">the expressive power of graph relies on the fact they are <strong>invariant to any order</strong></span>.</p>
+<section id="point-clouds-and-invariance">
+<h3><span class="section-number">2.2.1. </span>Point Clouds and Invariance<a class="headerlink" href="#point-clouds-and-invariance" title="Permalink to this heading">#</a></h3>
+<p>In addition to Transformers, which can be seen as graphs (attention graphs), there is a problem where <span style="color:#2f6004"><strong>permutation invariance</strong></span> becomes key: this problem is <strong>Point-cloud recognition and segmentation</strong> (see <a class="reference internal" href="#pointcloud"><span class="std std-numref">Fig. 2.4</span></a>). In the following, we see how traditional MLP architectures must introduce invariant operators to solve it, and this leads to a natural graph-based formulation.</p>
+<figure class="align-center" id="pointcloud">
+<a class="reference internal image-reference" href="_images/PointCloud.png"><img alt="_images/PointCloud.png" src="_images/PointCloud.png" style="width: 700px; height: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.4 </span><span class="caption-text">Point Cloud recognition and segmentation.<a class="reference external" href="https://github.com/charlesq34/pointnet">Credit</a>.</span><a class="headerlink" href="#pointcloud" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="permutation-invariance">
+<h4><span class="section-number">2.2.1.1. </span>Permutation Invariance<a class="headerlink" href="#permutation-invariance" title="Permalink to this heading">#</a></h4>
+<p>An MLP does implement permutation invariance if this happens:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{MLP}_{\Theta}({\cal S}) = \text{MLP}_{\Theta}(\Pi({\cal S}))\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\({\cal S}=\{\mathbf{x}_1,\mathbf{x}_2,\ldots,\mathbf{x}_N\}\)</span> is a set of <span class="math notranslate nohighlight">\(N\)</span> points in <span class="math notranslate nohighlight">\(\mathbb{R}^d\)</span> (where <span class="math notranslate nohighlight">\(d=3\)</span> in 3D point clouds) and <span class="math notranslate nohighlight">\(\Pi:\{1,2,\ldots N\}\rightarrow \{1,2,\ldots N\}\)</span> is a function that permutes the order in the points in <span class="math notranslate nohighlight">\({\cal S}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\Pi({\cal S})=\{\mathbf{x}_{\Pi(1)},\mathbf{x}_{\Pi(2)},\ldots,\mathbf{x}_{\Pi(N)}\}\;.
+\]</div>
+<p>For instance, in <span class="math notranslate nohighlight">\(\Pi(\{1,2,3,\ldots N\})=\{2,1,3,\ldots N\}\)</span>, <span class="math notranslate nohighlight">\(\Pi\)</span> just permutes the first two elements.</p>
+<p>Obviously, there are <span class="math notranslate nohighlight">\(N!\)</span> possible permutations and the MLP has to give the same output. In other words, if the set <span class="math notranslate nohighlight">\({\cal S_{plane}}\)</span> must be classified as a plane, then <span class="math notranslate nohighlight">\(\Pi({\cal S_{plane}})\)</span> must also be classifed as a plane by the same MLP.</p>
+<p>The solution is depicted in <a class="reference internal" href="#pointnet"><span class="std std-numref">Fig. 2.5</span></a>. The PointNet NN is a ground breaking development. Apparently is yet another (huge MLP) but we have some observations:</p>
+<figure class="align-center" id="pointnet">
+<a class="reference internal image-reference" href="_images/PointNet.png"><img alt="_images/PointNet.png" src="_images/PointNet.png" style="width: 700px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.5 </span><span class="caption-text">PointNet for recognition and segmentation.<a class="reference external" href="https://github.com/charlesq34/pointnet">Credit</a>.</span><a class="headerlink" href="#pointnet" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<ol class="arabic simple">
+<li><p><strong>Input</strong>. It is a tensor of <span class="math notranslate nohighlight">\(N\times 3\)</span> (stack of <span class="math notranslate nohighlight">\(N\)</span> 3D <span class="math notranslate nohighlight">\((x,y,z)\)</span> points). Note that if we have 3D models all of them are discretized to the same resolution (<span class="math notranslate nohighlight">\(N\)</span> is a constant). In addition, tif two models correspond to the same category (say planes) they are <strong>are not pre-aligned</strong>, i.e. one is seen as a permutation of the other.</p></li>
+<li><p><strong>1st T-Net</strong>. T-Net is a NN with two objectives: (1) Learn a common <span class="math notranslate nohighlight">\(3\times 3\)</span> transformation (alignment) with all the training point clouds, and (2) apply it to the <span class="math notranslate nohighlight">\(N\times 3\)</span> input.</p></li>
+<li><p><strong>1st MLP</strong>. Transforms the <span class="math notranslate nohighlight">\(N\times 3\)</span> output of the first T-Net into a <span class="math notranslate nohighlight">\(N\times 64\)</span>. This is basically necessary in order to add some context to the <span class="math notranslate nohighlight">\((x,y,z)\)</span> points: with <span class="math notranslate nohighlight">\(64\)</span> overall dimensions it is possible to discriminate between corner points and surface points, etc.</p></li>
+<li><p><strong>2nd T-Net</strong>. Scaled version of the 1st one, now with a point cloud of <span class="math notranslate nohighlight">\(N\times 64\)</span>.</p></li>
+<li><p><strong>2nd NLP</strong>. Scaled version of the 1st MLP, now going from <span class="math notranslate nohighlight">\(64\)</span> to <span class="math notranslate nohighlight">\(1024\)</span> dimensions.</p></li>
+<li><p><strong>Max Pooling</strong>. This is the <span style="color:#2f6004"><strong>invariant part of PointNet</strong></span>. Given the tensor of size <span class="math notranslate nohighlight">\(N\times 1024\)</span> whose rows correspond to extended features of the <span class="math notranslate nohighlight">\((x,y,z)\)</span> points, now collapse into a unique <span class="math notranslate nohighlight">\(1\times 1024\)</span> tensor taking the <span class="math notranslate nohighlight">\(\max\)</span> at each dimension. This simple operation makes that identical input tensors but corresponding to the “same permutation” result in a similar <span class="math notranslate nohighlight">\(1\times 1024\)</span> hash.</p></li>
+<li><p>Once we have the global hash we can feed a <strong>final MLP</strong> of send it to feed the segmentation network with also a final MLP.</p></li>
+</ol>
+<p>The solution is depicted in <a class="reference internal" href="#id1"><span class="std std-numref">Fig. 2.6</span></a>. The PointNet++ NN improves PointNet as follows:</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/PointNet++.png"><img alt="_images/PointNet++.png" src="_images/PointNet++.png" style="width: 700px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2.6 </span><span class="caption-text">PointNet++. Left: transformation of the 3D model of a table into a point cloud and then into a KNN graph. Right: enriched PointNet architecture where pooling is done according to the neighboring points in the graph. <a class="reference external" href="https://arxiv.org/pdf/2311.02608">Credit</a> and Pytorch Geometric.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<ol class="arabic simple">
+<li><p><strong>KNN graph</strong>. The input to the NN is not a tensor but a graph where two points are linked if they are among the <span class="math notranslate nohighlight">\(K\)</span> closer neighbors of each point. The nodes contain the <span class="math notranslate nohighlight">\((x,y,z)\)</span> features of the corresponding points.</p></li>
+<li><p><strong>Discrete Convolution</strong>. This is the name of the neighborhood aggregation plus an MLP which allows to capture the local context of each point span <span style="color:#2f6004"><strong>in a permutation-invariant way</strong></span>.</p></li>
+<li><p><strong>Downsampling</strong>. Essentially a pooling.</p></li>
+</ol>
+</section>
+</section>
+<section id="graphs-implement-discrete-convolutions">
+<h3><span class="section-number">2.2.2. </span>Graphs implement Discrete Convolutions<a class="headerlink" href="#graphs-implement-discrete-convolutions" title="Permalink to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(G = (V, E)\)</span> denote a graph, where <span class="math notranslate nohighlight">\(V = \{v_1, v_2, \ldots, v_N\}\)</span> represents the set of <span class="math notranslate nohighlight">\(N\)</span> nodes and <span class="math notranslate nohighlight">\(E \subseteq V \times V\)</span> represents the set of edges. We use the adjacency matrix <span class="math notranslate nohighlight">\(\mathbf{A} \in \{0, 1\}^{N \times N}\)</span> to encode the graph structure, where <span class="math notranslate nohighlight">\(\mathbf{A}_{ij} = 1\)</span> if there exists an edge between nodes <span class="math notranslate nohighlight">\(v_i\)</span> and <span class="math notranslate nohighlight">\(v_j\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{A}_{ij} = 0\)</span> otherwise.</p>
 <p><strong>Node features and labels</strong>. Each node <span class="math notranslate nohighlight">\(v_i\)</span> is associated with a feature vector <span class="math notranslate nohighlight">\(\mathbf{x}_i \in \mathbb{R}^d\)</span>, where <span class="math notranslate nohighlight">\(d\)</span> is the dimensionality of the feature space. These features are collectively represented as a matrix <span class="math notranslate nohighlight">\(\mathbf{X} \in \mathbb{R}^{N \times d}\)</span>, where the <span class="math notranslate nohighlight">\(i\)</span>-th row corresponds to the feature vector of node <span class="math notranslate nohighlight">\(v_i\)</span>. For <strong>supervised node classification</strong>, a subset of nodes <span class="math notranslate nohighlight">\(V_L \subset V\)</span> have associated labels <span class="math notranslate nohighlight">\(y_i \in \{1, 2, \ldots, C\}\)</span>, where <span class="math notranslate nohighlight">\(C\)</span> is the number of classes.</p>
-<p><strong>Example</strong>. In <a class="reference internal" href="#graphinit"><span class="std std-numref">Fig. 2.4</span></a>, we show a graph with nodes</p>
+<p><strong>Example</strong>. In <a class="reference internal" href="#graphinit"><span class="std std-numref">Fig. 2.7</span></a>, we show a graph with nodes</p>
 <div class="math notranslate nohighlight">
 \[V=\{A,B,C,D,E\}\]</div>
 <p>and edges</p>
@@ -638,16 +696,16 @@ E=\{(A,B),(A,C),(B,C),(C,D),(C,E),(D,E)\}\;.
 <figure class="align-center" id="graphinit">
 <a class="reference internal image-reference" href="_images/Graph1.png"><img alt="_images/Graph1.png" src="_images/Graph1.png" style="width: 600px; height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.4 </span><span class="caption-text">Initial graph with features. Image partially generated by Gemini.</span><a class="headerlink" href="#graphinit" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.7 </span><span class="caption-text">Initial graph with features. Image partially generated by Gemini.</span><a class="headerlink" href="#graphinit" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>Features and labels</strong>. Note the we show the features <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> of each node <span class="math notranslate nohighlight">\(i\)</span> and their <em>ground-truth labels</em> <span class="math notranslate nohighlight">\(y_i\)</span>. In this example, we have <span class="math notranslate nohighlight">\(d=2\)</span> features per node and <span class="math notranslate nohighlight">\(C=2\)</span> classes.</p>
 <p>Looking at the features, we have that nodes <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are consistently associated with class <span class="math notranslate nohighlight">\(0\)</span>: in this class <span class="math notranslate nohighlight">\(\mathbf{x}_i(1)&gt; \mathbf{x}_i(2)\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}_i(2)\ge 0.5\)</span>. Similarly, nodes <span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(D\)</span> are consistently associated with class <span class="math notranslate nohighlight">\(1\)</span>: <span class="math notranslate nohighlight">\(\mathbf{x}_i(1)&gt; \mathbf{x}_i(2)\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}_i(1)\ge 0.5\)</span>. However, the features of node <span class="math notranslate nohighlight">\(C\)</span> place it in between both classes.</p>
-<p>Independently of the training-test split (which is irrelevant to this example) <span style="color:#2f6004"><strong>a linear separation will be hard in this case</strong></span>, because of node <span class="math notranslate nohighlight">\(C\)</span>. Thus, for a simple MLP we will obtain something close to the decision in <a class="reference internal" href="#mlpinit"><span class="std std-numref">Fig. 2.5</span></a></p>
+<p>Independently of the training-test split (which is irrelevant to this example) <span style="color:#2f6004"><strong>a linear separation will be hard in this case</strong></span>, because of node <span class="math notranslate nohighlight">\(C\)</span>. Thus, for a simple MLP we will obtain something close to the decision in <a class="reference internal" href="#mlpinit"><span class="std std-numref">Fig. 2.8</span></a></p>
 <figure class="align-center" id="mlpinit">
 <a class="reference internal image-reference" href="_images/MLP1.png"><img alt="_images/MLP1.png" src="_images/MLP1.png" style="width: 600px; height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.5 </span><span class="caption-text">Simple MLP classification. Image partially generated by Gemini.</span><a class="headerlink" href="#mlpinit" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.8 </span><span class="caption-text">Simple MLP classification. Image partially generated by Gemini.</span><a class="headerlink" href="#mlpinit" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>Graphs provide local context</strong>. The reason of the above lack of performance quite obvious: MLPs deal with node features <strong>independently</strong>. However, since <span style="color:#2f6004"><strong>graphs implement pairwise relations between variables</strong></span>, it is expected that neighboring nodes do have similar properties, in particular their labels. When neighboring tend to share the same label, this is know as <strong>homophily</strong>.</p>
@@ -660,16 +718,16 @@ E=\{(A,B),(A,C),(B,C),(C,D),(C,E),(D,E)\}\;.
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathcal{N}(i)\)</span> denotes the <em>neighbors</em> of node <span class="math notranslate nohighlight">\(v_i\)</span>. Note that the features of <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> are included in the update, as if there was a self-loop for each node in the graph (as self-attention in Transformers).</p>
 <p>Under invariant aggregation, the result <span class="math notranslate nohighlight">\(\mathbf{h}_i\)</span> is the same independently of the order in wich the neighbors are processed. Thus, graphs do have a more flexible coding than sequences.</p>
-<p>In <a class="reference internal" href="#mlpagg"><span class="std std-numref">Fig. 2.6</span></a>, we see that the representations <span class="math notranslate nohighlight">\(\mathbf{h}_i\)</span> of nodes <span class="math notranslate nohighlight">\(A/B\)</span> and <span class="math notranslate nohighlight">\(C/D\)</span> collapse in the same point, thus facilitating the MLP decision, and the representation of <span class="math notranslate nohighlight">\(C\)</span> is <em>attracted</em> to the area of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>:</p>
+<p>In <a class="reference internal" href="#mlpagg"><span class="std std-numref">Fig. 2.9</span></a>, we see that the representations <span class="math notranslate nohighlight">\(\mathbf{h}_i\)</span> of nodes <span class="math notranslate nohighlight">\(A/B\)</span> and <span class="math notranslate nohighlight">\(C/D\)</span> collapse in the same point, thus facilitating the MLP decision, and the representation of <span class="math notranslate nohighlight">\(C\)</span> is <em>attracted</em> to the area of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>:</p>
 <figure class="align-center" id="mlpagg">
 <a class="reference internal image-reference" href="_images/MLP2.png"><img alt="_images/MLP2.png" src="_images/MLP2.png" style="width: 700px; height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.6 </span><span class="caption-text">Simple MLP classification of aggregated features. Image partially generated by Gemini.</span><a class="headerlink" href="#mlpagg" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.9 </span><span class="caption-text">Simple MLP classification of aggregated features. Image partially generated by Gemini.</span><a class="headerlink" href="#mlpagg" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><br></br>
 <span style="color:#2f6004">
-<strong>Exercise</strong>. Given the above example. What is the representation after applying a second aggregation (use sum as invariant)? Explain the result:
+<strong>Exercise</strong>. Given the above example. What is the representation after applying a second aggregation (use sum as invariant and no self-loops)? Explain the result:
 </span>
 <br></br>
 <span style="color:#2f6004">
@@ -680,32 +738,58 @@ First of all, let us compute the embeddings for the first aggregation. We separa
 <span class="math notranslate nohighlight">\(
 \begin{aligned}
 &amp;\begin{array}{cccc}
-\text{Node}  &amp; \text{Neighbors} &amp; \text{Aggregation} &amp; \text{Update} &amp;\text{Result}\\\hline
-v_A &amp; \{B,C\} &amp; [0.8\;0.7]+[0.2\;0.9] &amp; [1.0\;0.5] &amp; [2.0\; 2.1]\\
-v_B &amp; \{A,C\} &amp; [1.0\;0.5]+[0.2\;0.9] &amp; [0.8\;0.7] &amp; [2.0\; 2.1]\\
-v_C &amp; \{A,B,D,E\} &amp; [1.0\;0.5]+[0.8\;0.7] + [0.5\;0.1] + [0.9\;0.3] &amp; [0.2\;0.9] &amp; [3.3\;2.5]\\
-v_D &amp; \{C,E\} &amp; [0.2\;0.9] + [0.9\;0.3] &amp; [0.5\;0.1] &amp; [1.6\; 1.3]\\
-v_E &amp; \{C,D\} &amp; [0.2\;0.9] + [0.5\;0.1] &amp; [0.9\;0.3] &amp; [1.6\; 1.3]\\
+\text{Node} &amp;\text{State} &amp; \text{Neighbors} &amp; \text{Aggregation} &amp; \text{Update} \\\hline
+v_A &amp; [1.0\;0.5] &amp; \{B,C\} &amp; [0.8\;0.7]+[0.2\;0.9]  &amp; [2.0\; 2.1]\\
+v_B &amp; [0.8\;0.7] &amp; \{A,C\} &amp; [1.0\;0.5]+[0.2\;0.9]  &amp; [2.0\; 2.1]\\
+v_C &amp; [0.2\;0.9] &amp; \{A,B,D,E\} &amp; [1.0\;0.5]+[0.8\;0.7] + [0.5\;0.1] + [0.9\;0.3]  &amp; [3.4\;2.5]\\
+v_D &amp; [0.5\;0.1] &amp; \{C,E\} &amp; [0.2\;0.9] + [0.9\;0.3] &amp; [1.6\; 1.3]\\
+v_E &amp; [0.9\;0.3] &amp; \{C,D\} &amp; [0.2\;0.9] + [0.5\;0.1] &amp; [1.6\; 1.3]\\
 \end{array}
 \end{aligned}
 \)</span>
+</span>
+<br></br>
+<span style="color:#2f6004">
+Note that after the first aggregation is also showed in <a class="reference internal" href="#mlpagg"><span class="std std-numref">Fig. 2.9</span></a>. Two pairs of nodes <span class="math notranslate nohighlight">\((A,B)\)</span> and <span class="math notranslate nohighlight">\((D,E)\)</span> collapse in the same representation, which is good since they are homologs (same class). However, node <span class="math notranslate nohighlight">\(C\)</span> which belongs to class <span class="math notranslate nohighlight">\(1\)</span> does not collapse although it is closer to its homologs than to the other nodes.
+<br></br>
+Now, supposing that “State” is not projected by an MLP (or simply that such proyection is the identity <span class="math notranslate nohighlight">\(\mathbf{I}\)</span>) we replace the column
+“State” by the above results in “Udate” and recompute:
+</span>
+<br></br>
+<span style="color:#2f6004">
+<span class="math notranslate nohighlight">\(
+\begin{aligned}
+&amp;\begin{array}{cccc}
+\text{Node} &amp;\text{State} &amp; \text{Neighbors} &amp; \text{Aggregation} &amp; \text{Update} \\\hline
+v_A &amp; [2.0\; 2.1] &amp; \{B,C\} &amp; [2.0\; 2.1]+[3.4\;2.5]  &amp; [7.4\;6.7]\\
+v_B &amp; [2.0\; 2.1] &amp; \{A,C\} &amp; [2.0\; 2.1]+[3.4\;2.5]  &amp; [7.4\;6.7]\\
+v_C &amp; [3.4\;2.5] &amp; \{A,B,D,E\} &amp; 2\cdot[2.0\; 2.1] + 2\cdot[1.6\; 1.3] &amp; [10.6\;9.3]\\
+v_D &amp; [1.6\; 1.3] &amp; \{C,E\} &amp; [3.4\;2.5] + [1.6\; 1.3] &amp; [6.6\;5.1]\\
+v_E &amp; [1.6\; 1.3] &amp; \{C,D\} &amp; [3.4\;2.5] + [1.6\; 1.3] &amp; [6.6\;5.1]\\
+\end{array}
+\end{aligned}
+\)</span>
+</span>
+<br></br>
+<span style="color:#2f6004">
+As we can see, <strong>homolog collapses still persists</strong> and node <span class="math notranslate nohighlight">\(C\)</span> is still to its category. Under this conditions, <strong>an MLP on ‘State’ will make <span class="math notranslate nohighlight">\(C's\)</span> features collapse with those of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> as soon as <span class="math notranslate nohighlight">\(C\)</span> is misclassified</strong>.<br />
 </span>
 <br></br></p>
 </section>
 </section>
 <section id="gnns-basic-architecture">
-<h2><span class="section-number">2.2. </span>GNNs basic architecture<a class="headerlink" href="#gnns-basic-architecture" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.3. </span>GNNs basic architecture<a class="headerlink" href="#gnns-basic-architecture" title="Permalink to this heading">#</a></h2>
 <p>In short, given an input graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> (which may change via <a class="reference external" href="https://ellisalicante.org/tutorials/GraphRewiring">rewiring</a>), each of the <span class="math notranslate nohighlight">\(L\)</span> layers of a GNN has three components:</p>
 <ol class="arabic simple">
 <li><p><strong>Message passing</strong>. Each node sends its interal state (its current embedding) to its neighbors (possibily including itsef).</p></li>
 <li><p><strong>Aggregation</strong>. Each node receives a message from its adjacend neighbors. This message is usually weighted by a <strong>confidence coefficient</strong>. Then, all messages are aggregated using an order invariant operator (SUM, MEAN, MAX).</p></li>
 <li><p><strong>Update</strong>. The new internal state is built both on the aggregation and its <em>projection</em> via an MLP.</p></li>
 </ol>
-<p>All these steps are summarized in <a class="reference internal" href="#gnnarchitecture"><span class="std std-numref">Fig. 2.7</span></a> where we highlight the last MLP layer for classification/regression:</p>
+<p>All these steps are summarized in <a class="reference internal" href="#gnnarchitecture"><span class="std std-numref">Fig. 2.10</span></a> where we highlight the last MLP layer for classification/regression:</p>
 <figure class="align-center" id="gnnarchitecture">
 <a class="reference internal image-reference" href="_images/GNNArchitecture.png"><img alt="_images/GNNArchitecture.png" src="_images/GNNArchitecture.png" style="width: 800px; height: 700px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.7 </span><span class="caption-text">GNN architecture (for the example graph). Image partially generated by Gemini.</span><a class="headerlink" href="#gnnarchitecture" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.10 </span><span class="caption-text">GNN architecture (for the example graph). Image partially generated by Gemini.</span><a class="headerlink" href="#gnnarchitecture" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In a more formal way, we have:</p>
@@ -736,7 +820,7 @@ v_E &amp; \{C,D\} &amp; [0.2\;0.9] + [0.5\;0.1] &amp; [0.9\;0.3] &amp; [1.6\; 1.
 <p>Note that the matrix <span class="math notranslate nohighlight">\(\tilde{\mathbf{A}}\)</span> is kept constant along all the layers (unless we apply <em>rewiring</em>).</p>
 </section>
 <section id="graph-attention-networks">
-<h2><span class="section-number">2.3. </span>Graph Attention Networks<a class="headerlink" href="#graph-attention-networks" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.4. </span>Graph Attention Networks<a class="headerlink" href="#graph-attention-networks" title="Permalink to this heading">#</a></h2>
 <p>The (above) vanilla GNN was introduced by <a class="reference external" href="https://arxiv.org/abs/1609.02907">Kipf &amp; Welling</a>. Later on, <a class="reference external" href="https://arxiv.org/abs/1704.01212">Gilmer et al.</a> coined the term Message Passing Neural Networks (MPNNs) and reviewed emerging variants of the vanilla model. In particular, the Kipf-Welling model has an spectral interpretation for modulating message passing (we will get back to this point later on).</p>
 <p>Vanilla GNNs (aka <strong>Graph Convolutional Networks</strong> or <strong>GCNs</strong>) have an important <strong>limitation</strong>: they <strong><span style="color:#2f6004">blindly aggregate messages coming from all neighbors</span></strong>:</p>
 <ul class="simple">
@@ -797,30 +881,30 @@ e_{ij}:=\mathbf{a}\left(\mathbf{W}\mathbf{h}_i,\mathbf{W}\mathbf{h}_i\right)\;,
 \[
 \mathbf{h}^{(l+1)}_i:=\sigma\left(\frac{1}{K}\sum_k\sum_{j\in{\cal N}(i)}\alpha_{ij}^k\mathbf{W}^k\mathbf{h}^{(l)}_j\right)\;.
 \]</div>
-<p>This is summarized in <a class="reference internal" href="#gat"><span class="std std-numref">Fig. 2.8</span></a>. On the left, we illustrate the MLP for computing the attention coefficients. Right: hypothetical graph with <span class="math notranslate nohighlight">\(K=3\)</span> attention heads (different colors). Visualize this as <span class="math notranslate nohighlight">\(K\)</span> superposed graphs whose nodal representation of different colors should be concatenated (or averaged). In this figure, we have preserved the traditional vector notation (arrows).</p>
+<p>This is summarized in <a class="reference internal" href="#gat"><span class="std std-numref">Fig. 2.11</span></a>. On the left, we illustrate the MLP for computing the attention coefficients. Right: hypothetical graph with <span class="math notranslate nohighlight">\(K=3\)</span> attention heads (different colors). Visualize this as <span class="math notranslate nohighlight">\(K\)</span> superposed graphs whose nodal representation of different colors should be concatenated (or averaged). In this figure, we have preserved the traditional vector notation (arrows).</p>
 <figure class="align-center" id="gat">
 <a class="reference internal image-reference" href="_images/GAT.png"><img alt="_images/GAT.png" src="_images/GAT.png" style="width: 800px; height: 400px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.8 </span><span class="caption-text">GAT. Image from the original paper: <a class="reference external" href="https://arxiv.org/pdf/1710.10903">Graph Attention Networks</a>.</span><a class="headerlink" href="#gat" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.11 </span><span class="caption-text">GAT. Image from the original paper: <a class="reference external" href="https://arxiv.org/pdf/1710.10903">Graph Attention Networks</a>.</span><a class="headerlink" href="#gat" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="homophily-vs-heterophily">
-<h2><span class="section-number">2.4. </span>Homophily vs Heterophily<a class="headerlink" href="#homophily-vs-heterophily" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.5. </span>Homophily vs Heterophily<a class="headerlink" href="#homophily-vs-heterophily" title="Permalink to this heading">#</a></h2>
 <section id="the-cora-dataset">
-<h3><span class="section-number">2.4.1. </span>The Cora Dataset<a class="headerlink" href="#the-cora-dataset" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.1. </span>The Cora Dataset<a class="headerlink" href="#the-cora-dataset" title="Permalink to this heading">#</a></h3>
 <p>Let us exemplify the advantages of vanilla GNNs vs MLPs and GATs <strong>in the homophilic regime</strong> with the study of the <a class="reference external" href="https://graphsandnetworks.com/the-cora-dataset/">Cora dataset</a>. This is a graph of 2708 scientific publications as nodes. The nodes are classified into one of <span class="math notranslate nohighlight">\(C=7\)</span> classes attenting to their publication’s type. The features of each node is a 0/1 vector indicating the absence/presence of a word in a dictionary of <span class="math notranslate nohighlight">\(d=1433\)</span> words. There are <span class="math notranslate nohighlight">\(5429\)</span> (directed) links indicating that one papers cites another paper. In <code class="xref std std-numref docutils literal notranslate"><span class="pre">Cora</span></code> we show the largest connected compoment of Cora using undirected edges as in <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/">PyTorch Geometric</a>:</p>
 <figure class="align-center" id="cora">
 <a class="reference internal image-reference" href="_images/Cora.png"><img alt="_images/Cora.png" src="_images/Cora.png" style="width: 800px; height: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.9 </span><span class="caption-text">Largest component of the Cora dataset. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#cora" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.12 </span><span class="caption-text">Largest component of the Cora dataset. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#cora" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p><strong>Know your dataset</strong>. The basic statistics of Cora are in <a class="reference internal" href="#cora-stats"><span class="std std-numref">Fig. 2.10</span></a>. Note that in addition to the number of nodes and their degree, there are some specifications for the train-test split. In particular, in the following experiment <strong>only <span class="math notranslate nohighlight">\(5\%\)</span> of the nodes are used for training</strong>.</p>
+<p><strong>Know your dataset</strong>. The basic statistics of Cora are in <a class="reference internal" href="#cora-stats"><span class="std std-numref">Fig. 2.13</span></a>. Note that in addition to the number of nodes and their degree, there are some specifications for the train-test split. In particular, in the following experiment <strong>only <span class="math notranslate nohighlight">\(5\%\)</span> of the nodes are used for training</strong>.</p>
 <figure class="align-center" id="cora-stats">
 <a class="reference internal image-reference" href="_images/Cora-Stats.png"><img alt="_images/Cora-Stats.png" src="_images/Cora-Stats.png" style="width: 800px; height: 300px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.10 </span><span class="caption-text">Cora dataset stats. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#cora-stats" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.13 </span><span class="caption-text">Cora dataset stats. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#cora-stats" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>Homophily degree</strong>. A fundamental statistic for understanding whether GNNs can beat MLPs is the fraction of nodes whose neighbors do have the same class. This is the so-called <strong>edge-homophily ratio</strong>:</p>
@@ -928,14 +1012,14 @@ O(10^3)\rightarrow O(10^1)\rightarrow O(10^0)\;.
 </div>
 <p>For the GAT we use a single <strong>attention head</strong> (set by default)</p>
 <p><strong>Latent spaces</strong>. We train the above models with the <strong>train/test/validaton split</strong> of <span class="math notranslate nohighlight">\(48/32/20\)</span>: <span class="math notranslate nohighlight">\(48\%\)</span> of the nodes for training, <span class="math notranslate nohighlight">\(32\%\)</span> for testing and <span class="math notranslate nohighlight">\(20\%\)</span> for validations. First we split the nodes in <span class="math notranslate nohighlight">\(80\%\)</span> for training and <span class="math notranslate nohighlight">\(20\%\)</span> for testing. Then we split the training nodes in <span class="math notranslate nohighlight">\(48\%\)</span> for training and <span class="math notranslate nohighlight">\(32\%\)</span> for validation over the <span class="math notranslate nohighlight">\(80\%\)</span> of the nodes.</p>
-<p>We perform <span class="math notranslate nohighlight">\(10\)</span> runs with with same random seeds. In <a class="reference internal" href="#cora-latent"><span class="std std-numref">Fig. 2.11</span></a> we show the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">t-SNE</a> projections of the respective latent spaces.</p>
+<p>We perform <span class="math notranslate nohighlight">\(10\)</span> runs with with same random seeds. In <a class="reference internal" href="#cora-latent"><span class="std std-numref">Fig. 2.14</span></a> we show the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">t-SNE</a> projections of the respective latent spaces.</p>
 <figure class="align-center" id="cora-latent">
 <a class="reference internal image-reference" href="_images/Cora-Latent.png"><img alt="_images/Cora-Latent.png" src="_images/Cora-Latent.png" style="width: 800px; height: 300px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.11 </span><span class="caption-text">Cora: GCN (vanilla GNN), MLP and GAT latent spaces. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#cora-latent" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.14 </span><span class="caption-text">Cora: GCN (vanilla GNN), MLP and GAT latent spaces. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#cora-latent" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>In <a class="reference internal" href="#cora-accuracy"><span class="std std-numref">Fig. 2.12</span></a> we show the respective accuracies. As expected in an homophilic dataset, where the power of aggregation is maximal, both GCN (vanilla GNN) and GAT outperform the MLP. Here are the means and stds for the respective ten runs of each each model:</p>
+<p>In <a class="reference internal" href="#cora-accuracy"><span class="std std-numref">Fig. 2.15</span></a> we show the respective accuracies. As expected in an homophilic dataset, where the power of aggregation is maximal, both GCN (vanilla GNN) and GAT outperform the MLP. Here are the means and stds for the respective ten runs of each each model:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
@@ -948,31 +1032,31 @@ O(10^3)\rightarrow O(10^1)\rightarrow O(10^0)\;.
 <figure class="align-center" id="cora-accuracy">
 <a class="reference internal image-reference" href="_images/Cora-Accuracy.png"><img alt="_images/Cora-Accuracy.png" src="_images/Cora-Accuracy.png" style="width: 800px; height: 300px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.12 </span><span class="caption-text">Cora: GCN (vanilla GNN), MLP and GAT accuracies. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#cora-accuracy" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.15 </span><span class="caption-text">Cora: GCN (vanilla GNN), MLP and GAT accuracies. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#cora-accuracy" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="the-texas-dataset">
-<h3><span class="section-number">2.4.2. </span>The Texas Dataset<a class="headerlink" href="#the-texas-dataset" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.2. </span>The Texas Dataset<a class="headerlink" href="#the-texas-dataset" title="Permalink to this heading">#</a></h3>
 <p>Texas dataset is included in <a class="reference external" href="https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.WebKB.html">WebKB dataset</a>. The WebKB is a webpage dataset collected from computer science departments of various universities by Carnegie Mellon University. We use one of the three subdatasets of it, Cornell, Texas, and Wisconsin, where nodes represent web pages, and edges are hyperlinks between them. Node features are the bag-of-words representation of web pages. The web pages are manually classified into <span class="math notranslate nohighlight">\(C=5\)</span> categories, student, project, course, staff, and faculty.</p>
 <p>The Texas homophily is quite small: <span class="math notranslate nohighlight">\(h^{Texas}=0.11\)</span>. This means that the likelihood of finding two neighboring nodes with the same label is <span class="math notranslate nohighlight">\(0.11\)</span>.</p>
-<figure class="align-center" id="id1">
+<figure class="align-center" id="id2">
 <a class="reference internal image-reference" href="_images/Texas.png"><img alt="_images/Texas.png" src="_images/Texas.png" style="width: 800px; height: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.13 </span><span class="caption-text">Largest component of the Texas dataset. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.16 </span><span class="caption-text">Largest component of the Texas dataset. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <figure class="align-center" id="texas-stats">
 <a class="reference internal image-reference" href="_images/Texas-Stats.png"><img alt="_images/Texas-Stats.png" src="_images/Texas-Stats.png" style="width: 800px; height: 150px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.14 </span><span class="caption-text">Texas dataset stats. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#texas-stats" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.17 </span><span class="caption-text">Texas dataset stats. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#texas-stats" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>Results</strong>. Training the three models under the same conditions as above, we obtain the following latent spaces.</p>
 <figure class="align-center" id="texas-latent">
 <a class="reference internal image-reference" href="_images/Texas-Latent.png"><img alt="_images/Texas-Latent.png" src="_images/Texas-Latent.png" style="width: 800px; height: 300px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.15 </span><span class="caption-text">Texas: GCN (vanilla GNN), MLP and GAT latent spaces. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#texas-latent" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.18 </span><span class="caption-text">Texas: GCN (vanilla GNN), MLP and GAT latent spaces. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#texas-latent" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>These latent spaces are quite ilustrative of the power of MLP vs leveraging the graph structure as in GCN of GAT. In this heterophilic regime where is very likely that neighboring nodes have different labels, the best choice is undoubtely the MLP:</p>
@@ -987,18 +1071,18 @@ O(10^3)\rightarrow O(10^1)\rightarrow O(10^0)\;.
 <figure class="align-center" id="texas-accuracy">
 <a class="reference internal image-reference" href="_images/Texas-Accuracy.png"><img alt="_images/Texas-Accuracy.png" src="_images/Texas-Accuracy.png" style="width: 800px; height: 300px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.16 </span><span class="caption-text">Texas: GCN (vanilla GNN), MLP and GAT accuracies. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#texas-accuracy" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.19 </span><span class="caption-text">Texas: GCN (vanilla GNN), MLP and GAT accuracies. Image generated by PyTorch Geometric.</span><a class="headerlink" href="#texas-accuracy" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Indeed, the GCN outperforms the GAT. However, in general terms, GATs tend to have a similar performance to that of the MLP. Note that herein we are using a single attention head. Increasing the number of heads improves the results but not enough to beat the MLP in general.</p>
 </section>
 <section id="solving-heterophily">
-<h3><span class="section-number">2.4.3. </span>Solving Heterophily<a class="headerlink" href="#solving-heterophily" title="Permalink to this heading">#</a></h3>
-<p>Solving the heterophilic problem seems a long shot for GATs. The main reason is that GATs <strong>cannot jump</strong> neighbors to find homologs. This is the case of <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0893608024007548">Diffusion-Jump GNNs</a>. The basic architecture of networks are summarized in <a class="reference internal" href="#dj"><span class="std std-numref">Fig. 2.17</span></a>:</p>
+<h3><span class="section-number">2.5.3. </span>Solving Heterophily<a class="headerlink" href="#solving-heterophily" title="Permalink to this heading">#</a></h3>
+<p>Solving the heterophilic problem seems a long shot for GATs. The main reason is that GATs <strong>cannot jump</strong> neighbors to find homologs. This is the case of <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0893608024007548">Diffusion-Jump GNNs</a>. The basic architecture of networks are summarized in <a class="reference internal" href="#dj"><span class="std std-numref">Fig. 2.20</span></a>:</p>
 <figure class="align-center" id="dj">
 <a class="reference internal image-reference" href="_images/D-J-Architecture.png"><img alt="_images/D-J-Architecture.png" src="_images/D-J-Architecture.png" style="width: 800px; height: 300px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.17 </span><span class="caption-text">Diffusion-Jumps GNNs. Multi-hop attention.</span><a class="headerlink" href="#dj" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.20 </span><span class="caption-text">Diffusion-Jumps GNNs. Multi-hop attention.</span><a class="headerlink" href="#dj" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The ingredients of the approach are as follows:</p>
@@ -1011,10 +1095,10 @@ O(10^3)\rightarrow O(10^1)\rightarrow O(10^0)\;.
 <figure class="align-center" id="dj-table">
 <a class="reference internal image-reference" href="_images/D-J-Table.png"><img alt="_images/D-J-Table.png" src="_images/D-J-Table.png" style="width: 800px; height: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2.18 </span><span class="caption-text">Diffusion-Jumps GNNs performance wrt alternatives.</span><a class="headerlink" href="#dj-table" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2.21 </span><span class="caption-text">Diffusion-Jumps GNNs performance wrt alternatives.</span><a class="headerlink" href="#dj-table" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>In <a class="reference internal" href="#dj-table"><span class="std std-numref">Fig. 2.18</span></a>, we show that Diffusion-Jump GNNs outperform the alternatives for many heterophilic graphs, in particular the MLP.</p>
+<p>In <a class="reference internal" href="#dj-table"><span class="std std-numref">Fig. 2.21</span></a>, we show that Diffusion-Jump GNNs outperform the alternatives for many heterophilic graphs, in particular the MLP.</p>
 </section>
 </section>
 </section>
@@ -1717,7 +1801,7 @@ p_i(t+1)=p_i(t)\cdot\frac{(\mathbf{A}\mathbf{p}(t))_i}{\mathbf{p}(t)^T\mathbf{A}
 <li><p><span class="math notranslate nohighlight">\({\cal C}=\emptyset\)</span></p></li>
 <li><p><strong>for</strong> <span class="math notranslate nohighlight">\(n\in \{\sigma(1),\sigma(2),\ldots,\sigma(n)\}\)</span>:</p>
 <ol class="arabic simple">
-<li><p><strong>if</strong> <span class="math notranslate nohighlight">\((\mathbf{p}^{\ast}_n &lt; \delta)\)</span> &amp; <span class="math notranslate nohighlight">\((|{\cal C}|&gt;0)\)</span>
+<li><p><strong>if</strong> <span class="math notranslate nohighlight">\((\mathbf{p}^{\ast}_n &lt; \epsilon)\)</span> &amp; <span class="math notranslate nohighlight">\((|{\cal C}|&gt;0)\)</span>
 <strong>then</strong> <strong>break</strong></p></li>
 <li><p><strong>if</strong> <span class="math notranslate nohighlight">\(\text{Can_Extend}({\cal C},n)\)</span>
 <strong>then</strong> <span class="math notranslate nohighlight">\({\cal C}={\cal C}\cup \{n\}\)</span></p></li>
@@ -1802,15 +1886,22 @@ p_i(t+1)=p_i(t)\cdot\frac{(\mathbf{A}\mathbf{p}(t))_i}{\mathbf{p}(t)^T\mathbf{A}
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#masking-and-sequentiality">2.1.1.3. Masking and sequentiality</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-power-of-aggregation">2.1.2. The power of aggregation</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gnns-basic-architecture">2.2. GNNs basic architecture</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-attention-networks">2.3. Graph Attention Networks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homophily-vs-heterophily">2.4. Homophily vs Heterophily</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cora-dataset">2.4.1. The Cora Dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-texas-dataset">2.4.2. The Texas Dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-heterophily">2.4.3. Solving Heterophily</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-power-of-aggregation">2.2. The power of aggregation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#point-clouds-and-invariance">2.2.1. Point Clouds and Invariance</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#permutation-invariance">2.2.1.1. Permutation Invariance</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graphs-implement-discrete-convolutions">2.2.2. Graphs implement Discrete Convolutions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gnns-basic-architecture">2.3. GNNs basic architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-attention-networks">2.4. Graph Attention Networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homophily-vs-heterophily">2.5. Homophily vs Heterophily</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cora-dataset">2.5.1. The Cora Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-texas-dataset">2.5.2. The Texas Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-heterophily">2.5.3. Solving Heterophily</a></li>
 </ul>
 </li>
 </ul>
