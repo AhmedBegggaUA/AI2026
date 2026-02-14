@@ -1,0 +1,1553 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>5. Clique Problem &#8212; Agentes Inteligentes IA</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practice1';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="4. Graph Neural Networks" href="practice0.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Agentes Inteligentes IA - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Agentes Inteligentes IA - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI2026
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intelligent Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bloque1_Introducci%C3%B3n.html">1. The Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithmic Reasoning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic1.html">2. Graph Neural Networks</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practices</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">4. Graph Neural Networks</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Clique Problem</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpractice1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/practice1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Clique Problem</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-maximum-clique-problem">5.1. Practical Session: Maximum Clique Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">5.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">5.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">5.1.3. Datasets</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-0-brute-force-maximum-clique">5.2. Part 0: Brute Force Maximum Clique</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-start-with-brute-force">5.2.1. Why Start with Brute Force?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-algorithm">5.2.2. The Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity-analysis">5.2.3. Complexity Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-task">5.2.4. Implementation Task</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-motzkin-straus-formulation">5.3. Part 1: Motzkin-Straus Formulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-key-question">5.3.1. The Key Question</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-discrete-to-continuous">5.3.2. From Discrete to Continuous</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-motzkin-straus-theorem">5.3.3. The Motzkin-Straus Theorem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-this-work-an-intuitive-explanation">5.3.4. Why Does This Work? An Intuitive Explanation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-triangle-graph-k-3">5.3.5. Worked Example: Triangle Graph (<span class="math notranslate nohighlight">\(K_3\)</span>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-spurious-solutions">5.3.6. The Problem of Spurious Solutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-to-avoid-spurious-solutions">5.3.7. Regularization to Avoid Spurious Solutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.3.8. Implementation Task</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaway">5.3.9. Key Takeaway</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-replicator-dynamics">5.4. Part 2: Replicator Dynamics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-optimization-challenge">5.4.1. The Optimization Challenge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-intuition-evolution-by-natural-selection">5.4.2. The Intuition: Evolution by Natural Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-mathematics">5.4.3. The Mathematics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-replicator-dynamics">5.4.4. Discrete Replicator Dynamics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-theoretical-properties">5.4.5. Key Theoretical Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">5.4.6. Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.4.7. Implementation Task</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.5. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-brute-force-baseline-part-0">5.5.1. Exercise 1: Brute Force Baseline (Part 0)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-motzkin-straus-verification-part-1">5.5.2. Exercise 2: Motzkin-Straus Verification (Part 1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-replicator-dynamics-part-2">5.5.3. Exercise 3: Replicator Dynamics (Part 2)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">5.6. Deliverables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">5.7. References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="clique-problem">
+<h1><span class="section-number">5. </span>Clique Problem<a class="headerlink" href="#clique-problem" title="Permalink to this heading">#</a></h1>
+<section id="practical-session-maximum-clique-problem">
+<h2><span class="section-number">5.1. </span>Practical Session: Maximum Clique Problem<a class="headerlink" href="#practical-session-maximum-clique-problem" title="Permalink to this heading">#</a></h2>
+<section id="introduction">
+<h3><span class="section-number">5.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
+<p>In previous sessions, we covered the fundamentals of message passing, dataset creation (Part A), and Graph Neural Networks (Part B). Now we will dive deep into solving a classic combinatorial optimization problem: the <strong>Maximum Clique (MC) Problem</strong>.</p>
+<p>A <strong>clique</strong> in an undirected graph <span class="math notranslate nohighlight">\(G = (V, E)\)</span> is a subset of vertices <span class="math notranslate nohighlight">\(C \subseteq V\)</span> such that every pair of vertices in <span class="math notranslate nohighlight">\(C\)</span> is connected by an edge. The <strong>maximum clique</strong> is the clique with the largest number of vertices. Finding the maximum clique is an NP-hard problem with applications in social network analysis, bioinformatics, pattern recognition, and knowledge discovery.</p>
+<p>In this practical session, we will explore four approaches to solve the Maximum Clique problem, progressively building towards more sophisticated methods:</p>
+<ol class="arabic simple" start="0">
+<li><p><strong>Brute Force</strong>: Exhaustive search through all possible subsets (baseline, only for small graphs)</p></li>
+<li><p><strong>Motzkin-Straus Formulation</strong>: Understanding how the discrete MC problem maps to continuous optimization</p></li>
+<li><p><strong>Replicator Dynamics (RD)</strong>: An iterative solver for the continuous formulation</p></li>
+<li><p><strong>GNN + Replicator Dynamics</strong>: A learned approach that improves RD initialization</p></li>
+</ol>
+<p>We will apply these methods to the <strong>IMDB</strong> and <strong>COLLAB</strong> datasets from PyTorch Geometric.</p>
+</section>
+<section id="prerequisites">
+<h3><span class="section-number">5.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torch_geometric</span> <span class="n">networkx</span> <span class="n">matplotlib</span> <span class="n">numpy</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span>
+</pre></div>
+</div>
+</section>
+<section id="datasets">
+<h3><span class="section-number">5.1.3. </span>Datasets<a class="headerlink" href="#datasets" title="Permalink to this heading">#</a></h3>
+<p>We will use two graph classification datasets from TU Dortmund, available through PyTorch Geometric:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">torch_geometric.datasets</span> <span class="kn">import</span> <span class="n">TUDataset</span>
+<span class="kn">from</span> <span class="nn">torch_geometric.utils</span> <span class="kn">import</span> <span class="n">to_networkx</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Load IMDB-BINARY dataset</span>
+<span class="n">imdb_dataset</span> <span class="o">=</span> <span class="n">TUDataset</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;IMDB-BINARY&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IMDB-BINARY: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">imdb_dataset</span><span class="p">)</span><span class="si">}</span><span class="s2"> graphs&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load COLLAB dataset  </span>
+<span class="n">collab_dataset</span> <span class="o">=</span> <span class="n">TUDataset</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;COLLAB&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;COLLAB: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">collab_dataset</span><span class="p">)</span><span class="si">}</span><span class="s2"> graphs&quot;</span><span class="p">)</span>
+
+<span class="c1"># Examine a sample graph</span>
+<span class="n">sample_graph</span> <span class="o">=</span> <span class="n">imdb_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Sample graph statistics:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Nodes: </span><span class="si">{</span><span class="n">sample_graph</span><span class="o">.</span><span class="n">num_nodes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Edges: </span><span class="si">{</span><span class="n">sample_graph</span><span class="o">.</span><span class="n">num_edges</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-0-brute-force-maximum-clique">
+<h2><span class="section-number">5.2. </span>Part 0: Brute Force Maximum Clique<a class="headerlink" href="#part-0-brute-force-maximum-clique" title="Permalink to this heading">#</a></h2>
+<section id="why-start-with-brute-force">
+<h3><span class="section-number">5.2.1. </span>Why Start with Brute Force?<a class="headerlink" href="#why-start-with-brute-force" title="Permalink to this heading">#</a></h3>
+<p>Before using sophisticated methods, we need a <strong>ground truth</strong> to validate our solutions. The brute force approach guarantees finding the exact maximum clique by checking all possible subsets of vertices.</p>
+</section>
+<section id="the-algorithm">
+<h3><span class="section-number">5.2.2. </span>The Algorithm<a class="headerlink" href="#the-algorithm" title="Permalink to this heading">#</a></h3>
+<p>The idea is simple:</p>
+<ol class="arabic simple">
+<li><p>Generate all possible subsets of vertices, starting from the largest</p></li>
+<li><p>For each subset, check if it forms a clique (all pairs connected)</p></li>
+<li><p>Return the first (largest) clique found</p></li>
+</ol>
+<p><strong>Pseudocode:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Algorithm: Brute Force Maximum Clique
+─────────────────────────────────────
+Input: Graph G = (V, E) with n vertices
+Output: Maximum clique C*
+
+1. For k = n down to 1:
+   a. For each subset S ⊆ V of size k:
+      i.  If Is_Clique(S):
+          Return S
+2. Return ∅  // Empty graph
+</pre></div>
+</div>
+<p><strong>Helper function - Is_Clique:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Function: Is_Clique(S, A)
+─────────────────────────
+Input: Subset S, Adjacency matrix A
+Output: True if S is a clique, False otherwise
+
+1. For each pair (i, j) in S where i &lt; j:
+   a. If A[i,j] = 0:
+      Return False
+2. Return True
+</pre></div>
+</div>
+</section>
+<section id="complexity-analysis">
+<h3><span class="section-number">5.2.3. </span>Complexity Analysis<a class="headerlink" href="#complexity-analysis" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Number of subsets of size <span class="math notranslate nohighlight">\(k\)</span>: <span class="math notranslate nohighlight">\(\binom{n}{k}\)</span></p></li>
+<li><p>Total subsets: <span class="math notranslate nohighlight">\(2^n\)</span></p></li>
+<li><p>Checking if a subset of size <span class="math notranslate nohighlight">\(k\)</span> is a clique: <span class="math notranslate nohighlight">\(O(k^2)\)</span></p></li>
+</ul>
+<p><strong>This is exponential!</strong> For <span class="math notranslate nohighlight">\(n=30\)</span>, we have over 1 billion subsets. This is why we need smarter methods.</p>
+</section>
+<section id="implementation-task">
+<h3><span class="section-number">5.2.4. </span>Implementation Task<a class="headerlink" href="#implementation-task" title="Permalink to this heading">#</a></h3>
+<p><strong>Task 0.1:</strong> Implement the helper function to check if a set of nodes forms a clique.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_clique</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Check if a set of nodes forms a clique.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        nodes: list of node indices</span>
+<span class="sd">        A: numpy array of shape (n, n) - adjacency matrix</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        bool: True if nodes form a clique, False otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: Implement this function</span>
+    <span class="c1"># Check that every pair of nodes in the list is connected</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p><strong>Task 0.2:</strong> Implement the brute force maximum clique algorithm.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">brute_force_max_clique</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the maximum clique by brute force enumeration.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        A: numpy array of shape (n, n) - adjacency matrix</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        list: nodes forming the maximum clique</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># TODO: Implement brute force search</span>
+    <span class="c1"># Start from largest possible clique size and work down</span>
+    <span class="c1"># Use itertools.combinations to generate subsets</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p><strong>Task 0.3:</strong> Test on small graphs and measure the time.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_brute_force</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test brute force on small graphs and measure computation time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create a simple test graph: triangle (clique of size 3) plus one extra node</span>
+    <span class="c1"># Nodes 0, 1, 2 form a triangle; node 3 connects only to node 2</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    
+    <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">clique</span> <span class="o">=</span> <span class="n">brute_force_max_clique</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum clique: </span><span class="si">{</span><span class="n">clique</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Clique size: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">clique</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Time: </span><span class="si">{</span><span class="n">elapsed</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Verify it&#39;s actually a clique</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Is valid clique: </span><span class="si">{</span><span class="n">is_clique</span><span class="p">(</span><span class="n">clique</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">test_brute_force</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Task 0.4:</strong> Apply brute force to IMDB and COLLAB datasets (first few small graphs only).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">evaluate_brute_force_on_dataset</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">max_graphs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_nodes</span><span class="o">=</span><span class="mi">25</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluate brute force on dataset (only small graphs).</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        dataset: PyTorch Geometric dataset</span>
+<span class="sd">        max_graphs: maximum number of graphs to evaluate</span>
+<span class="sd">        max_nodes: skip graphs larger than this (too slow)</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        results: list of (graph_idx, clique_size, time) tuples</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">max_graphs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">))):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">num_nodes</span> <span class="o">&gt;</span> <span class="n">max_nodes</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Graph </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: Skipping (too large: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">num_nodes</span><span class="si">}</span><span class="s2"> nodes)&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+        
+        <span class="n">G</span> <span class="o">=</span> <span class="n">to_networkx</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">to_undirected</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        
+        <span class="c1"># TODO: Run brute force and record results</span>
+        <span class="k">pass</span>
+    
+    <span class="k">return</span> <span class="n">results</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-1-motzkin-straus-formulation">
+<h2><span class="section-number">5.3. </span>Part 1: Motzkin-Straus Formulation<a class="headerlink" href="#part-1-motzkin-straus-formulation" title="Permalink to this heading">#</a></h2>
+<section id="the-key-question">
+<h3><span class="section-number">5.3.1. </span>The Key Question<a class="headerlink" href="#the-key-question" title="Permalink to this heading">#</a></h3>
+<p>We just saw that brute force is exponential. Can we do better?</p>
+<p><strong>The Motzkin-Straus theorem provides a remarkable answer:</strong> We can transform the discrete combinatorial problem into a continuous optimization problem!</p>
+</section>
+<section id="from-discrete-to-continuous">
+<h3><span class="section-number">5.3.2. </span>From Discrete to Continuous<a class="headerlink" href="#from-discrete-to-continuous" title="Permalink to this heading">#</a></h3>
+<p><strong>The Discrete Problem:</strong></p>
+<ul class="simple">
+<li><p>Find the largest subset <span class="math notranslate nohighlight">\(C \subseteq V\)</span> where all pairs are connected</p></li>
+<li><p>This requires searching through <span class="math notranslate nohighlight">\(2^n\)</span> subsets</p></li>
+</ul>
+<p><strong>The Continuous Problem:</strong></p>
+<ul class="simple">
+<li><p>Find a point <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in the simplex that maximizes a quadratic function</p></li>
+<li><p>The simplex <span class="math notranslate nohighlight">\(\Delta_n = \{\mathbf{x} \in \mathbb{R}^n : \sum_i x_i = 1, x_i \geq 0\}\)</span> is a continuous, convex set</p></li>
+<li><p>We can use calculus-based optimization.</p></li>
+</ul>
+</section>
+<section id="the-motzkin-straus-theorem">
+<h3><span class="section-number">5.3.3. </span>The Motzkin-Straus Theorem<a class="headerlink" href="#the-motzkin-straus-theorem" title="Permalink to this heading">#</a></h3>
+<p><strong>Theorem:</strong> Let <span class="math notranslate nohighlight">\(G = (V, E)\)</span> be a graph with adjacency matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>. Define:</p>
+<div class="math notranslate nohighlight">
+\[
+f(\mathbf{x}) = \mathbf{x}^T \mathbf{A} \mathbf{x} = \sum_{i,j} x_i A_{ij} x_j
+\]</div>
+<p>Then the <strong>global maximum</strong> of <span class="math notranslate nohighlight">\(f\)</span> over the simplex <span class="math notranslate nohighlight">\(\Delta_n\)</span> satisfies:</p>
+<div class="math notranslate nohighlight">
+\[
+\max_{\mathbf{x} \in \Delta_n} f(\mathbf{x}) = 1 - \frac{1}{\omega(G)}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\omega(G)\)</span> is the <strong>clique number</strong> (size of maximum clique).</p>
+<p>Moreover, the maximizer <span class="math notranslate nohighlight">\(\mathbf{x}^*\)</span> has the form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+x_i^* = \begin{cases}
+\frac{1}{k} &amp; \text{if } i \in C^* \\
+0 &amp; \text{otherwise}
+\end{cases}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(C^*\)</span> is a maximum clique of size <span class="math notranslate nohighlight">\(k = \omega(G)\)</span>.</p>
+</section>
+<section id="why-does-this-work-an-intuitive-explanation">
+<h3><span class="section-number">5.3.4. </span>Why Does This Work? An Intuitive Explanation<a class="headerlink" href="#why-does-this-work-an-intuitive-explanation" title="Permalink to this heading">#</a></h3>
+<p>Let’s understand what <span class="math notranslate nohighlight">\(f(\mathbf{x}) = \mathbf{x}^T \mathbf{A} \mathbf{x}\)</span> actually computes:</p>
+<div class="math notranslate nohighlight">
+\[
+f(\mathbf{x}) = \sum_{i \in V} \sum_{j \in V} x_i A_{ij} x_j = 2 \sum_{(i,j) \in E} x_i x_j
+\]</div>
+<p><strong>Interpretation:</strong> We’re computing a weighted sum over edges, where the weight of edge <span class="math notranslate nohighlight">\((i,j)\)</span> is <span class="math notranslate nohighlight">\(x_i \cdot x_j\)</span>.</p>
+<p><strong>Key insight:</strong> If we want to maximize this sum:</p>
+<ul class="simple">
+<li><p>We should put mass (<span class="math notranslate nohighlight">\(x_i &gt; 0\)</span>) on nodes that are <strong>densely connected</strong></p></li>
+<li><p>The densest possible subgraph is a <strong>clique</strong> (every pair connected)</p></li>
+<li><p>Among cliques, the <strong>largest</strong> one gives the highest value</p></li>
+</ul>
+</section>
+<section id="worked-example-triangle-graph-k-3">
+<h3><span class="section-number">5.3.5. </span>Worked Example: Triangle Graph (<span class="math notranslate nohighlight">\(K_3\)</span>)<a class="headerlink" href="#worked-example-triangle-graph-k-3" title="Permalink to this heading">#</a></h3>
+<p>Consider the complete graph on 3 nodes (a triangle):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{A} = \begin{bmatrix} 0 &amp; 1 &amp; 1 \\ 1 &amp; 0 &amp; 1 \\ 1 &amp; 1 &amp; 0 \end{bmatrix}
+\end{split}\]</div>
+<p>The maximum clique is all 3 nodes, so <span class="math notranslate nohighlight">\(\omega(G) = 3\)</span>.</p>
+<p><strong>Let’s verify the theorem:</strong></p>
+<p>The simplex point for the clique <span class="math notranslate nohighlight">\(\{0, 1, 2\}\)</span> is <span class="math notranslate nohighlight">\(\mathbf{x}^* = (\frac{1}{3}, \frac{1}{3}, \frac{1}{3})\)</span>.</p>
+<p>Computing <span class="math notranslate nohighlight">\(f(\mathbf{x}^*)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+f(\mathbf{x}^*) = \mathbf{x}^{*T} \mathbf{A} \mathbf{x}^* = \begin{bmatrix} \frac{1}{3} &amp; \frac{1}{3} &amp; \frac{1}{3} \end{bmatrix} \begin{bmatrix} 0 &amp; 1 &amp; 1 \\ 1 &amp; 0 &amp; 1 \\ 1 &amp; 1 &amp; 0 \end{bmatrix} \begin{bmatrix} \frac{1}{3} \\ \frac{1}{3} \\ \frac{1}{3} \end{bmatrix}
+\end{split}\]</div>
+<p>First, <span class="math notranslate nohighlight">\(\mathbf{A}\mathbf{x}^* = \begin{bmatrix} \frac{2}{3} \\ \frac{2}{3} \\ \frac{2}{3} \end{bmatrix}\)</span></p>
+<p>Then, <span class="math notranslate nohighlight">\(f(\mathbf{x}^*) = \frac{1}{3} \cdot \frac{2}{3} + \frac{1}{3} \cdot \frac{2}{3} + \frac{1}{3} \cdot \frac{2}{3} = \frac{2}{3}\)</span></p>
+<p>According to the theorem: <span class="math notranslate nohighlight">\(1 - \frac{1}{\omega(G)} = 1 - \frac{1}{3} = \frac{2}{3}\)</span> ✓</p>
+</section>
+<section id="the-problem-of-spurious-solutions">
+<h3><span class="section-number">5.3.6. </span>The Problem of Spurious Solutions<a class="headerlink" href="#the-problem-of-spurious-solutions" title="Permalink to this heading">#</a></h3>
+<p><strong>Warning:</strong> Not every maximizer corresponds to a clique!</p>
+<p>Consider the “cherry” graph (path of length 2):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="mi">0</span> <span class="o">---</span> <span class="mi">2</span> <span class="o">---</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{A} = \begin{bmatrix} 0 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 \\ 1 &amp; 1 &amp; 0 \end{bmatrix}
+\end{split}\]</div>
+<p>The maximum clique is any edge, say <span class="math notranslate nohighlight">\(\{0, 2\}\)</span>, with size <span class="math notranslate nohighlight">\(\omega(G) = 2\)</span>.</p>
+<p>The point <span class="math notranslate nohighlight">\(\mathbf{x}^{*} = (\frac{1}{2}, 0, \frac{1}{2})\)</span> gives <span class="math notranslate nohighlight">\(f(\mathbf{x}^{*}) = 0.5 = 1 - \frac{1}{2}\)</span> ✓</p>
+<p><strong>But also:</strong> <span class="math notranslate nohighlight">\(\tilde{\mathbf{x}} = (\frac{1}{4}, \frac{1}{4}, \frac{1}{2})\)</span> gives the same value!</p>
+<div class="math notranslate nohighlight">
+\[
+f(\tilde{\mathbf{x}}) = 2 \cdot (\frac{1}{4} \cdot \frac{1}{2} + \frac{1}{4} \cdot \frac{1}{2}) = 2 \cdot \frac{1}{4} = 0.5
+\]</div>
+<p>But <span class="math notranslate nohighlight">\(\{0, 1, 2\}\)</span> is <strong>not</strong> a clique (0 and 1 are not connected)!</p>
+<p>This is called a <strong>spurious solution</strong>.</p>
+</section>
+<section id="regularization-to-avoid-spurious-solutions">
+<h3><span class="section-number">5.3.7. </span>Regularization to Avoid Spurious Solutions<a class="headerlink" href="#regularization-to-avoid-spurious-solutions" title="Permalink to this heading">#</a></h3>
+<p>To eliminate spurious solutions, we use the <strong>regularized objective</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{f}(\mathbf{x}) = \mathbf{x}^T \mathbf{A} \mathbf{x} + \frac{1}{2} \mathbf{x}^T \mathbf{x} = \mathbf{x}^T \left(\mathbf{A} + \frac{1}{2}\mathbf{I}\right) \mathbf{x}
+\]</div>
+<p><strong>Why does this help?</strong></p>
+<p>The term <span class="math notranslate nohighlight">\(\frac{1}{2}\mathbf{x}^T\mathbf{x} = \frac{1}{2}\sum_i x_i^2\)</span> penalizes “spread out” solutions.</p>
+<p>For the cherry graph:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\hat{f}(\mathbf{x}^{*}) = 0.5 + \frac{1}{2}((\frac{1}{2})^2 + 0 + (\frac{1}{2})^2) = 0.5 + 0.25 = 0.75\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{f}(\tilde{\mathbf{x}}) = 0.5 + \frac{1}{2}((\frac{1}{4})^2 + (\frac{1}{4})^2 + (\frac{1}{2})^2) = 0.5 + 0.1875 = 0.6875\)</span></p></li>
+</ul>
+<p>Now the true clique solution <span class="math notranslate nohighlight">\(\mathbf{x}^{*}\)</span> has a <strong>higher</strong> value than the spurious solution!</p>
+</section>
+<section id="id1">
+<h3><span class="section-number">5.3.8. </span>Implementation Task<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p><strong>Task 1.1:</strong> Implement the objective functions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">motzkin_straus_objective</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the Motzkin-Straus objective f(x) = x^T A x</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        x: numpy array of shape (n,) - point in the simplex</span>
+<span class="sd">        A: numpy array of shape (n, n) - adjacency matrix</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        float: objective value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: Implement this function</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">regularized_objective</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the regularized objective f_hat(x) = x^T (A + 0.5*I) x</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        x: numpy array of shape (n,) - point in the simplex</span>
+<span class="sd">        A: numpy array of shape (n, n) - adjacency matrix</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        float: regularized objective value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: Implement this function</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p><strong>Task 1.2:</strong> Verify the Motzkin-Straus theorem on several examples.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">verify_motzkin_straus</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Verify the Motzkin-Straus theorem on test graphs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Test 1: Triangle (K3) - maximum clique size 3</span>
+    <span class="n">A1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    
+    <span class="c1"># TODO: Find maximum clique with brute force</span>
+    <span class="c1"># TODO: Compute simplex point for the clique</span>
+    <span class="c1"># TODO: Compute f(x*) and verify it equals 1 - 1/k</span>
+    
+    <span class="c1"># Test 2: Square with diagonal - maximum clique size 3</span>
+    <span class="c1"># Nodes: 0-1-2-3 form a square, plus diagonal 0-2</span>
+    <span class="n">A2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    
+    <span class="c1"># TODO: Same verification</span>
+    
+    <span class="c1"># Test 3: Cherry graph - verify spurious solutions</span>
+    <span class="n">A3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    
+    <span class="c1"># TODO: Show that regularization distinguishes true from spurious solutions</span>
+
+<span class="n">verify_motzkin_straus</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="key-takeaway">
+<h3><span class="section-number">5.3.9. </span>Key Takeaway<a class="headerlink" href="#key-takeaway" title="Permalink to this heading">#</a></h3>
+<p><strong>The Motzkin-Straus theorem tells us WHAT to optimize, but not HOW.</strong></p>
+<p>We’ve transformed finding a maximum clique into:
+$<span class="math notranslate nohighlight">\(\text{maximize } f(\mathbf{x}) = \mathbf{x}^T \mathbf{A} \mathbf{x} \text{ subject to } \mathbf{x} \in \Delta_n\)</span>$</p>
+<p>But we still need an algorithm to find this maximum. That’s where <strong>Replicator Dynamics</strong> comes in!</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-2-replicator-dynamics">
+<h2><span class="section-number">5.4. </span>Part 2: Replicator Dynamics<a class="headerlink" href="#part-2-replicator-dynamics" title="Permalink to this heading">#</a></h2>
+<section id="the-optimization-challenge">
+<h3><span class="section-number">5.4.1. </span>The Optimization Challenge<a class="headerlink" href="#the-optimization-challenge" title="Permalink to this heading">#</a></h3>
+<p>We need to maximize <span class="math notranslate nohighlight">\(f(\mathbf{x}) = \mathbf{x}^T \mathbf{A} \mathbf{x}\)</span> over the simplex.</p>
+<p>Standard gradient ascent won’t work directly because:</p>
+<ol class="arabic simple">
+<li><p>We must stay in the simplex (constraints!)</p></li>
+<li><p>The problem is non-convex (multiple local maxima)</p></li>
+</ol>
+<p><strong>Replicator Dynamics</strong> is an elegant algorithm from evolutionary game theory that naturally respects the simplex constraints. This approach was popularized in computer vision by Pelillo et al. in their seminal work on graph matching and relaxation labeling processes.</p>
+</section>
+<section id="the-intuition-evolution-by-natural-selection">
+<h3><span class="section-number">5.4.2. </span>The Intuition: Evolution by Natural Selection<a class="headerlink" href="#the-intuition-evolution-by-natural-selection" title="Permalink to this heading">#</a></h3>
+<p>Imagine a population of <span class="math notranslate nohighlight">\(n\)</span> species, where <span class="math notranslate nohighlight">\(x_i\)</span> represents the proportion of species <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<ul class="simple">
+<li><p>The <strong>fitness</strong> of species <span class="math notranslate nohighlight">\(i\)</span> depends on interactions with other species</p></li>
+<li><p>Species with above-average fitness <strong>grow</strong></p></li>
+<li><p>Species with below-average fitness <strong>shrink</strong></p></li>
+<li><p>This continues until an <strong>equilibrium</strong> is reached</p></li>
+</ul>
+<p>The remarkable fact: <strong>This equilibrium corresponds to the maximum clique!</strong></p>
+</section>
+<section id="the-mathematics">
+<h3><span class="section-number">5.4.3. </span>The Mathematics<a class="headerlink" href="#the-mathematics" title="Permalink to this heading">#</a></h3>
+<p>The connection between Replicator Dynamics and the Maximum Clique problem comes from evolutionary game theory. Consider the adjacency matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> as a <strong>payoff matrix</strong> where <span class="math notranslate nohighlight">\(A_{ij}\)</span> represents the payoff when strategy <span class="math notranslate nohighlight">\(i\)</span> interacts with strategy <span class="math notranslate nohighlight">\(j\)</span>.</p>
+<p><strong>Support (or fitness) of species <span class="math notranslate nohighlight">\(i\)</span>:</strong>
+$<span class="math notranslate nohighlight">\(\pi_i = (\mathbf{A}\mathbf{x})_i = \sum_j A_{ij} x_j\)</span>$</p>
+<p>This represents the expected payoff for an individual playing strategy <span class="math notranslate nohighlight">\(i\)</span> against the mixed population <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
+<p><strong>Average fitness of the population:</strong>
+$<span class="math notranslate nohighlight">\(\phi = \mathbf{x}^T \mathbf{A} \mathbf{x} = \sum_i x_i \pi_i\)</span>$</p>
+</section>
+<section id="discrete-replicator-dynamics">
+<h3><span class="section-number">5.4.4. </span>Discrete Replicator Dynamics<a class="headerlink" href="#discrete-replicator-dynamics" title="Permalink to this heading">#</a></h3>
+<p>Following the formulation from Pelillo’s work on relaxation labeling and game-theoretic methods, the discrete-time Replicator Dynamics have an elegant multiplicative form:</p>
+<div class="math notranslate nohighlight">
+\[
+x_i(t+1) = x_i(t) \cdot \frac{(\mathbf{A}\mathbf{x}(t))_i}{\sum_j x_j(t) \cdot (\mathbf{A}\mathbf{x}(t))_j}
+\]</div>
+<p>In matrix notation, this can be written compactly as:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x}(t+1) = \frac{\mathbf{x}(t) \odot (\mathbf{A}\mathbf{x}(t))}{\mathbf{x}(t)^T \mathbf{A} \mathbf{x}(t)}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\odot\)</span> denotes element-wise (Hadamard) multiplication.</p>
+<p><strong>Even more compactly</strong>, if we denote the normalization implicitly:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{x} \leftarrow \mathbf{x} \odot (\mathbf{A}\mathbf{x}), \quad \text{then normalize so } \sum_i x_i = 1
+\]</div>
+</section>
+<section id="key-theoretical-properties">
+<h3><span class="section-number">5.4.5. </span>Key Theoretical Properties<a class="headerlink" href="#key-theoretical-properties" title="Permalink to this heading">#</a></h3>
+<p><strong>Theorem (Pelillo et al.):</strong> The discrete Replicator Dynamics have the following properties:</p>
+<ol class="arabic simple">
+<li><p><strong>Simplex Invariance:</strong> If <span class="math notranslate nohighlight">\(\mathbf{x}(0) \in \Delta_n\)</span>, then <span class="math notranslate nohighlight">\(\mathbf{x}(t) \in \Delta_n\)</span> for all <span class="math notranslate nohighlight">\(t \geq 0\)</span>.</p></li>
+<li><p><strong>Monotonic Increase:</strong> The objective function <span class="math notranslate nohighlight">\(f(\mathbf{x}) = \mathbf{x}^T \mathbf{A} \mathbf{x}\)</span> is strictly increasing along non-constant trajectories:
+$<span class="math notranslate nohighlight">\(f(\mathbf{x}(t+1)) \geq f(\mathbf{x}(t))\)</span><span class="math notranslate nohighlight">\(
+with equality if and only if \)</span>\mathbf{x}(t)$ is a stationary point.</p></li>
+<li><p><strong>Convergence:</strong> The dynamics converge to a stationary point (Nash equilibrium).</p></li>
+<li><p><strong>Clique Correspondence:</strong> For the Maximum Clique problem with regularized adjacency <span class="math notranslate nohighlight">\(\mathbf{A} + \frac{1}{2}\mathbf{I}\)</span>, stationary points correspond to maximal cliques, and global maxima correspond to maximum cliques.</p></li>
+</ol>
+</section>
+<section id="algorithm">
+<h3><span class="section-number">5.4.6. </span>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Algorithm: Replicator Dynamics (Pelillo formulation)
+─────────────────────────────────────────────────────
+Input: Adjacency matrix A, max iterations T
+Output: Converged simplex point x*
+
+1. n ← number of nodes
+2. A_reg ← A + 0.5 * I  // Regularization to avoid spurious solutions
+3. x ← (1/n, 1/n, ..., 1/n)  // Start at barycenter
+
+4. For t = 1 to T:
+   a. x ← x ⊙ (A_reg @ x)     // Element-wise multiplication
+   b. x ← x / sum(x)           // Normalize to stay in simplex
+
+5. Return x
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3><span class="section-number">5.4.7. </span>Implementation Task<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p><strong>Task 2.1:</strong> Implement Replicator Dynamics following the Pelillo formulation.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replicator_dynamics</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">use_regularization</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run Replicator Dynamics to find the maximum clique.</span>
+<span class="sd">    </span>
+<span class="sd">    This follows the formulation from Pelillo et al.:</span>
+<span class="sd">    x_new = x * (A @ x)</span>
+<span class="sd">    x_new = x_new / x_new.sum()</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        A: numpy array of shape (n, n) - adjacency matrix</span>
+<span class="sd">        max_iter: int - maximum number of iterations</span>
+<span class="sd">        tol: float - convergence tolerance</span>
+<span class="sd">        use_regularization: bool - whether to use A + 0.5*I</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        x: numpy array of shape (n,) - final simplex point</span>
+<span class="sd">        history: dict with &#39;objectives&#39; and &#39;iterations&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># Regularization (Pelillo et al. modification to avoid spurious solutions)</span>
+    <span class="k">if</span> <span class="n">use_regularization</span><span class="p">:</span>
+        <span class="n">A_reg</span> <span class="o">=</span> <span class="n">A</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">A_reg</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    
+    <span class="c1"># Initialize at barycenter</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+    
+    <span class="n">history</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;objectives&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span> <span class="o">@</span> <span class="n">A_reg</span> <span class="o">@</span> <span class="n">x</span><span class="p">],</span>
+        <span class="s1">&#39;iterations&#39;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+    
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="n">x_old</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        
+        <span class="c1"># TODO: Implement the Pelillo RD update</span>
+        <span class="c1"># Step 1: x_new = x * (A_reg @ x)  [element-wise multiplication]</span>
+        <span class="c1"># Step 2: x_new = x_new / x_new.sum()  [normalize]</span>
+        <span class="c1"># Step 3: Record objective, check convergence</span>
+        <span class="k">pass</span>
+    
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">history</span>
+</pre></div>
+</div>
+<p><strong>Task 2.2:</strong> Implement the clique decoder.</p>
+<p>Once RD converges, nodes in the maximum clique will have <span class="math notranslate nohighlight">\(x_i \approx \frac{1}{k}\)</span> (where <span class="math notranslate nohighlight">\(k\)</span> is the clique size), while nodes outside will have <span class="math notranslate nohighlight">\(x_i \approx 0\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decode_clique</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract the maximum clique from the RD solution.</span>
+<span class="sd">    </span>
+<span class="sd">    Strategy: </span>
+<span class="sd">    1. Sort nodes by x value (descending)</span>
+<span class="sd">    2. Greedily add nodes that maintain clique property</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        x: numpy array of shape (n,) - RD solution</span>
+<span class="sd">        A: numpy array of shape (n, n) - adjacency matrix</span>
+<span class="sd">        threshold: float - minimum x value to consider</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        clique: list of node indices</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: Implement the greedy decoder</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p><strong>Algorithm for decoding:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Algorithm: Clique Decoder
+─────────────────────────────────────
+Input: Solution x, Adjacency A, threshold δ
+Output: Clique C
+
+1. indices ← argsort(-x)  // Sort descending by x value
+2. C ← []
+
+3. For i in indices:
+   a. If x[i] &lt; δ and |C| &gt; 0:
+      break  // Remaining nodes have negligible mass
+   b. If Can_Extend(C, i, A):
+      C ← C ∪ {i}
+
+4. Return C
+
+Function Can_Extend(C, i, A):
+   For each j in C:
+      If A[j, i] = 0:
+         Return False
+   Return True
+</pre></div>
+</div>
+<p><strong>Task 2.3:</strong> Visualize RD convergence.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">visualize_rd</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">graph_name</span><span class="o">=</span><span class="s2">&quot;Test Graph&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Run RD and create visualization of convergence.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x_final</span><span class="p">,</span> <span class="n">history</span> <span class="o">=</span> <span class="n">replicator_dynamics</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    
+    <span class="c1"># Plot 1: Objective value f(x(t)) over time</span>
+    <span class="c1"># Shows the monotonic increase property</span>
+    
+    <span class="c1"># Plot 2: Final x values as bar chart</span>
+    <span class="c1"># Nodes in the clique should have high values (~1/k)</span>
+    <span class="c1"># Nodes outside should have values near 0</span>
+    
+    <span class="c1"># Plot 3: The graph with nodes colored by x value</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Replicator Dynamics: </span><span class="si">{</span><span class="n">graph_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">x_final</span>
+</pre></div>
+</div>
+<p><strong>Task 2.4:</strong> Apply to IMDB and COLLAB datasets.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">evaluate_rd_on_dataset</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">dataset_name</span><span class="p">,</span> <span class="n">num_graphs</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluate Replicator Dynamics on a dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">num_graphs</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">))):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">to_networkx</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">to_undirected</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">x_final</span><span class="p">,</span> <span class="n">history</span> <span class="o">=</span> <span class="n">replicator_dynamics</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="n">clique</span> <span class="o">=</span> <span class="n">decode_clique</span><span class="p">(</span><span class="n">x_final</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+        <span class="n">elapsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+        
+        <span class="c1"># Verify it&#39;s a valid clique</span>
+        <span class="n">valid</span> <span class="o">=</span> <span class="n">is_clique</span><span class="p">(</span><span class="n">clique</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+        
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;graph_idx&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span>
+            <span class="s1">&#39;num_nodes&#39;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">num_nodes</span><span class="p">,</span>
+            <span class="s1">&#39;clique_size&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">clique</span><span class="p">),</span>
+            <span class="s1">&#39;clique&#39;</span><span class="p">:</span> <span class="n">clique</span><span class="p">,</span>
+            <span class="s1">&#39;valid&#39;</span><span class="p">:</span> <span class="n">valid</span><span class="p">,</span>
+            <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">elapsed</span><span class="p">,</span>
+            <span class="s1">&#39;iterations&#39;</span><span class="p">:</span> <span class="n">history</span><span class="p">[</span><span class="s1">&#39;iterations&#39;</span><span class="p">]</span>
+        <span class="p">})</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processed </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">num_graphs</span><span class="si">}</span><span class="s2"> graphs&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Summary statistics</span>
+    <span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;clique_size&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+    <span class="n">valid_count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;valid&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">dataset_name</span><span class="si">}</span><span class="s2"> Results:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Mean clique size: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> ± </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Mean time: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">times</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Valid cliques: </span><span class="si">{</span><span class="n">valid_count</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">results</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<!-- ## Part 3: GNN + Replicator Dynamics
+
+### Motivation: The Initialization Problem
+
+Replicator Dynamics always starts from the **barycenter** (uniform distribution). This is a "neutral" starting point that doesn't use any information about the graph structure.
+
+**Question:** Can we learn a better starting point?
+
+If we could initialize RD **closer to the optimal solution**, it would:
+1. Converge faster (fewer iterations)
+2. Be less likely to get stuck in local optima
+
+### The Hybrid Approach
+
+We train a GNN to predict which nodes are likely to be in the maximum clique. The GNN output (after softmax) gives us a point in the simplex, which we use to initialize RD.
+
+**Training Pipeline:**
+```
+Node Features → GNN → Linear → Softmax → p → RD (2-3 iter) → p'
+                                                    ↓
+                                        Loss = -p'^T A p'
+```
+
+**Inference Pipeline:**
+```
+Node Features → GNN → Linear → Softmax → p → RD (100 iter) → p* → Decoder → Clique
+```
+
+### Why Include RD in Training?
+
+If we only trained the GNN with loss $-\mathbf{p}^T \mathbf{A} \mathbf{p}$, it might learn solutions that are hard for RD to refine.
+
+By including a few RD iterations in the training loop:
+1. The GNN learns to produce initializations that RD can improve
+2. The gradients flow through RD, teaching the GNN what makes a "good" starting point
+
+### Implementation Task
+
+**Task 3.1:** Compute node features.
+
+```python
+def compute_node_features(data):
+    """
+    Compute informative node features for the GNN.
+    
+    Features:
+    - Normalized degree
+    - Clustering coefficient
+    - Log(degree + 1)
+    
+    Args:
+        data: PyTorch Geometric Data object
+    
+    Returns:
+        x: torch.Tensor of shape (num_nodes, num_features)
+    """
+    G = to_networkx(data, to_undirected=True)
+    n = G.number_of_nodes()
+    
+    features = []
+    
+    # TODO: Compute features for each node
+    # Degree
+    # Clustering coefficient (nx.clustering)
+    # You can add more features
+    
+    return torch.tensor(features, dtype=torch.float)
+```
+
+**Task 3.2:** Implement the GNN model.
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch_geometric.nn import GCNConv
+
+
+class MaxCliqueGNN(nn.Module):
+    """
+    GNN for predicting initial simplex point for Maximum Clique.
+    """
+    
+    def __init__(self, input_dim, hidden_dim=32, num_layers=2):
+        super().__init__()
+        
+        self.convs = nn.ModuleList()
+        self.convs.append(GCNConv(input_dim, hidden_dim))
+        for _ in range(num_layers - 1):
+            self.convs.append(GCNConv(hidden_dim, hidden_dim))
+        
+        self.output = nn.Linear(hidden_dim, 1)
+    
+    def forward(self, x, edge_index):
+        """
+        Forward pass.
+        
+        Args:
+            x: Node features (num_nodes, input_dim)
+            edge_index: Edge indices (2, num_edges)
+        
+        Returns:
+            p: Simplex point (num_nodes,)
+        """
+        # TODO: Implement forward pass
+        # 1. Apply GCN layers with ReLU activation
+        # 2. Apply output linear layer
+        # 3. Apply softmax to get valid simplex point
+        pass
+```
+
+**Task 3.3:** Implement differentiable Replicator Dynamics.
+
+```python
+def differentiable_rd_step(p, A):
+    """
+    One step of differentiable Replicator Dynamics.
+    
+    Args:
+        p: torch.Tensor (n,) - current simplex point
+        A: torch.Tensor (n, n) - adjacency matrix (with regularization)
+    
+    Returns:
+        p_new: torch.Tensor (n,) - updated simplex point
+    """
+    # TODO: Implement one RD step in PyTorch
+    # This must be differentiable!
+    pass
+
+
+def differentiable_rd(p, A, num_iterations=3):
+    """
+    Multiple steps of differentiable RD.
+    """
+    A_reg = A + 0.5 * torch.eye(A.shape[0], device=A.device)
+    
+    for _ in range(num_iterations):
+        p = differentiable_rd_step(p, A_reg)
+    
+    return p
+```
+
+**Task 3.4:** Implement the loss function.
+
+```python
+def maxclique_loss(p, A):
+    """
+    Motzkin-Straus loss (negative because we minimize).
+    
+    Args:
+        p: torch.Tensor (n,) - simplex point
+        A: torch.Tensor (n, n) - adjacency matrix
+    
+    Returns:
+        loss: scalar tensor
+    """
+    # TODO: Return -p^T A p
+    pass
+```
+
+**Task 3.5:** Implement the training loop.
+
+```python
+def train_gnn(model, dataset, num_epochs=100, lr=0.01, rd_train_iters=3):
+    """
+    Train the GNN model.
+    
+    Args:
+        model: MaxCliqueGNN
+        dataset: PyTorch Geometric dataset
+        num_epochs: number of training epochs
+        lr: learning rate
+        rd_train_iters: RD iterations during training
+    
+    Returns:
+        model: trained model
+        losses: list of epoch losses
+    """
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+    losses = []
+    
+    for epoch in range(num_epochs):
+        model.train()
+        epoch_loss = 0
+        
+        for data in dataset:
+            optimizer.zero_grad()
+            
+            # TODO: Implement training step
+            # 1. Compute node features
+            # 2. Forward pass through GNN to get p
+            # 3. Apply differentiable RD to get p'
+            # 4. Compute loss
+            # 5. Backward and optimize
+            
+            pass
+        
+        epoch_loss /= len(dataset)
+        losses.append(epoch_loss)
+        
+        if (epoch + 1) % 10 == 0:
+            print(f"Epoch {epoch+1}/{num_epochs}, Loss: {epoch_loss:.4f}")
+    
+    return model, losses
+```
+
+**Task 3.6:** Implement evaluation.
+
+```python
+def evaluate_gnn(model, dataset, rd_test_iters=100):
+    """
+    Evaluate the trained model.
+    
+    Args:
+        model: trained MaxCliqueGNN
+        dataset: PyTorch Geometric dataset
+        rd_test_iters: RD iterations during inference
+    
+    Returns:
+        results: list of evaluation results
+    """
+    model.eval()
+    results = []
+    
+    with torch.no_grad():
+        for i, data in enumerate(dataset):
+            # TODO: Implement evaluation
+            # 1. Compute features
+            # 2. GNN forward pass
+            # 3. Many RD iterations
+            # 4. Decode clique
+            # 5. Verify and record
+            pass
+    
+    return results
+``` -->
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercises">
+<h2><span class="section-number">5.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<section id="exercise-1-brute-force-baseline-part-0">
+<h3><span class="section-number">5.5.1. </span>Exercise 1: Brute Force Baseline (Part 0)<a class="headerlink" href="#exercise-1-brute-force-baseline-part-0" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Implement <code class="docutils literal notranslate"><span class="pre">is_clique()</span></code> and <code class="docutils literal notranslate"><span class="pre">brute_force_max_clique()</span></code></p></li>
+<li><p>Test on small synthetic graphs (4-8 nodes)</p></li>
+<li><p>Apply to first 20 graphs of IMDB (skip graphs with &gt;25 nodes)</p></li>
+<li><p>Report: clique sizes found and computation times</p></li>
+</ol>
+</section>
+<section id="exercise-2-motzkin-straus-verification-part-1">
+<h3><span class="section-number">5.5.2. </span>Exercise 2: Motzkin-Straus Verification (Part 1)<a class="headerlink" href="#exercise-2-motzkin-straus-verification-part-1" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Implement both objective functions</p></li>
+<li><p>Create 3 test graphs with known maximum cliques</p></li>
+<li><p>Verify the theorem holds for each</p></li>
+<li><p>Demonstrate the spurious solution problem on the cherry graph</p></li>
+<li><p>Show that regularization fixes it</p></li>
+</ol>
+</section>
+<section id="exercise-3-replicator-dynamics-part-2">
+<h3><span class="section-number">5.5.3. </span>Exercise 3: Replicator Dynamics (Part 2)<a class="headerlink" href="#exercise-3-replicator-dynamics-part-2" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Implement RD with the decoder</p></li>
+<li><p>Visualize convergence on a small example</p></li>
+<li><p>Apply to IMDB and COLLAB (50 graphs each)</p></li>
+<li><p>Compare clique sizes with brute force (where available)</p></li>
+<li><p>Report: accuracy, mean clique size, computation time</p></li>
+</ol>
+<!-- ### Exercise 4: GNN + RD Hybrid (Part 3)
+1. Implement the complete pipeline
+2. Train on IMDB, evaluate on held-out graphs
+3. Compare three approaches:
+   - Brute force (ground truth, where feasible)
+   - Pure RD from barycenter
+   - GNN + RD
+4. Ablation: vary number of RD iterations (train: 0,1,3,5; test: 10,50,100)
+
+### Exercise 5: Final Comparison
+Create a summary table:
+
+| Method | IMDB Clique Size | IMDB Time | COLLAB Clique Size | COLLAB Time |
+|--------|------------------|-----------|--------------------| ------------|
+| Brute Force | - | - | - | - |
+| Replicator Dynamics | - | - | - | - |
+| GNN + RD | - | - | - | - |
+
+--- -->
+</section>
+</section>
+<section id="deliverables">
+<h2><span class="section-number">5.6. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Code</strong>: Complete, documented implementations</p></li>
+<li><p><strong>Results</strong>: Tables and visualizations</p></li>
+<li><p><strong>Report</strong> (3-4 paragraphs):</p>
+<ul class="simple">
+<li><p>Explain why continuous relaxation works</p></li>
+<li><p>Analyze when GNN+RD outperforms pure RD</p></li>
+<li><p>Discuss limitations and potential improvements</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="references">
+<h2><span class="section-number">5.7. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Motzkin, T.S., &amp; Straus, E.G. (1965). Maxima for graphs and a new proof of a theorem of Turán.</p></li>
+<li><p>Pelillo, M. (1999). Replicator Equations, Maximal Cliques, and Graph Isomorphism. Neural Computation.</p></li>
+<li><p>Bomze, I.M. (1997). Evolution towards the Maximum Clique. Journal of Global Optimization.</p></li>
+<li><p>Min, Y., Wenkel, F., et al. (2022). Can Hybrid Geometric Scattering Networks Help Solve the Maximum Clique Problem? NeurIPS.</p></li>
+<li><p>Elezi, I., Vascon, S., Torcinovich, A., Pelillo, M., Leal-Taixé, L. (2020). <em>The Group Loss for Deep Metric Learning</em>. ECCV. (Uses replicator dynamics for label propagation)</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="practice0.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Graph Neural Networks</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-maximum-clique-problem">5.1. Practical Session: Maximum Clique Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">5.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">5.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">5.1.3. Datasets</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-0-brute-force-maximum-clique">5.2. Part 0: Brute Force Maximum Clique</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-start-with-brute-force">5.2.1. Why Start with Brute Force?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-algorithm">5.2.2. The Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity-analysis">5.2.3. Complexity Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-task">5.2.4. Implementation Task</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-motzkin-straus-formulation">5.3. Part 1: Motzkin-Straus Formulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-key-question">5.3.1. The Key Question</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-discrete-to-continuous">5.3.2. From Discrete to Continuous</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-motzkin-straus-theorem">5.3.3. The Motzkin-Straus Theorem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-this-work-an-intuitive-explanation">5.3.4. Why Does This Work? An Intuitive Explanation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-triangle-graph-k-3">5.3.5. Worked Example: Triangle Graph (<span class="math notranslate nohighlight">\(K_3\)</span>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-spurious-solutions">5.3.6. The Problem of Spurious Solutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-to-avoid-spurious-solutions">5.3.7. Regularization to Avoid Spurious Solutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.3.8. Implementation Task</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaway">5.3.9. Key Takeaway</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-replicator-dynamics">5.4. Part 2: Replicator Dynamics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-optimization-challenge">5.4.1. The Optimization Challenge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-intuition-evolution-by-natural-selection">5.4.2. The Intuition: Evolution by Natural Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-mathematics">5.4.3. The Mathematics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-replicator-dynamics">5.4.4. Discrete Replicator Dynamics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-theoretical-properties">5.4.5. Key Theoretical Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">5.4.6. Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.4.7. Implementation Task</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.5. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-brute-force-baseline-part-0">5.5.1. Exercise 1: Brute Force Baseline (Part 0)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-motzkin-straus-verification-part-1">5.5.2. Exercise 2: Motzkin-Straus Verification (Part 1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-replicator-dynamics-part-2">5.5.3. Exercise 3: Replicator Dynamics (Part 2)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">5.6. Deliverables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">5.7. References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Universidad de Alicante
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
