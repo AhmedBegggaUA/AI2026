@@ -17,3 +17,4 @@ parts:
 - caption: Practices
   chapters:
   - file: practice0.md
+  - file: practice1.md
