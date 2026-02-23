@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>4. Graph Neural Networks &#8212; Agentes Inteligentes IA</title>
+    <title>5. Graph Neural Networks &#8212; Agentes Inteligentes IA</title>
   
   
   
@@ -69,8 +69,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'practice0';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="5. Clique Problem" href="practice1.html" />
-    <link rel="prev" title="2. Graph Neural Networks" href="topic1.html" />
+    <link rel="next" title="6. Clique Problem" href="practice1.html" />
+    <link rel="prev" title="4. Reinforcement Learning" href="topic2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,10 +181,14 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="topic1.html">2. Graph Neural Networks</a></li>
 
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reinforcement Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic2.html">4. Reinforcement Learning</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practices</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Graph Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice1.html">5. Clique Problem</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice1.html">6. Clique Problem</a></li>
 </ul>
 
     </div>
@@ -380,80 +384,80 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-0-introduction-to-graphs-and-message-passing">4.1. Practical Session 0: Introduction to Graphs and Message Passing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">4.1.1. Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">4.1.2. Prerequisites</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-fundamentals">4.1.3. Graph Fundamentals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-0-introduction-to-graphs-and-message-passing">5.1. Practical Session 0: Introduction to Graphs and Message Passing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">5.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">5.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-fundamentals">5.1.3. Graph Fundamentals</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-creating-synthetic-graph-data">4.2. Part 1: Creating Synthetic Graph Data</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-graph-with-networkx">4.2.1. Building a Graph with NetworkX</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-graph-structure">4.2.2. Visualizing the Graph Structure</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-synthetic-node-features">4.2.3. Creating Synthetic Node Features</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-node-labels">4.2.4. Assigning Node Labels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-creating-synthetic-graph-data">5.2. Part 1: Creating Synthetic Graph Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-graph-with-networkx">5.2.1. Building a Graph with NetworkX</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-graph-structure">5.2.2. Visualizing the Graph Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-synthetic-node-features">5.2.3. Creating Synthetic Node Features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-node-labels">5.2.4. Assigning Node Labels</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-converting-to-pytorch-geometric-format">4.3. Part 2: Converting to PyTorch Geometric Format</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-pytorch-geometric">4.3.1. Introduction to PyTorch Geometric</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-networkx-graph-to-pyg-data">4.3.2. Converting NetworkX Graph to PyG Data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-train-validation-test-splits">4.3.3. Creating Train/Validation/Test Splits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-converting-to-pytorch-geometric-format">5.3. Part 2: Converting to PyTorch Geometric Format</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-pytorch-geometric">5.3.1. Introduction to PyTorch Geometric</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-networkx-graph-to-pyg-data">5.3.2. Converting NetworkX Graph to PyG Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-train-validation-test-splits">5.3.3. Creating Train/Validation/Test Splits</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-the-over-smoothing-problem">4.4. Part 3: The Over-Smoothing Problem</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-repeated-aggregation-causes-information-mixing">4.4.1. Why Repeated Aggregation Causes Information Mixing</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evolution-of-node-representations-across-layers">4.4.1.1. Evolution of Node Representations Across Layers</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-intuition">4.4.1.2. Mathematical Intuition</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-implications">4.4.1.3. Practical Implications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-the-over-smoothing-problem">5.4. Part 3: The Over-Smoothing Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-repeated-aggregation-causes-information-mixing">5.4.1. Why Repeated Aggregation Causes Information Mixing</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evolution-of-node-representations-across-layers">5.4.1.1. Evolution of Node Representations Across Layers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-intuition">5.4.1.2. Mathematical Intuition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-implications">5.4.1.3. Practical Implications</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-understanding-message-passing">4.5. Part 4: Understanding Message Passing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-core-idea-behind-gnns">4.5.1. The Core Idea Behind GNNs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">4.5.2. Mathematical Formulation</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-form">4.5.2.1. Vector Form</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-form">4.5.2.2. Matrix Form</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-understanding-message-passing">5.5. Part 4: Understanding Message Passing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-core-idea-behind-gnns">5.5.1. The Core Idea Behind GNNs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">5.5.2. Mathematical Formulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-form">5.5.2.1. Vector Form</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-form">5.5.2.2. Matrix Form</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-message-passing-from-scratch">4.5.3. Implementing Message Passing from Scratch</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-matrix-implementation">4.5.4. Efficient Matrix Implementation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-effect-of-message-passing">4.5.5. Visualizing the Effect of Message Passing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-message-passing-from-scratch">5.5.3. Implementing Message Passing from Scratch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-matrix-implementation">5.5.4. Efficient Matrix Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-effect-of-message-passing">5.5.5. Visualizing the Effect of Message Passing</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-multi-layer-perceptrons-mlps">4.6. Part 5: Multi-Layer Perceptrons (MLPs)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-mlp">4.6.1. What is an MLP?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-for-node-classification-baseline">4.6.2. MLP for Node Classification (Baseline)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-multi-layer-perceptrons-mlps">5.6. Part 5: Multi-Layer Perceptrons (MLPs)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-mlp">5.6.1. What is an MLP?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-for-node-classification-baseline">5.6.2. MLP for Node Classification (Baseline)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-graph-neural-networks">4.7. Part 6: Graph Neural Networks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-message-passing-to-gnns">4.7.1. From Message Passing to GNNs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-convolutional-network-gcn">4.7.2. Graph Convolutional Network (GCN)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-a-gnn-with-pytorch-geometric">4.7.3. Implementing a GNN with PyTorch Geometric</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-pipeline">4.7.4. Training Pipeline</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-training-loop">4.7.5. Complete Training Loop</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-experiments">4.7.6. Running the Experiments</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-training-progress">4.7.7. Visualizing Training Progress</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-learned-embeddings">4.7.8. Visualizing Learned Embeddings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-graph-neural-networks">5.7. Part 6: Graph Neural Networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-message-passing-to-gnns">5.7.1. From Message Passing to GNNs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-convolutional-network-gcn">5.7.2. Graph Convolutional Network (GCN)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-a-gnn-with-pytorch-geometric">5.7.3. Implementing a GNN with PyTorch Geometric</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-pipeline">5.7.4. Training Pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-training-loop">5.7.5. Complete Training Loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-experiments">5.7.6. Running the Experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-training-progress">5.7.7. Visualizing Training Progress</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-learned-embeddings">5.7.8. Visualizing Learned Embeddings</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-7-loading-real-world-datasets">4.8. Part 7: Loading Real-World Datasets</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cora-dataset">4.8.1. The Cora Dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-citeseer-dataset">4.8.2. The Citeseer Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-7-loading-real-world-datasets">5.8. Part 7: Loading Real-World Datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cora-dataset">5.8.1. The Cora Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-citeseer-dataset">5.8.2. The Citeseer Dataset</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-custom-synthetic-dataset">4.9. Exercise 1: Custom Synthetic Dataset</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">4.9.1. Objectives</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">4.9.2. Task Description</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">4.9.3. Deliverables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">4.9.4. Evaluation Criteria</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-custom-synthetic-dataset">5.9. Exercise 1: Custom Synthetic Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">5.9.1. Objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">5.9.2. Task Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">5.9.3. Deliverables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">5.9.4. Evaluation Criteria</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-node-classification-experiments">4.10. Exercise 2: Node Classification Experiments</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.10.1. Objectives</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.10.2. Task Description</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters-to-explore">4.10.3. Hyperparameters to Explore</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.10.4. Deliverables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-questions">4.10.5. Analysis Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-node-classification-experiments">5.10. Exercise 2: Node Classification Experiments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.10.1. Objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.10.2. Task Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters-to-explore">5.10.3. Hyperparameters to Explore</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.10.4. Deliverables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-questions">5.10.5. Analysis Questions</a></li>
 </ul>
 </li>
 </ul>
@@ -468,37 +472,37 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="graph-neural-networks">
-<h1><span class="section-number">4. </span>Graph Neural Networks<a class="headerlink" href="#graph-neural-networks" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">5. </span>Graph Neural Networks<a class="headerlink" href="#graph-neural-networks" title="Permalink to this heading">#</a></h1>
 <section id="practical-session-0-introduction-to-graphs-and-message-passing">
-<h2><span class="section-number">4.1. </span>Practical Session 0: Introduction to Graphs and Message Passing<a class="headerlink" href="#practical-session-0-introduction-to-graphs-and-message-passing" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.1. </span>Practical Session 0: Introduction to Graphs and Message Passing<a class="headerlink" href="#practical-session-0-introduction-to-graphs-and-message-passing" title="Permalink to this heading">#</a></h2>
 <section id="introduction">
-<h3><span class="section-number">4.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
 <p>In this practical session, we will explore the fundamentals of <strong>Graph Neural Networks (GNNs)</strong>, a powerful class of deep learning models designed to operate on graph-structured data. Unlike traditional neural networks that assume data lies on a regular grid (such as images) or in sequences (such as text), GNNs can handle data with arbitrary connectivity patterns, making them ideal for social networks, molecular structures, citation networks, and many other domains.</p>
 <p>The goal of this tutorial is to guide you through the complete pipeline: from creating synthetic graph data using <strong>NetworkX</strong>, to understanding the <strong>message passing</strong> mechanism that underlies all GNNs, and finally implementing and training a Graph Neural Network using <strong>PyTorch Geometric (PyG)</strong>.</p>
 </section>
 <section id="prerequisites">
-<h3><span class="section-number">4.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
 <p>Before starting, ensure you have the necessary libraries installed. We will use NetworkX for graph manipulation, PyTorch Geometric for GNN implementations, and standard scientific Python libraries:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>networkx<span class="w"> </span>torch_geometric<span class="w"> </span>matplotlib<span class="w"> </span>scikit-learn
 </pre></div>
 </div>
 </section>
 <section id="graph-fundamentals">
-<h3><span class="section-number">4.1.3. </span>Graph Fundamentals<a class="headerlink" href="#graph-fundamentals" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.1.3. </span>Graph Fundamentals<a class="headerlink" href="#graph-fundamentals" title="Permalink to this heading">#</a></h3>
 <p>A graph <span class="math notranslate nohighlight">\(G = (V, E)\)</span> consists of a set of <strong>nodes</strong> (or vertices) <span class="math notranslate nohighlight">\(V\)</span> and a set of <strong>edges</strong> <span class="math notranslate nohighlight">\(E\)</span> that connect pairs of nodes. Each node <span class="math notranslate nohighlight">\(v \in V\)</span> can have an associated <strong>feature vector</strong> <span class="math notranslate nohighlight">\(\mathbf{x}_v \in \mathbb{R}^d\)</span>, and in supervised learning tasks, each node may also have a <strong>label</strong> <span class="math notranslate nohighlight">\(y_v\)</span>.</p>
 <p>In the context of machine learning on graphs, we typically represent the graph structure using an <strong>adjacency matrix</strong> <span class="math notranslate nohighlight">\(\mathbf{A} \in \{0, 1\}^{|V| \times |V|}\)</span>, where <span class="math notranslate nohighlight">\(A_{ij} = 1\)</span> if there is an edge between nodes <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span>, and <span class="math notranslate nohighlight">\(A_{ij} = 0\)</span> otherwise. The node features are stacked into a <strong>feature matrix</strong> <span class="math notranslate nohighlight">\(\mathbf{X} \in \mathbb{R}^{|V| \times d}\)</span>, where each row corresponds to the feature vector of a node.</p>
 <figure class="align-center" id="graphstructure">
 <img alt="_images/graph_structure.png" src="_images/graph_structure.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 4.1 </span><span class="caption-text">A graph with 6 nodes and their corresponding adjacency matrix representation.</span><a class="headerlink" href="#graphstructure" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.1 </span><span class="caption-text">A graph with 6 nodes and their corresponding adjacency matrix representation.</span><a class="headerlink" href="#graphstructure" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="part-1-creating-synthetic-graph-data">
-<h2><span class="section-number">4.2. </span>Part 1: Creating Synthetic Graph Data<a class="headerlink" href="#part-1-creating-synthetic-graph-data" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.2. </span>Part 1: Creating Synthetic Graph Data<a class="headerlink" href="#part-1-creating-synthetic-graph-data" title="Permalink to this heading">#</a></h2>
 <section id="building-a-graph-with-networkx">
-<h3><span class="section-number">4.2.1. </span>Building a Graph with NetworkX<a class="headerlink" href="#building-a-graph-with-networkx" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.2.1. </span>Building a Graph with NetworkX<a class="headerlink" href="#building-a-graph-with-networkx" title="Permalink to this heading">#</a></h3>
 <p>NetworkX is a Python library for the creation, manipulation, and study of complex networks. You should already be familiar with its basic functionality. Let us start by creating a synthetic graph that we will use throughout this tutorial.</p>
 <p>We will create a graph with multiple communities, where nodes within the same community share similar features. This structure will make it easier to understand how GNNs can learn to classify nodes based on both their features and their neighborhood.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -531,7 +535,7 @@ document.write(`
 </div>
 </section>
 <section id="visualizing-the-graph-structure">
-<h3><span class="section-number">4.2.2. </span>Visualizing the Graph Structure<a class="headerlink" href="#visualizing-the-graph-structure" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.2.2. </span>Visualizing the Graph Structure<a class="headerlink" href="#visualizing-the-graph-structure" title="Permalink to this heading">#</a></h3>
 <p>Before proceeding, it is important to visualize our graph to understand its structure:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the ground truth community assignments</span>
 <span class="n">node_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span> <span class="o">//</span> <span class="n">nodes_per_class</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">)])</span>
@@ -554,12 +558,12 @@ document.write(`
 <figure class="align-center" id="sbmgraph">
 <img alt="_images/sbm_graph.png" src="_images/sbm_graph.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 4.2 </span><span class="caption-text">Visualization of the stochastic block model graph showing 4 communities.</span><a class="headerlink" href="#sbmgraph" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.2 </span><span class="caption-text">Visualization of the stochastic block model graph showing 4 communities.</span><a class="headerlink" href="#sbmgraph" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="creating-synthetic-node-features">
-<h3><span class="section-number">4.2.3. </span>Creating Synthetic Node Features<a class="headerlink" href="#creating-synthetic-node-features" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.2.3. </span>Creating Synthetic Node Features<a class="headerlink" href="#creating-synthetic-node-features" title="Permalink to this heading">#</a></h3>
 <p>Now we need to assign feature vectors to each node. <strong>Critically, we will create features with very weak correlation to node labels.</strong> This is the key to demonstrating why GNNs outperform MLPs: the graph structure becomes essential for classification.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create class centers in the feature space with SMALL magnitude</span>
 <span class="c1"># The key difference: small class centers and large noise</span>
@@ -582,7 +586,7 @@ document.write(`
 <p><strong>Why this matters:</strong> With weak features, an MLP trained on node features alone will achieve only ~60-70% accuracy, while a GCN that leverages the strong community structure in the graph will reach ~90%+ accuracy. This clearly demonstrates the power of graph structure.</p>
 </section>
 <section id="assigning-node-labels">
-<h3><span class="section-number">4.2.4. </span>Assigning Node Labels<a class="headerlink" href="#assigning-node-labels" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.2.4. </span>Assigning Node Labels<a class="headerlink" href="#assigning-node-labels" title="Permalink to this heading">#</a></h3>
 <p>We have already assigned labels based on the community structure. Let us verify the label distribution:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count labels per class</span>
 <span class="n">unique</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">node_labels</span><span class="p">,</span> <span class="n">return_counts</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
@@ -594,9 +598,9 @@ document.write(`
 </section>
 </section>
 <section id="part-2-converting-to-pytorch-geometric-format">
-<h2><span class="section-number">4.3. </span>Part 2: Converting to PyTorch Geometric Format<a class="headerlink" href="#part-2-converting-to-pytorch-geometric-format" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.3. </span>Part 2: Converting to PyTorch Geometric Format<a class="headerlink" href="#part-2-converting-to-pytorch-geometric-format" title="Permalink to this heading">#</a></h2>
 <section id="introduction-to-pytorch-geometric">
-<h3><span class="section-number">4.3.1. </span>Introduction to PyTorch Geometric<a class="headerlink" href="#introduction-to-pytorch-geometric" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.3.1. </span>Introduction to PyTorch Geometric<a class="headerlink" href="#introduction-to-pytorch-geometric" title="Permalink to this heading">#</a></h3>
 <p><strong>PyTorch Geometric (PyG)</strong> is a library built upon PyTorch that provides efficient implementations of GNN layers and utilities for handling graph data. The central data structure in PyG is the <code class="docutils literal notranslate"><span class="pre">Data</span></code> object, which stores all information about a single graph.</p>
 <p>A PyG <code class="docutils literal notranslate"><span class="pre">Data</span></code> object typically contains:</p>
 <ul class="simple">
@@ -607,7 +611,7 @@ document.write(`
 </ul>
 </section>
 <section id="converting-networkx-graph-to-pyg-data">
-<h3><span class="section-number">4.3.2. </span>Converting NetworkX Graph to PyG Data<a class="headerlink" href="#converting-networkx-graph-to-pyg-data" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.3.2. </span>Converting NetworkX Graph to PyG Data<a class="headerlink" href="#converting-networkx-graph-to-pyg-data" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">torch_geometric.data</span> <span class="kn">import</span> <span class="n">Data</span>
 <span class="kn">from</span> <span class="nn">torch_geometric.utils</span> <span class="kn">import</span> <span class="n">from_networkx</span>
@@ -638,7 +642,7 @@ document.write(`
 </div>
 </section>
 <section id="creating-train-validation-test-splits">
-<h3><span class="section-number">4.3.3. </span>Creating Train/Validation/Test Splits<a class="headerlink" href="#creating-train-validation-test-splits" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.3.3. </span>Creating Train/Validation/Test Splits<a class="headerlink" href="#creating-train-validation-test-splits" title="Permalink to this heading">#</a></h3>
 <p>For node classification tasks, we need to split our nodes into training, validation, and test sets. Unlike traditional machine learning where we split samples, here we create <strong>masks</strong> that indicate which nodes belong to each set. This is because all nodes remain in the graph during training (we need the full graph structure), but we only compute the loss on training nodes.</p>
 <p>We will create splits for <strong>10 different runs</strong> to ensure robust evaluation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_masks</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">,</span> <span class="n">train_ratio</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">val_ratio</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">seed</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
@@ -699,9 +703,9 @@ document.write(`
 </section>
 </section>
 <section id="part-3-the-over-smoothing-problem">
-<h2><span class="section-number">4.4. </span>Part 3: The Over-Smoothing Problem<a class="headerlink" href="#part-3-the-over-smoothing-problem" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.4. </span>Part 3: The Over-Smoothing Problem<a class="headerlink" href="#part-3-the-over-smoothing-problem" title="Permalink to this heading">#</a></h2>
 <section id="why-repeated-aggregation-causes-information-mixing">
-<h3><span class="section-number">4.4.1. </span>Why Repeated Aggregation Causes Information Mixing<a class="headerlink" href="#why-repeated-aggregation-causes-information-mixing" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.4.1. </span>Why Repeated Aggregation Causes Information Mixing<a class="headerlink" href="#why-repeated-aggregation-causes-information-mixing" title="Permalink to this heading">#</a></h3>
 <p>Before diving into the mechanics of message passing, we need to understand a critical limitation: <strong>what happens when we aggregate information from neighbors multiple times?</strong></p>
 <p>Consider a simple scenario with two neighboring nodes:</p>
 <ul class="simple">
@@ -710,7 +714,7 @@ document.write(`
 <li><p><strong>Edge A-B</strong>: These nodes are connected in the graph</p></li>
 </ul>
 <section id="evolution-of-node-representations-across-layers">
-<h4><span class="section-number">4.4.1.1. </span>Evolution of Node Representations Across Layers<a class="headerlink" href="#evolution-of-node-representations-across-layers" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">5.4.1.1. </span>Evolution of Node Representations Across Layers<a class="headerlink" href="#evolution-of-node-representations-across-layers" title="Permalink to this heading">#</a></h4>
 <p>When we perform message passing, we aggregate neighbor information. Mathematically, this can be expressed as multiplying by a normalized adjacency matrix <span class="math notranslate nohighlight">\(\tilde{\mathbf{A}}\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{H}^{(l+1)} = \tilde{\mathbf{A}} \mathbf{H}^{(l)}\]</div>
@@ -731,7 +735,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 <p><strong>The representations converge to the same value!</strong> This phenomenon is called <strong>over-smoothing</strong>: after many layers of aggregation, node representations become nearly identical, losing all discriminative information.</p>
 </section>
 <section id="mathematical-intuition">
-<h4><span class="section-number">4.4.1.2. </span>Mathematical Intuition<a class="headerlink" href="#mathematical-intuition" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">5.4.1.2. </span>Mathematical Intuition<a class="headerlink" href="#mathematical-intuition" title="Permalink to this heading">#</a></h4>
 <p>The normalized adjacency matrix <span class="math notranslate nohighlight">\(\tilde{\mathbf{A}}\)</span> is a stochastic matrix (rows sum to 1). When we repeatedly multiply by it:</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{H}^{(l)} = \tilde{\mathbf{A}}^l \mathbf{H}^{(0)}\]</div>
@@ -741,7 +745,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 <p>Where <span class="math notranslate nohighlight">\(\mathbf{1}\)</span> is a vector of ones and <span class="math notranslate nohighlight">\(\mathbf{c}\)</span> is a constant vector. <strong>All nodes end up with identical representations!</strong></p>
 </section>
 <section id="practical-implications">
-<h4><span class="section-number">4.4.1.3. </span>Practical Implications<a class="headerlink" href="#practical-implications" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">5.4.1.3. </span>Practical Implications<a class="headerlink" href="#practical-implications" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
 <li><p><strong>Why 2-3 layers are typical:</strong> Most GNNs use only 2-3 message passing layers before over-smoothing becomes severe</p></li>
 <li><p><strong>Why deeper is not always better:</strong> Adding more layers doesn’t improve performance; it hurts it due to over-smoothing</p></li>
@@ -754,9 +758,9 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </section>
 <hr class="docutils" />
 <section id="part-4-understanding-message-passing">
-<h2><span class="section-number">4.5. </span>Part 4: Understanding Message Passing<a class="headerlink" href="#part-4-understanding-message-passing" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.5. </span>Part 4: Understanding Message Passing<a class="headerlink" href="#part-4-understanding-message-passing" title="Permalink to this heading">#</a></h2>
 <section id="the-core-idea-behind-gnns">
-<h3><span class="section-number">4.5.1. </span>The Core Idea Behind GNNs<a class="headerlink" href="#the-core-idea-behind-gnns" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.5.1. </span>The Core Idea Behind GNNs<a class="headerlink" href="#the-core-idea-behind-gnns" title="Permalink to this heading">#</a></h3>
 <p>The fundamental operation in Graph Neural Networks is <strong>message passing</strong> (also known as neighborhood aggregation). The key insight is that a node’s representation should depend not only on its own features but also on the features of its neighbors. By iteratively aggregating information from neighbors, each node can capture information from increasingly larger portions of the graph.</p>
 <p>Formally, the message passing framework consists of three steps at each layer <span class="math notranslate nohighlight">\(l\)</span>:</p>
 <ol class="arabic simple">
@@ -766,9 +770,9 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </ol>
 </section>
 <section id="mathematical-formulation">
-<h3><span class="section-number">4.5.2. </span>Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.5.2. </span>Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Permalink to this heading">#</a></h3>
 <section id="vector-form">
-<h4><span class="section-number">4.5.2.1. </span>Vector Form<a class="headerlink" href="#vector-form" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">5.5.2.1. </span>Vector Form<a class="headerlink" href="#vector-form" title="Permalink to this heading">#</a></h4>
 <p>For a single node <span class="math notranslate nohighlight">\(v\)</span>, the message passing operation can be written as:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -784,7 +788,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </ul>
 </section>
 <section id="matrix-form">
-<h4><span class="section-number">4.5.2.2. </span>Matrix Form<a class="headerlink" href="#matrix-form" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">5.5.2.2. </span>Matrix Form<a class="headerlink" href="#matrix-form" title="Permalink to this heading">#</a></h4>
 <p>For computational efficiency, message passing is typically implemented in matrix form. Consider a simple case where we aggregate neighbor features using a sum and then apply a linear transformation:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -801,7 +805,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </section>
 </section>
 <section id="implementing-message-passing-from-scratch">
-<h3><span class="section-number">4.5.3. </span>Implementing Message Passing from Scratch<a class="headerlink" href="#implementing-message-passing-from-scratch" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.5.3. </span>Implementing Message Passing from Scratch<a class="headerlink" href="#implementing-message-passing-from-scratch" title="Permalink to this heading">#</a></h3>
 <p>Let us implement a simple message passing layer manually to understand the mechanics:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
@@ -872,7 +876,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </div>
 </section>
 <section id="efficient-matrix-implementation">
-<h3><span class="section-number">4.5.4. </span>Efficient Matrix Implementation<a class="headerlink" href="#efficient-matrix-implementation" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.5.4. </span>Efficient Matrix Implementation<a class="headerlink" href="#efficient-matrix-implementation" title="Permalink to this heading">#</a></h3>
 <p>The loop-based implementation above is intuitive but slow. In practice, we use sparse matrix operations:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch_geometric.utils</span> <span class="kn">import</span> <span class="n">degree</span>
 
@@ -923,7 +927,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </div>
 </section>
 <section id="visualizing-the-effect-of-message-passing">
-<h3><span class="section-number">4.5.5. </span>Visualizing the Effect of Message Passing<a class="headerlink" href="#visualizing-the-effect-of-message-passing" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.5.5. </span>Visualizing the Effect of Message Passing<a class="headerlink" href="#visualizing-the-effect-of-message-passing" title="Permalink to this heading">#</a></h3>
 <p>To understand what message passing accomplishes, let us visualize the node representations before and after applying message passing using <strong>t-SNE</strong> (t-distributed Stochastic Neighbor Embedding), a dimensionality reduction technique that preserves local structure:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
 
@@ -992,23 +996,23 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 <figure class="align-default" id="tsnebeforemp">
 <img alt="_images/tsne_before_mp.png" src="_images/tsne_before_mp.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 4.3 </span><span class="caption-text">t-SNE visualization showing node features before message passing.</span><a class="headerlink" href="#tsnebeforemp" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.3 </span><span class="caption-text">t-SNE visualization showing node features before message passing.</span><a class="headerlink" href="#tsnebeforemp" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="tsneaftermp">
 <img alt="_images/tsne_after_mp.png" src="_images/tsne_after_mp.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 4.4 </span><span class="caption-text">t-SNE visualization showing node features after 2 layers of message passing.</span><a class="headerlink" href="#tsneaftermp" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.4 </span><span class="caption-text">t-SNE visualization showing node features after 2 layers of message passing.</span><a class="headerlink" href="#tsneaftermp" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The key observation is that after message passing, nodes of the same class tend to cluster together more tightly. This is because message passing allows nodes to incorporate information from their neighbors, and in a graph with community structure, neighbors are likely to belong to the same class.</p>
 </section>
 </section>
 <section id="part-5-multi-layer-perceptrons-mlps">
-<h2><span class="section-number">4.6. </span>Part 5: Multi-Layer Perceptrons (MLPs)<a class="headerlink" href="#part-5-multi-layer-perceptrons-mlps" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.6. </span>Part 5: Multi-Layer Perceptrons (MLPs)<a class="headerlink" href="#part-5-multi-layer-perceptrons-mlps" title="Permalink to this heading">#</a></h2>
 <p>Before diving into GNNs, let us briefly review <strong>Multi-Layer Perceptrons (MLPs)</strong>, which form the building blocks of many neural network architectures, including GNNs.</p>
 <section id="what-is-an-mlp">
-<h3><span class="section-number">4.6.1. </span>What is an MLP?<a class="headerlink" href="#what-is-an-mlp" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.6.1. </span>What is an MLP?<a class="headerlink" href="#what-is-an-mlp" title="Permalink to this heading">#</a></h3>
 <p>An MLP is a feedforward neural network consisting of multiple layers of neurons. Each layer performs a linear transformation followed by a non-linear activation function:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1023,7 +1027,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </ul>
 </section>
 <section id="mlp-for-node-classification-baseline">
-<h3><span class="section-number">4.6.2. </span>MLP for Node Classification (Baseline)<a class="headerlink" href="#mlp-for-node-classification-baseline" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.6.2. </span>MLP for Node Classification (Baseline)<a class="headerlink" href="#mlp-for-node-classification-baseline" title="Permalink to this heading">#</a></h3>
 <p>An important baseline for node classification is to use an MLP that processes each node’s features independently, ignoring the graph structure entirely:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 
@@ -1062,13 +1066,13 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </section>
 </section>
 <section id="part-6-graph-neural-networks">
-<h2><span class="section-number">4.7. </span>Part 6: Graph Neural Networks<a class="headerlink" href="#part-6-graph-neural-networks" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.7. </span>Part 6: Graph Neural Networks<a class="headerlink" href="#part-6-graph-neural-networks" title="Permalink to this heading">#</a></h2>
 <section id="from-message-passing-to-gnns">
-<h3><span class="section-number">4.7.1. </span>From Message Passing to GNNs<a class="headerlink" href="#from-message-passing-to-gnns" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.7.1. </span>From Message Passing to GNNs<a class="headerlink" href="#from-message-passing-to-gnns" title="Permalink to this heading">#</a></h3>
 <p>A <strong>Graph Neural Network</strong> is essentially a neural network that uses message passing to propagate information across the graph structure. By stacking multiple message passing layers (each with learnable parameters), the network can learn complex functions that depend on both node features and graph topology.</p>
 </section>
 <section id="graph-convolutional-network-gcn">
-<h3><span class="section-number">4.7.2. </span>Graph Convolutional Network (GCN)<a class="headerlink" href="#graph-convolutional-network-gcn" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.7.2. </span>Graph Convolutional Network (GCN)<a class="headerlink" href="#graph-convolutional-network-gcn" title="Permalink to this heading">#</a></h3>
 <p>The <strong>Graph Convolutional Network (GCN)</strong> introduced by Kipf and Welling (2017) is one of the most widely used GNN architectures. Each GCN layer performs:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1078,7 +1082,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 <p>The addition of self-loops ensures that a node’s own features are also considered during aggregation.</p>
 </section>
 <section id="implementing-a-gnn-with-pytorch-geometric">
-<h3><span class="section-number">4.7.3. </span>Implementing a GNN with PyTorch Geometric<a class="headerlink" href="#implementing-a-gnn-with-pytorch-geometric" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.7.3. </span>Implementing a GNN with PyTorch Geometric<a class="headerlink" href="#implementing-a-gnn-with-pytorch-geometric" title="Permalink to this heading">#</a></h3>
 <p>PyG provides efficient implementations of common GNN layers. Let us build a simple 2-layer GCN:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch_geometric.nn</span> <span class="kn">import</span> <span class="n">GCNConv</span>
 
@@ -1115,7 +1119,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 <p>Notice how the GCN layer takes both the node features <code class="docutils literal notranslate"><span class="pre">x</span></code> and the graph structure <code class="docutils literal notranslate"><span class="pre">edge_index</span></code> as input. This is the key difference from MLPs.</p>
 </section>
 <section id="training-pipeline">
-<h3><span class="section-number">4.7.4. </span>Training Pipeline<a class="headerlink" href="#training-pipeline" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.7.4. </span>Training Pipeline<a class="headerlink" href="#training-pipeline" title="Permalink to this heading">#</a></h3>
 <p>We will use the standard PyTorch training pipeline. The key steps are:</p>
 <ol class="arabic simple">
 <li><p>Forward pass: Compute predictions</p></li>
@@ -1189,7 +1193,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </div>
 </section>
 <section id="complete-training-loop">
-<h3><span class="section-number">4.7.5. </span>Complete Training Loop<a class="headerlink" href="#complete-training-loop" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.7.5. </span>Complete Training Loop<a class="headerlink" href="#complete-training-loop" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">masks</span><span class="p">,</span> <span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">lr</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">weight_decay</span> <span class="o">=</span> <span class="mf">5e-4</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run a complete training experiment.</span>
@@ -1256,7 +1260,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </div>
 </section>
 <section id="running-the-experiments">
-<h3><span class="section-number">4.7.6. </span>Running the Experiments<a class="headerlink" href="#running-the-experiments" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.7.6. </span>Running the Experiments<a class="headerlink" href="#running-the-experiments" title="Permalink to this heading">#</a></h3>
 <p>Now let us run experiments with both MLP and GCN across multiple runs:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hyperparameters</span>
 <span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">200</span>
@@ -1303,7 +1307,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </div>
 </section>
 <section id="visualizing-training-progress">
-<h3><span class="section-number">4.7.7. </span>Visualizing Training Progress<a class="headerlink" href="#visualizing-training-progress" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.7.7. </span>Visualizing Training Progress<a class="headerlink" href="#visualizing-training-progress" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_training_curves</span><span class="p">(</span><span class="n">mlp_history</span><span class="p">,</span> <span class="n">gcn_history</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot training curves for MLP and GCN.</span>
@@ -1353,12 +1357,12 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 <figure class="align-default" id="trainingcurves">
 <img alt="_images/training_curves.png" src="_images/training_curves.png" />
 <figcaption>
-<p><span class="caption-number">Fig. 4.5 </span><span class="caption-text">Training curves comparing MLP and GCN performance over epochs.</span><a class="headerlink" href="#trainingcurves" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5.5 </span><span class="caption-text">Training curves comparing MLP and GCN performance over epochs.</span><a class="headerlink" href="#trainingcurves" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="visualizing-learned-embeddings">
-<h3><span class="section-number">4.7.8. </span>Visualizing Learned Embeddings<a class="headerlink" href="#visualizing-learned-embeddings" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.7.8. </span>Visualizing Learned Embeddings<a class="headerlink" href="#visualizing-learned-embeddings" title="Permalink to this heading">#</a></h3>
 <p>Let us visualize the final node embeddings learned by the GCN:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">get_embeddings</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
@@ -1408,10 +1412,10 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </section>
 </section>
 <section id="part-7-loading-real-world-datasets">
-<h2><span class="section-number">4.8. </span>Part 7: Loading Real-World Datasets<a class="headerlink" href="#part-7-loading-real-world-datasets" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.8. </span>Part 7: Loading Real-World Datasets<a class="headerlink" href="#part-7-loading-real-world-datasets" title="Permalink to this heading">#</a></h2>
 <p>PyTorch Geometric provides easy access to many benchmark datasets commonly used in GNN research. Two of the most popular are <strong>Cora</strong> and <strong>Citeseer</strong>, both citation networks where nodes represent papers and edges represent citations.</p>
 <section id="the-cora-dataset">
-<h3><span class="section-number">4.8.1. </span>The Cora Dataset<a class="headerlink" href="#the-cora-dataset" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.8.1. </span>The Cora Dataset<a class="headerlink" href="#the-cora-dataset" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch_geometric.datasets</span> <span class="kn">import</span> <span class="n">Planetoid</span>
 
 <span class="c1"># Load the Cora dataset</span>
@@ -1428,7 +1432,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </div>
 </section>
 <section id="the-citeseer-dataset">
-<h3><span class="section-number">4.8.2. </span>The Citeseer Dataset<a class="headerlink" href="#the-citeseer-dataset" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.8.2. </span>The Citeseer Dataset<a class="headerlink" href="#the-citeseer-dataset" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the Citeseer dataset</span>
 <span class="n">citeseer_dataset</span> <span class="o">=</span> <span class="n">Planetoid</span><span class="p">(</span><span class="n">root</span> <span class="o">=</span> <span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Citeseer&#39;</span><span class="p">)</span>
 <span class="n">citeseer_data</span> <span class="o">=</span> <span class="n">citeseer_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -1443,13 +1447,13 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </section>
 </section>
 <section id="exercise-1-custom-synthetic-dataset">
-<h2><span class="section-number">4.9. </span>Exercise 1: Custom Synthetic Dataset<a class="headerlink" href="#exercise-1-custom-synthetic-dataset" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.9. </span>Exercise 1: Custom Synthetic Dataset<a class="headerlink" href="#exercise-1-custom-synthetic-dataset" title="Permalink to this heading">#</a></h2>
 <section id="objectives">
-<h3><span class="section-number">4.9.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.9.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
 <p>The objective of this exercise is to consolidate your understanding of graph data creation and the GNN pipeline by building a custom synthetic dataset from scratch.</p>
 </section>
 <section id="task-description">
-<h3><span class="section-number">4.9.2. </span>Task Description<a class="headerlink" href="#task-description" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.9.2. </span>Task Description<a class="headerlink" href="#task-description" title="Permalink to this heading">#</a></h3>
 <p>You must create a synthetic graph dataset with the following specifications:</p>
 <ol class="arabic simple">
 <li><p><strong>Graph Structure</strong>: Create a graph with approximately <strong>2000 nodes</strong>. You can use any of the following methods:</p>
@@ -1466,7 +1470,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </ol>
 </section>
 <section id="deliverables">
-<h3><span class="section-number">4.9.3. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.9.3. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>The complete code for generating your custom dataset</p></li>
 <li><p>Visualizations of the graph structure showing the different classes</p></li>
@@ -1474,7 +1478,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </ul>
 </section>
 <section id="evaluation-criteria">
-<h3><span class="section-number">4.9.4. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.9.4. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Correctness of the implementation</p></li>
 <li><p>Creativity in the dataset design</p></li>
@@ -1484,13 +1488,13 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </section>
 </section>
 <section id="exercise-2-node-classification-experiments">
-<h2><span class="section-number">4.10. </span>Exercise 2: Node Classification Experiments<a class="headerlink" href="#exercise-2-node-classification-experiments" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.10. </span>Exercise 2: Node Classification Experiments<a class="headerlink" href="#exercise-2-node-classification-experiments" title="Permalink to this heading">#</a></h2>
 <section id="id1">
-<h3><span class="section-number">4.10.1. </span>Objectives<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.10.1. </span>Objectives<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>The objective of this exercise is to implement and compare different models for node classification on both your custom dataset and standard benchmark datasets.</p>
 </section>
 <section id="id2">
-<h3><span class="section-number">4.10.2. </span>Task Description<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.10.2. </span>Task Description<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p><strong>Part A: Custom Dataset</strong></p>
 <p>Using the synthetic dataset you created in Exercise 1:</p>
 <ol class="arabic simple">
@@ -1509,7 +1513,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </ol>
 </section>
 <section id="hyperparameters-to-explore">
-<h3><span class="section-number">4.10.3. </span>Hyperparameters to Explore<a class="headerlink" href="#hyperparameters-to-explore" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.10.3. </span>Hyperparameters to Explore<a class="headerlink" href="#hyperparameters-to-explore" title="Permalink to this heading">#</a></h3>
 <p>Experiment with at least the following hyperparameters and report their effects:</p>
 <ul class="simple">
 <li><p>Hidden layer dimensions: 16, 32, 64, 128</p></li>
@@ -1520,7 +1524,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </ul>
 </section>
 <section id="id3">
-<h3><span class="section-number">4.10.4. </span>Deliverables<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.10.4. </span>Deliverables<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Complete code for all experiments</p></li>
 <li><p>A table summarizing results across all datasets and models</p></li>
@@ -1530,7 +1534,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
 </ul>
 </section>
 <section id="analysis-questions">
-<h3><span class="section-number">4.10.5. </span>Analysis Questions<a class="headerlink" href="#analysis-questions" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.10.5. </span>Analysis Questions<a class="headerlink" href="#analysis-questions" title="Permalink to this heading">#</a></h3>
 <p>In your report, address the following questions:</p>
 <ol class="arabic simple">
 <li><p>How does the performance gap between MLP and GCN vary across datasets? What might explain these differences?</p></li>
@@ -1573,12 +1577,12 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="topic1.html"
+       href="topic2.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">2. </span>Graph Neural Networks</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Reinforcement Learning</p>
       </div>
     </a>
     <a class="right-next"
@@ -1586,7 +1590,7 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>Clique Problem</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Clique Problem</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1605,80 +1609,80 @@ Layer 10:  h_A ≈ [0.5, 0.5]  (IDENTICAL!)      |  h_B ≈ [0.5, 0.5]  (IDENTIC
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-0-introduction-to-graphs-and-message-passing">4.1. Practical Session 0: Introduction to Graphs and Message Passing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">4.1.1. Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">4.1.2. Prerequisites</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-fundamentals">4.1.3. Graph Fundamentals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-0-introduction-to-graphs-and-message-passing">5.1. Practical Session 0: Introduction to Graphs and Message Passing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">5.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">5.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-fundamentals">5.1.3. Graph Fundamentals</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-creating-synthetic-graph-data">4.2. Part 1: Creating Synthetic Graph Data</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-graph-with-networkx">4.2.1. Building a Graph with NetworkX</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-graph-structure">4.2.2. Visualizing the Graph Structure</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-synthetic-node-features">4.2.3. Creating Synthetic Node Features</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-node-labels">4.2.4. Assigning Node Labels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-creating-synthetic-graph-data">5.2. Part 1: Creating Synthetic Graph Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-graph-with-networkx">5.2.1. Building a Graph with NetworkX</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-graph-structure">5.2.2. Visualizing the Graph Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-synthetic-node-features">5.2.3. Creating Synthetic Node Features</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assigning-node-labels">5.2.4. Assigning Node Labels</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-converting-to-pytorch-geometric-format">4.3. Part 2: Converting to PyTorch Geometric Format</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-pytorch-geometric">4.3.1. Introduction to PyTorch Geometric</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-networkx-graph-to-pyg-data">4.3.2. Converting NetworkX Graph to PyG Data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-train-validation-test-splits">4.3.3. Creating Train/Validation/Test Splits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-converting-to-pytorch-geometric-format">5.3. Part 2: Converting to PyTorch Geometric Format</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-pytorch-geometric">5.3.1. Introduction to PyTorch Geometric</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-networkx-graph-to-pyg-data">5.3.2. Converting NetworkX Graph to PyG Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-train-validation-test-splits">5.3.3. Creating Train/Validation/Test Splits</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-the-over-smoothing-problem">4.4. Part 3: The Over-Smoothing Problem</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-repeated-aggregation-causes-information-mixing">4.4.1. Why Repeated Aggregation Causes Information Mixing</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evolution-of-node-representations-across-layers">4.4.1.1. Evolution of Node Representations Across Layers</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-intuition">4.4.1.2. Mathematical Intuition</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-implications">4.4.1.3. Practical Implications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-the-over-smoothing-problem">5.4. Part 3: The Over-Smoothing Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-repeated-aggregation-causes-information-mixing">5.4.1. Why Repeated Aggregation Causes Information Mixing</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evolution-of-node-representations-across-layers">5.4.1.1. Evolution of Node Representations Across Layers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-intuition">5.4.1.2. Mathematical Intuition</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-implications">5.4.1.3. Practical Implications</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-understanding-message-passing">4.5. Part 4: Understanding Message Passing</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-core-idea-behind-gnns">4.5.1. The Core Idea Behind GNNs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">4.5.2. Mathematical Formulation</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-form">4.5.2.1. Vector Form</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-form">4.5.2.2. Matrix Form</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-understanding-message-passing">5.5. Part 4: Understanding Message Passing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-core-idea-behind-gnns">5.5.1. The Core Idea Behind GNNs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulation">5.5.2. Mathematical Formulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-form">5.5.2.1. Vector Form</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-form">5.5.2.2. Matrix Form</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-message-passing-from-scratch">4.5.3. Implementing Message Passing from Scratch</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-matrix-implementation">4.5.4. Efficient Matrix Implementation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-effect-of-message-passing">4.5.5. Visualizing the Effect of Message Passing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-message-passing-from-scratch">5.5.3. Implementing Message Passing from Scratch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#efficient-matrix-implementation">5.5.4. Efficient Matrix Implementation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-effect-of-message-passing">5.5.5. Visualizing the Effect of Message Passing</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-multi-layer-perceptrons-mlps">4.6. Part 5: Multi-Layer Perceptrons (MLPs)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-mlp">4.6.1. What is an MLP?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-for-node-classification-baseline">4.6.2. MLP for Node Classification (Baseline)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-multi-layer-perceptrons-mlps">5.6. Part 5: Multi-Layer Perceptrons (MLPs)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-mlp">5.6.1. What is an MLP?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mlp-for-node-classification-baseline">5.6.2. MLP for Node Classification (Baseline)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-graph-neural-networks">4.7. Part 6: Graph Neural Networks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-message-passing-to-gnns">4.7.1. From Message Passing to GNNs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-convolutional-network-gcn">4.7.2. Graph Convolutional Network (GCN)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-a-gnn-with-pytorch-geometric">4.7.3. Implementing a GNN with PyTorch Geometric</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-pipeline">4.7.4. Training Pipeline</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-training-loop">4.7.5. Complete Training Loop</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-experiments">4.7.6. Running the Experiments</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-training-progress">4.7.7. Visualizing Training Progress</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-learned-embeddings">4.7.8. Visualizing Learned Embeddings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-6-graph-neural-networks">5.7. Part 6: Graph Neural Networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-message-passing-to-gnns">5.7.1. From Message Passing to GNNs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-convolutional-network-gcn">5.7.2. Graph Convolutional Network (GCN)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-a-gnn-with-pytorch-geometric">5.7.3. Implementing a GNN with PyTorch Geometric</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-pipeline">5.7.4. Training Pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-training-loop">5.7.5. Complete Training Loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-experiments">5.7.6. Running the Experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-training-progress">5.7.7. Visualizing Training Progress</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-learned-embeddings">5.7.8. Visualizing Learned Embeddings</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-7-loading-real-world-datasets">4.8. Part 7: Loading Real-World Datasets</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cora-dataset">4.8.1. The Cora Dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-citeseer-dataset">4.8.2. The Citeseer Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-7-loading-real-world-datasets">5.8. Part 7: Loading Real-World Datasets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-cora-dataset">5.8.1. The Cora Dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-citeseer-dataset">5.8.2. The Citeseer Dataset</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-custom-synthetic-dataset">4.9. Exercise 1: Custom Synthetic Dataset</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">4.9.1. Objectives</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">4.9.2. Task Description</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">4.9.3. Deliverables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">4.9.4. Evaluation Criteria</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-custom-synthetic-dataset">5.9. Exercise 1: Custom Synthetic Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">5.9.1. Objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">5.9.2. Task Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">5.9.3. Deliverables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">5.9.4. Evaluation Criteria</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-node-classification-experiments">4.10. Exercise 2: Node Classification Experiments</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.10.1. Objectives</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.10.2. Task Description</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters-to-explore">4.10.3. Hyperparameters to Explore</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.10.4. Deliverables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-questions">4.10.5. Analysis Questions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-node-classification-experiments">5.10. Exercise 2: Node Classification Experiments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5.10.1. Objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5.10.2. Task Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hyperparameters-to-explore">5.10.3. Hyperparameters to Explore</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.10.4. Deliverables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-questions">5.10.5. Analysis Questions</a></li>
 </ul>
 </li>
 </ul>

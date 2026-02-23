@@ -177,10 +177,14 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="topic1.html">2. Graph Neural Networks</a></li>
 
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reinforcement Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic2.html">4. Reinforcement Learning</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practices</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice0.html">4. Graph Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice1.html">5. Clique Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">5. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice1.html">6. Clique Problem</a></li>
 </ul>
 
     </div>
@@ -417,11 +421,9 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>IMDB-BINARY: 1000 graphs
-COLLAB: 5000 graphs
-
-Sample graph statistics:
-  Nodes: 20
-  Edges: 146
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing...
 </pre></div>
 </div>
 </div>
@@ -537,18 +539,17 @@ Is valid clique: True
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Evaluating brute force on IMDB-BINARY:
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Evaluating brute force on COLLAB:
+
+Evaluating brute force on COLLAB:
 
 IMDB-BINARY results (graph index, clique size, time):
-(0, 9, 0.3317530155181885)
-(2, 10, 0.5657100677490234)
-(4, 9, 0.0028243064880371094)
-(6, 12, 8.821487426757812e-06)
-(7, 9, 0.0037071704864501953)
-(8, 18, 1.5974044799804688e-05)
-(9, 12, 8.106231689453125e-06)
+(0, 9, 0.3566169738769531)
+(2, 10, 0.5987167358398438)
+(4, 9, 0.002972841262817383)
+(6, 12, 9.298324584960938e-06)
+(7, 9, 0.0036809444427490234)
+(8, 18, 1.5735626220703125e-05)
+(9, 12, 8.821487426757812e-06)
 </pre></div>
 </div>
 </div>
@@ -921,11 +922,10 @@ IMDB-BINARY Results:
 ============================================================
 TEST 4: Evaluating RD on COLLAB (first 5 graphs)
 ============================================================
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>COLLAB Results:
+
+COLLAB Results:
   Mean clique size: 39.60 ± 4.84
-  Mean time: 0.0041 seconds
+  Mean time: 0.0045 seconds
   Valid cliques: 5/5
 
 ============================================================
@@ -933,18 +933,86 @@ SUMMARY
 ============================================================
 
 IMDB-BINARY RD Results:
-  Graph 0: clique_size=9, valid=True, time=0.0027s, iter=377
-  Graph 1: clique_size=11, valid=True, time=0.0032s, iter=460
-  Graph 2: clique_size=10, valid=True, time=0.0030s, iter=415
+  Graph 0: clique_size=9, valid=True, time=0.0034s, iter=377
+  Graph 1: clique_size=11, valid=True, time=0.0029s, iter=460
+  Graph 2: clique_size=10, valid=True, time=0.0024s, iter=415
   Graph 3: clique_size=7, valid=True, time=0.0021s, iter=354
-  Graph 4: clique_size=9, valid=True, time=0.0020s, iter=372
+  Graph 4: clique_size=9, valid=True, time=0.0021s, iter=372
 
 COLLAB RD Results:
   Graph 0: clique_size=45, valid=True, time=0.0001s, iter=1
-  Graph 1: clique_size=36, valid=True, time=0.0071s, iter=1000
-  Graph 2: clique_size=42, valid=True, time=0.0069s, iter=1000
+  Graph 1: clique_size=36, valid=True, time=0.0082s, iter=1000
+  Graph 2: clique_size=42, valid=True, time=0.0081s, iter=1000
   Graph 3: clique_size=32, valid=True, time=0.0001s, iter=1
-  Graph 4: clique_size=43, valid=True, time=0.0065s, iter=1000
+  Graph 4: clique_size=43, valid=True, time=0.0062s, iter=1000
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Seleccionar un grafo aleatorio de IMDB y visualizar RD</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Visualizando RD en un grafo aleatorio de IMDB-BINARY&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+
+<span class="c1"># Seleccionar un índice aleatorio</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="n">random_idx</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">imdb_dataset</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Obtener el grafo</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">imdb_dataset</span><span class="p">[</span><span class="n">random_idx</span><span class="p">]</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">to_networkx</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">to_undirected</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Grafo seleccionado: índice </span><span class="si">{</span><span class="n">random_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Nodos: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">num_nodes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Aristas: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">num_edges</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualizar RD</span>
+<span class="n">x_final</span> <span class="o">=</span> <span class="n">visualize_rd</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;IMDB-BINARY Graph #</span><span class="si">{</span><span class="n">random_idx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Decodificar clique</span>
+<span class="n">clique</span> <span class="o">=</span> <span class="n">decode_clique</span><span class="p">(</span><span class="n">x_final</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Resultado:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Clique encontrada: </span><span class="si">{</span><span class="n">clique</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Tamaño: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">clique</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Es válida: </span><span class="si">{</span><span class="n">is_clique</span><span class="p">(</span><span class="n">clique</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Valor final x: </span><span class="si">{</span><span class="n">x_final</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Comparar con brute force si es pequeño</span>
+<span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">num_nodes</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Comparando con Brute Force (grafo pequeño):&quot;</span><span class="p">)</span>
+    <span class="n">clique_bf</span> <span class="o">=</span> <span class="n">brute_force_max_clique</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Brute Force clique: </span><span class="si">{</span><span class="n">clique_bf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Tamaño: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">clique_bf</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  RD encontró el óptimo: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">clique</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">clique_bf</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>============================================================
+Visualizando RD en un grafo aleatorio de IMDB-BINARY
+============================================================
+
+Grafo seleccionado: índice 48
+  Nodos: 18
+  Aristas: 306
+</pre></div>
+</div>
+<img alt="_images/da3151fbe3eea0792f80853cf867f6577dab86faeb05063cb1d0abe030b75eb9.png" src="_images/da3151fbe3eea0792f80853cf867f6577dab86faeb05063cb1d0abe030b75eb9.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resultado:
+  Clique encontrada: [0, 15, 14, 13, 12, 11, 10, 9, 8, 5, 4, 3, 2, 1, 16, 17, 7, 6]
+  Tamaño: 18
+  Es válida: True
+  Valor final x: [0.05555556 0.05555556 0.05555556 0.05555556 0.05555556 0.05555556
+ 0.05555556 0.05555556 0.05555556 0.05555556 0.05555556 0.05555556
+ 0.05555556 0.05555556 0.05555556 0.05555556 0.05555556 0.05555556]
+
+Comparando con Brute Force (grafo pequeño):
+  Brute Force clique: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+  Tamaño: 18
+  RD encontró el óptimo: True
 </pre></div>
 </div>
 </div>
