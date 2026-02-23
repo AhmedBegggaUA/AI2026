@@ -12,6 +12,9 @@ parts:
 - caption: Algorithmic Reasoning
   chapters:
   - file: topic1.md
+- caption: Reinforcement Learning
+  chapters:
+  - file: topic2.md
 
 
 - caption: Practices
