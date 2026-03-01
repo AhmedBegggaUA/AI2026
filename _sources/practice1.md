@@ -705,7 +705,7 @@ def evaluate_rd_on_dataset(dataset, dataset_name, num_graphs=50):
 
 ---
 
-<!-- ## Part 3: GNN + Replicator Dynamics
+## Part 3: GNN + Replicator Dynamics
 
 ### Motivation: The Initialization Problem
 
@@ -940,7 +940,7 @@ def evaluate_gnn(model, dataset, rd_test_iters=100):
             pass
     
     return results
-``` -->
+```
 
 ---
 
@@ -966,7 +966,7 @@ def evaluate_gnn(model, dataset, rd_test_iters=100):
 4. Compare clique sizes with brute force (where available)
 5. Report: accuracy, mean clique size, computation time
 
-<!-- ### Exercise 4: GNN + RD Hybrid (Part 3)
+### Exercise 4: GNN + RD Hybrid (Part 3)
 1. Implement the complete pipeline
 2. Train on IMDB, evaluate on held-out graphs
 3. Compare three approaches:
@@ -984,7 +984,7 @@ Create a summary table:
 | Replicator Dynamics | - | - | - | - |
 | GNN + RD | - | - | - | - |
 
---- -->
+---
 
 ## Deliverables
 
