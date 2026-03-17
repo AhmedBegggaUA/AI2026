@@ -420,13 +420,110 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>IMDB-BINARY: 1000 graphs
-COLLAB: 5000 graphs
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading https://www.chrsmrrs.com/graphkerneldatasets/IMDB-BINARY.zip
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample graph statistics:
-  Nodes: 20
-  Edges: 146
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Done!
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>IMDB-BINARY: 1000 graphs
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">15</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IMDB-BINARY: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">imdb_dataset</span><span class="p">)</span><span class="si">}</span><span class="s2"> graphs&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="c1"># Load COLLAB dataset  </span>
+<span class="ne">---&gt; </span><span class="mi">15</span> <span class="n">collab_dataset</span> <span class="o">=</span> <span class="n">TUDataset</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;COLLAB&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;COLLAB: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">collab_dataset</span><span class="p">)</span><span class="si">}</span><span class="s2"> graphs&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="c1"># Examine a sample graph</span>
+
+<span class="nn">File ~/miniconda3/envs/graphy/lib/python3.8/site-packages/torch_geometric/datasets/tu_dataset.py:129,</span> in <span class="ni">TUDataset.__init__</span><span class="nt">(self, root, name, transform, pre_transform, pre_filter, force_reload, use_node_attr, use_edge_attr, cleaned)</span>
+<span class="g g-Whitespace">    </span><span class="mi">127</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+<span class="g g-Whitespace">    </span><span class="mi">128</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned</span> <span class="o">=</span> <span class="n">cleaned</span>
+<span class="ne">--&gt; </span><span class="mi">129</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">pre_transform</span><span class="p">,</span> <span class="n">pre_filter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">130</span>                  <span class="n">force_reload</span><span class="o">=</span><span class="n">force_reload</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span> <span class="n">out</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">torch_load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processed_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+
+<span class="nn">File ~/miniconda3/envs/graphy/lib/python3.8/site-packages/torch_geometric/data/in_memory_dataset.py:81,</span> in <span class="ni">InMemoryDataset.__init__</span><span class="nt">(self, root, transform, pre_transform, pre_filter, log, force_reload)</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span>     <span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span>     <span class="n">force_reload</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">81</span>     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">pre_transform</span><span class="p">,</span> <span class="n">pre_filter</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>                      <span class="n">force_reload</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">BaseData</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nn">File ~/miniconda3/envs/graphy/lib/python3.8/site-packages/torch_geometric/data/dataset.py:112,</span> in <span class="ni">Dataset.__init__</span><span class="nt">(self, root, transform, pre_transform, pre_filter, log, force_reload)</span>
+<span class="g g-Whitespace">    </span><span class="mi">109</span> <span class="bp">self</span><span class="o">.</span><span class="n">force_reload</span> <span class="o">=</span> <span class="n">force_reload</span>
+<span class="g g-Whitespace">    </span><span class="mi">111</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_download</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">112</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_download</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_process</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_process</span><span class="p">()</span>
+
+<span class="nn">File ~/miniconda3/envs/graphy/lib/python3.8/site-packages/torch_geometric/data/dataset.py:229,</span> in <span class="ni">Dataset._download</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">226</span>     <span class="k">return</span>
+<span class="g g-Whitespace">    </span><span class="mi">228</span> <span class="n">fs</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">229</span> <span class="bp">self</span><span class="o">.</span><span class="n">download</span><span class="p">()</span>
+
+<span class="nn">File ~/miniconda3/envs/graphy/lib/python3.8/site-packages/torch_geometric/datasets/tu_dataset.py:197,</span> in <span class="ni">TUDataset.download</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">195</span> <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">196</span>     <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_url</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span>
+<span class="ne">--&gt; </span><span class="mi">197</span>     <span class="n">fs</span><span class="o">.</span><span class="n">cp</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">.zip&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">extract</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">198</span>     <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">osp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)):</span>
+<span class="g g-Whitespace">    </span><span class="mi">199</span>         <span class="n">fs</span><span class="o">.</span><span class="n">mv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">osp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_dir</span><span class="p">,</span> <span class="n">osp</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">filename</span><span class="p">)))</span>
+
+<span class="nn">File ~/miniconda3/envs/graphy/lib/python3.8/site-packages/torch_geometric/io/fs.py:114,</span> in <span class="ni">cp</span><span class="nt">(path1, path2, extract, log, use_cache, clear_cache)</span>
+<span class="g g-Whitespace">    </span><span class="mi">104</span> <span class="k">def</span> <span class="nf">cp</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">105</span>     <span class="n">path1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">106</span>     <span class="n">path2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">110</span>     <span class="n">clear_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">111</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">112</span>     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="ne">--&gt; </span><span class="mi">114</span>     <span class="n">is_path1_dir</span> <span class="o">=</span> <span class="n">isdir</span><span class="p">(</span><span class="n">path1</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span>     <span class="n">is_path2_dir</span> <span class="o">=</span> <span class="n">isdir</span><span class="p">(</span><span class="n">path2</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span>     <span class="c1"># Cache result if the protocol is not local:</span>
+
+<span class="nn">File ~/miniconda3/envs/graphy/lib/python3.8/site-packages/torch_geometric/io/fs.py:62,</span> in <span class="ni">isdir</span><span class="nt">(path)</span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span> <span class="k">def</span> <span class="nf">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">62</span>     <span class="k">return</span> <span class="n">get_fs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/graphy/lib/python3.8/site-packages/fsspec/asyn.py:118,</span> in <span class="ni">sync_wrapper.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">117</span>     <span class="bp">self</span> <span class="o">=</span> <span class="n">obj</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="ne">--&gt; </span><span class="mi">118</span>     <span class="k">return</span> <span class="n">sync</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/miniconda3/envs/graphy/lib/python3.8/site-packages/fsspec/asyn.py:91,</span> in <span class="ni">sync</span><span class="nt">(loop, func, timeout, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run_coroutine_threadsafe</span><span class="p">(</span><span class="n">_runner</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">coro</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">timeout</span><span class="p">),</span> <span class="n">loop</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">90</span>     <span class="c1"># this loops allows thread to get interrupted</span>
+<span class="ne">---&gt; </span><span class="mi">91</span>     <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">92</span>         <span class="k">break</span>
+<span class="g g-Whitespace">     </span><span class="mi">93</span>     <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">File ~/miniconda3/envs/graphy/lib/python3.8/threading.py:558,</span> in <span class="ni">Event.wait</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">556</span> <span class="n">signaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flag</span>
+<span class="g g-Whitespace">    </span><span class="mi">557</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">signaled</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">558</span>     <span class="n">signaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cond</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">559</span> <span class="k">return</span> <span class="n">signaled</span>
+
+<span class="nn">File ~/miniconda3/envs/graphy/lib/python3.8/threading.py:306,</span> in <span class="ni">Condition.wait</span><span class="nt">(self, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">304</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">305</span>     <span class="k">if</span> <span class="n">timeout</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">306</span>         <span class="n">gotit</span> <span class="o">=</span> <span class="n">waiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">307</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">308</span>         <span class="n">gotit</span> <span class="o">=</span> <span class="n">waiter</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
@@ -498,7 +595,7 @@ COLLAB: 5000 graphs
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Maximum clique: [0, 1, 2]
 Clique size: 3
-Time: 0.0000 seconds
+Time: 0.0021 seconds
 Is valid clique: True
 </pre></div>
 </div>
@@ -542,18 +639,17 @@ Is valid clique: True
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Evaluating brute force on IMDB-BINARY:
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Evaluating brute force on COLLAB:
+
+Evaluating brute force on COLLAB:
 
 IMDB-BINARY results (graph index, clique size, time):
-(0, 9, 0.33091306686401367)
-(2, 10, 0.5636398792266846)
-(4, 9, 0.002767801284790039)
-(6, 12, 9.059906005859375e-06)
-(7, 9, 0.003709077835083008)
-(8, 18, 1.6927719116210938e-05)
-(9, 12, 9.059906005859375e-06)
+(0, 9, 0.3488788604736328)
+(2, 10, 0.6482610702514648)
+(4, 9, 0.003921985626220703)
+(6, 12, 1.0967254638671875e-05)
+(7, 9, 0.005209922790527344)
+(8, 18, 4.506111145019531e-05)
+(9, 12, 1.1920928955078125e-05)
 </pre></div>
 </div>
 </div>
@@ -920,17 +1016,16 @@ TEST 3: Evaluating RD on IMDB-BINARY (first 5 graphs)
 
 IMDB-BINARY Results:
   Mean clique size: 9.20 ± 1.33
-  Mean time: 0.0025 seconds
+  Mean time: 0.0040 seconds
   Valid cliques: 5/5
 
 ============================================================
 TEST 4: Evaluating RD on COLLAB (first 5 graphs)
 ============================================================
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>COLLAB Results:
+
+COLLAB Results:
   Mean clique size: 39.60 ± 4.84
-  Mean time: 0.0038 seconds
+  Mean time: 0.0046 seconds
   Valid cliques: 5/5
 
 ============================================================
@@ -938,18 +1033,18 @@ SUMMARY
 ============================================================
 
 IMDB-BINARY RD Results:
-  Graph 0: clique_size=9, valid=True, time=0.0026s, iter=377
-  Graph 1: clique_size=11, valid=True, time=0.0031s, iter=460
-  Graph 2: clique_size=10, valid=True, time=0.0028s, iter=415
-  Graph 3: clique_size=7, valid=True, time=0.0021s, iter=354
-  Graph 4: clique_size=9, valid=True, time=0.0020s, iter=372
+  Graph 0: clique_size=9, valid=True, time=0.0047s, iter=377
+  Graph 1: clique_size=11, valid=True, time=0.0048s, iter=460
+  Graph 2: clique_size=10, valid=True, time=0.0033s, iter=415
+  Graph 3: clique_size=7, valid=True, time=0.0030s, iter=354
+  Graph 4: clique_size=9, valid=True, time=0.0041s, iter=372
 
 COLLAB RD Results:
-  Graph 0: clique_size=45, valid=True, time=0.0001s, iter=1
-  Graph 1: clique_size=36, valid=True, time=0.0062s, iter=1000
-  Graph 2: clique_size=42, valid=True, time=0.0063s, iter=1000
+  Graph 0: clique_size=45, valid=True, time=0.0004s, iter=1
+  Graph 1: clique_size=36, valid=True, time=0.0066s, iter=1000
+  Graph 2: clique_size=42, valid=True, time=0.0086s, iter=1000
   Graph 3: clique_size=32, valid=True, time=0.0001s, iter=1
-  Graph 4: clique_size=43, valid=True, time=0.0061s, iter=1000
+  Graph 4: clique_size=43, valid=True, time=0.0074s, iter=1000
 </pre></div>
 </div>
 </div>
@@ -1000,23 +1095,24 @@ COLLAB RD Results:
 Visualizando RD en un grafo aleatorio de IMDB-BINARY
 ============================================================
 
-Grafo seleccionado: índice 963
-  Nodos: 13
-  Aristas: 62
+Grafo seleccionado: índice 758
+  Nodos: 18
+  Aristas: 94
 </pre></div>
 </div>
-<img alt="_images/2a0394662eb5268fc132953b3508ad086ab59690b7650d8f9229572ce2ecefd6.png" src="_images/2a0394662eb5268fc132953b3508ad086ab59690b7650d8f9229572ce2ecefd6.png" />
+<img alt="_images/75c2cb3be5ecebe84775f15229103d43dc6791bf429304b2634259582886df26.png" src="_images/75c2cb3be5ecebe84775f15229103d43dc6791bf429304b2634259582886df26.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resultado:
-  Clique encontrada: [9, 4, 11, 3, 5, 7]
+  Clique encontrada: [16, 12, 2, 7, 11, 13]
   Tamaño: 6
   Es válida: True
-  Valor final x: [7.42016539e-180 2.86039946e-179 7.42016539e-180 1.66666667e-001
- 1.66666667e-001 1.66666667e-001 2.86039946e-179 1.66666667e-001
- 2.86039946e-179 1.66666667e-001 2.86039946e-179 1.66666667e-001
- 7.42016539e-180]
+  Valor final x: [1.63477341e-181 1.63477341e-181 1.66666667e-001 7.25571414e-181
+ 7.55790994e-108 7.27888402e-180 7.27888402e-180 1.66666667e-001
+ 7.27888402e-180 7.27888402e-180 7.27888402e-180 1.66666667e-001
+ 1.66666667e-001 1.66666667e-001 7.25571414e-181 7.25571414e-181
+ 1.66666667e-001 1.63477341e-181]
 
 Comparando con Brute Force (grafo pequeño):
-  Brute Force clique: [3, 4, 5, 7, 9, 11]
+  Brute Force clique: [2, 7, 11, 12, 13, 16]
   Tamaño: 6
   RD encontró el óptimo: True
 </pre></div>
@@ -1384,24 +1480,14 @@ Comparando con Brute Force (grafo pequeño):
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>============================================================
 TRAINING GNN + RD
 ============================================================
+Epoch 10/50, Loss: -0.8252
+Epoch 20/50, Loss: -0.8429
+Epoch 30/50, Loss: -0.8564
+Epoch 40/50, Loss: -0.8593
+Epoch 50/50, Loss: -0.8546
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 10/50, Loss: -0.8344
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 20/50, Loss: -0.8551
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 30/50, Loss: -0.8582
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 40/50, Loss: -0.8572
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 50/50, Loss: -0.8607
-</pre></div>
-</div>
-<img alt="_images/24b16fcaf77e78fbc24ef8462b7f278a0147ffa3f07fe1d17dab93c976478b15.png" src="_images/24b16fcaf77e78fbc24ef8462b7f278a0147ffa3f07fe1d17dab93c976478b15.png" />
+<img alt="_images/58d15aa7a148fa70d9898feddd42e1a80e51dc4b972433a272851b7deb3e2375.png" src="_images/58d15aa7a148fa70d9898feddd42e1a80e51dc4b972433a272851b7deb3e2375.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>============================================================
 EVALUATING GNN + RD ON IMDB
 ============================================================
@@ -1419,9 +1505,9 @@ Evaluation Results:
 Detailed Results (first 5 graphs):
   Graph 0: size=7, valid=True, time=0.0004s
   Graph 1: size=17, valid=True, time=0.0004s
-  Graph 2: size=6, valid=True, time=0.0003s
-  Graph 3: size=8, valid=True, time=0.0003s
-  Graph 4: size=12, valid=True, time=0.0003s
+  Graph 2: size=6, valid=True, time=0.0004s
+  Graph 3: size=8, valid=True, time=0.0004s
+  Graph 4: size=12, valid=True, time=0.0004s
 </pre></div>
 </div>
 </div>
