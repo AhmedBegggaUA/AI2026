@@ -21,3 +21,4 @@ parts:
   chapters:
   - file: practice0.md
   - file: practice1.md
+  - file: practice2.md
