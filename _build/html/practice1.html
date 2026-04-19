@@ -7,9 +7,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>6. Clique Problem &#8212; Agentes Inteligentes IA</title>
+    <title>7. Clique Problem &#8212; Agentes Inteligentes IA</title>
   
   
   
@@ -19,15 +19,15 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
@@ -40,15 +40,13 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
@@ -69,8 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'practice1';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="7. Reinforcement Learning" href="practice2.html" />
-    <link rel="prev" title="5. Graph Neural Networks" href="practice0.html" />
+    <link rel="next" title="8. Reinforcement Learning" href="practice2.html" />
+    <link rel="prev" title="6. Graph Neural Networks" href="practice0.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -80,7 +78,7 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
 
@@ -123,12 +121,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <header>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
   
+  </header>
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -185,11 +191,16 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="topic2.html">4. Reinforcement Learning</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generative Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic3.html">5. LLMs and VLMs</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practices</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice0.html">5. Graph Neural Networks</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Clique Problem</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice2.html">7. Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">6. Graph Neural Networks</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Clique Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice2.html">8. Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">9. Intelligent Agents</a></li>
 </ul>
 
     </div>
@@ -385,58 +396,58 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-maximum-clique-problem">6.1. Practical Session: Maximum Clique Problem</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">6.1.1. Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">6.1.2. Prerequisites</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">6.1.3. Datasets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-maximum-clique-problem">7.1. Practical Session: Maximum Clique Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">7.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">7.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">7.1.3. Datasets</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-0-brute-force-maximum-clique">6.2. Part 0: Brute Force Maximum Clique</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-start-with-brute-force">6.2.1. Why Start with Brute Force?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-algorithm">6.2.2. The Algorithm</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity-analysis">6.2.3. Complexity Analysis</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-task">6.2.4. Implementation Task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-0-brute-force-maximum-clique">7.2. Part 0: Brute Force Maximum Clique</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-start-with-brute-force">7.2.1. Why Start with Brute Force?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-algorithm">7.2.2. The Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity-analysis">7.2.3. Complexity Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-task">7.2.4. Implementation Task</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-motzkin-straus-formulation">6.3. Part 1: Motzkin-Straus Formulation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-key-question">6.3.1. The Key Question</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-discrete-to-continuous">6.3.2. From Discrete to Continuous</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-motzkin-straus-theorem">6.3.3. The Motzkin-Straus Theorem</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-this-work-an-intuitive-explanation">6.3.4. Why Does This Work? An Intuitive Explanation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-triangle-graph-k-3">6.3.5. Worked Example: Triangle Graph (<span class="math notranslate nohighlight">\(K_3\)</span>)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-spurious-solutions">6.3.6. The Problem of Spurious Solutions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-to-avoid-spurious-solutions">6.3.7. Regularization to Avoid Spurious Solutions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">6.3.8. Implementation Task</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaway">6.3.9. Key Takeaway</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-motzkin-straus-formulation">7.3. Part 1: Motzkin-Straus Formulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-key-question">7.3.1. The Key Question</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-discrete-to-continuous">7.3.2. From Discrete to Continuous</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-motzkin-straus-theorem">7.3.3. The Motzkin-Straus Theorem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-this-work-an-intuitive-explanation">7.3.4. Why Does This Work? An Intuitive Explanation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-triangle-graph-k-3">7.3.5. Worked Example: Triangle Graph (<span class="math notranslate nohighlight">\(K_3\)</span>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-spurious-solutions">7.3.6. The Problem of Spurious Solutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-to-avoid-spurious-solutions">7.3.7. Regularization to Avoid Spurious Solutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">7.3.8. Implementation Task</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaway">7.3.9. Key Takeaway</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-replicator-dynamics">6.4. Part 2: Replicator Dynamics</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-optimization-challenge">6.4.1. The Optimization Challenge</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-intuition-evolution-by-natural-selection">6.4.2. The Intuition: Evolution by Natural Selection</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-mathematics">6.4.3. The Mathematics</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-replicator-dynamics">6.4.4. Discrete Replicator Dynamics</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-theoretical-properties">6.4.5. Key Theoretical Properties</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">6.4.6. Algorithm</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.4.7. Implementation Task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-replicator-dynamics">7.4. Part 2: Replicator Dynamics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-optimization-challenge">7.4.1. The Optimization Challenge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-intuition-evolution-by-natural-selection">7.4.2. The Intuition: Evolution by Natural Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-mathematics">7.4.3. The Mathematics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-replicator-dynamics">7.4.4. Discrete Replicator Dynamics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-theoretical-properties">7.4.5. Key Theoretical Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">7.4.6. Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7.4.7. Implementation Task</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-gnn-replicator-dynamics">6.5. Part 3: GNN + Replicator Dynamics</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-the-initialization-problem">6.5.1. Motivation: The Initialization Problem</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hybrid-approach">6.5.2. The Hybrid Approach</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-include-rd-in-training">6.5.3. Why Include RD in Training?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">6.5.4. Implementation Task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-gnn-replicator-dynamics">7.5. Part 3: GNN + Replicator Dynamics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-the-initialization-problem">7.5.1. Motivation: The Initialization Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hybrid-approach">7.5.2. The Hybrid Approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-include-rd-in-training">7.5.3. Why Include RD in Training?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.5.4. Implementation Task</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">6.6. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-brute-force-baseline-part-0">6.6.1. Exercise 1: Brute Force Baseline (Part 0)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-motzkin-straus-verification-part-1">6.6.2. Exercise 2: Motzkin-Straus Verification (Part 1)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-replicator-dynamics-part-2">6.6.3. Exercise 3: Replicator Dynamics (Part 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-gnn-rd-hybrid-part-3">6.6.4. Exercise 4: GNN + RD Hybrid (Part 3)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-final-comparison">6.6.5. Exercise 5: Final Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">7.6. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-brute-force-baseline-part-0">7.6.1. Exercise 1: Brute Force Baseline (Part 0)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-motzkin-straus-verification-part-1">7.6.2. Exercise 2: Motzkin-Straus Verification (Part 1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-replicator-dynamics-part-2">7.6.3. Exercise 3: Replicator Dynamics (Part 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-gnn-rd-hybrid-part-3">7.6.4. Exercise 4: GNN + RD Hybrid (Part 3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-final-comparison">7.6.5. Exercise 5: Final Comparison</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">6.7. Deliverables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">6.8. References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">7.7. Deliverables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">7.8. References</a></li>
 </ul>
             </nav>
         </div>
@@ -446,14 +457,14 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="clique-problem">
-<h1><span class="section-number">6. </span>Clique Problem<a class="headerlink" href="#clique-problem" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">7. </span>Clique Problem<a class="headerlink" href="#clique-problem" title="Permalink to this heading">#</a></h1>
 <section id="practical-session-maximum-clique-problem">
-<h2><span class="section-number">6.1. </span>Practical Session: Maximum Clique Problem<a class="headerlink" href="#practical-session-maximum-clique-problem" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.1. </span>Practical Session: Maximum Clique Problem<a class="headerlink" href="#practical-session-maximum-clique-problem" title="Permalink to this heading">#</a></h2>
 <section id="introduction">
-<h3><span class="section-number">6.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
 <p>In previous sessions, we covered the fundamentals of message passing, dataset creation (Part A), and Graph Neural Networks (Part B). Now we will dive deep into solving a classic combinatorial optimization problem: the <strong>Maximum Clique (MC) Problem</strong>.</p>
 <p>A <strong>clique</strong> in an undirected graph <span class="math notranslate nohighlight">\(G = (V, E)\)</span> is a subset of vertices <span class="math notranslate nohighlight">\(C \subseteq V\)</span> such that every pair of vertices in <span class="math notranslate nohighlight">\(C\)</span> is connected by an edge. The <strong>maximum clique</strong> is the clique with the largest number of vertices. Finding the maximum clique is an NP-hard problem with applications in social network analysis, bioinformatics, pattern recognition, and knowledge discovery.</p>
 <p>In this practical session, we will explore four approaches to solve the Maximum Clique problem, progressively building towards more sophisticated methods:</p>
@@ -466,13 +477,13 @@ document.write(`
 <p>We will apply these methods to the <strong>IMDB</strong> and <strong>COLLAB</strong> datasets from PyTorch Geometric.</p>
 </section>
 <section id="prerequisites">
-<h3><span class="section-number">6.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torch_geometric</span> <span class="n">networkx</span> <span class="n">matplotlib</span> <span class="n">numpy</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span>
 </pre></div>
 </div>
 </section>
 <section id="datasets">
-<h3><span class="section-number">6.1.3. </span>Datasets<a class="headerlink" href="#datasets" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.1.3. </span>Datasets<a class="headerlink" href="#datasets" title="Permalink to this heading">#</a></h3>
 <p>We will use two graph classification datasets from TU Dortmund, available through PyTorch Geometric:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -502,13 +513,13 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="part-0-brute-force-maximum-clique">
-<h2><span class="section-number">6.2. </span>Part 0: Brute Force Maximum Clique<a class="headerlink" href="#part-0-brute-force-maximum-clique" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.2. </span>Part 0: Brute Force Maximum Clique<a class="headerlink" href="#part-0-brute-force-maximum-clique" title="Permalink to this heading">#</a></h2>
 <section id="why-start-with-brute-force">
-<h3><span class="section-number">6.2.1. </span>Why Start with Brute Force?<a class="headerlink" href="#why-start-with-brute-force" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.2.1. </span>Why Start with Brute Force?<a class="headerlink" href="#why-start-with-brute-force" title="Permalink to this heading">#</a></h3>
 <p>Before using sophisticated methods, we need a <strong>ground truth</strong> to validate our solutions. The brute force approach guarantees finding the exact maximum clique by checking all possible subsets of vertices.</p>
 </section>
 <section id="the-algorithm">
-<h3><span class="section-number">6.2.2. </span>The Algorithm<a class="headerlink" href="#the-algorithm" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.2.2. </span>The Algorithm<a class="headerlink" href="#the-algorithm" title="Permalink to this heading">#</a></h3>
 <p>The idea is simple:</p>
 <ol class="arabic simple">
 <li><p>Generate all possible subsets of vertices, starting from the largest</p></li>
@@ -542,7 +553,7 @@ Output: True if S is a clique, False otherwise
 </div>
 </section>
 <section id="complexity-analysis">
-<h3><span class="section-number">6.2.3. </span>Complexity Analysis<a class="headerlink" href="#complexity-analysis" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.2.3. </span>Complexity Analysis<a class="headerlink" href="#complexity-analysis" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Number of subsets of size <span class="math notranslate nohighlight">\(k\)</span>: <span class="math notranslate nohighlight">\(\binom{n}{k}\)</span></p></li>
 <li><p>Total subsets: <span class="math notranslate nohighlight">\(2^n\)</span></p></li>
@@ -551,7 +562,7 @@ Output: True if S is a clique, False otherwise
 <p><strong>This is exponential!</strong> For <span class="math notranslate nohighlight">\(n=30\)</span>, we have over 1 billion subsets. This is why we need smarter methods.</p>
 </section>
 <section id="implementation-task">
-<h3><span class="section-number">6.2.4. </span>Implementation Task<a class="headerlink" href="#implementation-task" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.2.4. </span>Implementation Task<a class="headerlink" href="#implementation-task" title="Permalink to this heading">#</a></h3>
 <p><strong>Task 0.1:</strong> Implement the helper function to check if a set of nodes forms a clique.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_clique</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -651,14 +662,14 @@ Output: True if S is a clique, False otherwise
 </section>
 <hr class="docutils" />
 <section id="part-1-motzkin-straus-formulation">
-<h2><span class="section-number">6.3. </span>Part 1: Motzkin-Straus Formulation<a class="headerlink" href="#part-1-motzkin-straus-formulation" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.3. </span>Part 1: Motzkin-Straus Formulation<a class="headerlink" href="#part-1-motzkin-straus-formulation" title="Permalink to this heading">#</a></h2>
 <section id="the-key-question">
-<h3><span class="section-number">6.3.1. </span>The Key Question<a class="headerlink" href="#the-key-question" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.3.1. </span>The Key Question<a class="headerlink" href="#the-key-question" title="Permalink to this heading">#</a></h3>
 <p>We just saw that brute force is exponential. Can we do better?</p>
 <p><strong>The Motzkin-Straus theorem provides a remarkable answer:</strong> We can transform the discrete combinatorial problem into a continuous optimization problem!</p>
 </section>
 <section id="from-discrete-to-continuous">
-<h3><span class="section-number">6.3.2. </span>From Discrete to Continuous<a class="headerlink" href="#from-discrete-to-continuous" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.3.2. </span>From Discrete to Continuous<a class="headerlink" href="#from-discrete-to-continuous" title="Permalink to this heading">#</a></h3>
 <p><strong>The Discrete Problem:</strong></p>
 <ul class="simple">
 <li><p>Find the largest subset <span class="math notranslate nohighlight">\(C \subseteq V\)</span> where all pairs are connected</p></li>
@@ -672,7 +683,7 @@ Output: True if S is a clique, False otherwise
 </ul>
 </section>
 <section id="the-motzkin-straus-theorem">
-<h3><span class="section-number">6.3.3. </span>The Motzkin-Straus Theorem<a class="headerlink" href="#the-motzkin-straus-theorem" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.3.3. </span>The Motzkin-Straus Theorem<a class="headerlink" href="#the-motzkin-straus-theorem" title="Permalink to this heading">#</a></h3>
 <p><strong>Theorem:</strong> Let <span class="math notranslate nohighlight">\(G = (V, E)\)</span> be a graph with adjacency matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>. Define:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -695,7 +706,7 @@ x_i^* = \begin{cases}
 <p>where <span class="math notranslate nohighlight">\(C^*\)</span> is a maximum clique of size <span class="math notranslate nohighlight">\(k = \omega(G)\)</span>.</p>
 </section>
 <section id="why-does-this-work-an-intuitive-explanation">
-<h3><span class="section-number">6.3.4. </span>Why Does This Work? An Intuitive Explanation<a class="headerlink" href="#why-does-this-work-an-intuitive-explanation" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.3.4. </span>Why Does This Work? An Intuitive Explanation<a class="headerlink" href="#why-does-this-work-an-intuitive-explanation" title="Permalink to this heading">#</a></h3>
 <p>Let’s understand what <span class="math notranslate nohighlight">\(f(\mathbf{x}) = \mathbf{x}^T \mathbf{A} \mathbf{x}\)</span> actually computes:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -710,7 +721,7 @@ f(\mathbf{x}) = \sum_{i \in V} \sum_{j \in V} x_i A_{ij} x_j = 2 \sum_{(i,j) \in
 </ul>
 </section>
 <section id="worked-example-triangle-graph-k-3">
-<h3><span class="section-number">6.3.5. </span>Worked Example: Triangle Graph (<span class="math notranslate nohighlight">\(K_3\)</span>)<a class="headerlink" href="#worked-example-triangle-graph-k-3" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.3.5. </span>Worked Example: Triangle Graph (<span class="math notranslate nohighlight">\(K_3\)</span>)<a class="headerlink" href="#worked-example-triangle-graph-k-3" title="Permalink to this heading">#</a></h3>
 <p>Consider the complete graph on 3 nodes (a triangle):</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -729,7 +740,7 @@ f(\mathbf{x}^*) = \mathbf{x}^{*T} \mathbf{A} \mathbf{x}^* = \begin{bmatrix} \fra
 <p>According to the theorem: <span class="math notranslate nohighlight">\(1 - \frac{1}{\omega(G)} = 1 - \frac{1}{3} = \frac{2}{3}\)</span> ✓</p>
 </section>
 <section id="the-problem-of-spurious-solutions">
-<h3><span class="section-number">6.3.6. </span>The Problem of Spurious Solutions<a class="headerlink" href="#the-problem-of-spurious-solutions" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.3.6. </span>The Problem of Spurious Solutions<a class="headerlink" href="#the-problem-of-spurious-solutions" title="Permalink to this heading">#</a></h3>
 <p><strong>Warning:</strong> Not every maximizer corresponds to a clique!</p>
 <p>Consider the “cherry” graph (path of length 2):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="mi">0</span> <span class="o">---</span> <span class="mi">2</span> <span class="o">---</span> <span class="mi">1</span>
@@ -750,7 +761,7 @@ f(\tilde{\mathbf{x}}) = 2 \cdot (\frac{1}{4} \cdot \frac{1}{2} + \frac{1}{4} \cd
 <p>This is called a <strong>spurious solution</strong>.</p>
 </section>
 <section id="regularization-to-avoid-spurious-solutions">
-<h3><span class="section-number">6.3.7. </span>Regularization to Avoid Spurious Solutions<a class="headerlink" href="#regularization-to-avoid-spurious-solutions" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.3.7. </span>Regularization to Avoid Spurious Solutions<a class="headerlink" href="#regularization-to-avoid-spurious-solutions" title="Permalink to this heading">#</a></h3>
 <p>To eliminate spurious solutions, we use the <strong>regularized objective</strong>:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -766,7 +777,7 @@ f(\tilde{\mathbf{x}}) = 2 \cdot (\frac{1}{4} \cdot \frac{1}{2} + \frac{1}{4} \cd
 <p>Now the true clique solution <span class="math notranslate nohighlight">\(\mathbf{x}^{*}\)</span> has a <strong>higher</strong> value than the spurious solution!</p>
 </section>
 <section id="id1">
-<h3><span class="section-number">6.3.8. </span>Implementation Task<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.3.8. </span>Implementation Task<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p><strong>Task 1.1:</strong> Implement the objective functions.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">motzkin_straus_objective</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -839,7 +850,7 @@ f(\tilde{\mathbf{x}}) = 2 \cdot (\frac{1}{4} \cdot \frac{1}{2} + \frac{1}{4} \cd
 </div>
 </section>
 <section id="key-takeaway">
-<h3><span class="section-number">6.3.9. </span>Key Takeaway<a class="headerlink" href="#key-takeaway" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.3.9. </span>Key Takeaway<a class="headerlink" href="#key-takeaway" title="Permalink to this heading">#</a></h3>
 <p><strong>The Motzkin-Straus theorem tells us WHAT to optimize, but not HOW.</strong></p>
 <p>We’ve transformed finding a maximum clique into:
 $<span class="math notranslate nohighlight">\(\text{maximize } f(\mathbf{x}) = \mathbf{x}^T \mathbf{A} \mathbf{x} \text{ subject to } \mathbf{x} \in \Delta_n\)</span>$</p>
@@ -848,9 +859,9 @@ $<span class="math notranslate nohighlight">\(\text{maximize } f(\mathbf{x}) = \
 </section>
 <hr class="docutils" />
 <section id="part-2-replicator-dynamics">
-<h2><span class="section-number">6.4. </span>Part 2: Replicator Dynamics<a class="headerlink" href="#part-2-replicator-dynamics" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.4. </span>Part 2: Replicator Dynamics<a class="headerlink" href="#part-2-replicator-dynamics" title="Permalink to this heading">#</a></h2>
 <section id="the-optimization-challenge">
-<h3><span class="section-number">6.4.1. </span>The Optimization Challenge<a class="headerlink" href="#the-optimization-challenge" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.4.1. </span>The Optimization Challenge<a class="headerlink" href="#the-optimization-challenge" title="Permalink to this heading">#</a></h3>
 <p>We need to maximize <span class="math notranslate nohighlight">\(f(\mathbf{x}) = \mathbf{x}^T \mathbf{A} \mathbf{x}\)</span> over the simplex.</p>
 <p>Standard gradient ascent won’t work directly because:</p>
 <ol class="arabic simple">
@@ -860,7 +871,7 @@ $<span class="math notranslate nohighlight">\(\text{maximize } f(\mathbf{x}) = \
 <p><strong>Replicator Dynamics</strong> is an elegant algorithm from evolutionary game theory that naturally respects the simplex constraints. This approach was popularized in computer vision by Pelillo et al. in their seminal work on graph matching and relaxation labeling processes.</p>
 </section>
 <section id="the-intuition-evolution-by-natural-selection">
-<h3><span class="section-number">6.4.2. </span>The Intuition: Evolution by Natural Selection<a class="headerlink" href="#the-intuition-evolution-by-natural-selection" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.4.2. </span>The Intuition: Evolution by Natural Selection<a class="headerlink" href="#the-intuition-evolution-by-natural-selection" title="Permalink to this heading">#</a></h3>
 <p>Imagine a population of <span class="math notranslate nohighlight">\(n\)</span> species, where <span class="math notranslate nohighlight">\(x_i\)</span> represents the proportion of species <span class="math notranslate nohighlight">\(i\)</span>.</p>
 <ul class="simple">
 <li><p>The <strong>fitness</strong> of species <span class="math notranslate nohighlight">\(i\)</span> depends on interactions with other species</p></li>
@@ -871,7 +882,7 @@ $<span class="math notranslate nohighlight">\(\text{maximize } f(\mathbf{x}) = \
 <p>The remarkable fact: <strong>This equilibrium corresponds to the maximum clique!</strong></p>
 </section>
 <section id="the-mathematics">
-<h3><span class="section-number">6.4.3. </span>The Mathematics<a class="headerlink" href="#the-mathematics" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.4.3. </span>The Mathematics<a class="headerlink" href="#the-mathematics" title="Permalink to this heading">#</a></h3>
 <p>The connection between Replicator Dynamics and the Maximum Clique problem comes from evolutionary game theory. Consider the adjacency matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> as a <strong>payoff matrix</strong> where <span class="math notranslate nohighlight">\(A_{ij}\)</span> represents the payoff when strategy <span class="math notranslate nohighlight">\(i\)</span> interacts with strategy <span class="math notranslate nohighlight">\(j\)</span>.</p>
 <p><strong>Support (or fitness) of species <span class="math notranslate nohighlight">\(i\)</span>:</strong>
 $<span class="math notranslate nohighlight">\(\pi_i = (\mathbf{A}\mathbf{x})_i = \sum_j A_{ij} x_j\)</span>$</p>
@@ -880,7 +891,7 @@ $<span class="math notranslate nohighlight">\(\pi_i = (\mathbf{A}\mathbf{x})_i =
 $<span class="math notranslate nohighlight">\(\phi = \mathbf{x}^T \mathbf{A} \mathbf{x} = \sum_i x_i \pi_i\)</span>$</p>
 </section>
 <section id="discrete-replicator-dynamics">
-<h3><span class="section-number">6.4.4. </span>Discrete Replicator Dynamics<a class="headerlink" href="#discrete-replicator-dynamics" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.4.4. </span>Discrete Replicator Dynamics<a class="headerlink" href="#discrete-replicator-dynamics" title="Permalink to this heading">#</a></h3>
 <p>Following the formulation from Pelillo’s work on relaxation labeling and game-theoretic methods, the discrete-time Replicator Dynamics have an elegant multiplicative form:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -899,7 +910,7 @@ x_i(t+1) = x_i(t) \cdot \frac{(\mathbf{A}\mathbf{x}(t))_i}{\sum_j x_j(t) \cdot (
 \]</div>
 </section>
 <section id="key-theoretical-properties">
-<h3><span class="section-number">6.4.5. </span>Key Theoretical Properties<a class="headerlink" href="#key-theoretical-properties" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.4.5. </span>Key Theoretical Properties<a class="headerlink" href="#key-theoretical-properties" title="Permalink to this heading">#</a></h3>
 <p><strong>Theorem (Pelillo et al.):</strong> The discrete Replicator Dynamics have the following properties:</p>
 <ol class="arabic simple">
 <li><p><strong>Simplex Invariance:</strong> If <span class="math notranslate nohighlight">\(\mathbf{x}(0) \in \Delta_n\)</span>, then <span class="math notranslate nohighlight">\(\mathbf{x}(t) \in \Delta_n\)</span> for all <span class="math notranslate nohighlight">\(t \geq 0\)</span>.</p></li>
@@ -911,7 +922,7 @@ with equality if and only if \)</span>\mathbf{x}(t)$ is a stationary point.</p><
 </ol>
 </section>
 <section id="algorithm">
-<h3><span class="section-number">6.4.6. </span>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.4.6. </span>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">#</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Algorithm: Replicator Dynamics (Pelillo formulation)
 ─────────────────────────────────────────────────────
 Input: Adjacency matrix A, max iterations T
@@ -930,7 +941,7 @@ Output: Converged simplex point x*
 </div>
 </section>
 <section id="id2">
-<h3><span class="section-number">6.4.7. </span>Implementation Task<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.4.7. </span>Implementation Task<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p><strong>Task 2.1:</strong> Implement Replicator Dynamics following the Pelillo formulation.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replicator_dynamics</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span> <span class="n">use_regularization</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1100,9 +1111,9 @@ Function Can_Extend(C, i, A):
 </section>
 <hr class="docutils" />
 <section id="part-3-gnn-replicator-dynamics">
-<h2><span class="section-number">6.5. </span>Part 3: GNN + Replicator Dynamics<a class="headerlink" href="#part-3-gnn-replicator-dynamics" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.5. </span>Part 3: GNN + Replicator Dynamics<a class="headerlink" href="#part-3-gnn-replicator-dynamics" title="Permalink to this heading">#</a></h2>
 <section id="motivation-the-initialization-problem">
-<h3><span class="section-number">6.5.1. </span>Motivation: The Initialization Problem<a class="headerlink" href="#motivation-the-initialization-problem" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.5.1. </span>Motivation: The Initialization Problem<a class="headerlink" href="#motivation-the-initialization-problem" title="Permalink to this heading">#</a></h3>
 <p>Replicator Dynamics always starts from the <strong>barycenter</strong> (uniform distribution). This is a “neutral” starting point that doesn’t use any information about the graph structure.</p>
 <p><strong>Question:</strong> Can we learn a better starting point?</p>
 <p>If we could initialize RD <strong>closer to the optimal solution</strong>, it would:</p>
@@ -1112,7 +1123,7 @@ Function Can_Extend(C, i, A):
 </ol>
 </section>
 <section id="the-hybrid-approach">
-<h3><span class="section-number">6.5.2. </span>The Hybrid Approach<a class="headerlink" href="#the-hybrid-approach" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.5.2. </span>The Hybrid Approach<a class="headerlink" href="#the-hybrid-approach" title="Permalink to this heading">#</a></h3>
 <p>We train a GNN to predict which nodes are likely to be in the maximum clique. The GNN output (after softmax) gives us a point in the simplex, which we use to initialize RD.</p>
 <p><strong>Training Pipeline:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Node Features → GNN → Linear → Softmax → p → RD (2-3 iter) → p&#39;
@@ -1126,7 +1137,7 @@ Function Can_Extend(C, i, A):
 </div>
 </section>
 <section id="why-include-rd-in-training">
-<h3><span class="section-number">6.5.3. </span>Why Include RD in Training?<a class="headerlink" href="#why-include-rd-in-training" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.5.3. </span>Why Include RD in Training?<a class="headerlink" href="#why-include-rd-in-training" title="Permalink to this heading">#</a></h3>
 <p>If we only trained the GNN with loss <span class="math notranslate nohighlight">\(-\mathbf{p}^T \mathbf{A} \mathbf{p}\)</span>, it might learn solutions that are hard for RD to refine.</p>
 <p>By including a few RD iterations in the training loop:</p>
 <ol class="arabic simple">
@@ -1135,7 +1146,7 @@ Function Can_Extend(C, i, A):
 </ol>
 </section>
 <section id="id3">
-<h3><span class="section-number">6.5.4. </span>Implementation Task<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.5.4. </span>Implementation Task<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p><strong>Task 3.1:</strong> Compute node features.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_node_features</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1327,9 +1338,9 @@ Function Can_Extend(C, i, A):
 </section>
 <hr class="docutils" />
 <section id="exercises">
-<h2><span class="section-number">6.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
 <section id="exercise-1-brute-force-baseline-part-0">
-<h3><span class="section-number">6.6.1. </span>Exercise 1: Brute Force Baseline (Part 0)<a class="headerlink" href="#exercise-1-brute-force-baseline-part-0" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.6.1. </span>Exercise 1: Brute Force Baseline (Part 0)<a class="headerlink" href="#exercise-1-brute-force-baseline-part-0" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Implement <code class="docutils literal notranslate"><span class="pre">is_clique()</span></code> and <code class="docutils literal notranslate"><span class="pre">brute_force_max_clique()</span></code></p></li>
 <li><p>Test on small synthetic graphs (4-8 nodes)</p></li>
@@ -1338,7 +1349,7 @@ Function Can_Extend(C, i, A):
 </ol>
 </section>
 <section id="exercise-2-motzkin-straus-verification-part-1">
-<h3><span class="section-number">6.6.2. </span>Exercise 2: Motzkin-Straus Verification (Part 1)<a class="headerlink" href="#exercise-2-motzkin-straus-verification-part-1" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.6.2. </span>Exercise 2: Motzkin-Straus Verification (Part 1)<a class="headerlink" href="#exercise-2-motzkin-straus-verification-part-1" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Implement both objective functions</p></li>
 <li><p>Create 3 test graphs with known maximum cliques</p></li>
@@ -1348,7 +1359,7 @@ Function Can_Extend(C, i, A):
 </ol>
 </section>
 <section id="exercise-3-replicator-dynamics-part-2">
-<h3><span class="section-number">6.6.3. </span>Exercise 3: Replicator Dynamics (Part 2)<a class="headerlink" href="#exercise-3-replicator-dynamics-part-2" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.6.3. </span>Exercise 3: Replicator Dynamics (Part 2)<a class="headerlink" href="#exercise-3-replicator-dynamics-part-2" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Implement RD with the decoder</p></li>
 <li><p>Visualize convergence on a small example</p></li>
@@ -1358,7 +1369,7 @@ Function Can_Extend(C, i, A):
 </ol>
 </section>
 <section id="exercise-4-gnn-rd-hybrid-part-3">
-<h3><span class="section-number">6.6.4. </span>Exercise 4: GNN + RD Hybrid (Part 3)<a class="headerlink" href="#exercise-4-gnn-rd-hybrid-part-3" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.6.4. </span>Exercise 4: GNN + RD Hybrid (Part 3)<a class="headerlink" href="#exercise-4-gnn-rd-hybrid-part-3" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
 <li><p>Implement the complete pipeline</p></li>
 <li><p>Train on IMDB, evaluate on held-out graphs</p></li>
@@ -1373,7 +1384,7 @@ Function Can_Extend(C, i, A):
 </ol>
 </section>
 <section id="exercise-5-final-comparison">
-<h3><span class="section-number">6.6.5. </span>Exercise 5: Final Comparison<a class="headerlink" href="#exercise-5-final-comparison" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.6.5. </span>Exercise 5: Final Comparison<a class="headerlink" href="#exercise-5-final-comparison" title="Permalink to this heading">#</a></h3>
 <p>Create a summary table:</p>
 <table class="table">
 <thead>
@@ -1409,7 +1420,7 @@ Function Can_Extend(C, i, A):
 </section>
 <hr class="docutils" />
 <section id="deliverables">
-<h2><span class="section-number">6.7. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.7. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><strong>Code</strong>: Complete, documented implementations</p></li>
 <li><p><strong>Results</strong>: Tables and visualizations</p></li>
@@ -1424,7 +1435,7 @@ Function Can_Extend(C, i, A):
 </section>
 <hr class="docutils" />
 <section id="references">
-<h2><span class="section-number">6.8. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.8. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Motzkin, T.S., &amp; Straus, E.G. (1965). Maxima for graphs and a new proof of a theorem of Turán.</p></li>
 <li><p>Pelillo, M. (1999). Replicator Equations, Maximal Cliques, and Graph Isomorphism. Neural Computation.</p></li>
@@ -1471,7 +1482,7 @@ Function Can_Extend(C, i, A):
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>Graph Neural Networks</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Graph Neural Networks</p>
       </div>
     </a>
     <a class="right-next"
@@ -1479,7 +1490,7 @@ Function Can_Extend(C, i, A):
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>Reinforcement Learning</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Reinforcement Learning</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1492,64 +1503,65 @@ Function Can_Extend(C, i, A):
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-maximum-clique-problem">6.1. Practical Session: Maximum Clique Problem</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">6.1.1. Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">6.1.2. Prerequisites</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">6.1.3. Datasets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-maximum-clique-problem">7.1. Practical Session: Maximum Clique Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">7.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">7.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datasets">7.1.3. Datasets</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-0-brute-force-maximum-clique">6.2. Part 0: Brute Force Maximum Clique</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-start-with-brute-force">6.2.1. Why Start with Brute Force?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-algorithm">6.2.2. The Algorithm</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity-analysis">6.2.3. Complexity Analysis</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-task">6.2.4. Implementation Task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-0-brute-force-maximum-clique">7.2. Part 0: Brute Force Maximum Clique</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-start-with-brute-force">7.2.1. Why Start with Brute Force?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-algorithm">7.2.2. The Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity-analysis">7.2.3. Complexity Analysis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-task">7.2.4. Implementation Task</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-motzkin-straus-formulation">6.3. Part 1: Motzkin-Straus Formulation</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-key-question">6.3.1. The Key Question</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-discrete-to-continuous">6.3.2. From Discrete to Continuous</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-motzkin-straus-theorem">6.3.3. The Motzkin-Straus Theorem</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-this-work-an-intuitive-explanation">6.3.4. Why Does This Work? An Intuitive Explanation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-triangle-graph-k-3">6.3.5. Worked Example: Triangle Graph (<span class="math notranslate nohighlight">\(K_3\)</span>)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-spurious-solutions">6.3.6. The Problem of Spurious Solutions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-to-avoid-spurious-solutions">6.3.7. Regularization to Avoid Spurious Solutions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">6.3.8. Implementation Task</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaway">6.3.9. Key Takeaway</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-motzkin-straus-formulation">7.3. Part 1: Motzkin-Straus Formulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-key-question">7.3.1. The Key Question</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-discrete-to-continuous">7.3.2. From Discrete to Continuous</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-motzkin-straus-theorem">7.3.3. The Motzkin-Straus Theorem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-this-work-an-intuitive-explanation">7.3.4. Why Does This Work? An Intuitive Explanation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example-triangle-graph-k-3">7.3.5. Worked Example: Triangle Graph (<span class="math notranslate nohighlight">\(K_3\)</span>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-of-spurious-solutions">7.3.6. The Problem of Spurious Solutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-to-avoid-spurious-solutions">7.3.7. Regularization to Avoid Spurious Solutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">7.3.8. Implementation Task</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaway">7.3.9. Key Takeaway</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-replicator-dynamics">6.4. Part 2: Replicator Dynamics</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-optimization-challenge">6.4.1. The Optimization Challenge</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-intuition-evolution-by-natural-selection">6.4.2. The Intuition: Evolution by Natural Selection</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-mathematics">6.4.3. The Mathematics</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-replicator-dynamics">6.4.4. Discrete Replicator Dynamics</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-theoretical-properties">6.4.5. Key Theoretical Properties</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">6.4.6. Algorithm</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.4.7. Implementation Task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-replicator-dynamics">7.4. Part 2: Replicator Dynamics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-optimization-challenge">7.4.1. The Optimization Challenge</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-intuition-evolution-by-natural-selection">7.4.2. The Intuition: Evolution by Natural Selection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-mathematics">7.4.3. The Mathematics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-replicator-dynamics">7.4.4. Discrete Replicator Dynamics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-theoretical-properties">7.4.5. Key Theoretical Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">7.4.6. Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7.4.7. Implementation Task</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-gnn-replicator-dynamics">6.5. Part 3: GNN + Replicator Dynamics</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-the-initialization-problem">6.5.1. Motivation: The Initialization Problem</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hybrid-approach">6.5.2. The Hybrid Approach</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-include-rd-in-training">6.5.3. Why Include RD in Training?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">6.5.4. Implementation Task</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-gnn-replicator-dynamics">7.5. Part 3: GNN + Replicator Dynamics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation-the-initialization-problem">7.5.1. Motivation: The Initialization Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hybrid-approach">7.5.2. The Hybrid Approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-include-rd-in-training">7.5.3. Why Include RD in Training?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.5.4. Implementation Task</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">6.6. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-brute-force-baseline-part-0">6.6.1. Exercise 1: Brute Force Baseline (Part 0)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-motzkin-straus-verification-part-1">6.6.2. Exercise 2: Motzkin-Straus Verification (Part 1)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-replicator-dynamics-part-2">6.6.3. Exercise 3: Replicator Dynamics (Part 2)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-gnn-rd-hybrid-part-3">6.6.4. Exercise 4: GNN + RD Hybrid (Part 3)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-final-comparison">6.6.5. Exercise 5: Final Comparison</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">7.6. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-brute-force-baseline-part-0">7.6.1. Exercise 1: Brute Force Baseline (Part 0)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-motzkin-straus-verification-part-1">7.6.2. Exercise 2: Motzkin-Straus Verification (Part 1)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-replicator-dynamics-part-2">7.6.3. Exercise 3: Replicator Dynamics (Part 2)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-gnn-rd-hybrid-part-3">7.6.4. Exercise 4: GNN + RD Hybrid (Part 3)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-5-final-comparison">7.6.5. Exercise 5: Final Comparison</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">6.7. Deliverables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">6.8. References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">7.7. Deliverables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">7.8. References</a></li>
 </ul>
   </nav></div>
 
@@ -1598,8 +1610,8 @@ By Universidad de Alicante
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
 
   <footer class="bd-footer">
   </footer>

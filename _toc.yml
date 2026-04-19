@@ -15,6 +15,9 @@ parts:
 - caption: Reinforcement Learning
   chapters:
   - file: topic2.md
+- caption: Generative Agents 
+  chapters:
+  - file: topic3.md
 
 
 - caption: Practices
@@ -22,3 +25,4 @@ parts:
   - file: practice0.md
   - file: practice1.md
   - file: practice2.md
+  - file: practice3_1.md
