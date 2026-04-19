@@ -1,0 +1,1485 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>9. Intelligent Agents &#8212; Agentes Inteligentes IA</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practice3_1';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="8. Reinforcement Learning" href="practice2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Agentes Inteligentes IA - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Agentes Inteligentes IA - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI2026
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intelligent Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bloque1_Introducci%C3%B3n.html">1. The Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithmic Reasoning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic1.html">2. Graph Neural Networks</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reinforcement Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic2.html">4. Reinforcement Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generative Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic3.html">5. LLMs and VLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practices</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">6. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice1.html">7. Clique Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice2.html">8. Reinforcement Learning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. Intelligent Agents</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpractice3_1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/practice3_1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Intelligent Agents</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-1-large-language-models-hugging-face-and-prompt-engineering">9.1. Practical Session 3 — Part 1: Large Language Models, Hugging Face, and Prompt Engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">9.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">9.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background-what-are-large-language-models">9.1.3. Background: What Are Large Language Models?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hugging-face-ecosystem">9.1.4. The Hugging Face Ecosystem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-precision-and-memory">9.1.5. Model Precision and Memory</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-loading-and-running-a-small-llm">9.2. Part 1: Loading and Running a Small LLM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-right-model">9.2.1. Choosing the Right Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-model">9.2.2. Loading the Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifying-the-model-works">9.2.3. Verifying the Model Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-tokenization">9.2.4. Understanding Tokenization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-text">9.2.5. Generating Text</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-chat-templates">9.2.6. Using Chat Templates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-parameters">9.2.7. Generation Parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-prompt-engineering-fundamentals">9.3. Part 2: Prompt Engineering Fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-prompt-engineering">9.3.1. What Is Prompt Engineering?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-anatomy-of-a-good-prompt">9.3.2. The Anatomy of a Good Prompt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-shot-prompting">9.3.3. Zero-Shot Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#few-shot-prompting">9.3.4. Few-Shot Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chain-of-thought-cot-prompting">9.3.5. Chain-of-Thought (CoT) Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-output-prompting">9.3.6. Structured Output Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#role-prompting">9.3.7. Role Prompting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-prompt-chaining">9.4. Part 3: Prompt Chaining</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#breaking-complex-tasks-into-steps">9.4.1. Breaking Complex Tasks into Steps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-evaluating-prompt-strategies">9.5. Part 4: Evaluating Prompt Strategies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-an-evaluation-framework">9.5.1. Building an Evaluation Framework</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-strategies">9.5.2. Comparing Strategies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-results">9.5.3. Visualizing Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">9.6. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-model-exploration">9.6.1. Exercise 1: Model Exploration</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">9.6.1.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">9.6.1.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">9.6.1.3. Deliverables</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-prompt-engineering-challenge">9.6.2. Exercise 2: Prompt Engineering Challenge</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">9.6.2.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">9.6.2.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">9.6.2.3. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">9.6.2.4. Evaluation Criteria</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-building-a-prompt-based-application">9.6.3. Exercise 3: Building a Prompt-Based Application</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">9.6.3.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">9.6.3.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#test-data">9.6.3.3. Test Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">9.6.3.4. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">9.6.3.5. Evaluation Criteria</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">9.7. References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="intelligent-agents">
+<h1><span class="section-number">9. </span>Intelligent Agents<a class="headerlink" href="#intelligent-agents" title="Permalink to this heading">#</a></h1>
+<section id="practical-session-3-part-1-large-language-models-hugging-face-and-prompt-engineering">
+<h2><span class="section-number">9.1. </span>Practical Session 3 — Part 1: Large Language Models, Hugging Face, and Prompt Engineering<a class="headerlink" href="#practical-session-3-part-1-large-language-models-hugging-face-and-prompt-engineering" title="Permalink to this heading">#</a></h2>
+<section id="introduction">
+<h3><span class="section-number">9.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
+<p>In this first part of Practical Session 3, we will explore the foundations of <strong>Large Language Models (LLMs)</strong> and how to interact with them programmatically using the <strong>Hugging Face</strong> ecosystem. LLMs are deep learning models trained on massive text corpora that can generate coherent text, answer questions, summarize documents, translate languages, and perform many other natural language tasks. Their emergence has fundamentally changed the landscape of Artificial Intelligence, enabling the construction of sophisticated <strong>intelligent agents</strong> that reason, plan, and communicate in natural language.</p>
+<p>Rather than training an LLM from scratch — which requires enormous computational resources — we will focus on <strong>loading pre-trained models</strong>, <strong>running inference</strong>, and mastering <strong>prompt engineering</strong>: the art of crafting effective instructions that guide a model toward the desired output. These skills form the essential building blocks for the RAG systems and multi-agent architectures that we will build in Parts 2 and 3.</p>
+<p>Throughout this session we will work with <strong><code class="docutils literal notranslate"><span class="pre">Qwen/Qwen2.5-1.5B-Instruct</span></code></strong>, a small instruction-tuned model with 1.5 billion parameters that runs comfortably on a CPU with approximately <strong>3–6 GB of RAM</strong>.</p>
+</section>
+<section id="prerequisites">
+<h3><span class="section-number">9.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
+<p>Before starting, install the required libraries:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>transformers<span class="w"> </span>accelerate<span class="w"> </span>sentencepiece<span class="w"> </span>protobuf<span class="w"> </span>matplotlib
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>We will load the model in <strong><code class="docutils literal notranslate"><span class="pre">bfloat16</span></code></strong> precision, which halves the memory footprint compared to full precision (<code class="docutils literal notranslate"><span class="pre">float32</span></code>) and is well supported on modern CPUs. If your CPU does not support <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code>, the code includes a fallback to <code class="docutils literal notranslate"><span class="pre">float32</span></code>.</p></li>
+<li><p>We recommend using <strong>Python 3.10+</strong> and a Jupyter Notebook environment (Jupyter Lab, Google Colab, or VS Code Notebooks).</p></li>
+<li><p>All exercises can be completed on a <strong>CPU-only</strong> machine. Inference will take a few seconds per response, which is acceptable for the tasks in this session.</p></li>
+</ul>
+</div>
+</section>
+<section id="background-what-are-large-language-models">
+<h3><span class="section-number">9.1.3. </span>Background: What Are Large Language Models?<a class="headerlink" href="#background-what-are-large-language-models" title="Permalink to this heading">#</a></h3>
+<p>A Large Language Model is, at its core, a <strong>next-token predictor</strong>. Given a sequence of tokens <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_{t-1}\)</span>, the model estimates the probability distribution over the next token:</p>
+<div class="math notranslate nohighlight">
+\[
+P(x_t \mid x_1, x_2, \ldots, x_{t-1}; \theta)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\theta\)</span> represents the model’s learned parameters. Modern LLMs are based on the <strong>Transformer</strong> architecture (Vaswani et al., 2017), which uses <strong>self-attention</strong> mechanisms to capture long-range dependencies in text. The key innovation is the attention function:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(Q\)</span>, <span class="math notranslate nohighlight">\(K\)</span>, and <span class="math notranslate nohighlight">\(V\)</span> are the query, key, and value matrices derived from the input, and <span class="math notranslate nohighlight">\(d_k\)</span> is the dimension of the keys. This mechanism allows each token to “attend” to every other token in the sequence, weighting their contributions by relevance.</p>
+<p>During text generation, the model produces tokens <strong>autoregressively</strong>: at each step it samples (or selects) a token from the predicted distribution and appends it to the context, repeating the process until a stopping criterion is met (e.g., an end-of-sequence token or a maximum length).</p>
+</section>
+<section id="the-hugging-face-ecosystem">
+<h3><span class="section-number">9.1.4. </span>The Hugging Face Ecosystem<a class="headerlink" href="#the-hugging-face-ecosystem" title="Permalink to this heading">#</a></h3>
+<p><strong>Hugging Face</strong> is the de facto open-source platform for working with pre-trained models. Its core components include:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">transformers</span></code></strong>: A Python library providing a unified API (<code class="docutils literal notranslate"><span class="pre">AutoModelForCausalLM</span></code>, <code class="docutils literal notranslate"><span class="pre">AutoTokenizer</span></code>, <code class="docutils literal notranslate"><span class="pre">pipeline</span></code>) to load and run thousands of pre-trained models.</p></li>
+<li><p><strong>Hugging Face Hub</strong>: A model repository hosting over 500,000 models, datasets, and spaces.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">accelerate</span></code></strong>: A library that simplifies model loading and device placement across CPUs and GPUs.</p></li>
+</ul>
+<p>The typical workflow is:</p>
+<ol class="arabic simple">
+<li><p>Choose a model from the Hub (e.g., <code class="docutils literal notranslate"><span class="pre">Qwen/Qwen2.5-1.5B-Instruct</span></code>)</p></li>
+<li><p>Load the tokenizer and model with <code class="docutils literal notranslate"><span class="pre">AutoTokenizer</span></code> and <code class="docutils literal notranslate"><span class="pre">AutoModelForCausalLM</span></code></p></li>
+<li><p>Tokenize the input, run inference, and decode the output</p></li>
+</ol>
+</section>
+<section id="model-precision-and-memory">
+<h3><span class="section-number">9.1.5. </span>Model Precision and Memory<a class="headerlink" href="#model-precision-and-memory" title="Permalink to this heading">#</a></h3>
+<p>Full-precision LLMs store each parameter as a 32-bit floating-point number (FP32). A model with 1.5 billion parameters therefore requires approximately <strong>6 GB</strong> of RAM in FP32. By using <strong><code class="docutils literal notranslate"><span class="pre">bfloat16</span></code></strong> (Brain Floating Point 16), we store each parameter in 16 bits instead, cutting the memory requirement roughly in half to about <strong>3 GB</strong>. Unlike standard <code class="docutils literal notranslate"><span class="pre">float16</span></code>, <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code> preserves the same exponent range as <code class="docutils literal notranslate"><span class="pre">float32</span></code>, which avoids numerical overflow issues that can cause <code class="docutils literal notranslate"><span class="pre">nan</span></code> values during inference.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Precision</p></th>
+<th class="head"><p>Bits per Parameter</p></th>
+<th class="head"><p>~Size for 1.5B params</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>FP32</p></td>
+<td><p>32</p></td>
+<td><p>~6.0 GB</p></td>
+</tr>
+<tr class="row-odd"><td><p>BF16</p></td>
+<td><p>16</p></td>
+<td><p>~3.0 GB</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Do not use <code class="docutils literal notranslate"><span class="pre">float16</span></code> on CPU.</strong> Standard half-precision (<code class="docutils literal notranslate"><span class="pre">float16</span></code>) has a limited numerical range and is poorly supported for CPU computation — it frequently produces <code class="docutils literal notranslate"><span class="pre">nan</span></code> values in the model’s logits, causing garbled outputs. Always use <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code> or <code class="docutils literal notranslate"><span class="pre">float32</span></code> when running on CPU.</p>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-1-loading-and-running-a-small-llm">
+<h2><span class="section-number">9.2. </span>Part 1: Loading and Running a Small LLM<a class="headerlink" href="#part-1-loading-and-running-a-small-llm" title="Permalink to this heading">#</a></h2>
+<section id="choosing-the-right-model">
+<h3><span class="section-number">9.2.1. </span>Choosing the Right Model<a class="headerlink" href="#choosing-the-right-model" title="Permalink to this heading">#</a></h3>
+<p>For this practical session we will use <strong><code class="docutils literal notranslate"><span class="pre">Qwen/Qwen2.5-1.5B-Instruct</span></code></strong>, a 1.5-billion-parameter instruction-tuned language model from the Qwen family. This model provides a good balance between capability and resource requirements:</p>
+<ul class="simple">
+<li><p><strong>BF16</strong>: ~3 GB RAM</p></li>
+<li><p><strong>FP32</strong>: ~6 GB RAM</p></li>
+<li><p><strong>Instruction-tuned</strong>: Already fine-tuned to follow instructions in a chat-like format</p></li>
+</ul>
+</section>
+<section id="loading-the-model">
+<h3><span class="section-number">9.2.2. </span>Loading the Model<a class="headerlink" href="#loading-the-model" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+
+<span class="n">MODEL_ID</span> <span class="o">=</span> <span class="s2">&quot;Qwen/Qwen2.5-1.5B-Instruct&quot;</span>
+
+<span class="c1"># Load tokenizer</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">MODEL_ID</span><span class="p">)</span>
+
+<span class="c1"># Determine the best dtype for the current hardware</span>
+<span class="c1"># bfloat16 is preferred (half memory, stable on CPU)</span>
+<span class="c1"># float32 is the safe fallback</span>
+<span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span>
+    <span class="n">device_map</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span>
+<span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">torch</span><span class="p">,</span> <span class="s2">&quot;bfloat16&quot;</span><span class="p">):</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span>
+    <span class="n">device_map</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span>
+    <span class="n">device_map</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+    <span class="n">MODEL_ID</span><span class="p">,</span>
+    <span class="n">torch_dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">,</span>
+    <span class="n">device_map</span> <span class="o">=</span> <span class="n">device_map</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model loaded on </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="si">}</span><span class="s2"> with dtype </span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Memory footprint: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">get_memory_footprint</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1e9</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> GB&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of parameters: </span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On CPU, inference will be slower (a few seconds per response). For the exercises in this session, this is perfectly acceptable.</p>
+</div>
+</section>
+<section id="verifying-the-model-works">
+<h3><span class="section-number">9.2.3. </span>Verifying the Model Works<a class="headerlink" href="#verifying-the-model-works" title="Permalink to this heading">#</a></h3>
+<p>After loading, it is good practice to verify that the model produces meaningful output before proceeding:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Quick sanity check</span>
+<span class="n">test_input</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="s2">&quot;The capital of France is&quot;</span><span class="p">,</span> <span class="n">return_tensors</span> <span class="o">=</span> <span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">test_input</span><span class="p">)</span><span class="o">.</span><span class="n">logits</span>
+    <span class="n">last_logits</span> <span class="o">=</span> <span class="n">logits</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Logits — min: </span><span class="si">{</span><span class="n">last_logits</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, max: </span><span class="si">{</span><span class="n">last_logits</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Contains NaN: </span><span class="si">{</span><span class="n">torch</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">last_logits</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Generate a few tokens</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">test_input</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">do_sample</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                         <span class="n">pad_token_id</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output: </span><span class="si">{</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">skip_special_tokens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">True</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you see <code class="docutils literal notranslate"><span class="pre">Contains</span> <span class="pre">NaN:</span> <span class="pre">True</span></code>, your dtype is not compatible with your hardware. Switch to <code class="docutils literal notranslate"><span class="pre">torch.float32</span></code>.</p>
+</section>
+<section id="understanding-tokenization">
+<h3><span class="section-number">9.2.4. </span>Understanding Tokenization<a class="headerlink" href="#understanding-tokenization" title="Permalink to this heading">#</a></h3>
+<p>Before feeding text to the model, it must be converted into <strong>tokens</strong> — integer indices that the model understands. The tokenizer handles this conversion and also applies any special formatting required by the model (e.g., chat templates).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic tokenization</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello, how are you doing today?&quot;</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">return_tensors</span> <span class="o">=</span> <span class="s2">&quot;pt&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Input text: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Token IDs: </span><span class="si">{</span><span class="n">tokens</span><span class="p">[</span><span class="s1">&#39;input_ids&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of tokens: </span><span class="si">{</span><span class="n">tokens</span><span class="p">[</span><span class="s1">&#39;input_ids&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Decoded tokens: </span><span class="si">{</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">convert_ids_to_tokens</span><span class="p">(</span><span class="n">tokens</span><span class="p">[</span><span class="s1">&#39;input_ids&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="generating-text">
+<h3><span class="section-number">9.2.5. </span>Generating Text<a class="headerlink" href="#generating-text" title="Permalink to this heading">#</a></h3>
+<p>The simplest way to generate text is using the <code class="docutils literal notranslate"><span class="pre">model.generate()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate_response</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">256</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a response from the model given a raw text prompt.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        model: The language model</span>
+<span class="sd">        tokenizer: The tokenizer</span>
+<span class="sd">        prompt: Input text string</span>
+<span class="sd">        max_new_tokens: Maximum number of tokens to generate</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The generated response</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span> <span class="o">=</span> <span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+            <span class="o">**</span><span class="n">inputs</span><span class="p">,</span>
+            <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="n">max_new_tokens</span><span class="p">,</span>
+            <span class="n">do_sample</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span>
+            <span class="n">top_p</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span>
+            <span class="n">top_k</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+            <span class="n">pad_token_id</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">,</span>
+        <span class="p">)</span>
+    
+    <span class="c1"># Decode only the new tokens (exclude the prompt)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
+        <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;input_ids&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:],</span>
+        <span class="n">skip_special_tokens</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span>
+
+
+<span class="c1"># Test</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">generate_response</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="s2">&quot;The capital of France is&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="using-chat-templates">
+<h3><span class="section-number">9.2.6. </span>Using Chat Templates<a class="headerlink" href="#using-chat-templates" title="Permalink to this heading">#</a></h3>
+<p>Instruction-tuned models expect input formatted according to a specific <strong>chat template</strong>. The Qwen2.5 Instruct model uses a structured format with system, user, and assistant roles. The <code class="docutils literal notranslate"><span class="pre">tokenizer.apply_chat_template()</span></code> method handles this automatically:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">chat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">user_message</span><span class="p">,</span> <span class="n">system_message</span> <span class="o">=</span> <span class="s2">&quot;You are a helpful assistant.&quot;</span><span class="p">,</span>
+         <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">top_p</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">top_k</span> <span class="o">=</span> <span class="mi">50</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Send a message using the model&#39;s chat template.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        model: The language model</span>
+<span class="sd">        tokenizer: The tokenizer</span>
+<span class="sd">        user_message: The user&#39;s message</span>
+<span class="sd">        system_message: The system prompt</span>
+<span class="sd">        max_new_tokens: Maximum tokens to generate</span>
+<span class="sd">        temperature: Sampling temperature (use 0.0 for greedy)</span>
+<span class="sd">        top_p: Nucleus sampling threshold</span>
+<span class="sd">        top_k: Top-k sampling (limits vocabulary at each step)</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The assistant&#39;s response</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_message</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user_message</span><span class="p">},</span>
+    <span class="p">]</span>
+    
+    <span class="n">prompt</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">apply_chat_template</span><span class="p">(</span>
+        <span class="n">messages</span><span class="p">,</span> <span class="n">tokenize</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">add_generation_prompt</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span> <span class="o">=</span> <span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    
+    <span class="n">gen_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="n">max_new_tokens</span><span class="p">,</span>
+        <span class="n">pad_token_id</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">,</span>
+    <span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">:</span>
+        <span class="n">gen_kwargs</span><span class="p">[</span><span class="s2">&quot;do_sample&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">gen_kwargs</span><span class="p">[</span><span class="s2">&quot;do_sample&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">gen_kwargs</span><span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temperature</span>
+        <span class="n">gen_kwargs</span><span class="p">[</span><span class="s2">&quot;top_p&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">top_p</span>
+        <span class="n">gen_kwargs</span><span class="p">[</span><span class="s2">&quot;top_k&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">top_k</span>
+    
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">gen_kwargs</span><span class="p">)</span>
+    
+    <span class="n">response</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
+        <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">inputs</span><span class="p">[</span><span class="s1">&#39;input_ids&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:],</span>
+        <span class="n">skip_special_tokens</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span>
+
+
+<span class="c1"># Test</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="s2">&quot;Explain what a neural network is in 2 sentences.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="generation-parameters">
+<h3><span class="section-number">9.2.7. </span>Generation Parameters<a class="headerlink" href="#generation-parameters" title="Permalink to this heading">#</a></h3>
+<p>The behavior of text generation can be controlled through several important parameters:</p>
+<p><strong>Temperature (<span class="math notranslate nohighlight">\(\tau\)</span>):</strong> Controls the randomness of the output. Given logits <span class="math notranslate nohighlight">\(z_i\)</span> for each token <span class="math notranslate nohighlight">\(i\)</span>, the probability is:</p>
+<div class="math notranslate nohighlight">
+\[
+P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\tau \to 0\)</span>: The distribution becomes peaked — the model always picks the most likely token (deterministic, <strong>greedy</strong> decoding).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\tau = 1\)</span>: Standard sampling from the learned distribution.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\tau &gt; 1\)</span>: Flatter distribution — more random and creative outputs.</p></li>
+</ul>
+<p><strong>Top-p (Nucleus Sampling):</strong> Instead of considering all tokens, only consider the smallest set of tokens whose cumulative probability exceeds <span class="math notranslate nohighlight">\(p\)</span>. For example, <code class="docutils literal notranslate"><span class="pre">top_p</span> <span class="pre">=</span> <span class="pre">0.9</span></code> means the model samples from tokens that together account for 90% of the probability mass.</p>
+<p><strong>Top-k:</strong> Only consider the <span class="math notranslate nohighlight">\(k\)</span> tokens with the highest probability. This acts as a hard cutoff that prevents sampling from very unlikely tokens (which can cause numerical issues with small models).</p>
+<p><strong>Max New Tokens:</strong> The maximum number of tokens the model will generate before stopping.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compare different temperature values</span>
+<span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot;Write a creative name for a coffee shop.&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Temperature 0.3 (near deterministic) ===&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Run </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Temperature 0.7 (balanced) ===&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Run </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Temperature 1.2 (creative) ===&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">1.2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Run </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-2-prompt-engineering-fundamentals">
+<h2><span class="section-number">9.3. </span>Part 2: Prompt Engineering Fundamentals<a class="headerlink" href="#part-2-prompt-engineering-fundamentals" title="Permalink to this heading">#</a></h2>
+<section id="what-is-prompt-engineering">
+<h3><span class="section-number">9.3.1. </span>What Is Prompt Engineering?<a class="headerlink" href="#what-is-prompt-engineering" title="Permalink to this heading">#</a></h3>
+<p><strong>Prompt engineering</strong> is the practice of designing and refining the textual input (prompt) given to a language model in order to elicit the most accurate, relevant, and useful response. Since LLMs are general-purpose models, the quality of their output depends critically on <em>how</em> we ask them to perform a task.</p>
+<p>A well-crafted prompt can dramatically improve performance without changing the model or its weights — it is a form of <strong>in-context learning</strong>, where the model adapts its behavior based solely on the information provided in the input.</p>
+</section>
+<section id="the-anatomy-of-a-good-prompt">
+<h3><span class="section-number">9.3.2. </span>The Anatomy of a Good Prompt<a class="headerlink" href="#the-anatomy-of-a-good-prompt" title="Permalink to this heading">#</a></h3>
+<p>An effective prompt typically contains some or all of the following components:</p>
+<ol class="arabic simple">
+<li><p><strong>Role / Persona</strong>: Define who the model should act as (e.g., “You are an expert Python programmer”).</p></li>
+<li><p><strong>Task Description</strong>: Clearly state what you want the model to do.</p></li>
+<li><p><strong>Context / Background</strong>: Provide any relevant information the model needs.</p></li>
+<li><p><strong>Input Data</strong>: The specific data to process.</p></li>
+<li><p><strong>Output Format</strong>: Specify how the response should be structured (e.g., JSON, bullet points, a table).</p></li>
+<li><p><strong>Constraints</strong>: Any limitations or rules (e.g., “Answer in 3 sentences or fewer”).</p></li>
+<li><p><strong>Examples</strong>: One or more input-output examples to guide the model (few-shot learning).</p></li>
+</ol>
+</section>
+<section id="zero-shot-prompting">
+<h3><span class="section-number">9.3.3. </span>Zero-Shot Prompting<a class="headerlink" href="#zero-shot-prompting" title="Permalink to this heading">#</a></h3>
+<p>In <strong>zero-shot</strong> prompting, we give the model a task description without any examples. The model must rely entirely on its pre-trained knowledge.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Zero-shot sentiment analysis</span>
+<span class="n">zero_shot_prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Classify the sentiment of the following review as POSITIVE, NEGATIVE, or NEUTRAL.</span>
+
+<span class="s2">Review: &quot;The food was absolutely delicious and the service was impeccable. </span>
+<span class="s2">Best restaurant experience I&#39;ve had in years!&quot;</span>
+
+<span class="s2">Sentiment:&quot;&quot;&quot;</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">zero_shot_prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sentiment: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="few-shot-prompting">
+<h3><span class="section-number">9.3.4. </span>Few-Shot Prompting<a class="headerlink" href="#few-shot-prompting" title="Permalink to this heading">#</a></h3>
+<p>In <strong>few-shot</strong> prompting, we provide one or more examples (demonstrations) before the actual query. This helps the model understand the expected format and behavior.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Few-shot sentiment analysis</span>
+<span class="n">few_shot_prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Classify the sentiment of each review as POSITIVE, NEGATIVE, or NEUTRAL.</span>
+
+<span class="s2">Review: &quot;Great product, works exactly as described!&quot;</span>
+<span class="s2">Sentiment: POSITIVE</span>
+
+<span class="s2">Review: &quot;Terrible quality. Broke after one day.&quot;</span>
+<span class="s2">Sentiment: NEGATIVE</span>
+
+<span class="s2">Review: &quot;It&#39;s okay, nothing special but gets the job done.&quot;</span>
+<span class="s2">Sentiment: NEUTRAL</span>
+
+<span class="s2">Review: &quot;I was hesitant at first, but this turned out to be one of the best purchases I&#39;ve ever made. Highly recommend!&quot;</span>
+<span class="s2">Sentiment:&quot;&quot;&quot;</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">few_shot_prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sentiment: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="chain-of-thought-cot-prompting">
+<h3><span class="section-number">9.3.5. </span>Chain-of-Thought (CoT) Prompting<a class="headerlink" href="#chain-of-thought-cot-prompting" title="Permalink to this heading">#</a></h3>
+<p><strong>Chain-of-Thought</strong> prompting encourages the model to reason step by step before arriving at a final answer. This technique significantly improves performance on tasks that require logical reasoning, arithmetic, or multi-step problem solving.</p>
+<p>The key idea is simple: instead of asking for a direct answer, we ask the model to “think step by step” or provide explicit reasoning examples.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Without Chain-of-Thought</span>
+<span class="n">direct_prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;If a store sells apples for 2 euros each and oranges for 3 euros each,</span>
+<span class="s2">and Maria buys 4 apples and 5 oranges, how much does she pay in total?</span>
+
+<span class="s2">Answer:&quot;&quot;&quot;</span>
+
+<span class="n">response_direct</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">direct_prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Direct answer: </span><span class="si">{</span><span class="n">response_direct</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># With Chain-of-Thought</span>
+<span class="n">cot_prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;If a store sells apples for 2 euros each and oranges for 3 euros each,</span>
+<span class="s2">and Maria buys 4 apples and 5 oranges, how much does she pay in total?</span>
+
+<span class="s2">Let&#39;s solve this step by step:&quot;&quot;&quot;</span>
+
+<span class="n">response_cot</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">cot_prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">150</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Chain-of-Thought answer:</span><span class="se">\n</span><span class="si">{</span><span class="n">response_cot</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="structured-output-prompting">
+<h3><span class="section-number">9.3.6. </span>Structured Output Prompting<a class="headerlink" href="#structured-output-prompting" title="Permalink to this heading">#</a></h3>
+<p>For integration into software systems, we often need the model to return output in a specific structured format such as <strong>JSON</strong>. This is particularly important when building agents that must parse model outputs programmatically.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">structured_prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Extract the following information from the text and return it as a JSON object</span>
+<span class="s2">with the keys: &quot;name&quot;, &quot;age&quot;, &quot;city&quot;, and &quot;occupation&quot;.</span>
+
+<span class="s2">Text: &quot;My name is Carlos Garcia. I am 34 years old and I work as a software engineer in Barcelona.&quot;</span>
+
+<span class="s2">Return ONLY the JSON object, nothing else:&quot;&quot;&quot;</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">structured_prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Raw response: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Try to parse the JSON</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Parsed JSON:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Failed to parse as JSON. The model did not follow the format exactly.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="role-prompting">
+<h3><span class="section-number">9.3.7. </span>Role Prompting<a class="headerlink" href="#role-prompting" title="Permalink to this heading">#</a></h3>
+<p>By assigning a specific <strong>role</strong> or <strong>persona</strong> to the model through the system message, we can influence its tone, expertise level, and style of response.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Same question, different roles</span>
+<span class="n">question</span> <span class="o">=</span> <span class="s2">&quot;Explain what an API is.&quot;</span>
+
+<span class="c1"># Role 1: Expert for developers</span>
+<span class="n">response_expert</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span>
+    <span class="n">system_message</span> <span class="o">=</span> <span class="s2">&quot;You are a senior software architect. Give precise, technical explanations.&quot;</span><span class="p">,</span>
+    <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">150</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Expert Explanation ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response_expert</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+<span class="c1"># Role 2: Teacher for beginners</span>
+<span class="n">response_teacher</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span>
+    <span class="n">system_message</span> <span class="o">=</span> <span class="s2">&quot;You are a patient teacher explaining concepts to a 10-year-old. Use simple words and analogies.&quot;</span><span class="p">,</span>
+    <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">150</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Beginner Explanation ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response_teacher</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-3-prompt-chaining">
+<h2><span class="section-number">9.4. </span>Part 3: Prompt Chaining<a class="headerlink" href="#part-3-prompt-chaining" title="Permalink to this heading">#</a></h2>
+<section id="breaking-complex-tasks-into-steps">
+<h3><span class="section-number">9.4.1. </span>Breaking Complex Tasks into Steps<a class="headerlink" href="#breaking-complex-tasks-into-steps" title="Permalink to this heading">#</a></h3>
+<p><strong>Prompt chaining</strong> involves breaking a complex task into a sequence of simpler sub-tasks, where the output of one prompt becomes the input to the next. This is a precursor to the agent architectures we will build in Part 3 of this practical session.</p>
+<p>The advantages of prompt chaining over a single monolithic prompt are:</p>
+<ul class="simple">
+<li><p>Each step is simpler and more reliable.</p></li>
+<li><p>Intermediate results can be inspected and validated.</p></li>
+<li><p>Different steps can use different prompting strategies.</p></li>
+<li><p>Error propagation can be detected and handled.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">prompt_chain_analysis</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Analyze a text through a chain of prompts:</span>
+<span class="sd">    1. Summarize the text</span>
+<span class="sd">    2. Extract key entities</span>
+<span class="sd">    3. Determine the overall sentiment</span>
+<span class="sd">    4. Generate a final report</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Step 1: Summarize</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;Summarize the following text in 2 sentences:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.3</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Step 1 — Summary:</span><span class="se">\n</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Step 2: Extract entities</span>
+    <span class="n">entities</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;From the following summary, list the key entities (people, organizations, locations) as a comma-separated list:</span><span class="se">\n\n</span><span class="si">{</span><span class="n">summary</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Step 2 — Entities:</span><span class="se">\n</span><span class="si">{</span><span class="n">entities</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Step 3: Sentiment</span>
+    <span class="n">sentiment</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;What is the overall sentiment of this text? Answer with one word (POSITIVE, NEGATIVE, or NEUTRAL):</span><span class="se">\n\n</span><span class="si">{</span><span class="n">summary</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Step 3 — Sentiment:</span><span class="se">\n</span><span class="si">{</span><span class="n">sentiment</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Step 4: Final report</span>
+    <span class="n">report</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Generate a brief analytical report given the following information:</span>
+<span class="s2">Summary: </span><span class="si">{</span><span class="n">summary</span><span class="si">}</span>
+<span class="s2">Key Entities: </span><span class="si">{</span><span class="n">entities</span><span class="si">}</span>
+<span class="s2">Sentiment: </span><span class="si">{</span><span class="n">sentiment</span><span class="si">}</span>
+
+<span class="s2">Write a 3-sentence report:&quot;&quot;&quot;</span><span class="p">,</span>
+        <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">150</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.3</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Step 4 — Final Report:</span><span class="se">\n</span><span class="si">{</span><span class="n">report</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;summary&quot;</span><span class="p">:</span> <span class="n">summary</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+        <span class="s2">&quot;entities&quot;</span><span class="p">:</span> <span class="n">entities</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+        <span class="s2">&quot;sentiment&quot;</span><span class="p">:</span> <span class="n">sentiment</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+        <span class="s2">&quot;report&quot;</span><span class="p">:</span> <span class="n">report</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="p">}</span>
+
+
+<span class="c1"># Test with a sample text</span>
+<span class="n">sample_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">The European Commission announced today a landmark agreement on artificial intelligence regulation.</span>
+<span class="s2">The AI Act, which has been under negotiation for over three years, establishes a risk-based framework</span>
+<span class="s2">for AI systems deployed across the European Union. Commissioner Thierry Breton stated that this</span>
+<span class="s2">regulation will serve as a global benchmark. Technology companies including Google, Microsoft, and</span>
+<span class="s2">Meta have expressed mixed reactions, with some praising the clarity it brings while others worry</span>
+<span class="s2">about potential impacts on innovation. The regulation is expected to take full effect by 2026.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">prompt_chain_analysis</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">sample_text</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-4-evaluating-prompt-strategies">
+<h2><span class="section-number">9.5. </span>Part 4: Evaluating Prompt Strategies<a class="headerlink" href="#part-4-evaluating-prompt-strategies" title="Permalink to this heading">#</a></h2>
+<section id="building-an-evaluation-framework">
+<h3><span class="section-number">9.5.1. </span>Building an Evaluation Framework<a class="headerlink" href="#building-an-evaluation-framework" title="Permalink to this heading">#</a></h3>
+<p>To compare different prompting strategies systematically, we need a small evaluation benchmark. We will create a set of tasks with known correct answers and measure the accuracy of different prompting approaches.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a small evaluation dataset</span>
+<span class="n">eval_dataset</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What is the capital of Japan?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expected&quot;</span><span class="p">:</span> <span class="s2">&quot;Tokyo&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;factual&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;If a shirt costs 25 euros and is on sale for 20</span><span class="si">% o</span><span class="s2">ff, what is the sale price?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expected&quot;</span><span class="p">:</span> <span class="s2">&quot;20&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;math&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;Sort these numbers from smallest to largest: 7, 2, 9, 1, 5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expected&quot;</span><span class="p">:</span> <span class="s2">&quot;1, 2, 5, 7, 9&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;reasoning&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What is the sentiment of this sentence: &#39;I absolutely hated every minute of that terrible movie.&#39;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expected&quot;</span><span class="p">:</span> <span class="s2">&quot;NEGATIVE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;classification&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;A farmer has 17 sheep. All but 9 die. How many sheep are left?&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expected&quot;</span><span class="p">:</span> <span class="s2">&quot;9&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;reasoning&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;Translate to French: &#39;The weather is beautiful today.&#39;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;expected&quot;</span><span class="p">:</span> <span class="s2">&quot;Il fait beau aujourd&#39;hui&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;translation&quot;</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">evaluate_strategy</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">prompt_fn</span><span class="p">,</span> <span class="n">strategy_name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluate a prompting strategy on the dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="n">prompt_fn</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">])</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">response_clean</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">expected_clean</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;expected&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        
+        <span class="n">correct</span> <span class="o">=</span> <span class="n">expected_clean</span> <span class="ow">in</span> <span class="n">response_clean</span>
+        
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;expected&quot;</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;expected&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;response&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+            <span class="s2">&quot;correct&quot;</span><span class="p">:</span> <span class="n">correct</span><span class="p">,</span>
+            <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span>
+        <span class="p">})</span>
+    
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;correct&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Strategy: </span><span class="si">{</span><span class="n">strategy_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Overall Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;✓&quot;</span> <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;correct&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;✗&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">15s</span><span class="si">}</span><span class="s2"> | Expected: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;expected&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">20s</span><span class="si">}</span><span class="s2"> | Got: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">][:</span><span class="mi">40</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;strategy&quot;</span><span class="p">:</span> <span class="n">strategy_name</span><span class="p">,</span> <span class="s2">&quot;accuracy&quot;</span><span class="p">:</span> <span class="n">accuracy</span><span class="p">,</span> <span class="s2">&quot;details&quot;</span><span class="p">:</span> <span class="n">results</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="comparing-strategies">
+<h3><span class="section-number">9.5.2. </span>Comparing Strategies<a class="headerlink" href="#comparing-strategies" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Strategy 1: Direct (zero-shot, no special instructions)</span>
+<span class="k">def</span> <span class="nf">direct_prompt</span><span class="p">(</span><span class="n">question</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Answer concisely:&quot;</span>
+
+<span class="c1"># Strategy 2: Instructed (with clear formatting instructions)</span>
+<span class="k">def</span> <span class="nf">instructed_prompt</span><span class="p">(</span><span class="n">question</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Answer the following question. Be concise and give ONLY the answer, no explanation.</span>
+
+<span class="s2">Question: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span>
+
+<span class="s2">Answer:&quot;&quot;&quot;</span>
+
+<span class="c1"># Strategy 3: Chain-of-Thought</span>
+<span class="k">def</span> <span class="nf">cot_prompt</span><span class="p">(</span><span class="n">question</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Answer the following question. Think step by step, then provide your final answer </span>
+<span class="s2">on the last line prefixed with &quot;ANSWER:&quot;.</span>
+
+<span class="s2">Question: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span>
+
+<span class="s2">Step-by-step reasoning:&quot;&quot;&quot;</span>
+
+
+<span class="c1"># Run evaluation</span>
+<span class="n">results_direct</span> <span class="o">=</span> <span class="n">evaluate_strategy</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">eval_dataset</span><span class="p">,</span> <span class="n">direct_prompt</span><span class="p">,</span> <span class="s2">&quot;Direct&quot;</span><span class="p">)</span>
+<span class="n">results_instructed</span> <span class="o">=</span> <span class="n">evaluate_strategy</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">eval_dataset</span><span class="p">,</span> <span class="n">instructed_prompt</span><span class="p">,</span> <span class="s2">&quot;Instructed&quot;</span><span class="p">)</span>
+<span class="n">results_cot</span> <span class="o">=</span> <span class="n">evaluate_strategy</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">eval_dataset</span><span class="p">,</span> <span class="n">cot_prompt</span><span class="p">,</span> <span class="s2">&quot;Chain-of-Thought&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="visualizing-results">
+<h3><span class="section-number">9.5.3. </span>Visualizing Results<a class="headerlink" href="#visualizing-results" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">strategies</span> <span class="o">=</span> <span class="p">[</span><span class="n">results_direct</span><span class="p">,</span> <span class="n">results_instructed</span><span class="p">,</span> <span class="n">results_cot</span><span class="p">]</span>
+<span class="n">strategy_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;strategy&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">strategies</span><span class="p">]</span>
+<span class="n">accuracies</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">strategies</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Plot 1: Overall accuracy</span>
+<span class="n">bars</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">strategy_names</span><span class="p">,</span> <span class="n">accuracies</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#e41a1c&#39;</span><span class="p">,</span> <span class="s1">&#39;#377eb8&#39;</span><span class="p">,</span> <span class="s1">&#39;#4daf4a&#39;</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Overall Accuracy by Prompting Strategy&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">bar</span><span class="p">,</span> <span class="n">acc</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">accuracies</span><span class="p">):</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">,</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.02</span><span class="p">,</span>
+                 <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="s1">.0%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">ha</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot 2: Per-category accuracy</span>
+<span class="n">categories</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">eval_dataset</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">categories</span><span class="p">))</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mf">0.25</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">strategies</span><span class="p">):</span>
+    <span class="n">cat_acc</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">detail</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;details&quot;</span><span class="p">]:</span>
+        <span class="n">cat</span> <span class="o">=</span> <span class="n">detail</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">cat</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cat_acc</span><span class="p">:</span>
+            <span class="n">cat_acc</span><span class="p">[</span><span class="n">cat</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">cat_acc</span><span class="p">[</span><span class="n">cat</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">detail</span><span class="p">[</span><span class="s2">&quot;correct&quot;</span><span class="p">])</span>
+    
+    <span class="n">cat_accuracies</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cat_acc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">categories</span><span class="p">]</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">width</span><span class="p">,</span> <span class="n">cat_accuracies</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;strategy&quot;</span><span class="p">])</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Category&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Accuracy by Category and Strategy&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">width</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">,</span> <span class="n">ha</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;prompt_strategy_comparison.png&quot;</span><span class="p">,</span> <span class="n">dpi</span> <span class="o">=</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercises">
+<h2><span class="section-number">9.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<section id="exercise-1-model-exploration">
+<h3><span class="section-number">9.6.1. </span>Exercise 1: Model Exploration<a class="headerlink" href="#exercise-1-model-exploration" title="Permalink to this heading">#</a></h3>
+<section id="objectives">
+<h4><span class="section-number">9.6.1.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h4>
+<p>The objective of this exercise is to familiarize yourself with the Hugging Face <code class="docutils literal notranslate"><span class="pre">transformers</span></code> library, understand tokenization, and explore how generation parameters affect model output.</p>
+</section>
+<section id="task-description">
+<h4><span class="section-number">9.6.1.2. </span>Task Description<a class="headerlink" href="#task-description" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Load the model</strong>: Load <code class="docutils literal notranslate"><span class="pre">Qwen/Qwen2.5-1.5B-Instruct</span></code> using <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code> precision. Print the model’s memory footprint and the number of parameters. Verify that the logits do not contain <code class="docutils literal notranslate"><span class="pre">nan</span></code> values.</p></li>
+<li><p><strong>Tokenization analysis</strong>: Choose 5 sentences of varying complexity (short, long, with numbers, with special characters, in different languages). For each sentence:</p>
+<ul class="simple">
+<li><p>Tokenize it and report the number of tokens.</p></li>
+<li><p>Print the individual tokens to understand how the tokenizer splits text.</p></li>
+<li><p>Discuss any surprising tokenization behavior you observe.</p></li>
+</ul>
+</li>
+<li><p><strong>Temperature experiment</strong>: Choose a creative prompt (e.g., “Write a one-sentence story about a robot”). Generate 10 responses at each of the following temperatures: 0.3, 0.5, 0.7, 1.0, 1.2. For each temperature:</p>
+<ul class="simple">
+<li><p>Report the diversity of responses (how many unique responses out of 10).</p></li>
+<li><p>Compute the average response length.</p></li>
+<li><p>Provide a qualitative assessment of the output quality.</p></li>
+</ul>
+</li>
+<li><p><strong>Top-p vs Top-k</strong>: Using the same prompt, compare <code class="docutils literal notranslate"><span class="pre">top_p</span> <span class="pre">=</span> <span class="pre">[0.5,</span> <span class="pre">0.9,</span> <span class="pre">1.0]</span></code> and <code class="docutils literal notranslate"><span class="pre">top_k</span> <span class="pre">=</span> <span class="pre">[10,</span> <span class="pre">50,</span> <span class="pre">200]</span></code>. Generate 5 responses for each setting and describe the differences.</p></li>
+</ol>
+</section>
+<section id="deliverables">
+<h4><span class="section-number">9.6.1.3. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Complete code in a Jupyter Notebook</p></li>
+<li><p>A table summarizing the diversity and quality of responses at each temperature</p></li>
+<li><p>A brief discussion (2–3 paragraphs) on how generation parameters affect output quality and when you would choose each setting</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercise-2-prompt-engineering-challenge">
+<h3><span class="section-number">9.6.2. </span>Exercise 2: Prompt Engineering Challenge<a class="headerlink" href="#exercise-2-prompt-engineering-challenge" title="Permalink to this heading">#</a></h3>
+<section id="id1">
+<h4><span class="section-number">9.6.2.1. </span>Objectives<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>The objective of this exercise is to practice and compare different prompt engineering techniques on a variety of NLP tasks.</p>
+</section>
+<section id="id2">
+<h4><span class="section-number">9.6.2.2. </span>Task Description<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<p>You must implement and evaluate <strong>four</strong> prompting strategies on the following <strong>five</strong> tasks. For each task, design the best prompt you can for each strategy.</p>
+<p><strong>Prompting Strategies:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Zero-shot</strong>: No examples, just a task description.</p></li>
+<li><p><strong>Few-shot</strong> (3 examples): Provide 3 input-output examples before the query.</p></li>
+<li><p><strong>Chain-of-Thought</strong>: Ask the model to reason step by step.</p></li>
+<li><p><strong>Role + Structured Output</strong>: Assign a persona and request output in JSON format.</p></li>
+</ol>
+<p><strong>Tasks:</strong></p>
+<ul class="simple">
+<li><p><strong>Task A — Named Entity Recognition</strong>: Given a sentence, extract all person names, locations, and organizations. Use at least 5 test sentences.</p></li>
+<li><p><strong>Task B — Text Classification</strong>: Classify news headlines into categories (SPORTS, POLITICS, TECHNOLOGY, ENTERTAINMENT, SCIENCE). Use at least 10 test headlines.</p></li>
+<li><p><strong>Task C — Mathematical Word Problems</strong>: Solve arithmetic word problems. Use at least 5 problems of increasing difficulty.</p></li>
+<li><p><strong>Task D — Code Generation</strong>: Given a natural language description, generate a Python function. Use at least 3 different descriptions (e.g., “Write a function that checks if a number is prime”).</p></li>
+<li><p><strong>Task E — Summarization</strong>: Summarize a paragraph into a single sentence. Use at least 3 different paragraphs from different domains.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h4><span class="section-number">9.6.2.3. </span>Deliverables<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>A Jupyter Notebook with all implementations</p></li>
+<li><p>A summary table showing accuracy/quality for each strategy × task combination (20 cells)</p></li>
+<li><p>A discussion (3–4 paragraphs) analyzing:</p>
+<ul>
+<li><p>Which strategies worked best for which tasks and why</p></li>
+<li><p>The limitations you encountered with a small model</p></li>
+<li><p>How you iterated on your prompts to improve results</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="evaluation-criteria">
+<h4><span class="section-number">9.6.2.4. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Correctness and completeness of the implementations</p></li>
+<li><p>Quality and creativity of the prompts designed</p></li>
+<li><p>Rigor of the evaluation (meaningful test cases, fair comparisons)</p></li>
+<li><p>Depth of analysis in the discussion</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercise-3-building-a-prompt-based-application">
+<h3><span class="section-number">9.6.3. </span>Exercise 3: Building a Prompt-Based Application<a class="headerlink" href="#exercise-3-building-a-prompt-based-application" title="Permalink to this heading">#</a></h3>
+<section id="id4">
+<h4><span class="section-number">9.6.3.1. </span>Objectives<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<p>The objective of this exercise is to build a complete, functional application powered by an LLM using only prompt engineering techniques. This exercise bridges the gap between isolated prompting experiments and the agent-based systems you will build in Parts 2 and 3.</p>
+</section>
+<section id="id5">
+<h4><span class="section-number">9.6.3.2. </span>Task Description<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<p>Design and implement a <strong>multi-step text analysis pipeline</strong> that processes a given document through the following stages:</p>
+<ol class="arabic simple">
+<li><p><strong>Language Detection</strong>: Determine the language of the input text.</p></li>
+<li><p><strong>Summary Generation</strong>: Produce a concise summary (2–3 sentences).</p></li>
+<li><p><strong>Keyword Extraction</strong>: Extract the 5 most important keywords.</p></li>
+<li><p><strong>Sentiment Analysis</strong>: Classify the overall sentiment with a confidence score.</p></li>
+<li><p><strong>Question Generation</strong>: Generate 3 questions that could be answered by the text.</p></li>
+</ol>
+<p>Your pipeline must:</p>
+<ul class="simple">
+<li><p>Chain the prompts together, using output from earlier stages as context for later ones.</p></li>
+<li><p>Handle errors gracefully (e.g., if JSON parsing fails, retry with a more explicit prompt).</p></li>
+<li><p>Return a structured report (as a Python dictionary) with all results.</p></li>
+<li><p>Include timing information for each stage.</p></li>
+</ul>
+</section>
+<section id="test-data">
+<h4><span class="section-number">9.6.3.3. </span>Test Data<a class="headerlink" href="#test-data" title="Permalink to this heading">#</a></h4>
+<p>Run your pipeline on <strong>at least 3 documents</strong> from different domains (e.g., a news article, a scientific abstract, a product review). You can copy-paste real text or create realistic synthetic examples.</p>
+</section>
+<section id="id6">
+<h4><span class="section-number">9.6.3.4. </span>Deliverables<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Complete, documented Python code in a Jupyter Notebook</p></li>
+<li><p>The structured output (dictionary/JSON) for each test document</p></li>
+<li><p>A timing breakdown showing how long each stage takes</p></li>
+<li><p>A brief report (2–3 paragraphs) discussing:</p>
+<ul>
+<li><p>The challenges of chaining prompts together</p></li>
+<li><p>How output quality from early stages affects later stages</p></li>
+<li><p>Potential improvements you would make if using a larger model</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id7">
+<h4><span class="section-number">9.6.3.5. </span>Evaluation Criteria<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Robustness of the pipeline (error handling, edge cases)</p></li>
+<li><p>Quality of the prompt design at each stage</p></li>
+<li><p>Code organization and documentation</p></li>
+<li><p>Thoughtfulness of the analysis</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="references">
+<h2><span class="section-number">9.7. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Vaswani, A., et al. (2017). <em>Attention Is All You Need</em>. NeurIPS.</p></li>
+<li><p>Brown, T. B., et al. (2020). <em>Language Models are Few-Shot Learners</em>. NeurIPS.</p></li>
+<li><p>Wei, J., et al. (2022). <em>Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</em>. NeurIPS.</p></li>
+<li><p>Wang, X., et al. (2023). <em>Self-Consistency Improves Chain of Thought Reasoning in Language Models</em>. ICLR.</p></li>
+<li><p>Qwen Team (2024). <em>Qwen2.5 Technical Report</em>. arXiv.</p></li>
+<li><p>Hugging Face Documentation. <em>Transformers Library</em>. <a class="reference external" href="https://huggingface.co/docs/transformers">https://huggingface.co/docs/transformers</a></p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="practice2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Reinforcement Learning</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-1-large-language-models-hugging-face-and-prompt-engineering">9.1. Practical Session 3 — Part 1: Large Language Models, Hugging Face, and Prompt Engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">9.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">9.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background-what-are-large-language-models">9.1.3. Background: What Are Large Language Models?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hugging-face-ecosystem">9.1.4. The Hugging Face Ecosystem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-precision-and-memory">9.1.5. Model Precision and Memory</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-loading-and-running-a-small-llm">9.2. Part 1: Loading and Running a Small LLM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-right-model">9.2.1. Choosing the Right Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-model">9.2.2. Loading the Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifying-the-model-works">9.2.3. Verifying the Model Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-tokenization">9.2.4. Understanding Tokenization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-text">9.2.5. Generating Text</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-chat-templates">9.2.6. Using Chat Templates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-parameters">9.2.7. Generation Parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-prompt-engineering-fundamentals">9.3. Part 2: Prompt Engineering Fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-prompt-engineering">9.3.1. What Is Prompt Engineering?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-anatomy-of-a-good-prompt">9.3.2. The Anatomy of a Good Prompt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-shot-prompting">9.3.3. Zero-Shot Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#few-shot-prompting">9.3.4. Few-Shot Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chain-of-thought-cot-prompting">9.3.5. Chain-of-Thought (CoT) Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-output-prompting">9.3.6. Structured Output Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#role-prompting">9.3.7. Role Prompting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-prompt-chaining">9.4. Part 3: Prompt Chaining</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#breaking-complex-tasks-into-steps">9.4.1. Breaking Complex Tasks into Steps</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-evaluating-prompt-strategies">9.5. Part 4: Evaluating Prompt Strategies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-an-evaluation-framework">9.5.1. Building an Evaluation Framework</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-strategies">9.5.2. Comparing Strategies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-results">9.5.3. Visualizing Results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">9.6. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-model-exploration">9.6.1. Exercise 1: Model Exploration</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">9.6.1.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">9.6.1.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">9.6.1.3. Deliverables</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-prompt-engineering-challenge">9.6.2. Exercise 2: Prompt Engineering Challenge</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">9.6.2.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">9.6.2.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">9.6.2.3. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">9.6.2.4. Evaluation Criteria</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-building-a-prompt-based-application">9.6.3. Exercise 3: Building a Prompt-Based Application</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">9.6.3.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">9.6.3.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#test-data">9.6.3.3. Test Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">9.6.3.4. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">9.6.3.5. Evaluation Criteria</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">9.7. References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Universidad de Alicante
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1085 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>5. LLMs and VLMs &#8212; Agentes Inteligentes IA</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'topic3';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="6. Graph Neural Networks" href="practice0.html" />
+    <link rel="prev" title="4. Reinforcement Learning" href="topic2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Agentes Inteligentes IA - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Agentes Inteligentes IA - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI2026
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intelligent Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bloque1_Introducci%C3%B3n.html">1. The Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithmic Reasoning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic1.html">2. Graph Neural Networks</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reinforcement Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic2.html">4. Reinforcement Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generative Agents</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. LLMs and VLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">6. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice1.html">7. Clique Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice2.html">8. Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">9. Intelligent Agents</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ftopic3.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/topic3.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LLMs and VLMs</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-architectures">5.1. Transformer Architectures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoder-decoder">5.1.1. Encoder-Decoder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decoder-only">5.1.2. Decoder-only</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoder-only">5.1.3. Encoder-only</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-transformers-work">5.2. How do Transformers work?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenization">5.2.1. Tokenization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#towards-active-semantics">5.2.2. Towards active semantics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qweries-and-keys">5.2.3. Qweries and Keys</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attention">5.3. Attention</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-attention-and-softmax">5.3.1. Raw Attention and Softmax</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#value">5.3.2. Value</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#blending">5.3.3. Blending</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-attention-heads">5.3.4. Multiple Attention heads</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-architecture">5.4. Full Architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-token-machines">5.5. Next-Token Machines</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="llms-and-vlms">
+<h1><span class="section-number">5. </span>LLMs and VLMs<a class="headerlink" href="#llms-and-vlms" title="Permalink to this heading">#</a></h1>
+<section id="transformer-architectures">
+<h2><span class="section-number">5.1. </span>Transformer Architectures<a class="headerlink" href="#transformer-architectures" title="Permalink to this heading">#</a></h2>
+<p>The power of Large Language Models (LLMs) such as GPTs, LLaMa is the Transformer (see the beginning of this subject). Roughly speaking, we have <strong>three uses</strong> of such architecture (see <a class="reference internal" href="#architectures"><span class="std std-numref">Fig. 5.1</span></a>).</p>
+<section id="encoder-decoder">
+<h3><span class="section-number">5.1.1. </span>Encoder-Decoder<a class="headerlink" href="#encoder-decoder" title="Permalink to this heading">#</a></h3>
+<p>In sequence-to-sequence (e.g Google Translate), <span style="color:#2f6004">there is an <ins>encoder</ins> that <em>understands</em> the input sequence and a <ins>decoder</ins> which <em>generates</em> the output</span>. Herein, the pair (<em>understanding</em>,<em>generating</em>) means:</p>
+<p><strong><ins>Understanding</ins> is in the encoder part</strong>:</p>
+<ol class="arabic simple">
+<li><p>Building the initial vectorial semantics* of the words (<strong>Embeddings</strong>)</p></li>
+<li><p>Discover/establish  <em>relationships</em> between different words via the relationships between these semantics (<strong>bidirectional all-and-all Attention</strong>).</p></li>
+<li><p>Enrich the initial vectorial semantics by <em>applying</em> the relationships and <strong>projecting</strong> (MLP/FFN).</p></li>
+</ol>
+<p><strong><ins>Generating</ins> is in the decoder part</strong>:</p>
+<ol class="arabic simple">
+<li><p>Enriched representations of the <strong>input sequence</strong> are fed to the encoder where they help to generate the representations of the <strong>target sequence</strong>.</p></li>
+<li><p>Generation relies on attending the relevant parts of the input’s representations (<strong>masked Attention</strong>).</p></li>
+<li><p>Finally, the encoder applies MLP/FFN to project the (proposed) target sequence.</p></li>
+<li><p>The loss function modifies/refines the proposal.</p></li>
+</ol>
+<figure class="align-center" id="architectures">
+<a class="reference internal image-reference" href="_images/Text-to-Text-Models.png"><img alt="_images/Text-to-Text-Models.png" src="_images/Text-to-Text-Models.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.1 </span><span class="caption-text">Text-to-Text Models and Transformer Architectures. Source: Medium.</span><a class="headerlink" href="#architectures" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Finally there is a <strong>cross Attention</strong> between representations of the encoder and the decoder.</p>
+</section>
+<section id="decoder-only">
+<h3><span class="section-number">5.1.2. </span>Decoder-only<a class="headerlink" href="#decoder-only" title="Permalink to this heading">#</a></h3>
+<p>This is the most frequent use of LLMs: purely generative. <span style="color:#2f6004"><ins>At a first sight, dec-only can be seen as an <strong>unnecessary</strong>  oversimplification</ins></span> of the original enc-dec architecture, but this is not the case:</p>
+<ol class="arabic simple">
+<li><p>The encoding part introduces an <strong>inductive bias</strong> that may be not so convenient in certain simpler tasks. The so called <strong>bottleneck effect</strong> is derived from stacking many layers. Basically, this sets a <strong>semantic gap</strong> between the top layers of the encoder and the bottom layers of the decoder (this is why the cross Attention is useful).</p></li>
+<li><p>Dec-only is <strong>sufficient, simple and scalable</strong>. This motivates the popularity of Chatbots like the GPT series (1-to-4). In addition it can be used for translation purposes due to its <strong>auto-regressive nature</strong>.</p></li>
+</ol>
+<p><span style="color:#2f6004"><ins>Auto-regressive (AR)</ins> models focus on <strong>regenerating text</strong></span>.</p>
+<p>This is done by addressign the AR-objective:</p>
+<div class="math notranslate nohighlight">
+\[
+\max_{\theta} \log_{\theta} p(\mathbf{x}_1,\ldots,\mathbf{x}_T)\approx \sum_{t=1}^T\log_{\theta}(\mathbf{x}_t|\mathbf{x}_1,\ldots,\mathbf{x}_{t-1})=\sum_{t=1}^T\log\underbrace{\frac{\exp(\mathbf{y}_{\mathbf{x}_1,\ldots,\mathbf{x}_{t-1}}(\mathbf{x}_t))}{\sum_{\mathbf{x}'}\exp(\mathbf{y}_{\mathbf{x}_1,\ldots,\mathbf{x}_{t-1}}(\mathbf{x}'))}}_{\text{Softmax}(\mathbf{y}_{\mathbf{x}_1,\ldots,\mathbf{x}_{t-1}}(\mathbf{x}_t))}\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{y}(.)\)</span>  represents the function of a token <span class="math notranslate nohighlight">\(\mathbf{x}_t\)</span> given the previous text sequence <span class="math notranslate nohighlight">\(\mathbf{x}_1,\ldots,\mathbf{x}_{t-1}\)</span>.</p>
+</section>
+<section id="encoder-only">
+<h3><span class="section-number">5.1.3. </span>Encoder-only<a class="headerlink" href="#encoder-only" title="Permalink to this heading">#</a></h3>
+<p>Is similar to dec-only but with full bidirectional attention (BERT). What is important here is that the encoder ends-up building an  embedding for the input. Such embedding can feed a task-specific layer (e.g classification returning membership probabilities). As a result, <span style="color:#2f6004">enc-only <strong>are not generative at all</strong></span>.</p>
+</section>
+</section>
+<section id="how-do-transformers-work">
+<h2><span class="section-number">5.2. </span>How do Transformers work?<a class="headerlink" href="#how-do-transformers-work" title="Permalink to this heading">#</a></h2>
+<p><strong>The token’s journey</strong>. Let us focus on  the <strong>encoder-only</strong> architecture. <span style="color:#2f6004">AR models are a good example of  <strong>Causal Language Modeling</strong> (CLM) where we seek a model that learns to predict the next token based only on the preceeding context</span>.</p>
+<section id="tokenization">
+<h3><span class="section-number">5.2.1. </span>Tokenization<a class="headerlink" href="#tokenization" title="Permalink to this heading">#</a></h3>
+<p>Given an input sentence such as</p>
+<div class="math notranslate nohighlight">
+\[
+\text{&quot;Tell me the most popular song in YouTube&quot;} 
+\]</div>
+<p>the basic idea of tokenization is to convert the string of text into a list of <span style="color:#2f6004"><strong>tokens</strong>, where each token represents a set of characters from the text in a numeric format</span>:</p>
+<ol class="arabic simple">
+<li><p><ins>The conversion</ins> typically happens either at a <strong>word level</strong> or a <strong>sub-word level</strong> instead of at a character level, since it is more efficient to assign a <strong>numerical semantic</strong> to the tokens (i.e. their meaning is in the numerical real). For instance, if we use the HugginFace model <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span> we get the following <strong>words</strong>:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">L</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Tell&#39;</span><span class="p">,</span> <span class="s1">&#39; me&#39;</span><span class="p">,</span> <span class="s1">&#39; what&#39;</span><span class="p">,</span> <span class="s1">&#39; is&#39;</span><span class="p">,</span> <span class="s1">&#39; the&#39;</span><span class="p">,</span> <span class="s1">&#39; most&#39;</span><span class="p">,</span> <span class="s1">&#39; popular&#39;</span><span class="p">,</span> <span class="s1">&#39; song&#39;</span><span class="p">,</span> <span class="s1">&#39; in&#39;</span><span class="p">,</span> <span class="s1">&#39; YouTube&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>with the following <strong>IDs</strong> in the vocabulary:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Input</span> <span class="n">IDs</span><span class="p">:</span> <span class="p">[</span><span class="mi">17570</span><span class="p">,</span> <span class="mi">479</span><span class="p">,</span> <span class="mi">752</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">253</span><span class="p">,</span> <span class="mi">954</span><span class="p">,</span> <span class="mi">4633</span><span class="p">,</span> <span class="mi">4498</span><span class="p">,</span> <span class="mi">275</span><span class="p">,</span> <span class="mi">15167</span><span class="p">]</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>The <ins>numerical semantic</ins> or <strong>embedding</strong> is necessary because any of the words/IDs will be associated a real-valued vector (in this case of <strong>dimension</strong> <span class="math notranslate nohighlight">\(768\)</span>). In <a class="reference internal" href="#youtube-1"><span class="std std-numref">Fig. 5.2</span></a> (top) we show some of the dimensions of the tokens.</p></li>
+</ol>
+<figure class="align-center" id="youtube-1">
+<a class="reference internal image-reference" href="_images/Youtube-Token-process.png"><img alt="_images/Youtube-Token-process.png" src="_images/Youtube-Token-process.png" style="width: 800px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.2 </span><span class="caption-text">The three stages of the token’s journey. Source: example generated by Gemini.</span><a class="headerlink" href="#youtube-1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>After tokenization and embedding we have:</p>
+<div class="math notranslate nohighlight">
+\[
+L = [
+\underbrace{\textbf{Tell}}_{\mathbf{h}_1},\; \underbrace{\textbf{me}}_{\mathbf{h}_2},\; \underbrace{\textbf{what}}_{\mathbf{h}_3},\; \underbrace{\textbf{is}}_{\mathbf{h}_4},\; \underbrace{\textbf{the}}_{\mathbf{h}_5},\; \underbrace{\textbf{most}}_{\mathbf{h}_6},\; \underbrace{\textbf{popular}}_{\mathbf{h}_7},\; \underbrace{\textbf{song}}_{\mathbf{h}_8},\; \underbrace{\textbf{in}}_{\mathbf{h}_9},\; \underbrace{\textbf{ YouTube}}_{\mathbf{h}_{10}}
+]
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}_{\omega} = E(\text{L}_{\omega}),\; \omega\in \{1,\ldots,10\}\;.
+\]</div>
+<p>and <span class="math notranslate nohighlight">\(E(\text{L}_{\omega})\)</span> is the <span class="math notranslate nohighlight">\(768-\)</span>dimensional embedding for the <span class="math notranslate nohighlight">\(\omega-\)</span>th token.</p>
+<p><strong>Attention weights</strong>. Since the Transformer is an AR model, it computes real-valued coefficients <span class="math notranslate nohighlight">\(S_{\omega',\omega}\)</span>(<strong>attention weights</strong>) quantifying how much important are the embeddings of [<span class="math notranslate nohighlight">\(\textbf{Tell}\)</span>, <span class="math notranslate nohighlight">\(\textbf{me}\)</span>, <span class="math notranslate nohighlight">\(\textbf{what}\)</span>,…,<span class="math notranslate nohighlight">\(\textbf{YouTube}\)</span>] to <strong>explain</strong> the last one <span class="math notranslate nohighlight">\(\textbf{YouTube}\)</span> (see <a class="reference internal" href="#youtube-1"><span class="std std-numref">Fig. 5.2</span></a> (middle)):</p>
+<div class="math notranslate nohighlight">
+\[
+S_{\omega',\omega}\in [0,1]\;\text{with}\; \omega \in \{1,\ldots,10\}\;\text{and}\;\omega'=10.
+\]</div>
+<p><strong>Aggretation</strong>. Finally, the model returns the weighted sum (where the weights are the attention weights) of the initial embeddings. As a result, we obtain the <strong>contextual vector</strong> for the last token of the sequence. This vector <strong>encapsulates</strong> al the relevant knowledge of the context (see <a class="reference internal" href="#youtube-1"><span class="std std-numref">Fig. 5.2</span></a> (bottom)).</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{h}_{\omega'}=\sum_{\omega}S_{\omega',\omega}\cdot\mathbf{h}_{\omega}\;.
+\]</div>
+<p><strong>Projection and logits</strong>. This contextual vector is projected on the subsequent MLP/FFN to calculate the <strong>logits</strong> and predict the next token. Such a prediction is heavily based on the contextual vector.</p>
+</section>
+<section id="towards-active-semantics">
+<h3><span class="section-number">5.2.2. </span>Towards active semantics<a class="headerlink" href="#towards-active-semantics" title="Permalink to this heading">#</a></h3>
+<p>Note that <span style="color:#2f6004">the token’s journey is the story of how the semantics of other tokens (including itself) <strong>modify</strong> its initial semantics</span>.</p>
+<p>An <strong>operational understanding</strong> of this modification regards the simplicity the vectorial coding (embedding) and the operational algebra (matricial multiplication).</p>
+<p>However, an <strong>in-depth understanding</strong> concerns understanding the structure of the embedding space or <strong>latent space</strong>.</p>
+<p>We exemplify this in <a class="reference internal" href="#active-semantics-1"><span class="std std-numref">Fig. 5.3</span></a>, where we show several vectors associated to a given semantic field such as ‘music’. Consider for instance the vector for <span class="math notranslate nohighlight">\(\textbf{song}\)</span>. In the figure we show the first <span class="math notranslate nohighlight">\(5\)</span> dimensions for the embeddings of related concepts such as <span class="math notranslate nohighlight">\(\textbf{song}\)</span>, <span class="math notranslate nohighlight">\(\textbf{singing}\)</span> and <span class="math notranslate nohighlight">\(\textbf{album}\)</span>.</p>
+<p><strong>Cosine similarity</strong>. The most dissimilar token in <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span> is <span class="math notranslate nohighlight">\(\textbf{dislocation}\)</span>. How do we measure such a ‘difference? We simply use the <strong>cosine (dis)similarity</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Sim}(\mathbf{a},\mathbf{b}) =\frac{\langle\mathbf{a},\mathbf{b}\rangle}{||\mathbf{a}||\cdot||\mathbf{b}||}\in [-1,1]\;.
+\]</div>
+<p>which is the cosine of the angle between <span class="math notranslate nohighlight">\(\mathbf{a}=E(\textbf{song})\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b}=E(\textbf{X})\)</span>. In <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span>, the maximum dissimilarity is given by <span class="math notranslate nohighlight">\(\textbf{X}=\textbf{dislocation}\)</span> and it is <span class="math notranslate nohighlight">\(-0.1503\)</span>.</p>
+<p>Note that <span style="color:#2f6004">the embedding of the same token can be <strong>different for different models</strong></span>. In the case of <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span>, the model is trained with coments on YouTube videos and this highly influences the semantics of each token. In this context, <span class="math notranslate nohighlight">\(\textbf{dislocation}\)</span> is almost opposite to <span class="math notranslate nohighlight">\(\textbf{song}\)</span>.</p>
+<figure class="align-center" id="active-semantics-1">
+<a class="reference internal image-reference" href="_images/Active-Semantics-1.png"><img alt="_images/Active-Semantics-1.png" src="_images/Active-Semantics-1.png" style="width: 800px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.3 </span><span class="caption-text">Direction and semantics. Source: Author.</span><a class="headerlink" href="#active-semantics-1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Projection</strong>. Remember that the dot product <span class="math notranslate nohighlight">\(\langle\mathbf{a},\mathbf{b}\rangle\)</span> is correlated (positively or negatively) with the orthogonal projection (shadow) of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> on <span class="math notranslate nohighlight">\(\mathbf{a}\)</span>. Herein, we have that <span class="math notranslate nohighlight">\(\textbf{song}\)</span> is more similar to <span class="math notranslate nohighlight">\(\textbf{album}\)</span> than to <span class="math notranslate nohighlight">\(\textbf{singing}\)</span> (larger projection of <span class="math notranslate nohighlight">\(E(\textbf{album})\)</span> than <span class="math notranslate nohighlight">\(E(\textbf{singing})\)</span> on <span class="math notranslate nohighlight">\(E(\textbf{song})\)</span>.</p>
+<p><strong>Embedding algebra</strong>. It is well known that, in general</p>
+<div class="math notranslate nohighlight">
+\[
+E(\textbf{man})-E(\textbf{woman})\approx E(\textbf{king})-E(\textbf{queen})\;.
+\]</div>
+<p>This suggests that the <strong>direction</strong> of the vector <span class="math notranslate nohighlight">\(E(\textbf{man})-E(\textbf{woman})\)</span> encodes roughly the concept of ‘gender’. Therefore, each of the <span class="math notranslate nohighlight">\(768\)</span> dimensions of an embedding in <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span> encodes a concept. In <a class="reference internal" href="#active-semantics-1"><span class="std std-numref">Fig. 5.3</span></a> we find that</p>
+<div class="math notranslate nohighlight">
+\[
+E(\textbf{song})-E(\textbf{album})\approx E(\textbf{song})-E(\textbf{singing})\;,
+\]</div>
+<p>since there is a significant (and positive) correlation between both differences (vectors in red in the figure). It seems that these <strong>differential directions</strong> encode, in this case, a notion of ‘action’ or ‘sub-product’. We are really playing the <strong>analogy</strong> game.</p>
+<p><strong>How many dimensions?</strong>. Using only <span class="math notranslate nohighlight">\(768\)</span> dimensions means encoding the same number of concepts such as ‘gender’ or ‘action’. Two concepts are ‘extrictly different’ in so far their <strong>dot product is zero</strong> (they are orthogonal). If so, only <span class="math notranslate nohighlight">\(N=768\)</span> ‘different concepts can be coded.</p>
+<p>However, if we relax the orthogonality condition a bit, two concepts <span class="math notranslate nohighlight">\(\mathbf{a}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> may be considered ‘almost different’ if <span class="math notranslate nohighlight">\(\langle\mathbf{a},\mathbf{b}\rangle\approx 0\)</span>. In this latter case, there are <span class="math notranslate nohighlight">\(\exp(\epsilon N)\)</span> concepts, where <span class="math notranslate nohighlight">\(\epsilon\)</span> is the margin of error, can be coded.</p>
+</section>
+<section id="qweries-and-keys">
+<h3><span class="section-number">5.2.3. </span>Qweries and Keys<a class="headerlink" href="#qweries-and-keys" title="Permalink to this heading">#</a></h3>
+<p>Back to the example input sentence, there is evidently a <strong>verb</strong> (<span class="math notranslate nohighlight">\(\textbf{Tell}\)</span>) that can potentially modify the meaning of the <strong>Indirect Object</strong> <span class="math notranslate nohighlight">\(\textbf{me}\)</span> and the <strong>Direct Object</strong> <span class="math notranslate nohighlight">\(\textbf{what}\)</span>. <span style="color:#2f6004">Both <span class="math notranslate nohighlight">\(\textbf{me}\)</span> and <span class="math notranslate nohighlight">\(\textbf{what}\)</span> <strong>are not semantically close</strong> to a verb in the model</span>. Actually, they are almost orthogonal to <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span>: <span class="math notranslate nohighlight">\(\textbf{Sim}(E(\textbf{me}),E(\textbf{Tell}))=0.0153\)</span> and <span class="math notranslate nohighlight">\(\textbf{Sim}(E(\textbf{what}),E(\textbf{Tell}))=0.0668\)</span> (see <a class="reference internal" href="#active-semantics-2"><span class="std std-numref">Fig. 5.4</span></a>).</p>
+<figure class="align-center" id="active-semantics-2">
+<a class="reference internal image-reference" href="_images/Active-Semantics-2.png"><img alt="_images/Active-Semantics-2.png" src="_images/Active-Semantics-2.png" style="width: 800px; height: 650px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.4 </span><span class="caption-text">The role of the Query and Key Matrices. Source: Author.</span><a class="headerlink" href="#active-semantics-2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>So, how does the model realizes that <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span> is a good candidate to modify the embeddings of <span class="math notranslate nohighlight">\(\textbf{me}\)</span> and <span class="math notranslate nohighlight">\(\textbf{what}\)</span>? To that end, the model stores <strong>two matrices</strong>:</p>
+<ol class="arabic">
+<li><p><strong>Query Matrix</strong>: <span class="math notranslate nohighlight">\(\mathbf{W}_Q\)</span> has size <span class="math notranslate nohighlight">\(768\times 768\)</span> in this model. <span style="color:#2f6004">This matrix can be seen as <strong>the question</strong> that any token in the sequence makes to the others in order to understand its <strong>context inside the sentence</strong></span>.</p>
+<p>a) When we compute <span class="math notranslate nohighlight">\(\mathbf{W}_Q\cdot E_2=Q_2\)</span>, we are projecting <span class="math notranslate nohighlight">\(E(\textbf{what})\)</span> onto the <strong>Verbs</strong> space and similarly with  <span class="math notranslate nohighlight">\(\mathbf{W}_Q\cdot E_1=Q_1\)</span> and <span class="math notranslate nohighlight">\(E(\textbf{me})\)</span>.</p>
+<p>b) In other words, we are asking <strong>how consistent</strong> is the semantics of <span class="math notranslate nohighlight">\(\textbf{what}\)</span> and <span class="math notranslate nohighlight">\(\textbf{me}\)</span> with those of a verb (in this case <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span>). This means that <span class="math notranslate nohighlight">\(\mathbf{W}_Q\)</span> mostly accepts queries abour the <strong>verbness</strong> of the tokens.</p>
+</li>
+<li><p><strong>Key Matrix</strong>: <span class="math notranslate nohighlight">\(\mathbf{W}_K\)</span> has size <span class="math notranslate nohighlight">\(768\times 768\)</span> in this model. <span style="color:#2f6004">This matrix can be seen as <strong>the information</strong> that any token in the sequence offers to the others about its semantics.</span></p>
+<p>a) When we compute <span class="math notranslate nohighlight">\(\mathbf{W}_K\cdot E_0=K_0\)</span>, we are projecting <span class="math notranslate nohighlight">\(E(\textbf{Tell})\)</span> onto the <strong>Verbs</strong> space.</p>
+<p>b) As <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span> is a verb, its projection into the <strong>Verbs</strong> will be close to that of other verbs. In other words, <span class="math notranslate nohighlight">\(K_0\)</span> offers to the other members of the sequence its  <strong>verbness</strong>.</p>
+</li>
+</ol>
+<p>Note in <a class="reference internal" href="#active-semantics-2"><span class="std std-numref">Fig. 5.4</span></a> that <strong>before</strong> projecting <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span> in <span class="math notranslate nohighlight">\(\mathbf{W}_K\)</span> and <span class="math notranslate nohighlight">\(\textbf{what}\)</span> in <span class="math notranslate nohighlight">\(\mathbf{W}_Q\)</span>, we have the similarity between <span class="math notranslate nohighlight">\(E_2\)</span> and <span class="math notranslate nohighlight">\(E_0\)</span> is <span class="math notranslate nohighlight">\(\text{Sim}(E(\textbf{what}),E(\textbf{Tell}))=0.0668\)</span> (near orthogonal concepts), but after these projection we have <span class="math notranslate nohighlight">\(\text{Sim}(Q_2,K_0)=0.1148\)</span>. This means that both <strong>key and query are aligned</strong>: <span class="math notranslate nohighlight">\(\textbf{what}\)</span> is asking for verbs and <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span> is offering itself. <span style="color:#2f6004">This is a clear indicator that <strong>the semantics of <span class="math notranslate nohighlight">\(\textbf{what}\)</span> are going to be influenced by that of <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span></strong>!</span> (and similarly with <span class="math notranslate nohighlight">\(\text{me}\)</span>).</p>
+<p>in <a class="reference internal" href="#pca-qk"><span class="std std-numref">Fig. 5.5</span></a> we show a 2D proyection of the Qwery/Key space. Note that the queries of <span class="math notranslate nohighlight">\(\textbf{me}\)</span> and <span class="math notranslate nohighlight">\(\textbf{what}\)</span> are pretty close to the key <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span>.</p>
+<figure class="align-center" id="pca-qk">
+<a class="reference internal image-reference" href="_images/PCA-QK.png"><img alt="_images/PCA-QK.png" src="_images/PCA-QK.png" style="width: 800px; height: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.5 </span><span class="caption-text">PCA of the Query/Key Spaces. Source: Gemini.</span><a class="headerlink" href="#pca-qk" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="attention">
+<h2><span class="section-number">5.3. </span>Attention<a class="headerlink" href="#attention" title="Permalink to this heading">#</a></h2>
+<section id="raw-attention-and-softmax">
+<h3><span class="section-number">5.3.1. </span>Raw Attention and Softmax<a class="headerlink" href="#raw-attention-and-softmax" title="Permalink to this heading">#</a></h3>
+<p>A central element of the transformer is the set of pairs <span class="math notranslate nohighlight">\((Q_i,K_j)\)</span> where all tokens ask information (Query) about all others, since we don’t know in advance what query is aligned with what key.</p>
+<p>However, <span style="color:#2f6004">in <strong>dec-only</strong> models, it is <strong>not allowed</strong> that tokens in a given position attend (query) posterior tokens (since this is cheating in <strong>causal lenguage modeling</strong>)</span>. Therefore, we get only <span class="math notranslate nohighlight">\((Q_i,K_j)\)</span> pairs where <span class="math notranslate nohighlight">\(j\le i\)</span> (this is the <strong>causal mask</strong>).</p>
+<p>Given these the pairs <span class="math notranslate nohighlight">\((Q_i,K_j)_{j\le
+i}\)</span> we perform the following computations:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\langle Q_i,K_j\rangle}{\sqrt{d_k}} = \frac{Q_iK_j^T}{\sqrt{d_k}}\;,
+\]</div>
+<p>or matricially</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{R}=\frac{\mathbf{Q}\cdot \mathbf{K}^T}{\sqrt{d_k}}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(d_k\)</span> is the dimension (size) of the Key space (<span class="math notranslate nohighlight">\(768\)</span> in this model). The above matrix contains the <strong>raw attention weights</strong>. They are ‘raw’ because there are not still a <strong>probability distribution wrt each row</strong>.</p>
+<p>Consider now a row <span class="math notranslate nohighlight">\(\mathbf{R}_{i:}\)</span> of <span class="math notranslate nohighlight">\(\mathbf{R}\)</span>. If we set <span class="math notranslate nohighlight">\(\mathbf{R}(i,j)=+\infty\)</span> for <span class="math notranslate nohighlight">\(j&gt;i\)</span> and compute</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{S}_{i:}=\text{Softmax}(\mathbf{R}_{i:})=\left[\frac{e^{x_0}}{\sum_j e^{x_j}}\;\frac{e^{x_1}}{\sum_j e^{x_j}}\;\ldots\;\frac{e^{x_{L-1}}}{\sum_j e^{x_j}}\right]\;\text{with}\; x_i = \frac{Q_iK^T_j}{\sqrt{d_k}}\;.
+\]</div>
+<p>since <span class="math notranslate nohighlight">\(e^{-\infty}=0\)</span>, we naturally give a zero attention weight to ‘future’ tokens.</p>
+<p>Matricially, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{S}=\text{Softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)
+\]</div>
+<p>The <strong>attention pattern</strong> for a given pair <span class="math notranslate nohighlight">\((\mathbf{W}_Q,\mathbf{W}_K)\)</span> i.e. what produces the matrices <span class="math notranslate nohighlight">\((\mathbf{Q},\mathbf{K})\)</span> is shown in  <a class="reference internal" href="#attention-0-0"><span class="std std-numref">Fig. 5.6</span></a>. Note the lower-triangular structure due to causality. As expected, both <span class="math notranslate nohighlight">\(\textbf{me}\)</span> and <span class="math notranslate nohighlight">\(\textbf{what}\)</span> attend preferently to <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span>.</p>
+<figure class="align-center" id="attention-0-0">
+<a class="reference internal image-reference" href="_images/Attention-0-0.png"><img alt="_images/Attention-0-0.png" src="_images/Attention-0-0.png" style="width: 600px; height: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.6 </span><span class="caption-text">Attention head 0 for layer 0. Source: Gemini.</span><a class="headerlink" href="#attention-0-0" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="value">
+<h3><span class="section-number">5.3.2. </span>Value<a class="headerlink" href="#value" title="Permalink to this heading">#</a></h3>
+<p>Once we have the probabilities that any token attends any preceeding one (including itself) in the sequence, we can proceed to <strong>update its embedding</strong> as suggested in <a class="reference internal" href="#youtube-1"><span class="std std-numref">Fig. 5.2</span></a> (bottom).</p>
+<p>In order to update the embedding of a given token, say <span class="math notranslate nohighlight">\(\textbf{me}\)</span> or <span class="math notranslate nohighlight">\(\textbf{what}\)</span> we project the embedding of that token on a <strong>Value Matrix</strong> <span class="math notranslate nohighlight">\(\mathbf{W}_V\)</span> of size has size <span class="math notranslate nohighlight">\(768\times 768\)</span> in this model.</p>
+<p><span style="color:#2f6004">The role of <span class="math notranslate nohighlight">\(V_i=\mathbf{W}_V E_i\)</span> is to <strong>contextualize</strong> the embedding <span class="math notranslate nohighlight">\(E_i\)</span> wrt to the input sentence</span>. The result, <span class="math notranslate nohighlight">\(V_i\)</span> is the <strong>adapted meaning</strong> of <span class="math notranslate nohighlight">\(E_i\)</span> wrt to the input sentence <span class="math notranslate nohighlight">\(L\)</span>. For instance, in <a class="reference internal" href="#pca-v"><span class="std std-numref">Fig. 5.7</span></a> we show how the initial embeddings change after contextualization: each cross represents a <span class="math notranslate nohighlight">\(V_i\)</span>.</p>
+<figure class="align-center" id="pca-v">
+<a class="reference internal image-reference" href="_images/PCA-V.png"><img alt="_images/PCA-V.png" src="_images/PCA-V.png" style="width: 600px; height: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.7 </span><span class="caption-text">PCA of the Value Space. Source: Gemini.</span><a class="headerlink" href="#pca-v" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="blending">
+<h3><span class="section-number">5.3.3. </span>Blending<a class="headerlink" href="#blending" title="Permalink to this heading">#</a></h3>
+<p>Once we have computed the attention weights and the values, are the embeddings are (matricially)modified as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{E}^{\text{att}}_{L\times d_k} = \text{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V}) = \underbrace{\text{Softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)}_{\mathbf{S}}\cdot\mathbf{V} = \mathbf{S}_{L\times L}\cdot\mathbf{V}_{L\times d_k}\;.
+\]</div>
+<p>This process is know as <strong>blending</strong>.</p>
+<p>Note that the <strong>rows</strong> of <span class="math notranslate nohighlight">\(\mathbf{S}\)</span> contain the attention coefficients for a given token <span class="math notranslate nohighlight">\(i\)</span> (how it attends to all the other tokens in the sequence) and each <strong>column</strong> of <span class="math notranslate nohighlight">\(\mathbf{V}\)</span> has the contextualized values of this token.</p>
+<p>For a particular <span class="math notranslate nohighlight">\(E^{\text{att}}_i\)</span> we have:</p>
+<div class="math notranslate nohighlight">
+\[
+E^{\text{att}}_i = \mathbf{S}(i,0)V_0 + \mathbf{S}(i,1)V_1 + \ldots + \mathbf{S}(i,L-1)V_{L-1} =\sum_j \mathbf{S}(i,j)V_j\;.
+\]</div>
+<p>In other words, <span style="color:#2f6004">the new embedding is given by the <strong>linear combination</strong> of the contextualized valued of <strong>all the embeddings</strong>, where the coefficients of the combination are the attention weights</span>. Naturally, when an attention coefficient is zero this means that the corresponding <span class="math notranslate nohighlight">\(V_j\)</span> has no effect in the new meaning of <span class="math notranslate nohighlight">\(E_i\)</span>.</p>
+<p>In <a class="reference internal" href="#pca-blending"><span class="std std-numref">Fig. 5.8</span></a>, we show the PCA space for the new embeddigs. Note that all of them are pretty aligned wrt a unique component and also that their relative distances are respectful with the order of the corresponding token in the sequence.</p>
+<figure class="align-center" id="pca-blending">
+<a class="reference internal image-reference" href="_images/PCA-Blending.png"><img alt="_images/PCA-Blending.png" src="_images/PCA-Blending.png" style="width: 600px; height: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.8 </span><span class="caption-text">PCA of Blending. Source: Gemini.</span><a class="headerlink" href="#pca-blending" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="multiple-attention-heads">
+<h3><span class="section-number">5.3.4. </span>Multiple Attention heads<a class="headerlink" href="#multiple-attention-heads" title="Permalink to this heading">#</a></h3>
+<p>Despite we have focused our discussion in a single attention head for explaining the role of the Q-K.-V matrices <span class="math notranslate nohighlight">\(\mathbf{W}_Q\)</span>, <span class="math notranslate nohighlight">\(\mathbf{W}_K\)</span> and <span class="math notranslate nohighlight">\(\mathbf{W}_V\)</span> for updating the embeddings of all the tokens in the input sentence, the Transformer has <strong>multiple attention heads</strong> as we show in <a class="reference internal" href="#mha"><span class="std std-numref">Fig. 5.9</span></a>.</p>
+<figure class="align-center" id="mha">
+<a class="reference internal image-reference" href="_images/MHA.png"><img alt="_images/MHA.png" src="_images/MHA.png" style="width: 800px; height: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.9 </span><span class="caption-text">Multi-head attention. Source: Source <a class="reference external" href="https://arxiv.org/pdf/1706.03762">Attention is all You Need</a>.</span><a class="headerlink" href="#mha" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In particular, the <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span> model has <strong>12 attention heads per layer</strong>. In <a class="reference internal" href="#heads"><span class="std std-numref">Fig. 5.10</span></a>, we show the 12 heads for the first Transformer layer. Note that, although most of the attention patterns are congruent with <strong>verbness</strong>, no one (but the AR training process) imposes this particular feature. In addition, many heads exhibit a <strong>self-attention</strong> (diagonal) pattern.</p>
+<figure class="align-center" id="heads">
+<a class="reference internal image-reference" href="_images/12heads.png"><img alt="_images/12heads.png" src="_images/12heads.png" style="width: 800px; height: 650px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.10 </span><span class="caption-text">12 attention heads of layer 0. Source: Gemini code for <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span>.</span><a class="headerlink" href="#heads" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Parallelization</strong>. Herein it is key to note that <span style="color:#2f6004">each particular attention head <strong>uptates the input embeddings in a different way</strong>. This adds a significant flexibility to the model. This is done <strong>in parallel</strong></span>.</p>
+<p><strong>Division and later concatenation</strong>. If we held 3 different Q-K-V matrices per layer, the output of each attention layer should have dimension <span class="math notranslate nohighlight">\(\text{num-heads}\times L\times 768\)</span> <strong>after  concatenating</strong> the outputs of all the heads. If so, the output dimension should be <span class="math notranslate nohighlight">\(12\times 10\times 768=92,160\)</span>. Thes would be impractical for large <span class="math notranslate nohighlight">\(L\)</span> (large contexts). What is usually done is:</p>
+<ol class="arabic simple">
+<li><p><strong>Unique Q-K-V matrices</strong>. Each layer hold <strong>unique</strong> <span class="math notranslate nohighlight">\(768\times 768\)</span> matrices <span class="math notranslate nohighlight">\(\mathbf{W}_Q\)</span>, <span class="math notranslate nohighlight">\(\mathbf{W}_K\)</span> and <span class="math notranslate nohighlight">\(\mathbf{W}_V\)</span>, however they are divided in <span class="math notranslate nohighlight">\(768\times d_q\)</span> blocks, where <span class="math notranslate nohighlight">\(d_q = 768/\text{num_heads}=64\)</span>.</p></li>
+<li><p><strong>Split</strong> <span class="math notranslate nohighlight">\(Q_i\)</span>, <span class="math notranslate nohighlight">\(K_i\)</span> and <span class="math notranslate nohighlight">\(V_i\)</span> (all of dimension <span class="math notranslate nohighlight">\(768\)</span>) into the <span class="math notranslate nohighlight">\(\text{num-heads}=12\)</span>, thus having <strong>sub-vectors</strong> of dimension <span class="math notranslate nohighlight">\(768/\text{num_heads} = 64\)</span>.</p></li>
+<li><p><strong>Merge</strong>. Feed each attention head with the three types of sub-vectors and then <strong>concatenate</strong> all the results, thus having a <span class="math notranslate nohighlight">\(L\times 768\)</span> dimensions (dimensionality consistency).</p></li>
+</ol>
+<p>This process is illustrated in <a class="reference internal" href="#q-split"><span class="std std-numref">Fig. 5.11</span></a> and <a class="reference internal" href="#split-and-merge"><span class="std std-numref">Fig. 5.12</span></a></p>
+<figure class="align-center" id="q-split">
+<a class="reference internal image-reference" href="_images/Q-split.png"><img alt="_images/Q-split.png" src="_images/Q-split.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.11 </span><span class="caption-text">Matrix Split. Source: <a class="reference external" href="https://towardsdatascience.com/transformers-explained-visually-part-3-multi-head-attention-deep-dive-1c1ff1024853/">Towards Data Science</a>.</span><a class="headerlink" href="#q-split" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="split-and-merge">
+<a class="reference internal image-reference" href="_images/Split-and-Merge.png"><img alt="_images/Split-and-Merge.png" src="_images/Split-and-Merge.png" style="width: 800px; height: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.12 </span><span class="caption-text">Split and Merge in Transformers. Source: <a class="reference external" href="https://towardsdatascience.com/transformers-explained-visually-part-3-multi-head-attention-deep-dive-1c1ff1024853/">Towards Data Science</a>.</span><a class="headerlink" href="#split-and-merge" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The <strong>split-and-merge</strong> approach allows that separate sections of the embedding can learn different aspects of the meaning of each word.</p>
+<p>Note, in <a class="reference internal" href="#pca-after"><span class="std std-numref">Fig. 5.13</span></a>,  that the PCA space after spli-and-merge (considering <strong>all heads</strong>) is different from that of blending (<a class="reference internal" href="#pca-blending"><span class="std std-numref">Fig. 5.8</span></a>) which is considering a <strong>single head</strong>.</p>
+<figure class="align-center" id="pca-after">
+<a class="reference internal image-reference" href="_images/PCA-after.png"><img alt="_images/PCA-after.png" src="_images/PCA-after.png" style="width: 600px; height: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.13 </span><span class="caption-text">PCA after split-and-merge for the first attention layer. Source: Gemini.</span><a class="headerlink" href="#pca-after" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Last layer heads</strong>. To conclude this part on attention, in <a class="reference internal" href="#last-heads"><span class="std std-numref">Fig. 5.14</span></a> we show the attention patterns of the last multi-head attention layer:</p>
+<figure class="align-center" id="last-heads">
+<a class="reference internal image-reference" href="_images/last-heads.png"><img alt="_images/last-heads.png" src="_images/last-heads.png" style="width: 800px; height: 650px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.14 </span><span class="caption-text">Attention heads of layer 11 (last layer). Source: Gemini code for <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span>.</span><a class="headerlink" href="#last-heads" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>The summary token</strong>. Interestingly, the most common attention pattern herein is that all tokens attend the inital one <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span>.  This often indicates that the first token has become a kind of ‘summary token’ or an ‘anchor’ for the entire input. As information flows through the model’s layers, the representation of the first token can <strong>accumulate global context</strong> or an overall understanding of the prompt. Subsequent tokens then attend to this enriched first token to quickly gather an aggregated view of the input, which can be highly efficient for tasks like prediction or understanding the overall theme. It acts as a stable reference point that distills the essence of the input, making it readily accessible for complex decision-making in the deeper layers.</p>
+<figure class="align-center" id="pca-before-after">
+<a class="reference internal image-reference" href="_images/PCA-before-after.png"><img alt="_images/PCA-before-after.png" src="_images/PCA-before-after.png" style="width: 600px; height: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.15 </span><span class="caption-text">PCA before FFN and after embedding. Source: Gemini.</span><a class="headerlink" href="#pca-before-after" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="full-architecture">
+<h2><span class="section-number">5.4. </span>Full Architecture<a class="headerlink" href="#full-architecture" title="Permalink to this heading">#</a></h2>
+<p>The key element of the Transformer arquitecture is the multi-head attention. However, there are some elements not yet discussed, who deserve a comment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GPTNeoXForCausalLM</span><span class="p">(</span>
+  <span class="p">(</span><span class="n">gpt_neox</span><span class="p">):</span> <span class="n">GPTNeoXModel</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">embed_in</span><span class="p">):</span> <span class="n">Embedding</span><span class="p">(</span><span class="mi">50304</span><span class="p">,</span> <span class="mi">768</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">emb_dropout</span><span class="p">):</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">layers</span><span class="p">):</span> <span class="n">ModuleList</span><span class="p">(</span>
+      <span class="p">(</span><span class="mi">0</span><span class="o">-</span><span class="mi">11</span><span class="p">):</span> <span class="mi">12</span> <span class="n">x</span> <span class="n">GPTNeoXLayer</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">input_layernorm</span><span class="p">):</span> <span class="n">LayerNorm</span><span class="p">((</span><span class="mi">768</span><span class="p">,),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> <span class="n">elementwise_affine</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">post_attention_layernorm</span><span class="p">):</span> <span class="n">LayerNorm</span><span class="p">((</span><span class="mi">768</span><span class="p">,),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> <span class="n">elementwise_affine</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">post_attention_dropout</span><span class="p">):</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">post_mlp_dropout</span><span class="p">):</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">attention</span><span class="p">):</span> <span class="n">GPTNeoXAttention</span><span class="p">(</span>
+          <span class="p">(</span><span class="n">query_key_value</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2304</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <span class="p">(</span><span class="n">dense</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="p">(</span><span class="n">mlp</span><span class="p">):</span> <span class="n">GPTNeoXMLP</span><span class="p">(</span>
+          <span class="p">(</span><span class="n">dense_h_to_4h</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">3072</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <span class="p">(</span><span class="n">dense_4h_to_h</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">3072</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <span class="p">(</span><span class="n">act</span><span class="p">):</span> <span class="n">GELUActivation</span><span class="p">()</span>
+        <span class="p">)</span>
+      <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="p">(</span><span class="n">final_layer_norm</span><span class="p">):</span> <span class="n">LayerNorm</span><span class="p">((</span><span class="mi">768</span><span class="p">,),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> <span class="n">elementwise_affine</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">rotary_emb</span><span class="p">):</span> <span class="n">GPTNeoXRotaryEmbedding</span><span class="p">()</span>
+  <span class="p">)</span>
+  <span class="p">(</span><span class="n">embed_out</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">50304</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Embedding</strong>. The Embedding layer of <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span> is <span class="math notranslate nohighlight">\(\text{embed-in}\)</span>: It has dimension <span class="math notranslate nohighlight">\(\text{vocabulary-size}\times 768\)</span>. All semantics are stored in the weights of this layer.</p>
+<p><strong>Transformer layers</strong>. <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span> has 12 Transformer layers before a final <span class="math notranslate nohighlight">\(\text{LayerNorm}\)</span> and an <span class="math notranslate nohighlight">\(\text{embed_out}\)</span>, and inverse embedding for <strong>decoding</strong>.</p>
+<p><strong>Attention module</strong>. Each layer has <span class="math notranslate nohighlight">\(\text{GPTNeoXAttention}\)</span> which is basically an MLP <span class="math notranslate nohighlight">\(\text{(query_key_value)}\)</span> that learns the Q-K-V matrices. This 2-layer MLP first perform <strong>expansion</strong> (input: <span class="math notranslate nohighlight">\(768\)</span>, output: <span class="math notranslate nohighlight">\(4\times 768= 3072\)</span>) and to provide more abstract representations and then <strong>contraction</strong> to hold dimensionality consistency (input: <span class="math notranslate nohighlight">\(4\times 768=3072\)</span>, output: <span class="math notranslate nohighlight">\(768\)</span>).</p>
+</section>
+<section id="next-token-machines">
+<h2><span class="section-number">5.5. </span>Next-Token Machines<a class="headerlink" href="#next-token-machines" title="Permalink to this heading">#</a></h2>
+<p><strong>Logits</strong>. The last layer of our Transformer (<span class="math notranslate nohighlight">\(\text{embed_out}\)</span>) receives as input the <strong>hiddent state</strong> (update) of each token. As we are using an AR model, the role of this last layer is to produce, in turn, the <span style="color:#2f6004"><strong>logits</strong>, i.e. the <span class="math notranslate nohighlight">\(\ell(\mathbf{x}_t)=\mathbf{y}_{\mathbf{x}_1,\ldots,\mathbf{x}_{t-1}}(\mathbf{x}_t)\)</span>, where <span class="math notranslate nohighlight">\(\mathbf{x}_t\)</span> is any of the  <span class="math notranslate nohighlight">\(50,304\)</span> different tokens that can be the <strong>next</strong> one</span>.</p>
+<p><strong>Sampling/Decoding</strong>. An simple, but not confiable method for obaining the best token to predict is to sample the probabilities obtained by softmaxing the logits:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(T\)</span> is the temperature (<span class="math notranslate nohighlight">\(T=1\)</span> by default). The larger <span class="math notranslate nohighlight">\(T\)</span> the more entropic is the resuling probability distribution. The <strong>default setting</strong> ensures that we do not ‘randomize the distribution beyond the Transformer logits.</p>
+<p>In our example, where <span class="math notranslate nohighlight">\(T=0.7\)</span> the top5 tokens and their probabilities are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Top</span> <span class="mi">5</span> <span class="n">tokens</span> <span class="ow">and</span> <span class="n">their</span> <span class="n">probabilities</span><span class="p">:</span>
+  <span class="o">-</span> <span class="s1">&#39;...&#39;</span><span class="p">:</span> <span class="mf">0.8496</span>
+  <span class="o">-</span> <span class="s1">&#39;?&#39;</span><span class="p">:</span> <span class="mf">0.0542</span>
+  <span class="o">-</span> <span class="s1">&#39; ?&#39;</span><span class="p">:</span> <span class="mf">0.0220</span>
+  <span class="o">-</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span> <span class="mf">0.0129</span>
+  <span class="o">-</span> <span class="s1">&#39; history&#39;</span><span class="p">:</span> <span class="mf">0.0123</span>
+</pre></div>
+</div>
+<p>Therefore, a <strong>greedy search</strong> for the prediction produces <span class="math notranslate nohighlight">\(\text{'...'}\)</span>. However, doing this prediction time after time usually leads to incoherent output sentence.</p>
+<p><strong>Beam search</strong>. However, beam search produces a <strong>globally consistent</strong> sequence. It works as follows:</p>
+<ol class="arabic">
+<li><p><strong>Initialization</strong>. Generate the logits for the first token to predict and select the <span class="math notranslate nohighlight">\(k\)</span> tokens with largest probabilities (top-<span class="math notranslate nohighlight">\(k\)</span> tokens).</p></li>
+<li><p><strong>Iterative steps</strong>: For each of the <span class="math notranslate nohighlight">\(k\)</span> partial sequences:</p>
+<p>a) <strong>Add</strong> any of the possible tokens in the vocabulary.</p>
+<p>b) <strong>Calculate</strong> the logits of this new token conditioned to the extended sequence. <span style="color:#2f6004">This step <strong>implies running the Transformer again</strong> with the extended sequence</span>.</p>
+<p>c) <strong>Update</strong> the total score of the sequence /(usually the log of the cumulative probability).</p>
+<p>d) <strong>Select</strong>, from all the candidates generated, the best top-<span class="math notranslate nohighlight">\(k\)</span> for create the new <strong>beam</strong>.</p>
+</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">def</span> <span class="nf">simplified_beam_search</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">num_beams</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">input_ids</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">input_ids</span>
+    <span class="k">if</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token_id</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span>
+
+    <span class="c1"># Step 1: Generate the first candidate  `num_beams`:</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_ids</span><span class="p">)</span>
+        <span class="n">next_token_logits</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">logits</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">next_token_probs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">next_token_logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">top_probs</span><span class="p">,</span> <span class="n">top_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">next_token_probs</span><span class="p">,</span> <span class="n">num_beams</span><span class="p">)</span>
+
+    <span class="c1"># Each &quot;beam&quot; is a tuple (score_log, sequence_ids, parent_sequence_id)</span>
+    <span class="n">beams</span> <span class="o">=</span> <span class="p">[(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">prob</span><span class="o">.</span><span class="n">item</span><span class="p">()),</span> <span class="p">[</span><span class="n">idx</span><span class="o">.</span><span class="n">item</span><span class="p">()],</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">prob</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">top_probs</span><span class="p">,</span> <span class="n">top_indices</span><span class="p">)]</span>
+
+    <span class="c1"># Store the beam scores and sequences history for visualization</span>
+    <span class="n">beam_scores_history</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_beams</span><span class="p">)}</span>
+    <span class="n">beam_sequences_history</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_beams</span><span class="p">)}</span>
+    <span class="n">beam_parents_history</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_beams</span><span class="p">)}</span>
+
+    <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># To store (step, beam_idx, token_id, score, parent_idx)</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># Add initial nodes for the prompt (step -1)</span>
+    <span class="n">prompt_tokens</span> <span class="o">=</span> <span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">prompt_node_id</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">prompt_tokens</span><span class="p">)</span>
+    <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">prompt_node_id</span><span class="p">,</span>
+        <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">prompt_tokens</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="p">})</span>
+    <span class="n">current_node_id_counter</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Unique ID for each generated token sequence</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Step 0: Start with prompt: &#39;</span><span class="si">{</span><span class="n">prompt</span><span class="si">}</span><span class="s2">&#39; ---&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initial candidates (top </span><span class="si">{</span><span class="n">num_beams</span><span class="si">}</span><span class="s2">):&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">beams</span><span class="p">):</span> <span class="c1"># Fixed: Unpack 3 values</span>
+        <span class="n">full_seq</span> <span class="o">=</span> <span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">seq</span>
+        <span class="n">node_id</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">full_seq</span><span class="p">)</span>
+        <span class="n">parent_node_id</span> <span class="o">=</span> <span class="n">prompt_node_id</span>
+        
+        <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">node_id</span><span class="p">,</span>
+            <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span>
+            <span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s1">&#39;full_text&#39;</span><span class="p">:</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">full_seq</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">})</span>
+        <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parent_node_id</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">([</span><span class="n">seq</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])}))</span>
+
+        <span class="n">beam_scores_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+        <span class="n">beam_sequences_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="n">beam_parents_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_node_id</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - &#39;</span><span class="si">{</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">full_seq</span><span class="p">,</span><span class="w"> </span><span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39; (Score: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Step 2: Iterate to extend sequences:</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_new_tokens</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">all_candidates</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Store new candidates</span>
+
+        <span class="k">for</span> <span class="n">beam_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">seq_ids</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">beams</span><span class="p">):</span>
+            <span class="n">current_input_ids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">seq_ids</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">current_input_ids</span><span class="p">)</span>
+                <span class="n">next_token_logits</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">logits</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">next_token_probs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">next_token_logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+                <span class="c1"># Obtener los top `num_beams` tokens para extender cada secuencia actual</span>
+                <span class="n">next_top_probs</span><span class="p">,</span> <span class="n">next_top_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">next_token_probs</span><span class="p">,</span> <span class="n">num_beams</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">next_prob</span><span class="p">,</span> <span class="n">next_idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">next_top_probs</span><span class="p">,</span> <span class="n">next_top_indices</span><span class="p">):</span>
+                <span class="n">new_score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">next_prob</span><span class="o">.</span><span class="n">item</span><span class="p">())</span> <span class="c1"># Add log-probs</span>
+                <span class="n">new_seq_ids</span> <span class="o">=</span> <span class="n">seq_ids</span> <span class="o">+</span> <span class="p">[</span><span class="n">next_idx</span><span class="o">.</span><span class="n">item</span><span class="p">()]</span>
+                <span class="n">all_candidates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">new_score</span><span class="p">,</span> <span class="n">new_seq_ids</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">seq_ids</span><span class="p">)))</span> <span class="c1"># Store parent sequence ID</span>
+
+        <span class="c1"># Bound: Select the best `num_beams` among all generated</span>
+        <span class="n">all_candidates</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">beams</span> <span class="o">=</span> <span class="n">all_candidates</span><span class="p">[:</span><span class="n">num_beams</span><span class="p">]</span> <span class="c1"># Keep only the top `num_beams`</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Step </span><span class="si">{</span><span class="n">step</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">: Extension --- (</span><span class="si">{</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="w"> </span><span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="si">}</span><span class="s2">...)&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">parent_seq</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">beams</span><span class="p">):</span> <span class="c1"># Fixed: Unpack 3 values</span>
+            <span class="n">full_seq</span> <span class="o">=</span> <span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">seq</span>
+            <span class="n">node_id</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">full_seq</span><span class="p">)</span>
+            <span class="n">parent_node_id</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">parent_seq</span><span class="p">))</span>
+
+            <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">node_id</span><span class="p">,</span>
+                <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">([</span><span class="n">seq</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]),</span>
+                <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span>
+                <span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s1">&#39;full_text&#39;</span><span class="p">:</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">full_seq</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="p">})</span>
+            <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parent_node_id</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">([</span><span class="n">seq</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])}))</span>
+
+            <span class="n">beam_scores_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+            <span class="n">beam_sequences_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+            <span class="n">beam_parents_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_node_id</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - &#39;</span><span class="si">{</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">full_seq</span><span class="p">,</span><span class="w"> </span><span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39; (Score: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Final result</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Final generation (Best Beam) ---&quot;</span><span class="p">)</span>
+    <span class="n">best_score</span><span class="p">,</span> <span class="n">best_seq_ids</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">beams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">final_generated_text</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">best_seq_ids</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">final_generated_text</span><span class="si">}</span><span class="s2">&#39; (Score: </span><span class="si">{</span><span class="n">best_score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">beam_scores_history</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span>
+</pre></div>
+</div>
+<p><strong>Example</strong>. We run the above algorithm as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">beam_scores_history</span><span class="p">,</span> <span class="n">beam_nodes</span><span class="p">,</span> <span class="n">beam_edges</span> <span class="o">=</span> <span class="n">simplified_beam_search</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">my_prompt</span><span class="p">,</span> <span class="n">num_beams</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and the result is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span> <span class="n">Step</span> <span class="mi">0</span><span class="p">:</span> <span class="n">Start</span> <span class="k">with</span> <span class="n">prompt</span><span class="p">:</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube&#39;</span> <span class="o">---</span>
+<span class="n">Initial</span> <span class="n">candidates</span> <span class="p">(</span><span class="n">top</span> <span class="mi">3</span><span class="p">):</span>
+  <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.1630</span><span class="p">)</span>
+  <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube?&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.9147</span><span class="p">)</span>
+  <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube ?&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.8189</span><span class="p">)</span>
+
+<span class="o">---</span> <span class="n">Step</span> <span class="mi">1</span><span class="p">:</span> <span class="n">Extension</span> <span class="o">---</span> <span class="p">(</span><span class="n">Tell</span> <span class="n">me</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">most</span> <span class="n">popular</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">YouTube</span><span class="o">...</span><span class="p">)</span>
+  <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...?&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.2316</span><span class="p">)</span>
+  <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...</span>
+<span class="s1">&#39; (Score: -1.3814)</span>
+  <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...I&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0739</span><span class="p">)</span>
+
+<span class="o">---</span> <span class="n">Step</span> <span class="mi">2</span><span class="p">:</span> <span class="n">Extension</span> <span class="o">---</span> <span class="p">(</span><span class="n">Tell</span> <span class="n">me</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">most</span> <span class="n">popular</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">YouTube</span><span class="o">...</span><span class="p">)</span>
+  <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...</span>
+<span class="s1">&#39; (Score: -1.3846)</span>
+  <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...?,(&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.4672</span><span class="p">)</span>
+  <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...?</span>
+<span class="s1">&#39; (Score: -3.1475)</span>
+
+<span class="o">---</span> <span class="n">Step</span> <span class="mi">3</span><span class="p">:</span> <span class="n">Extension</span> <span class="o">---</span> <span class="p">(</span><span class="n">Tell</span> <span class="n">me</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">most</span> <span class="n">popular</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">YouTube</span><span class="o">...</span><span class="p">)</span>
+  <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...?,(reply&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.4842</span><span class="p">)</span>
+  <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...</span>
+<span class="n">This</span><span class="s1">&#39; (Score: -2.6576)</span>
+  <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...</span>
+<span class="s2">&quot;&#39; (Score: -3.0459)</span>
+
+<span class="o">---</span> <span class="n">Final</span> <span class="n">generation</span> <span class="p">(</span><span class="n">Best</span> <span class="n">Beam</span><span class="p">)</span> <span class="o">---</span>
+<span class="s1">&#39;Tell me what is the most popular song in YouTube...?,(reply&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.4842</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="topic2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Reinforcement Learning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="practice0.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Graph Neural Networks</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-architectures">5.1. Transformer Architectures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoder-decoder">5.1.1. Encoder-Decoder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decoder-only">5.1.2. Decoder-only</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoder-only">5.1.3. Encoder-only</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-transformers-work">5.2. How do Transformers work?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tokenization">5.2.1. Tokenization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#towards-active-semantics">5.2.2. Towards active semantics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qweries-and-keys">5.2.3. Qweries and Keys</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attention">5.3. Attention</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-attention-and-softmax">5.3.1. Raw Attention and Softmax</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#value">5.3.2. Value</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#blending">5.3.3. Blending</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-attention-heads">5.3.4. Multiple Attention heads</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-architecture">5.4. Full Architecture</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-token-machines">5.5. Next-Token Machines</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Universidad de Alicante
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

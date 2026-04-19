@@ -7,9 +7,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>7. Reinforcement Learning &#8212; Agentes Inteligentes IA</title>
+    <title>8. Reinforcement Learning &#8212; Agentes Inteligentes IA</title>
   
   
   
@@ -19,15 +19,15 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
@@ -40,15 +40,13 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
@@ -69,7 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'practice2';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="6. Clique Problem" href="practice1.html" />
+    <link rel="next" title="9. Intelligent Agents" href="practice3_1.html" />
+    <link rel="prev" title="7. Clique Problem" href="practice1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -79,7 +78,7 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
 
@@ -122,12 +121,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <header>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
   
+  </header>
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -184,11 +191,16 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="topic2.html">4. Reinforcement Learning</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generative Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic3.html">5. LLMs and VLMs</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practices</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice0.html">5. Graph Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice1.html">6. Clique Problem</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">6. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice1.html">7. Clique Problem</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">9. Intelligent Agents</a></li>
 </ul>
 
     </div>
@@ -384,45 +396,45 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-2-value-based-reinforcement-learning">7.1. Practical Session 2: Value-Based Reinforcement Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">7.1.1. Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-statement-the-taxi-v3-environment">7.1.2. Problem Statement: The Taxi-v3 Environment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-decision-process-formulation">7.1.3. Markov Decision Process Formulation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-environment-interaction-loop">7.1.4. Agent-Environment Interaction Loop</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-pi">7.1.5. Policy (<span class="math notranslate nohighlight">\(\pi\)</span>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-2-value-based-reinforcement-learning">8.1. Practical Session 2: Value-Based Reinforcement Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">8.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-statement-the-taxi-v3-environment">8.1.2. Problem Statement: The Taxi-v3 Environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-decision-process-formulation">8.1.3. Markov Decision Process Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-environment-interaction-loop">8.1.4. Agent-Environment Interaction Loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-pi">8.1.5. Policy (<span class="math notranslate nohighlight">\(\pi\)</span>)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-random-walk">7.2. Exercise 1: Random Walk</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">7.2.1. Objectives</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">7.2.2. Task Description</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-metrics">7.2.3. Performance Metrics</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-and-visualization">7.2.4. Analysis and Visualization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-task-action-masking">7.2.5. Optional Task: Action Masking</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-setup">7.2.6. Environment Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-random-walk">8.2. Exercise 1: Random Walk</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">8.2.1. Objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">8.2.2. Task Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-metrics">8.2.3. Performance Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-and-visualization">8.2.4. Analysis and Visualization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-task-action-masking">8.2.5. Optional Task: Action Masking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-setup">8.2.6. Environment Setup</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sarsa">7.3. Exercise 2: SARSA</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-sarsa">7.3.1. Introduction to SARSA</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sarsa-update-rule">7.3.2. The SARSA Update Rule</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploration-vs-exploitation">7.3.3. Exploration vs. Exploitation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-tasks">7.3.4. Implementation Tasks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">7.3.5. Analysis and Visualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sarsa">8.3. Exercise 2: SARSA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-sarsa">8.3.1. Introduction to SARSA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sarsa-update-rule">8.3.2. The SARSA Update Rule</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploration-vs-exploitation">8.3.3. Exploration vs. Exploitation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-tasks">8.3.4. Implementation Tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">8.3.5. Analysis and Visualization</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-q-learning">7.4. Exercise 3: Q-Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-q-learning">7.4.1. Introduction to Q-Learning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-q-learning-update-rule">7.4.2. The Q-Learning Update Rule</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7.4.3. Implementation Tasks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.4.4. Analysis and Visualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-q-learning">8.4. Exercise 3: Q-Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-q-learning">8.4.1. Introduction to Q-Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-q-learning-update-rule">8.4.2. The Q-Learning Update Rule</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">8.4.3. Implementation Tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.4.4. Analysis and Visualization</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-deep-q-network">7.5. Exercise 4: Deep Q-Network</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-reinforcement-learning">7.5.1. Deep Reinforcement Learning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-q-network-architecture">7.5.2. The Q-Network Architecture</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dqn-algorithm-with-experience-replay">7.5.3. The DQN Algorithm with Experience Replay</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.5.4. Implementation Tasks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.5.5. Analysis and Visualization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-task-parameter-decay">7.5.6. Optional Task: Parameter Decay</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-deep-q-network">8.5. Exercise 4: Deep Q-Network</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-reinforcement-learning">8.5.1. Deep Reinforcement Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-q-network-architecture">8.5.2. The Q-Network Architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dqn-algorithm-with-experience-replay">8.5.3. The DQN Algorithm with Experience Replay</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.5.4. Implementation Tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.5.5. Analysis and Visualization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-task-parameter-decay">8.5.6. Optional Task: Parameter Decay</a></li>
 </ul>
 </li>
 </ul>
@@ -434,30 +446,30 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="reinforcement-learning">
-<h1><span class="section-number">7. </span>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">8. </span>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this heading">#</a></h1>
 <section id="practical-session-2-value-based-reinforcement-learning">
-<h2><span class="section-number">7.1. </span>Practical Session 2: Value-Based Reinforcement Learning<a class="headerlink" href="#practical-session-2-value-based-reinforcement-learning" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">8.1. </span>Practical Session 2: Value-Based Reinforcement Learning<a class="headerlink" href="#practical-session-2-value-based-reinforcement-learning" title="Permalink to this heading">#</a></h2>
 <section id="introduction">
-<h3><span class="section-number">7.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
 <p>In this practical session, we will delve into the field of <strong>Reinforcement Learning (RL)</strong>, a subfield of Machine Learning where an <strong>agent</strong> learns to make decisions by interacting with an <strong>environment</strong>. Unlike supervised learning, where the model learns from a fixed dataset of labeled examples, an RL agent discovers which actions yield the highest rewards through trial and error.</p>
 <p>The goal of the agent is to learn an optimal <strong>policy</strong> <span class="math notranslate nohighlight">\(\pi\)</span>—a mapping from states to actions—that maximizes the discounted cumulative <strong>reward</strong> (return) over time.</p>
 </section>
 <section id="problem-statement-the-taxi-v3-environment">
-<h3><span class="section-number">7.1.2. </span>Problem Statement: The Taxi-v3 Environment<a class="headerlink" href="#problem-statement-the-taxi-v3-environment" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.1.2. </span>Problem Statement: The Taxi-v3 Environment<a class="headerlink" href="#problem-statement-the-taxi-v3-environment" title="Permalink to this heading">#</a></h3>
 <p>We will focus on the <strong>Taxi-v3</strong> environment, a classic problem available in the <a class="reference external" href="https://gymnasium.farama.org/environments/toy_text/taxi/">Gymnasium</a> library (a maintained fork of OpenAI Gym).</p>
 <p>In this scenario, a taxi driver must navigate a <span class="math notranslate nohighlight">\(5 \times 5\)</span> grid to pick up a passenger at one of four designated locations (Red, Green, Yellow, and Blue) and drop them off at a specific destination. The challenge lies in learning the shortest path while avoiding illegal maneuvers and minimizing time.</p>
 <figure class="align-center" id="taxirl">
 <a class="reference internal image-reference" href="_images/taxi_problem.png"><img alt="_images/taxi_problem.png" src="_images/taxi_problem.png" style="width: 590px; height: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7.1 </span><span class="caption-text">Taxi-v3 Reinforcement Learning problem. Image partially generated by Gemini.</span><a class="headerlink" href="#taxirl" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8.1 </span><span class="caption-text">Taxi-v3 Reinforcement Learning problem. Image partially generated by Gemini.</span><a class="headerlink" href="#taxirl" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="markov-decision-process-formulation">
-<h3><span class="section-number">7.1.3. </span>Markov Decision Process Formulation<a class="headerlink" href="#markov-decision-process-formulation" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.1.3. </span>Markov Decision Process Formulation<a class="headerlink" href="#markov-decision-process-formulation" title="Permalink to this heading">#</a></h3>
 <p>To solve this problem using RL, we must first formalize it as a <strong>Markov Decision Process (MDP)</strong>. An MDP is defined by the tuple <span class="math notranslate nohighlight">\((S, A, P, R)\)</span>:</p>
 <p><strong>State Space (<span class="math notranslate nohighlight">\(S\)</span>)</strong></p>
 <p>The state space contains all the information needed to determine the current situation of the environment. In Taxi-v3, there are <strong>500 discrete states</strong>. A state is defined by the combination of:</p>
@@ -492,10 +504,10 @@ s = f(\text{taxi}\_row, \text{taxi}\_col, \text{passenger}\_idx, \text{destinati
 <p>The transition function <span class="math notranslate nohighlight">\(P(s^{\prime} | s, a)\)</span> specifies the probability of moving to state <span class="math notranslate nohighlight">\(s^{\prime}\)</span> after taking action <span class="math notranslate nohighlight">\(a\)</span> in state <span class="math notranslate nohighlight">\(s\)</span>. For this practical session, the dynamics are <strong>deterministic</strong> (<span class="math notranslate nohighlight">\(P = 1.0\)</span> for the intended movement)  in this environment, provided there are no walls. If the taxi hits a wall, it remains in its current state.</p>
 </section>
 <section id="agent-environment-interaction-loop">
-<h3><span class="section-number">7.1.4. </span>Agent-Environment Interaction Loop<a class="headerlink" href="#agent-environment-interaction-loop" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.1.4. </span>Agent-Environment Interaction Loop<a class="headerlink" href="#agent-environment-interaction-loop" title="Permalink to this heading">#</a></h3>
 <p>The fundamental loop of RL involves the agent observing a state, choosing an action, and receiving feedback. This process can be summarized in the following pseudo-code:</p>
 <div class="proof algorithm admonition" id="RL-Loop">
-<p class="admonition-title"><span class="caption-number">Algorithm 7.1 </span> (Basic RL Interaction Loop)</p>
+<p class="admonition-title"><span class="caption-number">Algorithm 8.1 </span> (Basic RL Interaction Loop)</p>
 <section class="algorithm-content" id="proof-content">
 <p><strong>Inputs</strong>: Environment <span class="math notranslate nohighlight">\(Env\)</span>, Policy <span class="math notranslate nohighlight">\(\pi\)</span></p>
 <p><strong>Initial state</strong>: <span class="math notranslate nohighlight">\(s_0 \leftarrow Env.reset()\)</span></p>
@@ -510,14 +522,14 @@ s = f(\text{taxi}\_row, \text{taxi}\_col, \text{passenger}\_idx, \text{destinati
 </section>
 </div></section>
 <section id="policy-pi">
-<h3><span class="section-number">7.1.5. </span>Policy (<span class="math notranslate nohighlight">\(\pi\)</span>)<a class="headerlink" href="#policy-pi" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.1.5. </span>Policy (<span class="math notranslate nohighlight">\(\pi\)</span>)<a class="headerlink" href="#policy-pi" title="Permalink to this heading">#</a></h3>
 <p>To illustrate the importance of learning, we can compare the following behaviors:</p>
 <p><strong>Untrained Agent</strong></p>
 <p>The following GIF shows an agent selecting actions randomly without any prior training. This is often referred to as a “brute force” approach, where the agent wanders aimlessly across the environment.</p>
 <figure class="align-center" id="randomwalk">
 <img alt="_images/random_policy.gif" src="_images/random_policy.gif" />
 <figcaption>
-<p><span class="caption-number">Fig. 7.2 </span><span class="caption-text">Taxi-v3 agent selecting actions randomly without any prior training.</span><a class="headerlink" href="#randomwalk" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8.2 </span><span class="caption-text">Taxi-v3 agent selecting actions randomly without any prior training.</span><a class="headerlink" href="#randomwalk" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>Trained Agent</strong></p>
@@ -525,19 +537,19 @@ s = f(\text{taxi}\_row, \text{taxi}\_col, \text{passenger}\_idx, \text{destinati
 <figure class="align-center" id="rlbehavior">
 <img alt="_images/learned_policy.gif" src="_images/learned_policy.gif" />
 <figcaption>
-<p><span class="caption-number">Fig. 7.3 </span><span class="caption-text">Taxi-v3 agent after a training phase using Reinforcement Learning.</span><a class="headerlink" href="#rlbehavior" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8.3 </span><span class="caption-text">Taxi-v3 agent after a training phase using Reinforcement Learning.</span><a class="headerlink" href="#rlbehavior" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="exercise-1-random-walk">
-<h2><span class="section-number">7.2. </span>Exercise 1: Random Walk<a class="headerlink" href="#exercise-1-random-walk" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">8.2. </span>Exercise 1: Random Walk<a class="headerlink" href="#exercise-1-random-walk" title="Permalink to this heading">#</a></h2>
 <section id="objectives">
-<h3><span class="section-number">7.2.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.2.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h3>
 <p>The objective of this first exercise is to familiarize yourself with the <strong>Gymnasium</strong> API and the <strong>Taxi-v3</strong> environment dynamics. You will implement a basic interaction loop where the agent makes decisions without any learning process, relying purely on random selection (a “brute force” approach). This will serve as a baseline to evaluate the necessity and effectiveness of Reinforcement Learning algorithms.</p>
 </section>
 <section id="task-description">
-<h3><span class="section-number">7.2.2. </span>Task Description<a class="headerlink" href="#task-description" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.2.2. </span>Task Description<a class="headerlink" href="#task-description" title="Permalink to this heading">#</a></h3>
 <p>You are required to implement a Python script that executes the interaction loop between the agent and the environment for <strong>100 consecutive episodes</strong>. Since this is a non-learning approach, these episodes constitute the <strong>evaluation phase</strong> of a random policy.</p>
 <p>For each episode, the agent must:</p>
 <ol class="arabic simple">
@@ -547,7 +559,7 @@ s = f(\text{taxi}\_row, \text{taxi}\_col, \text{passenger}\_idx, \text{destinati
 </ol>
 </section>
 <section id="performance-metrics">
-<h3><span class="section-number">7.2.3. </span>Performance Metrics<a class="headerlink" href="#performance-metrics" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.2.3. </span>Performance Metrics<a class="headerlink" href="#performance-metrics" title="Permalink to this heading">#</a></h3>
 <p>To quantify the (in)efficiency of the random policy, you must collect the following three metrics for each of the 100 episodes:</p>
 <ul class="simple">
 <li><p><strong>Cumulative Reward</strong>: The sum of all rewards obtained by the agent from the start to the end of the episode.</p></li>
@@ -557,7 +569,7 @@ s = f(\text{taxi}\_row, \text{taxi}\_col, \text{passenger}\_idx, \text{destinati
 <p>After completing the 100 episodes, use the <strong>Matplotlib</strong> library to generate plots showing the progression of these metrics. You should display the values for each episode and calculate the <strong>mean</strong> and the <strong>standard deviation</strong> to facilitate your analysis.</p>
 </section>
 <section id="analysis-and-visualization">
-<h3><span class="section-number">7.2.4. </span>Analysis and Visualization<a class="headerlink" href="#analysis-and-visualization" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.2.4. </span>Analysis and Visualization<a class="headerlink" href="#analysis-and-visualization" title="Permalink to this heading">#</a></h3>
 <p>In your report, you must provide a detailed analysis of the results. Discuss why a purely random policy fails to solve the Taxi-v3 problem effectively, referring to the high number of timesteps and penalties observed.</p>
 <p>To illustrate your findings, you must generate a <strong>GIF</strong> of one representative episode from your evaluation. To assist with this, use the following helper function to convert the RGB frames captured during rendering into a serialized GIF:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">moviepy</span> <span class="k">as</span> <span class="nn">mp</span>
@@ -582,12 +594,12 @@ s = f(\text{taxi}\_row, \text{taxi}\_col, \text{passenger}\_idx, \text{destinati
 </div>
 </section>
 <section id="optional-task-action-masking">
-<h3><span class="section-number">7.2.5. </span>Optional Task: Action Masking<a class="headerlink" href="#optional-task-action-masking" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.2.5. </span>Optional Task: Action Masking<a class="headerlink" href="#optional-task-action-masking" title="Permalink to this heading">#</a></h3>
 <p>For extra credit, repeat the evaluation process but incorporate the use of an <strong>Action Mask</strong>. Gymnasium’s Taxi-v3 provides a mask that identifies which actions are legal in the current state (<em>e.g.</em>, preventing the agent from choosing “pickup” if the passenger is not present).</p>
 <p>Implement the random loop again, but this time only sampling from the valid actions provided by the mask. Compare these results with the previous “blind” random approach and discuss the impact on the collected performance metrics.</p>
 </section>
 <section id="environment-setup">
-<h3><span class="section-number">7.2.6. </span>Environment Setup<a class="headerlink" href="#environment-setup" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.2.6. </span>Environment Setup<a class="headerlink" href="#environment-setup" title="Permalink to this heading">#</a></h3>
 <p>To begin the implementation, ensure you have the necessary libraries installed in your Python environment. You can install them using the following commands:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;gymnasium[toy-text]&quot;</span><span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>moviepy<span class="w">    </span>
 </pre></div>
@@ -595,14 +607,14 @@ s = f(\text{taxi}\_row, \text{taxi}\_col, \text{passenger}\_idx, \text{destinati
 </section>
 </section>
 <section id="exercise-2-sarsa">
-<h2><span class="section-number">7.3. </span>Exercise 2: SARSA<a class="headerlink" href="#exercise-2-sarsa" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">8.3. </span>Exercise 2: SARSA<a class="headerlink" href="#exercise-2-sarsa" title="Permalink to this heading">#</a></h2>
 <section id="introduction-to-sarsa">
-<h3><span class="section-number">7.3.1. </span>Introduction to SARSA<a class="headerlink" href="#introduction-to-sarsa" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.3.1. </span>Introduction to SARSA<a class="headerlink" href="#introduction-to-sarsa" title="Permalink to this heading">#</a></h3>
 <p>In the previous exercise, we observed the limitations of a random policy. To improve the agent’s performance, we will now implement <strong>SARSA</strong> (State-Action-Reward-State-Action), a fundamental on-policy Reinforcement Learning algorithm.</p>
 <p>Unlike the “brute force” approach, SARSA allows the agent to learn a <strong>Value Function</strong>—specifically a <span class="math notranslate nohighlight">\(Q\)</span>-table—that estimates the quality of taking a particular action in a given state. As an <strong>on-policy</strong> method, SARSA updates its estimates based on the actual actions taken by the current policy <span class="math notranslate nohighlight">\(\pi\)</span>, following the tuple <span class="math notranslate nohighlight">\((s_t, a_t, r_{t + 1}, s_{t + 1}, a_{t + 1})\)</span>.</p>
 </section>
 <section id="the-sarsa-update-rule">
-<h3><span class="section-number">7.3.2. </span>The SARSA Update Rule<a class="headerlink" href="#the-sarsa-update-rule" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.3.2. </span>The SARSA Update Rule<a class="headerlink" href="#the-sarsa-update-rule" title="Permalink to this heading">#</a></h3>
 <p>The core of the algorithm is the update of the <strong><span class="math notranslate nohighlight">\(Q\)</span>-values</strong>. For each transition, the agent updates its knowledge according to the following mathematical expression:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -619,7 +631,7 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma Q(s_{t + 1}, a_{
 </ul>
 </section>
 <section id="exploration-vs-exploitation">
-<h3><span class="section-number">7.3.3. </span>Exploration vs. Exploitation<a class="headerlink" href="#exploration-vs-exploitation" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.3.3. </span>Exploration vs. Exploitation<a class="headerlink" href="#exploration-vs-exploitation" title="Permalink to this heading">#</a></h3>
 <p>A critical challenge in RL is the trade-off between <strong>exploration</strong> (trying new actions) and <strong>exploitation</strong> (using known information). To address this, you must implement an <strong><span class="math notranslate nohighlight">\(\epsilon\)</span>-greedy strategy</strong> to select actions:</p>
 <ul class="simple">
 <li><p>With probability <span class="math notranslate nohighlight">\(\epsilon\)</span> (<strong>Exploration Rate</strong>), the agent selects a random action.</p></li>
@@ -627,7 +639,7 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma Q(s_{t + 1}, a_{
 </ul>
 </section>
 <section id="implementation-tasks">
-<h3><span class="section-number">7.3.4. </span>Implementation Tasks<a class="headerlink" href="#implementation-tasks" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.3.4. </span>Implementation Tasks<a class="headerlink" href="#implementation-tasks" title="Permalink to this heading">#</a></h3>
 <p>You must implement the following two distinct phases:</p>
 <p><strong>Phase A: Training</strong></p>
 <p>Implement the SARSA training loop for the <strong>Taxi-v3</strong> environment. During this phase, the agent will populate and update the <span class="math notranslate nohighlight">\(Q\)</span>-table. You are responsible for:</p>
@@ -642,7 +654,7 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma Q(s_{t + 1}, a_{
 <p>Once training is complete, evaluate the learned policy over <strong>100 episodes</strong>. In this phase, the agent should act greedily (using the learned <span class="math notranslate nohighlight">\(Q\)</span>-table to pick the best action) to demonstrate the effectiveness of the training.</p>
 </section>
 <section id="id1">
-<h3><span class="section-number">7.3.5. </span>Analysis and Visualization<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.3.5. </span>Analysis and Visualization<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Using the data collected during the 100 evaluation episodes, provide the following:</p>
 <ul class="simple">
 <li><p><strong>Performance Plots</strong>: Generate Matplotlib graphs for <strong>Cumulative Reward</strong>, <strong>Timesteps</strong>, and <strong>Penalties</strong>.</p></li>
@@ -653,13 +665,13 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma Q(s_{t + 1}, a_{
 </section>
 </section>
 <section id="exercise-3-q-learning">
-<h2><span class="section-number">7.4. </span>Exercise 3: Q-Learning<a class="headerlink" href="#exercise-3-q-learning" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">8.4. </span>Exercise 3: Q-Learning<a class="headerlink" href="#exercise-3-q-learning" title="Permalink to this heading">#</a></h2>
 <section id="introduction-to-q-learning">
-<h3><span class="section-number">7.4.1. </span>Introduction to Q-Learning<a class="headerlink" href="#introduction-to-q-learning" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.4.1. </span>Introduction to Q-Learning<a class="headerlink" href="#introduction-to-q-learning" title="Permalink to this heading">#</a></h3>
 <p>Building upon the previous exercise, we will now implement <strong>Q-Learning</strong>. While SARSA is an on-policy method, Q-Learning is a popular <strong>off-policy</strong> algorithm. The fundamental difference lies in how the agent updates its value estimates: whereas SARSA uses the action actually selected by the current policy for the next state, Q-Learning updates its estimates using the <strong>maximum possible value</strong> of the next state, regardless of the action that will actually be taken.</p>
 </section>
 <section id="the-q-learning-update-rule">
-<h3><span class="section-number">7.4.2. </span>The Q-Learning Update Rule<a class="headerlink" href="#the-q-learning-update-rule" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.4.2. </span>The Q-Learning Update Rule<a class="headerlink" href="#the-q-learning-update-rule" title="Permalink to this heading">#</a></h3>
 <p>The agent learns a mapping of states to optimal actions by iteratively updating the <strong><span class="math notranslate nohighlight">\(Q\)</span>-table</strong>. The mathematical formulation for the update rule in Q-Learning is as follows:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -676,7 +688,7 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma \max_{a} Q(s_{t 
 </ul>
 </section>
 <section id="id2">
-<h3><span class="section-number">7.4.3. </span>Implementation Tasks<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.4.3. </span>Implementation Tasks<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>You must implement the interaction loop for the <strong>Taxi-v3</strong> environment using the same three hyperparameters as in Exercise 2:</p>
 <ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(\alpha\)</span>.</p></li>
@@ -689,7 +701,7 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma \max_{a} Q(s_{t 
 <p>After training, execute the evaluation phase for <strong>100 consecutive episodes</strong>. In this phase, the agent must act purely <strong>greedily</strong> by selecting the action with the highest <span class="math notranslate nohighlight">\(Q\)</span>-value for each state.</p>
 </section>
 <section id="id3">
-<h3><span class="section-number">7.4.4. </span>Analysis and Visualization<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.4.4. </span>Analysis and Visualization<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>For both phases, you must record and plot the same three metrics:</p>
 <ul class="simple">
 <li><p><strong>Cumulative Reward</strong> per episode.</p></li>
@@ -707,9 +719,9 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma \max_{a} Q(s_{t 
 </section>
 </section>
 <section id="exercise-4-deep-q-network">
-<h2><span class="section-number">7.5. </span>Exercise 4: Deep Q-Network<a class="headerlink" href="#exercise-4-deep-q-network" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">8.5. </span>Exercise 4: Deep Q-Network<a class="headerlink" href="#exercise-4-deep-q-network" title="Permalink to this heading">#</a></h2>
 <section id="deep-reinforcement-learning">
-<h3><span class="section-number">7.5.1. </span>Deep Reinforcement Learning<a class="headerlink" href="#deep-reinforcement-learning" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.5.1. </span>Deep Reinforcement Learning<a class="headerlink" href="#deep-reinforcement-learning" title="Permalink to this heading">#</a></h3>
 <p>In the previous exercises, we successfully solved the <strong>Taxi-v3</strong> environment using a <span class="math notranslate nohighlight">\(Q\)</span>-table. However, tabular methods become computationally impractical as the state space grows. In this final exercise, we will transition to <strong>Deep Reinforcement Learning (DRL)</strong> by replacing the static <span class="math notranslate nohighlight">\(Q\)</span>-table with a <strong>Neural Network</strong>.</p>
 <p>To implement this, we will use <a class="reference external" href="https://pytorch.org">PyTorch</a>, a leading open-source Machine Learning framework that provides the tools necessary to build and train complex neural architectures. We can install this Deep Learning framework using:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w">    </span>
@@ -717,7 +729,7 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma \max_{a} Q(s_{t 
 </div>
 </section>
 <section id="the-q-network-architecture">
-<h3><span class="section-number">7.5.2. </span>The Q-Network Architecture<a class="headerlink" href="#the-q-network-architecture" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.5.2. </span>The Q-Network Architecture<a class="headerlink" href="#the-q-network-architecture" title="Permalink to this heading">#</a></h3>
 <p>Unlike the <span class="math notranslate nohighlight">\(Q\)</span>-table, the Neural Network will take the current state as input and output the estimated <span class="math notranslate nohighlight">\(Q\)</span>-values for all possible actions. Below is the Python implementation for our <strong>DQN agent</strong>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
@@ -749,10 +761,10 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma \max_{a} Q(s_{t 
 </ul>
 </section>
 <section id="the-dqn-algorithm-with-experience-replay">
-<h3><span class="section-number">7.5.3. </span>The DQN Algorithm with Experience Replay<a class="headerlink" href="#the-dqn-algorithm-with-experience-replay" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.5.3. </span>The DQN Algorithm with Experience Replay<a class="headerlink" href="#the-dqn-algorithm-with-experience-replay" title="Permalink to this heading">#</a></h3>
 <p>To stabilize the training of neural networks in RL, you will implement a sophisticated version of DQN that includes <strong>Experience Replay</strong> and a <strong>Target Network</strong>, as outlined in the following pseudo-code:</p>
 <div class="proof algorithm admonition" id="DQN-Loop">
-<p class="admonition-title"><span class="caption-number">Algorithm 7.2 </span> (DQN Training Phase with Experience Replay and Target Network  )</p>
+<p class="admonition-title"><span class="caption-number">Algorithm 8.2 </span> (DQN Training Phase with Experience Replay and Target Network  )</p>
 <section class="algorithm-content" id="proof-content">
 <p><strong>Inputs</strong>: Target Network Update Frequency <span class="math notranslate nohighlight">\(C\)</span></p>
 <p><strong>Initialize</strong>: Replay Memory <span class="math notranslate nohighlight">\(D\)</span>, Policy Network <span class="math notranslate nohighlight">\(Q_{\theta}\)</span>, Target Network <span class="math notranslate nohighlight">\(Q_{\theta^-}\)</span></p>
@@ -775,7 +787,7 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma \max_{a} Q(s_{t 
 </section>
 </div></section>
 <section id="id4">
-<h3><span class="section-number">7.5.4. </span>Implementation Tasks<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.5.4. </span>Implementation Tasks<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>You must complete two phases:</p>
 <p><strong>Phase A: Training</strong></p>
 <p>Implement the loop above. In addition to the standard hyperparameters (<strong><span class="math notranslate nohighlight">\(\alpha\)</span></strong>, <strong><span class="math notranslate nohighlight">\(\gamma\)</span></strong>, <strong><span class="math notranslate nohighlight">\(\epsilon\)</span></strong>), you must tune the <strong>Batch Size</strong>, <strong>Replay Memory Size</strong>, and the <strong>Target Network Update Frequency</strong>.</p>
@@ -783,7 +795,7 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma \max_{a} Q(s_{t 
 <p>Test your trained network over <strong>100 episodes</strong> using a greedy policy.</p>
 </section>
 <section id="id5">
-<h3><span class="section-number">7.5.5. </span>Analysis and Visualization<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.5.5. </span>Analysis and Visualization<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Loss and Optimizer: You must select an appropriate <strong>Loss Function</strong> and an <strong>Optimizer</strong> from the PyTorch library to train the Q-Network.</p></li>
 <li><p>Comparative Report: Compare your <strong>DQN results</strong> with the SARSA and Q-Learning agents from previous exercises. Discuss why the deep approach might be more stable or complex to tune.</p></li>
@@ -791,7 +803,7 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma \max_{a} Q(s_{t 
 </ul>
 </section>
 <section id="optional-task-parameter-decay">
-<h3><span class="section-number">7.5.6. </span>Optional Task: Parameter Decay<a class="headerlink" href="#optional-task-parameter-decay" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.5.6. </span>Optional Task: Parameter Decay<a class="headerlink" href="#optional-task-parameter-decay" title="Permalink to this heading">#</a></h3>
 <p>For extra points, implement a decay strategy for the <strong>learning rate</strong> (<span class="math notranslate nohighlight">\(\alpha\)</span>), the <strong>discount factor</strong> (<span class="math notranslate nohighlight">\(\gamma\)</span>), or the <strong>exploration rate</strong> (<span class="math notranslate nohighlight">\(\epsilon\)</span>). Justify how decreasing these values over time improves the stability and performance of your agent.</p>
 </section>
 </section>
@@ -833,8 +845,17 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma \max_{a} Q(s_{t 
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>Clique Problem</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Clique Problem</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="practice3_1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Intelligent Agents</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -845,51 +866,52 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha [r_{t + 1} + \gamma \max_{a} Q(s_{t 
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-2-value-based-reinforcement-learning">7.1. Practical Session 2: Value-Based Reinforcement Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">7.1.1. Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-statement-the-taxi-v3-environment">7.1.2. Problem Statement: The Taxi-v3 Environment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-decision-process-formulation">7.1.3. Markov Decision Process Formulation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-environment-interaction-loop">7.1.4. Agent-Environment Interaction Loop</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-pi">7.1.5. Policy (<span class="math notranslate nohighlight">\(\pi\)</span>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-2-value-based-reinforcement-learning">8.1. Practical Session 2: Value-Based Reinforcement Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">8.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-statement-the-taxi-v3-environment">8.1.2. Problem Statement: The Taxi-v3 Environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-decision-process-formulation">8.1.3. Markov Decision Process Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-environment-interaction-loop">8.1.4. Agent-Environment Interaction Loop</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-pi">8.1.5. Policy (<span class="math notranslate nohighlight">\(\pi\)</span>)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-random-walk">7.2. Exercise 1: Random Walk</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">7.2.1. Objectives</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">7.2.2. Task Description</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-metrics">7.2.3. Performance Metrics</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-and-visualization">7.2.4. Analysis and Visualization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-task-action-masking">7.2.5. Optional Task: Action Masking</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-setup">7.2.6. Environment Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-random-walk">8.2. Exercise 1: Random Walk</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">8.2.1. Objectives</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">8.2.2. Task Description</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-metrics">8.2.3. Performance Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-and-visualization">8.2.4. Analysis and Visualization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-task-action-masking">8.2.5. Optional Task: Action Masking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-setup">8.2.6. Environment Setup</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sarsa">7.3. Exercise 2: SARSA</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-sarsa">7.3.1. Introduction to SARSA</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sarsa-update-rule">7.3.2. The SARSA Update Rule</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploration-vs-exploitation">7.3.3. Exploration vs. Exploitation</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-tasks">7.3.4. Implementation Tasks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">7.3.5. Analysis and Visualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-sarsa">8.3. Exercise 2: SARSA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-sarsa">8.3.1. Introduction to SARSA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sarsa-update-rule">8.3.2. The SARSA Update Rule</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploration-vs-exploitation">8.3.3. Exploration vs. Exploitation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-tasks">8.3.4. Implementation Tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">8.3.5. Analysis and Visualization</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-q-learning">7.4. Exercise 3: Q-Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-q-learning">7.4.1. Introduction to Q-Learning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-q-learning-update-rule">7.4.2. The Q-Learning Update Rule</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7.4.3. Implementation Tasks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.4.4. Analysis and Visualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-q-learning">8.4. Exercise 3: Q-Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-q-learning">8.4.1. Introduction to Q-Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-q-learning-update-rule">8.4.2. The Q-Learning Update Rule</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">8.4.3. Implementation Tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.4.4. Analysis and Visualization</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-deep-q-network">7.5. Exercise 4: Deep Q-Network</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-reinforcement-learning">7.5.1. Deep Reinforcement Learning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-q-network-architecture">7.5.2. The Q-Network Architecture</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dqn-algorithm-with-experience-replay">7.5.3. The DQN Algorithm with Experience Replay</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.5.4. Implementation Tasks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.5.5. Analysis and Visualization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-task-parameter-decay">7.5.6. Optional Task: Parameter Decay</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-4-deep-q-network">8.5. Exercise 4: Deep Q-Network</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-reinforcement-learning">8.5.1. Deep Reinforcement Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-q-network-architecture">8.5.2. The Q-Network Architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dqn-algorithm-with-experience-replay">8.5.3. The DQN Algorithm with Experience Replay</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.5.4. Implementation Tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.5.5. Analysis and Visualization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-task-parameter-decay">8.5.6. Optional Task: Parameter Decay</a></li>
 </ul>
 </li>
 </ul>
@@ -940,8 +962,8 @@ By Universidad de Alicante
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
 
   <footer class="bd-footer">
   </footer>
