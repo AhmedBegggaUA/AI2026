@@ -1,4 +1,4 @@
-# Intelligent Agents
+# Retrieval-Augmented Generation (RAG)
 
 ## Practical Session 3 — Part 2: Retrieval-Augmented Generation (RAG)
 
