@@ -449,6 +449,16 @@ GPTNeoXForCausalLM(
 )
 ```
 
+```{figure} ./images/Topic3/Global.png
+---
+name: Global
+width: 600px
+align: center
+height: 250px
+---
+Architecture of Transformer module. Source: [Medium](https://medium.com/towards-artificial-intelligence/no-libraries-no-shortcuts-llm-from-scratch-with-pytorch-664c557997ee).  
+```
+
 **Embedding**. The Embedding layer of $\text{BreadAi/gpt-Youtube}$ is $\text{embed-in}$: It has dimension $\text{vocabulary-size}\times 768$. All semantics are stored in the weights of this layer.  
 
 **Transformer layers**. $\text{BreadAi/gpt-Youtube}$ has 12 Transformer layers before a final $\text{LayerNorm}$ and an $\text{embed_out}$, and inverse embedding for **decoding**. 
@@ -648,3 +658,367 @@ This' (Score: -2.6576)
 --- Final generation (Best Beam) ---
 'Tell me what is the most popular song in YouTube...?,(reply' (Score: -1.4842)
 ```
+
+The complete result is: 
+
+```
+--- Original Prompt ---
+Tell me what is the most popular song in YouTube
+
+--- Generated Text ---
+Tell me what is the most popular song in YouTube...?,(reply>), Hit me up 👆📩
+```
+
+by setting: $\text{num_beams}=5$ and $\text{max_new_tokens}=50$ and calling to 
+
+```
+# Generate text using the model.
+# `inputs["input_ids"]` contains the tokenized prompt.
+# `max_new_tokens` limits the length of the generated continuation.
+# `num_beams` > 1 enables beam search, which explores multiple possible next words to find a more coherent sequence.
+# `no_repeat_ngram_size` prevents repetitive phrases.
+# `early_stopping=True` stops generation once all beam hypotheses have reached an end-of-sequence token.
+# `temperature` controls the randomness of generation (lower values make output more deterministic).
+outputs = model.generate(
+    inputs["input_ids"],
+    attention_mask=inputs["attention_mask"], # Pass the attention mask
+    pad_token_id=tokenizer.pad_token_id,     # Pass the pad_token_id
+    max_new_tokens=50,
+    num_beams=5,
+    no_repeat_ngram_size=2,
+    early_stopping=True,
+    temperature=0.7 # Adjust for less random (lower) or more creative (higher) output
+)
+
+# Decode the generated text: Convert the numerical output tokens back into human-readable text.
+# `skip_special_tokens=True` removes tokens like `[CLS]`, `[SEP]`, etc.
+generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+```    
+
+## Beyond Transformers 
+
+The success of the Transformer as an architecture for LLMs suggests a series of changes in the basic architecture. These changes are mainly motivated by **scaling**. In {numref}`After-Transformers`, we sketch how these changes are driven by more sophisticated LLMs: <span style="color:#2f6004">LLama vs Qwen where the **context length** scales from 131k tokens to 256k tokens</span>. 
+
+```{figure} ./images/Topic3/After-Transformers.png
+---
+name: After-Transformers
+width: 800px
+align: center
+height: 400px
+---
+Architectural chages after Transformers. Source: Sebastian Raschka's [Build a Large Language Model (from Scratch)](https://github.com/rasbt/LLMs-from-scratch). 
+```
+
+### MoE 
+#### The intuition 
+**Mixtures of Experts (MoE)**. In {numref}`After-Transformers` (right), Qwen3 uses a Mixture-of-Experts (MoE) architecture, to  **activates only a subset** of its 235B parameters per query resulting in high efficiency without sacrificing quality. This is <span style="color:#2f6004">the **basic idea of MoEs**: replace dense MLP/FFN (dense) layers by smaller specialized NNs</span>. 
+
+In inference time, each token is processed by several NNs (see {numref}`MOE`):
+
+1) **A “Router” (The Manager)**: This is a small network. Its job is to look at the input data (like a word or part of a word) and <ins>decide which expert(s) are the best fit</span> to handle it right now.
+
+2) **A Team of “Experts”**: These are smaller, specialized neural networks (usually simple Feed-Forward Networks or MLPs but <ins>not necessarily smaller than their dense counterparts in classical Transformers</ins>). Each expert might get good at handling certain types of information or patterns.
+
+```{figure} ./images/Topic3/MoE.png
+---
+name: MOE
+width: 800px
+align: center
+height: 450px
+---
+Mixture of Experts mechanism. Source: [Medium](https://medium.com/ai-in-plain-english/mixture-of-experts-moe-models-in-ai-4bcbcdecccf8). 
+```
+
+#### MoE's output
+
+**The token's journey** changes significantly here. Given a token $\mathbf{x}$ (from now on, we use 'token' and 'embedding' indistinctively), the output of the MoE-block (wrt the classical Transformer MLP/FFN-block) is as follows: 
+
+$$
+\text{MoE}(\mathbf{x})=\sum_{k=1}^n g_k(\mathbf{x})\cdot E_k(\mathbf{x})\;,
+$$
+
+where $E_k(.)$ is the $k-$th expert (of a total of $n$ experts) and $g_k$ is a weight. This means that the output of each expert is weighted. However, this weight $g_k$ **is not the probability of choosing expert** $E_k$, just how each partial result is weighted. Again, an embedding $\text{MoE}(\mathbf{x})$ is a linear combination of embeddings. 
+
+Note that the weights $g_k(\mathbf{x})$ is non-zero **only for the selected experts**. In {numref}`Scores`, only experts 2 and 4 are selected, whereas the other experts are ignored. After that, their outputs are respectively weighted by $0.7$ and $0.3$ to produce the output of the MoE-block.  
+
+```{figure} ./images/Topic3/Scores.png
+---
+name: Scores
+width: 600px
+align: center
+height: 250px
+---
+Choosing experts and weights. Source: [Medium](https://medium.com/gitconnected/building-qwen-3-moe-from-scratch-without-oop-in-python-d35e7e830001) and Fareed Khan. 
+```
+
+#### Gating Network 
+**Noisy Top-k Gating**. Given $\mathbf{x}$ a small network (usually a single linear layer + Softmax) **maps it  to a score vector** $g(\mathbf{x})\in\mathbb{R}^n$. Softmax gating leads to a dense distribution whereas sparse gating (such as that in {numref}`Scores`) zeroes out most entries (Top-k Gating).
+
+Top-k Gating means that **only $k$ experts are going to be selected** to process token $\mathbf{x}$. Typically, the number of experts selected per token is $k=1,2$. This means that each input token activates at most $k=2$ experts. If so, <span style="color:#2f6004">how do we ensure that **no expert is idle**?</span>. This is done via injecting Gaussian noise to the $g_k(.)$ **before** the gate makes the top-k selection. Let $G(\mathbf{x})=[g_1(\mathbf{x}),g_2(\mathbf{x}),\ldots,g_n(\mathbf{x})]$ the output vector of the router. Then: 
+
+$$
+G(\mathbf{x}) = \text{Softmax}(\text{KeepTopK}(H(\mathbf{x}),k))
+$$
+
+and 
+
+$$
+H_i(\mathbf{x}) = (\mathbf{W}_{gate}\mathbf{x})_i + \text{StandardNormal}()\cdot\underbrace{\text{Softplus}\left((\mathbf{W}_{noise}\mathbf{x})_i\right)}_{\sigma}
+$$
+
+is just another vector where the noiseless gate's output is perturbed by $N(0,1)*\sigma$. Since $\text{Softplus}(x)=\log(1 +\exp(x))$, is non-negative, it parameterizes the noise variance. 
+
+Finally, we have 
+
+$$
+\text{KeepTopK}(\underbrace{H(\mathbf{x})}_{\mathbf{v}},k)_i = 
+\begin{cases}
+     \mathbf{v}(i) &\;\text{if}\; \mathbf{v}(i)\in \text{TopK}(\mathbf{v}) \\[2ex]
+     -\infty
+     &\;\text{otherwise}\\[2ex]
+\end{cases}
+$$
+
+**Purpose of Noising**. This noise adds randoness to the expert selection. Then, although an expert is not (initally) among the top scored, this noise may increase its score enough to be eventually top. This has two benefits: 
+
+1) This forces the model to **explore** among the experts (experts are not idle, i.e. they become active). 
+
+2) In addition, the workload of the experts is **balanced** (kind of a uniform distribution) during the training time. 
+
+3) The **best experts** do have the chance to contribute which improves their especialization. 
+
+#### DeepSeek MoE 
+**DeepSeek** introduces two improvements wrt basic MoE: 
+1) **Fine-Grained Expert Segmentation**. Instead of having a small set of large experts, DeepSeek-MoE has a <ins>large number of small experts</ins>. This increases the possible number of expert combinations, thus allowing the capture of more nuanced patterns. This improves finer-grained knwoledge and improved accuracy.  
+
+2) **Shared Expert Isolation**. In adition to token-routed experts, DeepSeek-MoE has a <ins>set of shared experts</ins>. This avoids redundant learning for individual routed experts. These routed experts can focus on specialization. 
+
+The combination of these elements makes DeepSeek more scalable, efficient and knowledge-rich wrt conventional MoEs. 
+
+In {numref}`DeepMoE1` we show 
+
+- **64 Routed Experts**. Each token is dynamically assigned to a subset of 6 routed experts based on the router function.
+- **2 Shared Experts**. The shared experts specialize in capturing general knowledge that is useful across tokens, ensuring that common information does not need to be redundantly learned by the routed experts.
+
+<span style="color:#2f6004">**How to the shared experts work?**. As we can see in {numref}`DeepMoE2`(right), shared experts are not subject to the router: they run in parallel with it, as if they where **residual connections**</span>. 
+
+```{figure} ./images/Topic3/DeepMoE1.png
+---
+name: DeepMoE1
+width: 800px
+align: center
+height: 450px
+---
+DeepSeek-MoE: $k$ experts light as a Chistmas Tree. Source: [Medium](https://medium.com/gopenai/inside-deepseek-moe-a-step-by-step-walkthrough-f5e1966c4e21). 
+```
+
+```{figure} ./images/Topic3/DeepMoE2.png
+---
+name: DeepMoE2
+width: 800px
+align: center
+height: 450px
+---
+DeepSeek-MoE: progression from basic MoEs. Source: [Medium](https://medium.com/gopenai/inside-deepseek-moe-a-step-by-step-walkthrough-f5e1966c4e21). 
+```
+
+**Benefits of the Shared Expert/s**. There are many interesting benefits of this strategy: 
+
+1) **Ensure a Basic Processing Route**. This complements the noisy gating to fight the well-known 'Dead Experts Problem': in a pure MoE, if the router/gate does not enroutes the tokens to certain experts or if an expert never receives enough training data it becomes a **dead expert**. This makes the training unstable. However as we ensure that at least the common experts are triggered, this <ins>ensures that all tokens receive a basic and coherent processing</ins>. 
+
+2) **Better resistance to Sparse Activations**. Specially in the first training epochs, the router may be not effective to select the proper experts. Without a shared experts this may lead to a random routing or to a irrelevant routing (this produces noisy gradients). Shared experts <ins>anchor the training, thus giving the router enough margin to specialize the other experts more agressively</ins> as an alternative route for each token.  
+
+3) **Facilitates common information transfer**. Certain features of the language such as the sintactic processing are more universal/general than specific. Then, the shared expert can manage these features and the other experts can focus on more detailed/specialized features. 
+
+4) **Implicit regularization**. The shared expert can be seen as a regularization method. It forces that part of the learning is shared and <ins>limits the risk that the individual experts overfit</ins> or that the <ins>moded leans on a particular expert</ins>.
+
+### Transformer vs MoE 
+Along the first part of this topic,we studied a **real Transformer-based LLM**: $\text{BreadAi/gpt-Youtube}$. Herein, we compare it with a **MoE-based LLM**: $\text{Qwen1.5-MoE-A2.7B}$. This MoE holds most of the features discussed for MoEs in this section. 
+
+#### Qwen Architecture 
+The global architectore of $\text{Qwen1.5-MoE-A2.7B}$ is as follows:
+
+``` 
+Qwen2MoeForCausalLM(
+  (model): Qwen2MoeModel(
+    (embed_tokens): Embedding(151936, 2048)
+    (layers): ModuleList(
+      (0-23): 24 x Qwen2MoeDecoderLayer(
+        (self_attn): Qwen2MoeAttention(
+          (q_proj): Linear4bit(in_features=2048, out_features=2048, bias=True)
+          (k_proj): Linear4bit(in_features=2048, out_features=2048, bias=True)
+          (v_proj): Linear4bit(in_features=2048, out_features=2048, bias=True)
+          (o_proj): Linear4bit(in_features=2048, out_features=2048, bias=False)
+        )
+        (mlp): Qwen2MoeSparseMoeBlock(
+          (gate): Qwen2MoeTopKRouter()
+          (experts): Qwen2MoeExperts(
+            (act_fn): SiLUActivation()
+          )
+          (shared_expert): Qwen2MoeMLP(
+            (gate_proj): Linear4bit(in_features=2048, out_features=5632, bias=False)
+            (up_proj): Linear4bit(in_features=2048, out_features=5632, bias=False)
+            (down_proj): Linear4bit(in_features=5632, out_features=2048, bias=False)
+            (act_fn): SiLUActivation()
+          )
+          (shared_expert_gate): Linear4bit(in_features=2048, out_features=1, bias=False)
+        )
+        (input_layernorm): Qwen2MoeRMSNorm((2048,), eps=1e-06)
+        (post_attention_layernorm): Qwen2MoeRMSNorm((2048,), eps=1e-06)
+      )
+    )
+    (norm): Qwen2MoeRMSNorm((2048,), eps=1e-06)
+    (rotary_emb): Qwen2MoeRotaryEmbedding()
+  )
+  (lm_head): Linear(in_features=2048, out_features=151936, bias=False)
+)
+``` 
+
+Some basic aspects: 
+
+1) **Larger vocabulary**: 151k vs 50k ($\approx 3\times$). Also the embedding dimension is doubled: $2048$ vs $768$.
+
+2) **More Layers**. The number of embedding layers, named  $\text{Qwen2MoeDecoderLayer}$ are now $24$ instead of $12$. 
+
+##### Self-attention 
+Note that whereas GPT holds a **unique** compact Q-K-V matrix (layer $\text{query_key_value}$ with dimension $768\times 3\times 768$) **Qwen holds 3 separated matrices** (linear layers): $\text{q_proj}$, $\text{k_proj}$ and $\text{v_proj}$ each one square wrt the embedding dimension $2048$: 
+
+``` 
+ (self_attn): Qwen2MoeAttention(
+          (q_proj): Linear4bit(in_features=2048, out_features=2048, bias=True)
+          (k_proj): Linear4bit(in_features=2048, out_features=2048, bias=True)
+          (v_proj): Linear4bit(in_features=2048, out_features=2048, bias=True)
+          (o_proj): Linear4bit(in_features=2048, out_features=2048, bias=False)
+``` 
+
+This has the following **interpretability properties**: 
+
+1) **Independent transformations**. Q, K and V are specialized in their primitive roles: Query, Key and add Value. This is radically different from split and merge, where Q-K-V matrices are coupled (it is a design decision imposed by efficiency that can be leveraged herein). 
+
+2) **Granular analysis**. We can inspect Q, K and V separaterly and identify their differences and be sure that they are really playing their roles. 
+
+3) **Clear Diagnosis**. If the attention module has some issues, we may analyze Q, K and V independently (maybe the Queries are not doing their job or the Keys are nor answering correctly). In other words, the analysis of the Q/K space is easier. 
+
+As GPT, Qwen also has **many attention heads**. In this case, Qwen has $16$ heads vs the $12$ of GPT. Independently of this number of heads, remind that the attention matrices depend on the Q-K-V layers which in turn are impacted by MoE (in the case of Qwen) or regular FFNs/MLPs (in the case of GPT). Naturally, also the training data and the number of tokens lead to attentional differences as we see in {numref}`Heads-GPT-vs-Qwen`. Note that the last layer of GPT (left) has on average more self-attention in its last layer (12/12) than the mid-term layer (12/24) of Qwen. Also Q/K pairs wrt to the first token are more diverse in GPT than in Qwen. 
+
+```{figure} ./images/Topic3/Heads-GPT-vs-Qwen.png
+---
+name: Heads-GPT-vs-Qwen
+width: 800px
+align: center
+height: 350px
+---
+GPT-vs-Qwen Attentional Differences. Source: Gemini. 
+```
+
+This is clearer in {numref}`GPT-Qwen-Diff` where we represent $\text{Qwen-GPT}$
+average scores for the same layer. <span style="color:#2f6004">In particular the last token $\textbf{Youtube}$ attends more the first one $\textbf{Tell}$ in Qwen than in GPT, thus showing a **larger contextual power**</span>. 
+
+```{figure} ./images/Topic3/GPT-Qwen-Diff.png
+---
+name: GPT-Qwen-Diff
+width: 600px
+align: center
+height: 500px
+---
+GPT-vs-Qwen Attentional Differences (2). Source: Gemini. 
+```
+
+**Both do Split-and-Merge**. In addition to the Q-K-V matrices of GPT, Qwen has an additional one, the matrix O (the layer $\text{o_proj}$). The purpose of this matrix/layer is to concatenate the outputs of each head and project back to the original model dimensionality (as the layer). This layer is the same that the $\text{dense}$ layer after the layer $\text{query_key_value}$ in GPT. <span style="color:#2f6004">The layers before $\text{o_proj}$ in Qwen and $\text{query_key_value}$ in GPT **only prepare the attention computation**. Then split-and-merge works and the **output layers** $\text{dense}$ and $\text{o_proj}$ consolidate the result</span>. 
+ 
+##### MoE 
+Obviously, the MoE block is exclusive of Qwen. Note the gate, the experts and the shared expert: 
+```
+    (mlp): Qwen2MoeSparseMoeBlock(
+          (gate): Qwen2MoeTopKRouter()
+          (experts): Qwen2MoeExperts(
+            (act_fn): SiLUActivation()
+          )
+          (shared_expert): Qwen2MoeMLP(
+            (gate_proj): Linear4bit(in_features=2048, out_features=5632, bias=False)
+            (up_proj): Linear4bit(in_features=2048, out_features=5632, bias=False)
+            (down_proj): Linear4bit(in_features=5632, out_features=2048, bias=False)
+            (act_fn): SiLUActivation()
+          )
+          (shared_expert_gate): Linear4bit(in_features=2048, out_features=1, bias=False)
+        )
+```
+
+```{figure} ./images/Topic3/Experts.png
+---
+name: Experts
+width: 800px
+align: center
+height: 600px
+---
+MoE with the architecture of Experts. Source: [Medium](https://blog.gopenai.com/inside-deepseek-moe-a-step-by-step-walkthrough-f5e1966c4e21)
+```
+
+Basically, **experts** and **shared expert** have a similar architecture as show in {numref}`Experts`. 
+
+- **gate_proj** (Linear4bit): Input projection and initial activation. Takes the token representation and projects it onto a larger dimension (note that ```bias= False```). The name **gate** is a bit confusing here because **it is not a router**. It is just a first projection. Such a projection enters a **non-linearity** (this is the origin of the name **gate** here).
+
+- **up_proj** (Linear4bit): Dimensional expansion. Similar to gate_proj, but now the token representation can be projected to an even larger dimension. Such a projection does not enter a non-linarity. 
+
+- **down_proj** (Linear4bit): given the result of $\text{activation}(\text{gate}\ast\text{up})$ (element-wise multiplication), this layer comes back to the model dimension. This role is essentially the one performed by 
+
+```
+(mlp): GPTNeoXMLP(
+          (dense_h_to_4h): Linear(in_features=768, out_features=3072, bias=True)
+          (dense_4h_to_h): Linear(in_features=3072, out_features=768, bias=True)
+          (act): GELUActivation()
+        )
+```
+
+in GTP. 
+
+**Shared expert gate**. The last element of the MoE block is: 
+
+```
+(shared_expert_gate): Linear4bit(in_features=2048, out_features=1, bias=False)
+```
+
+Note that this layer has ```in_features=2048, out_features=1```. The role of this gate is to control the contribution of the shared expert to the final output of the MoE block. It gives a scalar weigth to combine with those of the outputs of the other experts. The basic equation is 
+
+$$
+\text{MoE}(\mathbf{x})=(1-g_{shared}(\mathbf{x}))\times\left(\sum_{k=1}^n g_k(\mathbf{x})\cdot E_k(\mathbf{x})\right) + g_{shared}(\mathbf{x})\times E_{shared}(\mathbf{x})\;.
+$$
+
+Therefore, when $g_{shared}$ is large, the MoE prefer to be more generalistic and vice versa when $g_{shared}$ is small. 
+
+##### The Token's Journey 
+The particularity of MoE models is that the token's journey is by definition **more sparse and complex** than in the case of primitive Transformers. 
+
+```{figure} ./images/Topic3/ExpertActivation1.png
+---
+name: ExpertActivation1
+width: 800px
+align: center
+height: 400px
+---
+Router activation of experts for Layer 1. Source: Gemini. 
+```
+
+```{figure} ./images/Topic3/ExpertActivation2.png
+---
+name: ExpertActivation2
+width: 800px
+align: center
+height: 400px
+---
+Router activation of experts for Layer 12. Source: Gemini. 
+```
+
+```{figure} ./images/Topic3/ExpertActivation3.png
+---
+name: ExpertActivation3
+width: 800px
+align: center
+height: 400px
+---
+Router activation of experts for Layer 23 (last layer). Source: Gemini. 
+```
+
+##### Jensen Divergence 
+
+

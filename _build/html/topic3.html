@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'topic3';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="6. Graph Neural Networks" href="practice0.html" />
+    <link rel="next" title="7. Graph Neural Networks" href="practice0.html" />
     <link rel="prev" title="4. Reinforcement Learning" href="topic2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -194,14 +194,15 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Generative Agents</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">5. LLMs and VLMs</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 0</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice0.html">6. Graph Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice1.html">7. Clique Problem</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice2.html">8. Reinforcement Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">9. Intelligent Agents</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice3_2.html">10. Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">7. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice1.html">8. Clique Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice2.html">9. Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">10. Intelligent Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_2.html">11. Retrieval-Augmented Generation (RAG)</a></li>
 </ul>
 
     </div>
@@ -397,6 +398,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">5. LLMs and VLMs</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-architectures">5.1. Transformer Architectures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoder-decoder">5.1.1. Encoder-Decoder</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decoder-only">5.1.2. Decoder-only</a></li>
@@ -419,6 +421,29 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-architecture">5.4. Full Architecture</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-token-machines">5.5. Next-Token Machines</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-transformers">6. Beyond Transformers</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moe">6.1. MoE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-intuition">6.1.1. The intuition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moe-s-output">6.1.2. MoE’s output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gating-network">6.1.3. Gating Network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deepseek-moe">6.1.4. DeepSeek MoE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-vs-moe">6.2. Transformer vs MoE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qwen-architecture">6.2.1. Qwen Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#self-attention">6.2.1.1. Self-attention</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.2.1.2. MoE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-token-s-journey">6.2.1.3. The Token’s Journey</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jensen-divergence">6.2.1.4. Jensen Divergence</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -760,6 +785,12 @@ E^{\text{att}}_i = \mathbf{S}(i,0)V_0 + \mathbf{S}(i,1)V_1 + \ldots + \mathbf{S}
 <span class="p">)</span>
 </pre></div>
 </div>
+<figure class="align-center" id="global">
+<a class="reference internal image-reference" href="_images/Global.png"><img alt="_images/Global.png" src="_images/Global.png" style="width: 600px; height: 250px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.16 </span><span class="caption-text">Architecture of Transformer module. Source: <a class="reference external" href="https://medium.com/towards-artificial-intelligence/no-libraries-no-shortcuts-llm-from-scratch-with-pytorch-664c557997ee">Medium</a>.</span><a class="headerlink" href="#global" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p><strong>Embedding</strong>. The Embedding layer of <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span> is <span class="math notranslate nohighlight">\(\text{embed-in}\)</span>: It has dimension <span class="math notranslate nohighlight">\(\text{vocabulary-size}\times 768\)</span>. All semantics are stored in the weights of this layer.</p>
 <p><strong>Transformer layers</strong>. <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span> has 12 Transformer layers before a final <span class="math notranslate nohighlight">\(\text{LayerNorm}\)</span> and an <span class="math notranslate nohighlight">\(\text{embed_out}\)</span>, and inverse embedding for <strong>decoding</strong>.</p>
 <p><strong>Attention module</strong>. Each layer has <span class="math notranslate nohighlight">\(\text{GPTNeoXAttention}\)</span> which is basically an MLP <span class="math notranslate nohighlight">\(\text{(query_key_value)}\)</span> that learns the Q-K-V matrices. This 2-layer MLP first perform <strong>expansion</strong> (input: <span class="math notranslate nohighlight">\(768\)</span>, output: <span class="math notranslate nohighlight">\(4\times 768= 3072\)</span>) and to provide more abstract representations and then <strong>contraction</strong> to hold dimensionality consistency (input: <span class="math notranslate nohighlight">\(4\times 768=3072\)</span>, output: <span class="math notranslate nohighlight">\(768\)</span>).</p>
@@ -941,6 +972,302 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
 <span class="s1">&#39;Tell me what is the most popular song in YouTube...?,(reply&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.4842</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>The complete result is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>--- Original Prompt ---
+Tell me what is the most popular song in YouTube
+
+--- Generated Text ---
+Tell me what is the most popular song in YouTube...?,(reply&gt;), Hit me up 👆📩
+</pre></div>
+</div>
+<p>by setting: <span class="math notranslate nohighlight">\(\text{num_beams}=5\)</span> and <span class="math notranslate nohighlight">\(\text{max_new_tokens}=50\)</span> and calling to</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate text using the model.</span>
+<span class="c1"># `inputs[&quot;input_ids&quot;]` contains the tokenized prompt.</span>
+<span class="c1"># `max_new_tokens` limits the length of the generated continuation.</span>
+<span class="c1"># `num_beams` &gt; 1 enables beam search, which explores multiple possible next words to find a more coherent sequence.</span>
+<span class="c1"># `no_repeat_ngram_size` prevents repetitive phrases.</span>
+<span class="c1"># `early_stopping=True` stops generation once all beam hypotheses have reached an end-of-sequence token.</span>
+<span class="c1"># `temperature` controls the randomness of generation (lower values make output more deterministic).</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+    <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">],</span>
+    <span class="n">attention_mask</span><span class="o">=</span><span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;attention_mask&quot;</span><span class="p">],</span> <span class="c1"># Pass the attention mask</span>
+    <span class="n">pad_token_id</span><span class="o">=</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token_id</span><span class="p">,</span>     <span class="c1"># Pass the pad_token_id</span>
+    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">num_beams</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">no_repeat_ngram_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span> <span class="c1"># Adjust for less random (lower) or more creative (higher) output</span>
+<span class="p">)</span>
+
+<span class="c1"># Decode the generated text: Convert the numerical output tokens back into human-readable text.</span>
+<span class="c1"># `skip_special_tokens=True` removes tokens like `[CLS]`, `[SEP]`, etc.</span>
+<span class="n">generated_text</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="beyond-transformers">
+<h1><span class="section-number">6. </span>Beyond Transformers<a class="headerlink" href="#beyond-transformers" title="Permalink to this heading">#</a></h1>
+<p>The success of the Transformer as an architecture for LLMs suggests a series of changes in the basic architecture. These changes are mainly motivated by <strong>scaling</strong>. In <a class="reference internal" href="#after-transformers"><span class="std std-numref">Fig. 6.1</span></a>, we sketch how these changes are driven by more sophisticated LLMs: <span style="color:#2f6004">LLama vs Qwen where the <strong>context length</strong> scales from 131k tokens to 256k tokens</span>.</p>
+<figure class="align-center" id="after-transformers">
+<a class="reference internal image-reference" href="_images/After-Transformers.png"><img alt="_images/After-Transformers.png" src="_images/After-Transformers.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.1 </span><span class="caption-text">Architectural chages after Transformers. Source: Sebastian Raschka’s <a class="reference external" href="https://github.com/rasbt/LLMs-from-scratch">Build a Large Language Model (from Scratch)</a>.</span><a class="headerlink" href="#after-transformers" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="moe">
+<h2><span class="section-number">6.1. </span>MoE<a class="headerlink" href="#moe" title="Permalink to this heading">#</a></h2>
+<section id="the-intuition">
+<h3><span class="section-number">6.1.1. </span>The intuition<a class="headerlink" href="#the-intuition" title="Permalink to this heading">#</a></h3>
+<p><strong>Mixtures of Experts (MoE)</strong>. In <a class="reference internal" href="#after-transformers"><span class="std std-numref">Fig. 6.1</span></a> (right), Qwen3 uses a Mixture-of-Experts (MoE) architecture, to  <strong>activates only a subset</strong> of its 235B parameters per query resulting in high efficiency without sacrificing quality. This is <span style="color:#2f6004">the <strong>basic idea of MoEs</strong>: replace dense MLP/FFN (dense) layers by smaller specialized NNs</span>.</p>
+<p>In inference time, each token is processed by several NNs (see <a class="reference internal" href="#id1"><span class="std std-numref">Fig. 6.2</span></a>):</p>
+<ol class="arabic simple">
+<li><p><strong>A “Router” (The Manager)</strong>: This is a small network. Its job is to look at the input data (like a word or part of a word) and <ins>decide which expert(s) are the best fit</span> to handle it right now.</p></li>
+<li><p><strong>A Team of “Experts”</strong>: These are smaller, specialized neural networks (usually simple Feed-Forward Networks or MLPs but <ins>not necessarily smaller than their dense counterparts in classical Transformers</ins>). Each expert might get good at handling certain types of information or patterns.</p></li>
+</ol>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/MoE.png"><img alt="_images/MoE.png" src="_images/MoE.png" style="width: 800px; height: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.2 </span><span class="caption-text">Mixture of Experts mechanism. Source: <a class="reference external" href="https://medium.com/ai-in-plain-english/mixture-of-experts-moe-models-in-ai-4bcbcdecccf8">Medium</a>.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="moe-s-output">
+<h3><span class="section-number">6.1.2. </span>MoE’s output<a class="headerlink" href="#moe-s-output" title="Permalink to this heading">#</a></h3>
+<p><strong>The token’s journey</strong> changes significantly here. Given a token <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> (from now on, we use ‘token’ and ‘embedding’ indistinctively), the output of the MoE-block (wrt the classical Transformer MLP/FFN-block) is as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{MoE}(\mathbf{x})=\sum_{k=1}^n g_k(\mathbf{x})\cdot E_k(\mathbf{x})\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(E_k(.)\)</span> is the <span class="math notranslate nohighlight">\(k-\)</span>th expert (of a total of <span class="math notranslate nohighlight">\(n\)</span> experts) and <span class="math notranslate nohighlight">\(g_k\)</span> is a weight. This means that the output of each expert is weighted. However, this weight <span class="math notranslate nohighlight">\(g_k\)</span> <strong>is not the probability of choosing expert</strong> <span class="math notranslate nohighlight">\(E_k\)</span>, just how each partial result is weighted. Again, an embedding <span class="math notranslate nohighlight">\(\text{MoE}(\mathbf{x})\)</span> is a linear combination of embeddings.</p>
+<p>Note that the weights <span class="math notranslate nohighlight">\(g_k(\mathbf{x})\)</span> is non-zero <strong>only for the selected experts</strong>. In <a class="reference internal" href="#scores"><span class="std std-numref">Fig. 6.3</span></a>, only experts 2 and 4 are selected, whereas the other experts are ignored. After that, their outputs are respectively weighted by <span class="math notranslate nohighlight">\(0.7\)</span> and <span class="math notranslate nohighlight">\(0.3\)</span> to produce the output of the MoE-block.</p>
+<figure class="align-center" id="scores">
+<a class="reference internal image-reference" href="_images/Scores.png"><img alt="_images/Scores.png" src="_images/Scores.png" style="width: 600px; height: 250px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.3 </span><span class="caption-text">Choosing experts and weights. Source: <a class="reference external" href="https://medium.com/gitconnected/building-qwen-3-moe-from-scratch-without-oop-in-python-d35e7e830001">Medium</a> and Fareed Khan.</span><a class="headerlink" href="#scores" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="gating-network">
+<h3><span class="section-number">6.1.3. </span>Gating Network<a class="headerlink" href="#gating-network" title="Permalink to this heading">#</a></h3>
+<p><strong>Noisy Top-k Gating</strong>. Given <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> a small network (usually a single linear layer + Softmax) <strong>maps it  to a score vector</strong> <span class="math notranslate nohighlight">\(g(\mathbf{x})\in\mathbb{R}^n\)</span>. Softmax gating leads to a dense distribution whereas sparse gating (such as that in <a class="reference internal" href="#scores"><span class="std std-numref">Fig. 6.3</span></a>) zeroes out most entries (Top-k Gating).</p>
+<p>Top-k Gating means that <strong>only <span class="math notranslate nohighlight">\(k\)</span> experts are going to be selected</strong> to process token <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>. Typically, the number of experts selected per token is <span class="math notranslate nohighlight">\(k=1,2\)</span>. This means that each input token activates at most <span class="math notranslate nohighlight">\(k=2\)</span> experts. If so, <span style="color:#2f6004">how do we ensure that <strong>no expert is idle</strong>?</span>. This is done via injecting Gaussian noise to the <span class="math notranslate nohighlight">\(g_k(.)\)</span> <strong>before</strong> the gate makes the top-k selection. Let <span class="math notranslate nohighlight">\(G(\mathbf{x})=[g_1(\mathbf{x}),g_2(\mathbf{x}),\ldots,g_n(\mathbf{x})]\)</span> the output vector of the router. Then:</p>
+<div class="math notranslate nohighlight">
+\[
+G(\mathbf{x}) = \text{Softmax}(\text{KeepTopK}(H(\mathbf{x}),k))
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+H_i(\mathbf{x}) = (\mathbf{W}_{gate}\mathbf{x})_i + \text{StandardNormal}()\cdot\underbrace{\text{Softplus}\left((\mathbf{W}_{noise}\mathbf{x})_i\right)}_{\sigma}
+\]</div>
+<p>is just another vector where the noiseless gate’s output is perturbed by <span class="math notranslate nohighlight">\(N(0,1)*\sigma\)</span>. Since <span class="math notranslate nohighlight">\(\text{Softplus}(x)=\log(1 +\exp(x))\)</span>, is non-negative, it parameterizes the noise variance.</p>
+<p>Finally, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{KeepTopK}(\underbrace{H(\mathbf{x})}_{\mathbf{v}},k)_i = 
+\begin{cases}
+     \mathbf{v}(i) &amp;\;\text{if}\; \mathbf{v}(i)\in \text{TopK}(\mathbf{v}) \\[2ex]
+     -\infty
+     &amp;\;\text{otherwise}\\[2ex]
+\end{cases}
+\end{split}\]</div>
+<p><strong>Purpose of Noising</strong>. This noise adds randoness to the expert selection. Then, although an expert is not (initally) among the top scored, this noise may increase its score enough to be eventually top. This has two benefits:</p>
+<ol class="arabic simple">
+<li><p>This forces the model to <strong>explore</strong> among the experts (experts are not idle, i.e. they become active).</p></li>
+<li><p>In addition, the workload of the experts is <strong>balanced</strong> (kind of a uniform distribution) during the training time.</p></li>
+<li><p>The <strong>best experts</strong> do have the chance to contribute which improves their especialization.</p></li>
+</ol>
+</section>
+<section id="deepseek-moe">
+<h3><span class="section-number">6.1.4. </span>DeepSeek MoE<a class="headerlink" href="#deepseek-moe" title="Permalink to this heading">#</a></h3>
+<p><strong>DeepSeek</strong> introduces two improvements wrt basic MoE:</p>
+<ol class="arabic simple">
+<li><p><strong>Fine-Grained Expert Segmentation</strong>. Instead of having a small set of large experts, DeepSeek-MoE has a <ins>large number of small experts</ins>. This increases the possible number of expert combinations, thus allowing the capture of more nuanced patterns. This improves finer-grained knwoledge and improved accuracy.</p></li>
+<li><p><strong>Shared Expert Isolation</strong>. In adition to token-routed experts, DeepSeek-MoE has a <ins>set of shared experts</ins>. This avoids redundant learning for individual routed experts. These routed experts can focus on specialization.</p></li>
+</ol>
+<p>The combination of these elements makes DeepSeek more scalable, efficient and knowledge-rich wrt conventional MoEs.</p>
+<p>In <a class="reference internal" href="#deepmoe1"><span class="std std-numref">Fig. 6.4</span></a> we show</p>
+<ul class="simple">
+<li><p><strong>64 Routed Experts</strong>. Each token is dynamically assigned to a subset of 6 routed experts based on the router function.</p></li>
+<li><p><strong>2 Shared Experts</strong>. The shared experts specialize in capturing general knowledge that is useful across tokens, ensuring that common information does not need to be redundantly learned by the routed experts.</p></li>
+</ul>
+<p><span style="color:#2f6004"><strong>How to the shared experts work?</strong>. As we can see in <a class="reference internal" href="#deepmoe2"><span class="std std-numref">Fig. 6.5</span></a>(right), shared experts are not subject to the router: they run in parallel with it, as if they where <strong>residual connections</strong></span>.</p>
+<figure class="align-center" id="deepmoe1">
+<a class="reference internal image-reference" href="_images/DeepMoE1.png"><img alt="_images/DeepMoE1.png" src="_images/DeepMoE1.png" style="width: 800px; height: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.4 </span><span class="caption-text">DeepSeek-MoE: <span class="math notranslate nohighlight">\(k\)</span> experts light as a Chistmas Tree. Source: <a class="reference external" href="https://medium.com/gopenai/inside-deepseek-moe-a-step-by-step-walkthrough-f5e1966c4e21">Medium</a>.</span><a class="headerlink" href="#deepmoe1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="deepmoe2">
+<a class="reference internal image-reference" href="_images/DeepMoE2.png"><img alt="_images/DeepMoE2.png" src="_images/DeepMoE2.png" style="width: 800px; height: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.5 </span><span class="caption-text">DeepSeek-MoE: progression from basic MoEs. Source: <a class="reference external" href="https://medium.com/gopenai/inside-deepseek-moe-a-step-by-step-walkthrough-f5e1966c4e21">Medium</a>.</span><a class="headerlink" href="#deepmoe2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Benefits of the Shared Expert/s</strong>. There are many interesting benefits of this strategy:</p>
+<ol class="arabic simple">
+<li><p><strong>Ensure a Basic Processing Route</strong>. This complements the noisy gating to fight the well-known ‘Dead Experts Problem’: in a pure MoE, if the router/gate does not enroutes the tokens to certain experts or if an expert never receives enough training data it becomes a <strong>dead expert</strong>. This makes the training unstable. However as we ensure that at least the common experts are triggered, this <ins>ensures that all tokens receive a basic and coherent processing</ins>.</p></li>
+<li><p><strong>Better resistance to Sparse Activations</strong>. Specially in the first training epochs, the router may be not effective to select the proper experts. Without a shared experts this may lead to a random routing or to a irrelevant routing (this produces noisy gradients). Shared experts <ins>anchor the training, thus giving the router enough margin to specialize the other experts more agressively</ins> as an alternative route for each token.</p></li>
+<li><p><strong>Facilitates common information transfer</strong>. Certain features of the language such as the sintactic processing are more universal/general than specific. Then, the shared expert can manage these features and the other experts can focus on more detailed/specialized features.</p></li>
+<li><p><strong>Implicit regularization</strong>. The shared expert can be seen as a regularization method. It forces that part of the learning is shared and <ins>limits the risk that the individual experts overfit</ins> or that the <ins>moded leans on a particular expert</ins>.</p></li>
+</ol>
+</section>
+</section>
+<section id="transformer-vs-moe">
+<h2><span class="section-number">6.2. </span>Transformer vs MoE<a class="headerlink" href="#transformer-vs-moe" title="Permalink to this heading">#</a></h2>
+<p>Along the first part of this topic,we studied a <strong>real Transformer-based LLM</strong>: <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span>. Herein, we compare it with a <strong>MoE-based LLM</strong>: <span class="math notranslate nohighlight">\(\text{Qwen1.5-MoE-A2.7B}\)</span>. This MoE holds most of the features discussed for MoEs in this section.</p>
+<section id="qwen-architecture">
+<h3><span class="section-number">6.2.1. </span>Qwen Architecture<a class="headerlink" href="#qwen-architecture" title="Permalink to this heading">#</a></h3>
+<p>The global architectore of <span class="math notranslate nohighlight">\(\text{Qwen1.5-MoE-A2.7B}\)</span> is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Qwen2MoeForCausalLM</span><span class="p">(</span>
+  <span class="p">(</span><span class="n">model</span><span class="p">):</span> <span class="n">Qwen2MoeModel</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">embed_tokens</span><span class="p">):</span> <span class="n">Embedding</span><span class="p">(</span><span class="mi">151936</span><span class="p">,</span> <span class="mi">2048</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">layers</span><span class="p">):</span> <span class="n">ModuleList</span><span class="p">(</span>
+      <span class="p">(</span><span class="mi">0</span><span class="o">-</span><span class="mi">23</span><span class="p">):</span> <span class="mi">24</span> <span class="n">x</span> <span class="n">Qwen2MoeDecoderLayer</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">self_attn</span><span class="p">):</span> <span class="n">Qwen2MoeAttention</span><span class="p">(</span>
+          <span class="p">(</span><span class="n">q_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <span class="p">(</span><span class="n">k_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <span class="p">(</span><span class="n">v_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <span class="p">(</span><span class="n">o_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="p">(</span><span class="n">mlp</span><span class="p">):</span> <span class="n">Qwen2MoeSparseMoeBlock</span><span class="p">(</span>
+          <span class="p">(</span><span class="n">gate</span><span class="p">):</span> <span class="n">Qwen2MoeTopKRouter</span><span class="p">()</span>
+          <span class="p">(</span><span class="n">experts</span><span class="p">):</span> <span class="n">Qwen2MoeExperts</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">act_fn</span><span class="p">):</span> <span class="n">SiLUActivation</span><span class="p">()</span>
+          <span class="p">)</span>
+          <span class="p">(</span><span class="n">shared_expert</span><span class="p">):</span> <span class="n">Qwen2MoeMLP</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">gate_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">5632</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">up_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">5632</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">down_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">5632</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">act_fn</span><span class="p">):</span> <span class="n">SiLUActivation</span><span class="p">()</span>
+          <span class="p">)</span>
+          <span class="p">(</span><span class="n">shared_expert_gate</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="p">(</span><span class="n">input_layernorm</span><span class="p">):</span> <span class="n">Qwen2MoeRMSNorm</span><span class="p">((</span><span class="mi">2048</span><span class="p">,),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">post_attention_layernorm</span><span class="p">):</span> <span class="n">Qwen2MoeRMSNorm</span><span class="p">((</span><span class="mi">2048</span><span class="p">,),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">)</span>
+      <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="p">(</span><span class="n">norm</span><span class="p">):</span> <span class="n">Qwen2MoeRMSNorm</span><span class="p">((</span><span class="mi">2048</span><span class="p">,),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">rotary_emb</span><span class="p">):</span> <span class="n">Qwen2MoeRotaryEmbedding</span><span class="p">()</span>
+  <span class="p">)</span>
+  <span class="p">(</span><span class="n">lm_head</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">151936</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Some basic aspects:</p>
+<ol class="arabic simple">
+<li><p><strong>Larger vocabulary</strong>: 151k vs 50k (<span class="math notranslate nohighlight">\(\approx 3\times\)</span>). Also the embedding dimension is doubled: <span class="math notranslate nohighlight">\(2048\)</span> vs <span class="math notranslate nohighlight">\(768\)</span>.</p></li>
+<li><p><strong>More Layers</strong>. The number of embedding layers, named  <span class="math notranslate nohighlight">\(\text{Qwen2MoeDecoderLayer}\)</span> are now <span class="math notranslate nohighlight">\(24\)</span> instead of <span class="math notranslate nohighlight">\(12\)</span>.</p></li>
+</ol>
+<section id="self-attention">
+<h4><span class="section-number">6.2.1.1. </span>Self-attention<a class="headerlink" href="#self-attention" title="Permalink to this heading">#</a></h4>
+<p>Note that whereas GPT holds a <strong>unique</strong> compact Q-K-V matrix (layer <span class="math notranslate nohighlight">\(\text{query_key_value}\)</span> with dimension <span class="math notranslate nohighlight">\(768\times 3\times 768\)</span>) <strong>Qwen holds 3 separated matrices</strong> (linear layers): <span class="math notranslate nohighlight">\(\text{q_proj}\)</span>, <span class="math notranslate nohighlight">\(\text{k_proj}\)</span> and <span class="math notranslate nohighlight">\(\text{v_proj}\)</span> each one square wrt the embedding dimension <span class="math notranslate nohighlight">\(2048\)</span>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="p">(</span><span class="n">self_attn</span><span class="p">):</span> <span class="n">Qwen2MoeAttention</span><span class="p">(</span>
+          <span class="p">(</span><span class="n">q_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <span class="p">(</span><span class="n">k_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <span class="p">(</span><span class="n">v_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <span class="p">(</span><span class="n">o_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This has the following <strong>interpretability properties</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Independent transformations</strong>. Q, K and V are specialized in their primitive roles: Query, Key and add Value. This is radically different from split and merge, where Q-K-V matrices are coupled (it is a design decision imposed by efficiency that can be leveraged herein).</p></li>
+<li><p><strong>Granular analysis</strong>. We can inspect Q, K and V separaterly and identify their differences and be sure that they are really playing their roles.</p></li>
+<li><p><strong>Clear Diagnosis</strong>. If the attention module has some issues, we may analyze Q, K and V independently (maybe the Queries are not doing their job or the Keys are nor answering correctly). In other words, the analysis of the Q/K space is easier.</p></li>
+</ol>
+<p>As GPT, Qwen also has <strong>many attention heads</strong>. In this case, Qwen has <span class="math notranslate nohighlight">\(16\)</span> heads vs the <span class="math notranslate nohighlight">\(12\)</span> of GPT. Independently of this number of heads, remind that the attention matrices depend on the Q-K-V layers which in turn are impacted by MoE (in the case of Qwen) or regular FFNs/MLPs (in the case of GPT). Naturally, also the training data and the number of tokens lead to attentional differences as we see in <a class="reference internal" href="#heads-gpt-vs-qwen"><span class="std std-numref">Fig. 6.6</span></a>. Note that the last layer of GPT (left) has on average more self-attention in its last layer (12/12) than the mid-term layer (12/24) of Qwen. Also Q/K pairs wrt to the first token are more diverse in GPT than in Qwen.</p>
+<figure class="align-center" id="heads-gpt-vs-qwen">
+<a class="reference internal image-reference" href="_images/Heads-GPT-vs-Qwen.png"><img alt="_images/Heads-GPT-vs-Qwen.png" src="_images/Heads-GPT-vs-Qwen.png" style="width: 800px; height: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.6 </span><span class="caption-text">GPT-vs-Qwen Attentional Differences. Source: Gemini.</span><a class="headerlink" href="#heads-gpt-vs-qwen" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>This is clearer in <a class="reference internal" href="#gpt-qwen-diff"><span class="std std-numref">Fig. 6.7</span></a> where we represent <span class="math notranslate nohighlight">\(\text{Qwen-GPT}\)</span>
+average scores for the same layer. <span style="color:#2f6004">In particular the last token <span class="math notranslate nohighlight">\(\textbf{Youtube}\)</span> attends more the first one <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span> in Qwen than in GPT, thus showing a <strong>larger contextual power</strong></span>.</p>
+<figure class="align-center" id="gpt-qwen-diff">
+<a class="reference internal image-reference" href="_images/GPT-Qwen-Diff.png"><img alt="_images/GPT-Qwen-Diff.png" src="_images/GPT-Qwen-Diff.png" style="width: 600px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.7 </span><span class="caption-text">GPT-vs-Qwen Attentional Differences (2). Source: Gemini.</span><a class="headerlink" href="#gpt-qwen-diff" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Both do Split-and-Merge</strong>. In addition to the Q-K-V matrices of GPT, Qwen has an additional one, the matrix O (the layer <span class="math notranslate nohighlight">\(\text{o_proj}\)</span>). The purpose of this matrix/layer is to concatenate the outputs of each head and project back to the original model dimensionality (as the layer). This layer is the same that the <span class="math notranslate nohighlight">\(\text{dense}\)</span> layer after the layer <span class="math notranslate nohighlight">\(\text{query_key_value}\)</span> in GPT. <span style="color:#2f6004">The layers before <span class="math notranslate nohighlight">\(\text{o_proj}\)</span> in Qwen and <span class="math notranslate nohighlight">\(\text{query_key_value}\)</span> in GPT <strong>only prepare the attention computation</strong>. Then split-and-merge works and the <strong>output layers</strong> <span class="math notranslate nohighlight">\(\text{dense}\)</span> and <span class="math notranslate nohighlight">\(\text{o_proj}\)</span> consolidate the result</span>.</p>
+</section>
+<section id="id2">
+<h4><span class="section-number">6.2.1.2. </span>MoE<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<p>Obviously, the MoE block is exclusive of Qwen. Note the gate, the experts and the shared expert:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">(</span><span class="n">mlp</span><span class="p">):</span> <span class="n">Qwen2MoeSparseMoeBlock</span><span class="p">(</span>
+          <span class="p">(</span><span class="n">gate</span><span class="p">):</span> <span class="n">Qwen2MoeTopKRouter</span><span class="p">()</span>
+          <span class="p">(</span><span class="n">experts</span><span class="p">):</span> <span class="n">Qwen2MoeExperts</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">act_fn</span><span class="p">):</span> <span class="n">SiLUActivation</span><span class="p">()</span>
+          <span class="p">)</span>
+          <span class="p">(</span><span class="n">shared_expert</span><span class="p">):</span> <span class="n">Qwen2MoeMLP</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">gate_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">5632</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">up_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">5632</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">down_proj</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">5632</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">act_fn</span><span class="p">):</span> <span class="n">SiLUActivation</span><span class="p">()</span>
+          <span class="p">)</span>
+          <span class="p">(</span><span class="n">shared_expert_gate</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<figure class="align-center" id="experts">
+<a class="reference internal image-reference" href="_images/Experts.png"><img alt="_images/Experts.png" src="_images/Experts.png" style="width: 800px; height: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.8 </span><span class="caption-text">MoE with the architecture of Experts. Source: <a class="reference external" href="https://blog.gopenai.com/inside-deepseek-moe-a-step-by-step-walkthrough-f5e1966c4e21">Medium</a></span><a class="headerlink" href="#experts" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Basically, <strong>experts</strong> and <strong>shared expert</strong> have a similar architecture as show in <a class="reference internal" href="#experts"><span class="std std-numref">Fig. 6.8</span></a>.</p>
+<ul class="simple">
+<li><p><strong>gate_proj</strong> (Linear4bit): Input projection and initial activation. Takes the token representation and projects it onto a larger dimension (note that <code class="docutils literal notranslate"><span class="pre">bias=</span> <span class="pre">False</span></code>). The name <strong>gate</strong> is a bit confusing here because <strong>it is not a router</strong>. It is just a first projection. Such a projection enters a <strong>non-linearity</strong> (this is the origin of the name <strong>gate</strong> here).</p></li>
+<li><p><strong>up_proj</strong> (Linear4bit): Dimensional expansion. Similar to gate_proj, but now the token representation can be projected to an even larger dimension. Such a projection does not enter a non-linarity.</p></li>
+<li><p><strong>down_proj</strong> (Linear4bit): given the result of <span class="math notranslate nohighlight">\(\text{activation}(\text{gate}\ast\text{up})\)</span> (element-wise multiplication), this layer comes back to the model dimension. This role is essentially the one performed by</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">mlp</span><span class="p">):</span> <span class="n">GPTNeoXMLP</span><span class="p">(</span>
+          <span class="p">(</span><span class="n">dense_h_to_4h</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">3072</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <span class="p">(</span><span class="n">dense_4h_to_h</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">3072</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+          <span class="p">(</span><span class="n">act</span><span class="p">):</span> <span class="n">GELUActivation</span><span class="p">()</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p>in GTP.</p>
+<p><strong>Shared expert gate</strong>. The last element of the MoE block is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">shared_expert_gate</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that this layer has <code class="docutils literal notranslate"><span class="pre">in_features=2048,</span> <span class="pre">out_features=1</span></code>. The role of this gate is to control the contribution of the shared expert to the final output of the MoE block. It gives a scalar weigth to combine with those of the outputs of the other experts. The basic equation is</p>
+<div class="math notranslate nohighlight">
+\[
+\text{MoE}(\mathbf{x})=(1-g_{shared}(\mathbf{x}))\times\left(\sum_{k=1}^n g_k(\mathbf{x})\cdot E_k(\mathbf{x})\right) + g_{shared}(\mathbf{x})\times E_{shared}(\mathbf{x})\;.
+\]</div>
+<p>Therefore, when <span class="math notranslate nohighlight">\(g_{shared}\)</span> is large, the MoE prefer to be more generalistic and vice versa when <span class="math notranslate nohighlight">\(g_{shared}\)</span> is small.</p>
+</section>
+<section id="the-token-s-journey">
+<h4><span class="section-number">6.2.1.3. </span>The Token’s Journey<a class="headerlink" href="#the-token-s-journey" title="Permalink to this heading">#</a></h4>
+<p>The particularity of MoE models is that the token’s journey is by definition <strong>more sparse and complex</strong> than in the case of primitive Transformers.</p>
+<figure class="align-center" id="expertactivation1">
+<a class="reference internal image-reference" href="_images/ExpertActivation1.png"><img alt="_images/ExpertActivation1.png" src="_images/ExpertActivation1.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.9 </span><span class="caption-text">Router activation of experts for Layer 1. Source: Gemini.</span><a class="headerlink" href="#expertactivation1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="expertactivation2">
+<a class="reference internal image-reference" href="_images/ExpertActivation2.png"><img alt="_images/ExpertActivation2.png" src="_images/ExpertActivation2.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.10 </span><span class="caption-text">Router activation of experts for Layer 12. Source: Gemini.</span><a class="headerlink" href="#expertactivation2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="expertactivation3">
+<a class="reference internal image-reference" href="_images/ExpertActivation3.png"><img alt="_images/ExpertActivation3.png" src="_images/ExpertActivation3.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.11 </span><span class="caption-text">Router activation of experts for Layer 23 (last layer). Source: Gemini.</span><a class="headerlink" href="#expertactivation3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="jensen-divergence">
+<h4><span class="section-number">6.2.1.4. </span>Jensen Divergence<a class="headerlink" href="#jensen-divergence" title="Permalink to this heading">#</a></h4>
+</section>
+</section>
 </section>
 </section>
 
@@ -988,7 +1315,7 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>Graph Neural Networks</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Graph Neural Networks</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1008,6 +1335,7 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">5. LLMs and VLMs</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-architectures">5.1. Transformer Architectures</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#encoder-decoder">5.1.1. Encoder-Decoder</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decoder-only">5.1.2. Decoder-only</a></li>
@@ -1030,6 +1358,29 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#full-architecture">5.4. Full Architecture</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-token-machines">5.5. Next-Token Machines</a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-transformers">6. Beyond Transformers</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moe">6.1. MoE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-intuition">6.1.1. The intuition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moe-s-output">6.1.2. MoE’s output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gating-network">6.1.3. Gating Network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deepseek-moe">6.1.4. DeepSeek MoE</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-vs-moe">6.2. Transformer vs MoE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qwen-architecture">6.2.1. Qwen Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#self-attention">6.2.1.1. Self-attention</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.2.1.2. MoE</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-token-s-journey">6.2.1.3. The Token’s Journey</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jensen-divergence">6.2.1.4. Jensen Divergence</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   </nav></div>
 
 </div></div>
