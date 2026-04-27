@@ -434,7 +434,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qwen-architecture">6.2.1. Qwen Architecture</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#self-attention">6.2.1.1. Self-attention</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.2.1.2. MoE</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-token-s-journey">6.2.1.3. The Token’s Journey</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sparseness-and-specialization">6.2.1.3. Sparseness and Specialization</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jensen-divergence">6.2.1.4. Jensen Divergence</a></li>
 </ul>
 </li>
@@ -827,10 +827,12 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
+
 <span class="k">def</span> <span class="nf">simplified_beam_search</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">num_beams</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">input_ids</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">input_ids</span>
     <span class="k">if</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token_id</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span>
+
 
     <span class="c1"># Step 1: Generate the first candidate  `num_beams`:</span>
     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
@@ -838,15 +840,19 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
         <span class="n">next_token_logits</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">logits</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
         <span class="n">next_token_probs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">next_token_logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
+
         <span class="n">top_probs</span><span class="p">,</span> <span class="n">top_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">next_token_probs</span><span class="p">,</span> <span class="n">num_beams</span><span class="p">)</span>
+
 
     <span class="c1"># Each &quot;beam&quot; is a tuple (score_log, sequence_ids, parent_sequence_id)</span>
     <span class="n">beams</span> <span class="o">=</span> <span class="p">[(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">prob</span><span class="o">.</span><span class="n">item</span><span class="p">()),</span> <span class="p">[</span><span class="n">idx</span><span class="o">.</span><span class="n">item</span><span class="p">()],</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">prob</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">top_probs</span><span class="p">,</span> <span class="n">top_indices</span><span class="p">)]</span>
+
 
     <span class="c1"># Store the beam scores and sequences history for visualization</span>
     <span class="n">beam_scores_history</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_beams</span><span class="p">)}</span>
     <span class="n">beam_sequences_history</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_beams</span><span class="p">)}</span>
     <span class="n">beam_parents_history</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_beams</span><span class="p">)}</span>
+
 
     <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># To store (step, beam_idx, token_id, score, parent_idx)</span>
     <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
@@ -861,6 +867,7 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
         <span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
     <span class="p">})</span>
     <span class="n">current_node_id_counter</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Unique ID for each generated token sequence</span>
+
 
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Step 0: Start with prompt: &#39;</span><span class="si">{</span><span class="n">prompt</span><span class="si">}</span><span class="s2">&#39; ---&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initial candidates (top </span><span class="si">{</span><span class="n">num_beams</span><span class="si">}</span><span class="s2">):&quot;</span><span class="p">)</span>
@@ -878,41 +885,51 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
         <span class="p">})</span>
         <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parent_node_id</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">([</span><span class="n">seq</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])}))</span>
 
+
         <span class="n">beam_scores_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
         <span class="n">beam_sequences_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
         <span class="n">beam_parents_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_node_id</span><span class="p">)</span>
 
+
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - &#39;</span><span class="si">{</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">full_seq</span><span class="p">,</span><span class="w"> </span><span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39; (Score: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
 
     <span class="c1"># Step 2: Iterate to extend sequences:</span>
     <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_new_tokens</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">all_candidates</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Store new candidates</span>
 
+
         <span class="k">for</span> <span class="n">beam_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">seq_ids</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">beams</span><span class="p">):</span>
             <span class="n">current_input_ids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">seq_ids</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
 
             <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
                 <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">current_input_ids</span><span class="p">)</span>
                 <span class="n">next_token_logits</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">logits</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
                 <span class="n">next_token_probs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">next_token_logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
+
                 <span class="c1"># Obtener los top `num_beams` tokens para extender cada secuencia actual</span>
                 <span class="n">next_top_probs</span><span class="p">,</span> <span class="n">next_top_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">next_token_probs</span><span class="p">,</span> <span class="n">num_beams</span><span class="p">)</span>
+
 
             <span class="k">for</span> <span class="n">next_prob</span><span class="p">,</span> <span class="n">next_idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">next_top_probs</span><span class="p">,</span> <span class="n">next_top_indices</span><span class="p">):</span>
                 <span class="n">new_score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">next_prob</span><span class="o">.</span><span class="n">item</span><span class="p">())</span> <span class="c1"># Add log-probs</span>
                 <span class="n">new_seq_ids</span> <span class="o">=</span> <span class="n">seq_ids</span> <span class="o">+</span> <span class="p">[</span><span class="n">next_idx</span><span class="o">.</span><span class="n">item</span><span class="p">()]</span>
                 <span class="n">all_candidates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">new_score</span><span class="p">,</span> <span class="n">new_seq_ids</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">seq_ids</span><span class="p">)))</span> <span class="c1"># Store parent sequence ID</span>
 
+
         <span class="c1"># Bound: Select the best `num_beams` among all generated</span>
         <span class="n">all_candidates</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">beams</span> <span class="o">=</span> <span class="n">all_candidates</span><span class="p">[:</span><span class="n">num_beams</span><span class="p">]</span> <span class="c1"># Keep only the top `num_beams`</span>
+
 
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Step </span><span class="si">{</span><span class="n">step</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">: Extension --- (</span><span class="si">{</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="w"> </span><span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="si">}</span><span class="s2">...)&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">parent_seq</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">beams</span><span class="p">):</span> <span class="c1"># Fixed: Unpack 3 values</span>
             <span class="n">full_seq</span> <span class="o">=</span> <span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">seq</span>
             <span class="n">node_id</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">full_seq</span><span class="p">)</span>
             <span class="n">parent_node_id</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">parent_seq</span><span class="p">))</span>
+
 
             <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
                 <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">node_id</span><span class="p">,</span>
@@ -923,16 +940,19 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
             <span class="p">})</span>
             <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parent_node_id</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">([</span><span class="n">seq</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])}))</span>
 
+
             <span class="n">beam_scores_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
             <span class="n">beam_sequences_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
             <span class="n">beam_parents_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_node_id</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - &#39;</span><span class="si">{</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">full_seq</span><span class="p">,</span><span class="w"> </span><span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39; (Score: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
 
     <span class="c1"># Final result</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Final generation (Best Beam) ---&quot;</span><span class="p">)</span>
     <span class="n">best_score</span><span class="p">,</span> <span class="n">best_seq_ids</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">beams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">final_generated_text</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">best_seq_ids</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">final_generated_text</span><span class="si">}</span><span class="s2">&#39; (Score: </span><span class="si">{</span><span class="n">best_score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
 
     <span class="k">return</span> <span class="n">beam_scores_history</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span>
 </pre></div>
@@ -948,11 +968,13 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube?&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.9147</span><span class="p">)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube ?&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.8189</span><span class="p">)</span>
 
+
 <span class="o">---</span> <span class="n">Step</span> <span class="mi">1</span><span class="p">:</span> <span class="n">Extension</span> <span class="o">---</span> <span class="p">(</span><span class="n">Tell</span> <span class="n">me</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">most</span> <span class="n">popular</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">YouTube</span><span class="o">...</span><span class="p">)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...?&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.2316</span><span class="p">)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...</span>
 <span class="s1">&#39; (Score: -1.3814)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...I&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0739</span><span class="p">)</span>
+
 
 <span class="o">---</span> <span class="n">Step</span> <span class="mi">2</span><span class="p">:</span> <span class="n">Extension</span> <span class="o">---</span> <span class="p">(</span><span class="n">Tell</span> <span class="n">me</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">most</span> <span class="n">popular</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">YouTube</span><span class="o">...</span><span class="p">)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...</span>
@@ -961,12 +983,14 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...?</span>
 <span class="s1">&#39; (Score: -3.1475)</span>
 
+
 <span class="o">---</span> <span class="n">Step</span> <span class="mi">3</span><span class="p">:</span> <span class="n">Extension</span> <span class="o">---</span> <span class="p">(</span><span class="n">Tell</span> <span class="n">me</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">most</span> <span class="n">popular</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">YouTube</span><span class="o">...</span><span class="p">)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...?,(reply&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.4842</span><span class="p">)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...</span>
 <span class="n">This</span><span class="s1">&#39; (Score: -2.6576)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...</span>
 <span class="s2">&quot;&#39; (Score: -3.0459)</span>
+
 
 <span class="o">---</span> <span class="n">Final</span> <span class="n">generation</span> <span class="p">(</span><span class="n">Best</span> <span class="n">Beam</span><span class="p">)</span> <span class="o">---</span>
 <span class="s1">&#39;Tell me what is the most popular song in YouTube...?,(reply&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.4842</span><span class="p">)</span>
@@ -975,6 +999,7 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
 <p>The complete result is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>--- Original Prompt ---
 Tell me what is the most popular song in YouTube
+
 
 --- Generated Text ---
 Tell me what is the most popular song in YouTube...?,(reply&gt;), Hit me up 👆📩
@@ -999,6 +1024,7 @@ Tell me what is the most popular song in YouTube...?,(reply&gt;), Hit me up 👆
     <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span> <span class="c1"># Adjust for less random (lower) or more creative (higher) output</span>
 <span class="p">)</span>
 
+
 <span class="c1"># Decode the generated text: Convert the numerical output tokens back into human-readable text.</span>
 <span class="c1"># `skip_special_tokens=True` removes tokens like `[CLS]`, `[SEP]`, etc.</span>
 <span class="n">generated_text</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1020,6 +1046,8 @@ Tell me what is the most popular song in YouTube...?,(reply&gt;), Hit me up 👆
 <section id="the-intuition">
 <h3><span class="section-number">6.1.1. </span>The intuition<a class="headerlink" href="#the-intuition" title="Permalink to this heading">#</a></h3>
 <p><strong>Mixtures of Experts (MoE)</strong>. In <a class="reference internal" href="#after-transformers"><span class="std std-numref">Fig. 6.1</span></a> (right), Qwen3 uses a Mixture-of-Experts (MoE) architecture, to  <strong>activates only a subset</strong> of its 235B parameters per query resulting in high efficiency without sacrificing quality. This is <span style="color:#2f6004">the <strong>basic idea of MoEs</strong>: replace dense MLP/FFN (dense) layers by smaller specialized NNs</span>.</p>
+<p><strong>The scaling hypothesis</strong>. the motivation behind MoE is partly driven by the scaling hypothesis, which suggests that <span style="color:#2f6004">emergent abilities tend to arise as LLMs are scaled up on massive datasets</span>. This explains the trend of increasingly larger models, such as the GPT series growing from 117M to 175B parameters.</p>
+<p>However, not everyone has the resources to train LLMs at such scale, and <span style="color:#2f6004"><strong>MoE offers a practical compromise</strong>: it enables scaling up model size to boost capacity while keeping training and inference costs manageable by activating only a small portion of the total parameters for each input token</span>.</p>
 <p>In inference time, each token is processed by several NNs (see <a class="reference internal" href="#id1"><span class="std std-numref">Fig. 6.2</span></a>):</p>
 <ol class="arabic simple">
 <li><p><strong>A “Router” (The Manager)</strong>: This is a small network. Its job is to look at the input data (like a word or part of a word) and <ins>decide which expert(s) are the best fit</span> to handle it right now.</p></li>
@@ -1096,7 +1124,7 @@ H_i(\mathbf{x}) = (\mathbf{W}_{gate}\mathbf{x})_i + \text{StandardNormal}()\cdot
 <figure class="align-center" id="deepmoe1">
 <a class="reference internal image-reference" href="_images/DeepMoE1.png"><img alt="_images/DeepMoE1.png" src="_images/DeepMoE1.png" style="width: 800px; height: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 6.4 </span><span class="caption-text">DeepSeek-MoE: <span class="math notranslate nohighlight">\(k\)</span> experts light as a Chistmas Tree. Source: <a class="reference external" href="https://medium.com/gopenai/inside-deepseek-moe-a-step-by-step-walkthrough-f5e1966c4e21">Medium</a>.</span><a class="headerlink" href="#deepmoe1" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 6.4 </span><span class="caption-text">DeepSeek-MoE: <span class="math notranslate nohighlight">\(k\)</span> experts light as a Xmas Tree. Source: <a class="reference external" href="https://medium.com/gopenai/inside-deepseek-moe-a-step-by-step-walkthrough-f5e1966c4e21">Medium</a>.</span><a class="headerlink" href="#deepmoe1" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <figure class="align-center" id="deepmoe2">
@@ -1241,10 +1269,37 @@ average scores for the same layer. <span style="color:#2f6004">In particular the
 \text{MoE}(\mathbf{x})=(1-g_{shared}(\mathbf{x}))\times\left(\sum_{k=1}^n g_k(\mathbf{x})\cdot E_k(\mathbf{x})\right) + g_{shared}(\mathbf{x})\times E_{shared}(\mathbf{x})\;.
 \]</div>
 <p>Therefore, when <span class="math notranslate nohighlight">\(g_{shared}\)</span> is large, the MoE prefer to be more generalistic and vice versa when <span class="math notranslate nohighlight">\(g_{shared}\)</span> is small.</p>
+<p>Concering the number of parameters we have:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GPT</span><span class="o">-</span><span class="n">Youtube</span> <span class="p">(</span><span class="n">Single</span> <span class="n">FFN</span> <span class="n">Block</span><span class="p">):</span>
+
+
+<span class="n">dense_h_to_4h</span> <span class="n">layer</span> <span class="n">parameters</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span><span class="mi">362</span><span class="p">,</span><span class="mi">368</span>
+<span class="n">dense_4h_to_h</span> <span class="n">layer</span> <span class="n">parameters</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">064</span>
+<span class="n">Total</span> <span class="n">parameters</span> <span class="ow">in</span> <span class="n">one</span> <span class="n">FFN</span> <span class="n">block</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span><span class="mi">722</span><span class="p">,</span><span class="mi">432</span>
+<span class="n">Qwen</span> <span class="n">MoE</span> <span class="p">(</span><span class="n">Single</span> <span class="n">Expert</span> <span class="o">-</span> <span class="n">shared_expert</span> <span class="n">block</span><span class="p">):</span>
+
+
+<span class="n">gate_proj</span> <span class="n">layer</span> <span class="n">parameters</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span><span class="mi">534</span><span class="p">,</span><span class="mi">336</span>
+<span class="n">up_proj</span> <span class="n">layer</span> <span class="n">parameters</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span><span class="mi">534</span><span class="p">,</span><span class="mi">336</span>
+<span class="n">down_proj</span> <span class="n">layer</span> <span class="n">parameters</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span><span class="mi">534</span><span class="p">,</span><span class="mi">336</span>
+<span class="n">Total</span> <span class="n">parameters</span> <span class="ow">in</span> <span class="n">one</span> <span class="n">expert</span><span class="p">:</span> <span class="mi">34</span><span class="p">,</span><span class="mi">603</span><span class="p">,</span><span class="mi">008</span>
+</pre></div>
+</div>
 </section>
-<section id="the-token-s-journey">
-<h4><span class="section-number">6.2.1.3. </span>The Token’s Journey<a class="headerlink" href="#the-token-s-journey" title="Permalink to this heading">#</a></h4>
-<p>The particularity of MoE models is that the token’s journey is by definition <strong>more sparse and complex</strong> than in the case of primitive Transformers.</p>
+<section id="sparseness-and-specialization">
+<h4><span class="section-number">6.2.1.3. </span>Sparseness and Specialization<a class="headerlink" href="#sparseness-and-specialization" title="Permalink to this heading">#</a></h4>
+<p>The particularity of MoE models is that the token’s journey is by definition <strong>more sparse and complex</strong> than in the case of primitive Transformers. As attention patterns are interesting, also router activation of experts wrt each token in the sequence reveals
+the <strong>specialization of the experts</strong>. In Qwen we have <span class="math notranslate nohighlight">\(60\)</span> experts and <span class="math notranslate nohighlight">\(k=2\)</span> for TopK.</p>
+<ol class="arabic simple">
+<li><p>Initially (Layer 1 in <a class="reference internal" href="#expertactivation1"><span class="std std-numref">Fig. 6.9</span></a>), there is a <strong>small specialization</strong>.
+Interestingly, the there is a larger probability  that one of the experts takes the first token <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span>.</p></li>
+<li><p>Later on, mid term activatios (Layer 12 in <a class="reference internal" href="#expertactivation1"><span class="std std-numref">Fig. 6.9</span></a>) reveal a <strong>significant specialization</strong>,
+since the same expert (16) processes almost all the sequence but the start and end. This indicates a specialization
+in a particular sintantic role: the content of the question (<span class="math notranslate nohighlight">\(\textbf{what is the best...in}\)</span>). Both the tokens
+<span class="math notranslate nohighlight">\(\textbf{Tell}\)</span> and <span class="math notranslate nohighlight">\(\text{Youtube}\)</span> do have a more scattered process. Since <span class="math notranslate nohighlight">\(k=2\)</span> this pattern is very consistent
+(MoEs select the same Expert again and again for the in-between tokens).</p></li>
+<li><p>Finally, the last layer (Layer 23 in <a class="reference internal" href="#expertactivation1"><span class="std std-numref">Fig. 6.9</span></a>) exhibits also <strong>some degree of specialization</strong>.</p></li>
+</ol>
 <figure class="align-center" id="expertactivation1">
 <a class="reference internal image-reference" href="_images/ExpertActivation1.png"><img alt="_images/ExpertActivation1.png" src="_images/ExpertActivation1.png" style="width: 800px; height: 400px;" /></a>
 <figcaption>
@@ -1263,9 +1318,42 @@ average scores for the same layer. <span style="color:#2f6004">In particular the
 <p><span class="caption-number">Fig. 6.11 </span><span class="caption-text">Router activation of experts for Layer 23 (last layer). Source: Gemini.</span><a class="headerlink" href="#expertactivation3" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<p><strong>Narrow Vision</strong>. . However, the above results can be misleading (note the low values of the probabilities). <span style="color:#2f6004">The gate’s routing mechanism also gives rise to narrow vision: Experts may not be exposed to enough
+diverse data</span> to develop a comprehensive understanding of their respective sub-tasks, potentially impairing the model’s generalization
+performance:</p>
+<ol class="arabic simple">
+<li><p><strong>Selective Expert Activation</strong>: The router’s primary job is to select only a small number (top-k, typically 2) of experts for each token. In a way, this is a “narrow vision” because <ins>it doesn’t engage all 60 experts simultaneously<ins> for every piece of information. It specifically focuses on what it deems the most relevant experts, ignoring the others. This is by design, for efficiency and specialization, but it is a selective focus.</p></li>
+<li><p><strong>Local Decision-Making</strong>: The router makes its decision about which experts to activate based on the current hidden state of a single token at a particular layer. <ins>Its “vision” is local to that token and layer, rather than having a global overview of the entire input sequence’s meaning</ins> or the model’s overall processing goal across all layers. However, the cumulative effect of these local decisions across many layers is what builds global understanding.</p></li>
+<li><p><strong>Potential for Bias/Sub-optimality</strong>: If the router is not perfectly trained, its “vision” might be considered “narrow” if it consistently favors certain experts or overlooks others that could provide better insights for a given token. <ins>This would mean its selection process is not optimally broad or diverse when it should be</ins>.</p></li>
+</ol>
+<p>Interestingly, relatively recent studies (such as <a class="reference external" href="https://arxiv.org/pdf/2402.00893">MoDE</a>) show that solving this issue entails <strong>exchanging knowledge between</strong> experts.,</p>
 </section>
 <section id="jensen-divergence">
 <h4><span class="section-number">6.2.1.4. </span>Jensen Divergence<a class="headerlink" href="#jensen-divergence" title="Permalink to this heading">#</a></h4>
+<p>Since the token’s journey is by far more complex in MoEs that in regular Transformers, we need analytic tools to assess aspects such as the narrow vision. In this regard, <span style="color:#2f6004">Information Theory plays a key role, since we can <strong>compare the routing distributions</strong> of several layers wrt the tokens in the sequence</span>.</p>
+<p>The <strong>Jensen-Shannon Divergence (JSD)</strong> <span class="math notranslate nohighlight">\(\text{JSD}(\mathbf{p},\mathbf{q})\)</span> is basically the symmetrized KL divergence between two distributions:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{JSD}(\mathbf{p},\mathbf{q}) = \text{KL}(\mathbf{p}||\mathbf{q}) + \text{KL}(\mathbf{q}||\mathbf{p})
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{p}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{q}\)</span> encode (herein) the router distributions of two different layers <strong>wrt a given token</strong>.</p>
+<p>We have the following implications:</p>
+<ol class="arabic simple">
+<li><p><strong>Dynamic Expert Routing</strong>: The varying JSD scores across tokens highlight the dynamic nature of the MoE architecture. The ‘gate’ mechanism intelligently routes tokens to different sets of experts, and this routing strategy evolves as the model builds a richer contextual understanding through its layers.</p></li>
+<li><p><strong>Progressive Specialization</strong>: Tokens that show higher JSD values (like ‘Tell’) might require a more progressive specialization from different experts to capture their evolving contextual meaning. Conversely, tokens with lower JSD might have their core meaning consistently handled by certain experts.</p></li>
+</ol>
+<p>In <a class="reference internal" href="#jensen0-6"><span class="std std-numref">Fig. 6.12</span></a> we see how the first and a short-term layers mostly differ:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\textbf{Tell}\)</span> <strong>shows the highest divergence (JSD: 0.0352)</strong>: This suggests that the model’s processing strategy for the token <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span> changes most significantly between the initial (Layer 0) and intermediate (Layer 6) stages. <ins>In Layer 0, the model might be focusing on basic syntactic roles or general word meaning</ins>. By Layer 6, <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span> <ins>is likely integrated into a more complex semantic context</ins> (e.g., as part of a question or instruction), requiring different experts to contribute to its representation.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{song}\)</span> and <span class="math notranslate nohighlight">\(\text{YouTube}\)</span> (and others) <strong>show moderate divergence (JSD: 0.0151 and 0.0135 respectively)</strong>: These tokens also exhibit shifts in expert activation, but to a lesser extent than <span class="math notranslate nohighlight">\(\textbf{Tell}\)</span>. For <span class="math notranslate nohighlight">\(\text{song}\)</span>, the initial processing might establish its <ins>basic musical identity</ins>, while later layers <ins>refine its contextual meaning</ins> (e.g., popular song, song in YouTube). Similarly for <span class="math notranslate nohighlight">\(\text{YouTube}\)</span>, early layers might recognize it as a <ins>proper noun</ins>, and later layers activate experts related to its <ins>function as a video platform</insd>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\text{popular}\)</span> <strong>shows the lowest divergence (JSD: 0.0087)</strong>: The relatively low JSD for this token indicates that <ins>the model’s expert activation strategy for this adjective is more consistent between Layer 0 and Layer 6</ins>. This could mean that <ins>the core semantic properties of ‘popular’ are processed by a similar set of experts</ins> throughout these early and intermediate layers, or that its contextual meaning doesn’t undergo as drastic a transformation as other tokens.</p></li>
+</ol>
+<figure class="align-center" id="jensen0-6">
+<a class="reference internal image-reference" href="_images/Jensen0-6.png"><img alt="_images/Jensen0-6.png" src="_images/Jensen0-6.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.12 </span><span class="caption-text">Jensen scores between layers 0 and 6. Source: Gemini.</span><a class="headerlink" href="#jensen0-6" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 </section>
 </section>
@@ -1371,7 +1459,7 @@ average scores for the same layer. <span style="color:#2f6004">In particular the
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qwen-architecture">6.2.1. Qwen Architecture</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#self-attention">6.2.1.1. Self-attention</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">6.2.1.2. MoE</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-token-s-journey">6.2.1.3. The Token’s Journey</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sparseness-and-specialization">6.2.1.3. Sparseness and Specialization</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jensen-divergence">6.2.1.4. Jensen Divergence</a></li>
 </ul>
 </li>
