@@ -20,9 +20,10 @@ parts:
   - file: topic3.md
 
 
-- caption: Practices
+- caption: Practice 0
   chapters:
   - file: practice0.md
   - file: practice1.md
   - file: practice2.md
   - file: practice3_1.md
+  - file: practice3_2.md
