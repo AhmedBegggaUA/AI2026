@@ -1,0 +1,1338 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>10. Intelligent Agents &#8212; Agentes Inteligentes IA</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practice3_2';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="9. Intelligent Agents" href="practice3_1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Agentes Inteligentes IA - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Agentes Inteligentes IA - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI2026
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intelligent Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bloque1_Introducci%C3%B3n.html">1. The Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithmic Reasoning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic1.html">2. Graph Neural Networks</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reinforcement Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic2.html">4. Reinforcement Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generative Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic3.html">5. LLMs and VLMs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 0</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">6. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice1.html">7. Clique Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice2.html">8. Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">9. Intelligent Agents</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. Intelligent Agents</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpractice3_2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/practice3_2.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Intelligent Agents</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-2-retrieval-augmented-generation-rag">10.1. Practical Session 3 — Part 2: Retrieval-Augmented Generation (RAG)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">10.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">10.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-rag-the-problem-with-vanilla-llms">10.1.3. Why RAG? The Problem with Vanilla LLMs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-text-embeddings">10.2. Part 1: Text Embeddings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-embeddings">10.2.1. What Are Embeddings?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-an-embedding-model">10.2.2. Loading an Embedding Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-similarities">10.2.3. Computing Similarities</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-vector-search-with-faiss">10.3. Part 2: Vector Search with FAISS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-faiss">10.3.1. Why FAISS?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-faiss-index">10.3.2. Building a FAISS Index</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-the-index">10.3.3. Querying the Index</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-document-chunking">10.4. Part 3: Document Chunking</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-chunk-documents">10.4.1. Why Chunk Documents?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-a-chunker">10.4.2. Implementing a Chunker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-the-complete-rag-pipeline">10.5. Part 4: The Complete RAG Pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together">10.5.1. Putting It All Together</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-the-rag-system">10.5.2. Testing the RAG System</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-evaluating-rag-quality">10.6. Part 5: Evaluating RAG Quality</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-vs-llm-without-retrieval">10.6.1. RAG vs. LLM Without Retrieval</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-quality-metrics">10.6.2. Retrieval Quality Metrics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">10.7. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-building-and-evaluating-a-rag-system">10.7.1. Exercise 1: Building and Evaluating a RAG System</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">10.7.1.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">10.7.1.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">10.7.1.3. Deliverables</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-chunking-strategy-analysis">10.7.2. Exercise 2: Chunking Strategy Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">10.7.2.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">10.7.2.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">10.7.2.3. Deliverables</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-advanced-rag-features">10.7.3. Exercise 3: Advanced RAG Features</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">10.7.3.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">10.7.3.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">10.7.3.3. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">10.7.3.4. Evaluation Criteria</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">10.8. References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="intelligent-agents">
+<h1><span class="section-number">10. </span>Intelligent Agents<a class="headerlink" href="#intelligent-agents" title="Permalink to this heading">#</a></h1>
+<section id="practical-session-3-part-2-retrieval-augmented-generation-rag">
+<h2><span class="section-number">10.1. </span>Practical Session 3 — Part 2: Retrieval-Augmented Generation (RAG)<a class="headerlink" href="#practical-session-3-part-2-retrieval-augmented-generation-rag" title="Permalink to this heading">#</a></h2>
+<section id="introduction">
+<h3><span class="section-number">10.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
+<p>In Part 1, we learned how to interact with a language model using prompt engineering. However, LLMs have a fundamental limitation: they can only generate answers based on what they learned during training. They cannot access private documents, recent information, or domain-specific knowledge that was not part of their training data. When asked about such topics, they either refuse to answer or — worse — <strong>hallucinate</strong>: they generate plausible-sounding but entirely fabricated responses.</p>
+<p><strong>Retrieval-Augmented Generation (RAG)</strong> solves this problem by combining two capabilities:</p>
+<ol class="arabic simple">
+<li><p><strong>Retrieval</strong>: Given a user query, search a knowledge base to find the most relevant documents or passages.</p></li>
+<li><p><strong>Generation</strong>: Feed the retrieved context to the LLM alongside the query, so that it can generate an answer <strong>grounded in real data</strong>.</p></li>
+</ol>
+<p>In this session, we will build a complete RAG pipeline from scratch using open-source tools: <strong>Sentence Transformers</strong> for creating text embeddings, <strong>FAISS</strong> for efficient vector search, and the same <strong>Qwen2.5-1.5B-Instruct</strong> model from Part 1 for generation.</p>
+</section>
+<section id="prerequisites">
+<h3><span class="section-number">10.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>transformers<span class="w"> </span>accelerate<span class="w"> </span>sentencepiece<span class="w"> </span>protobuf
+pip<span class="w"> </span>install<span class="w"> </span>sentence-transformers<span class="w"> </span>faiss-cpu<span class="w"> </span>matplotlib<span class="w"> </span>numpy
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>We reuse the same <code class="docutils literal notranslate"><span class="pre">Qwen/Qwen2.5-1.5B-Instruct</span></code> model loaded in <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code> from Part 1.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">sentence-transformers</span></code></strong> provides pre-trained models that encode text into dense vector representations.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">faiss-cpu</span></code></strong> is Facebook AI’s library for fast similarity search over vector collections. It runs entirely on CPU.</p></li>
+<li><p>No external APIs or GPU are required.</p></li>
+</ul>
+</div>
+</section>
+<section id="why-rag-the-problem-with-vanilla-llms">
+<h3><span class="section-number">10.1.3. </span>Why RAG? The Problem with Vanilla LLMs<a class="headerlink" href="#why-rag-the-problem-with-vanilla-llms" title="Permalink to this heading">#</a></h3>
+<p>Consider this scenario: you have a 200-page company handbook and you want employees to ask questions about it using a chatbot. A vanilla LLM cannot help because:</p>
+<ul class="simple">
+<li><p>The handbook is <strong>private</strong> — it was never in the model’s training data.</p></li>
+<li><p>Even if it were, the model’s <strong>context window</strong> is limited (a few thousand tokens for small models), so you cannot paste the entire document into every prompt.</p></li>
+<li><p>The model has no mechanism to <strong>search</strong> for relevant sections.</p></li>
+</ul>
+<p>RAG addresses all three issues by introducing a retrieval step that finds the most relevant passages <strong>before</strong> passing them to the model.</p>
+<figure class="align-center" id="ragpipeline">
+<img alt="_images/rag_pipeline.png" src="_images/rag_pipeline.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 10.1 </span><span class="caption-text">Overview of the RAG pipeline: the user query is embedded, similar documents are retrieved from a vector store, and the LLM generates an answer conditioned on the retrieved context.</span><a class="headerlink" href="#ragpipeline" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-1-text-embeddings">
+<h2><span class="section-number">10.2. </span>Part 1: Text Embeddings<a class="headerlink" href="#part-1-text-embeddings" title="Permalink to this heading">#</a></h2>
+<section id="what-are-embeddings">
+<h3><span class="section-number">10.2.1. </span>What Are Embeddings?<a class="headerlink" href="#what-are-embeddings" title="Permalink to this heading">#</a></h3>
+<p>An <strong>embedding</strong> is a dense vector representation of text in a continuous vector space. The key property is that semantically similar texts are mapped to nearby points in this space. For example, the sentences “The cat sat on the mat” and “A kitten was resting on the rug” should have embeddings that are close together, even though they share almost no words.</p>
+<p>Formally, an embedding model <span class="math notranslate nohighlight">\(E\)</span> maps a text string <span class="math notranslate nohighlight">\(s\)</span> to a vector:</p>
+<div class="math notranslate nohighlight">
+\[
+E(s) = \mathbf{v} \in \mathbb{R}^d
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(d\)</span> is the embedding dimension (typically 384 or 768). The similarity between two texts can then be measured using <strong>cosine similarity</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{sim}(\mathbf{v}_1, \mathbf{v}_2) = \frac{\mathbf{v}_1 \cdot \mathbf{v}_2}{\|\mathbf{v}_1\| \, \|\mathbf{v}_2\|}
+\]</div>
+</section>
+<section id="loading-an-embedding-model">
+<h3><span class="section-number">10.2.2. </span>Loading an Embedding Model<a class="headerlink" href="#loading-an-embedding-model" title="Permalink to this heading">#</a></h3>
+<p>We will use <strong><code class="docutils literal notranslate"><span class="pre">all-MiniLM-L6-v2</span></code></strong> from Sentence Transformers. This model produces 384-dimensional embeddings and is small enough (~80 MB) to run efficiently on CPU.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Load the embedding model</span>
+<span class="n">embedding_model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;all-MiniLM-L6-v2&quot;</span><span class="p">)</span>
+
+<span class="c1"># Embed a few example sentences</span>
+<span class="n">sentences</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;The cat sat on the mat.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;A kitten was resting on the rug.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The stock market crashed yesterday.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Financial markets experienced a sharp decline.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;I enjoy eating pizza on Fridays.&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">embeddings</span> <span class="o">=</span> <span class="n">embedding_model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Embedding shape: </span><span class="si">{</span><span class="n">embeddings</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># (5, 384)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Embedding dtype: </span><span class="si">{</span><span class="n">embeddings</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="computing-similarities">
+<h3><span class="section-number">10.2.3. </span>Computing Similarities<a class="headerlink" href="#computing-similarities" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">cosine_similarity</span>
+
+<span class="c1"># Compute pairwise cosine similarities</span>
+<span class="n">sim_matrix</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span>
+
+<span class="c1"># Display</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cosine Similarity Matrix:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sentences</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">s2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sentences</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="n">i</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">sim_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  |  &#39;</span><span class="si">{</span><span class="n">s1</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39; ↔ &#39;</span><span class="si">{</span><span class="n">s2</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You should observe that semantically related sentences (cat/kitten, stock market/financial markets) have high similarity scores (~0.7–0.9), while unrelated sentences have low scores (~0.0–0.3).</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-2-vector-search-with-faiss">
+<h2><span class="section-number">10.3. </span>Part 2: Vector Search with FAISS<a class="headerlink" href="#part-2-vector-search-with-faiss" title="Permalink to this heading">#</a></h2>
+<section id="why-faiss">
+<h3><span class="section-number">10.3.1. </span>Why FAISS?<a class="headerlink" href="#why-faiss" title="Permalink to this heading">#</a></h3>
+<p>Given a query embedding, we need to find the most similar document embeddings in our knowledge base. A naive approach would compare the query to every document using a loop, but this has <span class="math notranslate nohighlight">\(O(n)\)</span> complexity and becomes impractical for large collections. <strong>FAISS</strong> (Facebook AI Similarity Search) provides highly optimized data structures for this task, supporting both exact and approximate nearest neighbor search.</p>
+</section>
+<section id="building-a-faiss-index">
+<h3><span class="section-number">10.3.2. </span>Building a FAISS Index<a class="headerlink" href="#building-a-faiss-index" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">faiss</span>
+
+<span class="c1"># Our &quot;knowledge base&quot; — a collection of document chunks</span>
+<span class="n">knowledge_base</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Python is a high-level programming language known for its readability and versatility.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Machine learning is a subset of artificial intelligence that enables systems to learn from data.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The Eiffel Tower is a wrought-iron lattice tower located on the Champ de Mars in Paris, France.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Neural networks are computing systems inspired by biological neural networks in the brain.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The Amazon rainforest produces approximately 20 percent of the world&#39;s oxygen.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Deep learning uses multiple layers of neural networks to progressively extract features from data.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The Great Wall of China is over 13,000 miles long and was built over many centuries.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Natural Language Processing (NLP) is a field of AI focused on the interaction between computers and human language.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Photosynthesis is the process by which plants convert sunlight into chemical energy.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Transfer learning allows a model trained on one task to be adapted for a different but related task.&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># Step 1: Encode all documents</span>
+<span class="n">doc_embeddings</span> <span class="o">=</span> <span class="n">embedding_model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">knowledge_base</span><span class="p">)</span>
+<span class="n">doc_embeddings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">doc_embeddings</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Create a FAISS index</span>
+<span class="n">dimension</span> <span class="o">=</span> <span class="n">doc_embeddings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 384</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">faiss</span><span class="o">.</span><span class="n">IndexFlatL2</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>  <span class="c1"># Exact L2 (Euclidean) search</span>
+<span class="n">index</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">doc_embeddings</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;FAISS index built with </span><span class="si">{</span><span class="n">index</span><span class="o">.</span><span class="n">ntotal</span><span class="si">}</span><span class="s2"> vectors of dimension </span><span class="si">{</span><span class="n">dimension</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="querying-the-index">
+<h3><span class="section-number">10.3.3. </span>Querying the Index<a class="headerlink" href="#querying-the-index" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">knowledge_base</span><span class="p">,</span> <span class="n">embedding_model</span><span class="p">,</span> <span class="n">top_k</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Search the FAISS index for the most relevant documents.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        query: The search query string</span>
+<span class="sd">        index: The FAISS index</span>
+<span class="sd">        knowledge_base: List of original document strings</span>
+<span class="sd">        embedding_model: The sentence transformer model</span>
+<span class="sd">        top_k: Number of results to return</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        List of (document, distance) tuples</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Encode the query</span>
+    <span class="n">query_embedding</span> <span class="o">=</span> <span class="n">embedding_model</span><span class="o">.</span><span class="n">encode</span><span class="p">([</span><span class="n">query</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Search</span>
+    <span class="n">distances</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query_embedding</span><span class="p">,</span> <span class="n">top_k</span><span class="p">)</span>
+    
+    <span class="c1"># Collect results</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;rank&quot;</span><span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;document&quot;</span><span class="p">:</span> <span class="n">knowledge_base</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>
+            <span class="s2">&quot;distance&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">dist</span><span class="p">),</span>
+            <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">idx</span><span class="p">),</span>
+        <span class="p">})</span>
+    
+    <span class="k">return</span> <span class="n">results</span>
+
+
+<span class="c1"># Test queries</span>
+<span class="n">queries</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;What is deep learning?&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Tell me about famous landmarks&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;How do plants produce energy?&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">queries</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Query: &#39;</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">knowledge_base</span><span class="p">,</span> <span class="n">embedding_model</span><span class="p">,</span> <span class="n">top_k</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;rank&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">] (dist: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">) </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;document&#39;</span><span class="p">][:</span><span class="mi">80</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-3-document-chunking">
+<h2><span class="section-number">10.4. </span>Part 3: Document Chunking<a class="headerlink" href="#part-3-document-chunking" title="Permalink to this heading">#</a></h2>
+<section id="why-chunk-documents">
+<h3><span class="section-number">10.4.1. </span>Why Chunk Documents?<a class="headerlink" href="#why-chunk-documents" title="Permalink to this heading">#</a></h3>
+<p>Real-world documents (articles, reports, books) are far too long to be embedded as a single vector. Embedding a 10-page document into a single 384-dimensional vector would lose most of the fine-grained information. Instead, we split documents into smaller <strong>chunks</strong> and embed each chunk independently.</p>
+<p>The key trade-off in chunking:</p>
+<ul class="simple">
+<li><p><strong>Too small</strong> (e.g., individual sentences): Loses context; the chunk might not contain enough information to answer a question.</p></li>
+<li><p><strong>Too large</strong> (e.g., entire pages): The embedding becomes too diluted; retrieval precision drops.</p></li>
+<li><p>A typical sweet spot is <strong>200–500 tokens</strong> per chunk, with some <strong>overlap</strong> between consecutive chunks to preserve context at boundaries.</p></li>
+</ul>
+</section>
+<section id="implementing-a-chunker">
+<h3><span class="section-number">10.4.2. </span>Implementing a Chunker<a class="headerlink" href="#implementing-a-chunker" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">chunk_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span> <span class="n">overlap</span> <span class="o">=</span> <span class="mi">50</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split text into overlapping chunks by character count.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        text: The input text to chunk</span>
+<span class="sd">        chunk_size: Target size of each chunk in characters</span>
+<span class="sd">        overlap: Number of overlapping characters between chunks</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        List of text chunks</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">chunks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">chunk_size</span>
+        <span class="n">chunk</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+        
+        <span class="c1"># Try to break at a sentence boundary</span>
+        <span class="k">if</span> <span class="n">end</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+            <span class="c1"># Look for the last period, question mark, or newline</span>
+            <span class="k">for</span> <span class="n">sep</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;. &quot;</span><span class="p">,</span> <span class="s2">&quot;? &quot;</span><span class="p">,</span> <span class="s2">&quot;! &quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">]:</span>
+                <span class="n">last_sep</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">sep</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">last_sep</span> <span class="o">&gt;</span> <span class="n">chunk_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># Only break if past halfway</span>
+                    <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[:</span><span class="n">last_sep</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">last_sep</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="k">break</span>
+        
+        <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">overlap</span>
+    
+    <span class="k">return</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chunks</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">]</span>  <span class="c1"># Filter tiny chunks</span>
+
+
+<span class="c1"># Example</span>
+<span class="n">sample_document</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Artificial intelligence (AI) has transformed the way we interact with technology.</span>
+<span class="s2">From virtual assistants to recommendation systems, AI is everywhere in our daily lives.</span>
+<span class="s2">Machine learning, a subset of AI, enables computers to learn from data without being</span>
+<span class="s2">explicitly programmed. Deep learning, which uses neural networks with many layers,</span>
+<span class="s2">has achieved remarkable results in image recognition, natural language processing,</span>
+<span class="s2">and game playing. However, AI systems also raise important ethical questions about</span>
+<span class="s2">bias, privacy, and the future of work. Researchers and policymakers are working</span>
+<span class="s2">together to develop frameworks that ensure AI is developed and deployed responsibly.</span>
+<span class="s2">The field continues to evolve rapidly, with new breakthroughs announced almost weekly.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">chunks</span> <span class="o">=</span> <span class="n">chunk_text</span><span class="p">(</span><span class="n">sample_document</span><span class="p">,</span> <span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">overlap</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Document split into </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span><span class="si">}</span><span class="s2"> chunks:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chunks</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Chunk </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span><span class="si">}</span><span class="s2"> chars):&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  &#39;</span><span class="si">{</span><span class="n">chunk</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span><span class="si">}</span><span class="s2">...&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-4-the-complete-rag-pipeline">
+<h2><span class="section-number">10.5. </span>Part 4: The Complete RAG Pipeline<a class="headerlink" href="#part-4-the-complete-rag-pipeline" title="Permalink to this heading">#</a></h2>
+<section id="putting-it-all-together">
+<h3><span class="section-number">10.5.1. </span>Putting It All Together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this heading">#</a></h3>
+<p>Now we combine all the pieces: <strong>chunking</strong> → <strong>embedding</strong> → <strong>indexing</strong> → <strong>retrieval</strong> → <strong>generation</strong>. We will build a <code class="docutils literal notranslate"><span class="pre">RAGSystem</span></code> class that encapsulates the entire pipeline.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">faiss</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+
+
+<span class="k">class</span> <span class="nc">RAGSystem</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A complete Retrieval-Augmented Generation system.</span>
+<span class="sd">    </span>
+<span class="sd">    Components:</span>
+<span class="sd">        - Embedding model: Encodes text into dense vectors</span>
+<span class="sd">        - FAISS index: Stores and searches document embeddings</span>
+<span class="sd">        - LLM: Generates answers conditioned on retrieved context</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">llm_model</span><span class="p">,</span> <span class="n">llm_tokenizer</span><span class="p">,</span>
+                 <span class="n">embedding_model_name</span> <span class="o">=</span> <span class="s2">&quot;all-MiniLM-L6-v2&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="n">llm_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">llm_tokenizer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedder</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="n">embedding_model_name</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chunk_metadata</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">def</span> <span class="nf">add_documents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documents</span><span class="p">,</span> <span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span> <span class="n">overlap</span> <span class="o">=</span> <span class="mi">50</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Process and index a list of documents.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            documents: List of dicts with &quot;title&quot; and &quot;content&quot; keys</span>
+<span class="sd">            chunk_size: Characters per chunk</span>
+<span class="sd">            overlap: Overlap between chunks</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">all_chunks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">all_metadata</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">:</span>
+            <span class="n">chunks</span> <span class="o">=</span> <span class="n">chunk_text</span><span class="p">(</span><span class="n">doc</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">],</span> <span class="n">chunk_size</span><span class="p">,</span> <span class="n">overlap</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
+                <span class="n">all_chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                <span class="n">all_metadata</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">doc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;Unknown&quot;</span><span class="p">),</span> <span class="s2">&quot;chunk&quot;</span><span class="p">:</span> <span class="n">chunk</span><span class="p">})</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span> <span class="o">=</span> <span class="n">all_chunks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chunk_metadata</span> <span class="o">=</span> <span class="n">all_metadata</span>
+        
+        <span class="c1"># Embed and index</span>
+        <span class="n">embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">all_chunks</span><span class="p">)</span>
+        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+        
+        <span class="n">dimension</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">faiss</span><span class="o">.</span><span class="n">IndexFlatL2</span><span class="p">(</span><span class="n">dimension</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">embeddings</span><span class="p">)</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Indexed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_chunks</span><span class="p">)</span><span class="si">}</span><span class="s2"> chunks from </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span><span class="si">}</span><span class="s2"> documents&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">top_k</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the most relevant chunks for a query.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">query_emb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedder</span><span class="o">.</span><span class="n">encode</span><span class="p">([</span><span class="n">query</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+        <span class="n">distances</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query_emb</span><span class="p">,</span> <span class="n">top_k</span><span class="p">)</span>
+        
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">dist</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">distances</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;chunk&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>
+                <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_metadata</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>
+                <span class="s2">&quot;distance&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">dist</span><span class="p">),</span>
+            <span class="p">})</span>
+        <span class="k">return</span> <span class="n">results</span>
+    
+    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">context_chunks</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">256</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate an answer using the LLM with retrieved context.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Build the context string</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;[Source: </span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">]</span><span class="se">\n</span><span class="si">{</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;chunk&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">context_chunks</span><span class="p">]</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># Build the prompt</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">(</span>
+                <span class="s2">&quot;You are a helpful assistant that answers questions based on the provided context. &quot;</span>
+                <span class="s2">&quot;Use ONLY the information in the context to answer. &quot;</span>
+                <span class="s2">&quot;If the context does not contain the answer, say &#39;I cannot find this information in the provided documents.&#39; &quot;</span>
+                <span class="s2">&quot;Always cite which source you used.&quot;</span>
+            <span class="p">)},</span>
+            <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Context:</span><span class="se">\n</span><span class="si">{</span><span class="n">context</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Question: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+        <span class="p">]</span>
+        
+        <span class="n">prompt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">apply_chat_template</span><span class="p">(</span>
+            <span class="n">messages</span><span class="p">,</span> <span class="n">tokenize</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">add_generation_prompt</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span> <span class="o">=</span> <span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+                <span class="o">**</span><span class="n">inputs</span><span class="p">,</span>
+                <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="n">max_new_tokens</span><span class="p">,</span>
+                <span class="n">do_sample</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="n">pad_token_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">,</span>
+            <span class="p">)</span>
+        
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
+            <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:],</span>
+            <span class="n">skip_special_tokens</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span>
+    
+    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">top_k</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        End-to-end RAG: retrieve + generate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        
+        <span class="c1"># Retrieve</span>
+        <span class="n">retrieved</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">top_k</span> <span class="o">=</span> <span class="n">top_k</span><span class="p">)</span>
+        <span class="n">t_retrieve</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+        
+        <span class="c1"># Generate</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">answer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">retrieved</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="p">)</span>
+        <span class="n">t_generate</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t1</span>
+        
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Question: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">retrieved</span><span class="p">)</span><span class="si">}</span><span class="s2"> chunks in </span><span class="si">{</span><span class="n">t_retrieve</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">retrieved</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">] (dist: </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">) [</span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;chunk&#39;</span><span class="p">][:</span><span class="mi">60</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generated answer in </span><span class="si">{</span><span class="n">t_generate</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Answer: </span><span class="si">{</span><span class="n">answer</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="n">question</span><span class="p">,</span>
+            <span class="s2">&quot;answer&quot;</span><span class="p">:</span> <span class="n">answer</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span>
+            <span class="s2">&quot;retrieved&quot;</span><span class="p">:</span> <span class="n">retrieved</span><span class="p">,</span>
+            <span class="s2">&quot;time_retrieve&quot;</span><span class="p">:</span> <span class="n">t_retrieve</span><span class="p">,</span>
+            <span class="s2">&quot;time_generate&quot;</span><span class="p">:</span> <span class="n">t_generate</span><span class="p">,</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="testing-the-rag-system">
+<h3><span class="section-number">10.5.2. </span>Testing the RAG System<a class="headerlink" href="#testing-the-rag-system" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a knowledge base about a fictional company</span>
+<span class="n">documents</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Company Overview&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;TechNova Inc. is a technology company founded in 2019 by Dr. Elena Martinez </span>
+<span class="s2">        and James Chen in San Francisco, California. The company specializes in developing AI-powered </span>
+<span class="s2">        solutions for healthcare and education. TechNova currently employs 450 people across three </span>
+<span class="s2">        offices in San Francisco, London, and Singapore. The company&#39;s mission is to democratize </span>
+<span class="s2">        access to AI technology for social good. In 2023, TechNova was valued at 2.3 billion dollars </span>
+<span class="s2">        after a successful Series C funding round led by Horizon Ventures.&quot;&quot;&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Products and Services&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;TechNova&#39;s flagship product is MedAssist, an AI-powered diagnostic support </span>
+<span class="s2">        tool used by over 500 hospitals worldwide. MedAssist analyzes medical images including </span>
+<span class="s2">        X-rays, MRIs, and CT scans to help radiologists detect anomalies with 97</span><span class="si">% a</span><span class="s2">ccuracy. </span>
+<span class="s2">        The company also offers EduBot, a personalized tutoring platform that adapts to each </span>
+<span class="s2">        student&#39;s learning pace. EduBot currently serves 2 million students in 15 countries. </span>
+<span class="s2">        TechNova&#39;s third product, DataShield, provides AI-driven cybersecurity monitoring for </span>
+<span class="s2">        enterprise clients. All products are available through a SaaS subscription model with </span>
+<span class="s2">        pricing tiers for small, medium, and enterprise customers.&quot;&quot;&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Research and Innovation&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;TechNova maintains a dedicated research lab called NovAI Labs, led by </span>
+<span class="s2">        Dr. Priya Patel, with 60 researchers focused on advancing medical AI. Key research areas </span>
+<span class="s2">        include few-shot learning for rare disease detection, federated learning for privacy-preserving </span>
+<span class="s2">        medical data analysis, and multimodal AI that combines imaging with electronic health records. </span>
+<span class="s2">        In 2024, NovAI Labs published 15 peer-reviewed papers and filed 8 patents. The lab </span>
+<span class="s2">        collaborates with Stanford University, MIT, and the European Bioinformatics Institute. </span>
+<span class="s2">        TechNova invests approximately 25</span><span class="si">% o</span><span class="s2">f its annual revenue in research and development.&quot;&quot;&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Company Culture and Values&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot;TechNova operates under five core values: Innovation First, Patient Safety, </span>
+<span class="s2">        Data Privacy, Inclusive Design, and Environmental Responsibility. The company has a hybrid </span>
+<span class="s2">        work policy allowing employees to work remotely three days per week. TechNova offers </span>
+<span class="s2">        comprehensive benefits including 30 days of paid time off, parental leave of 6 months, </span>
+<span class="s2">        and a learning budget of 5,000 dollars per employee per year. The company achieved carbon </span>
+<span class="s2">        neutrality in 2023 and aims to be carbon negative by 2026. Employee satisfaction surveys </span>
+<span class="s2">        consistently show a 92</span><span class="si">% a</span><span class="s2">pproval rating.&quot;&quot;&quot;</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+
+<span class="c1"># Initialize the RAG system (reusing the model and tokenizer from Part 1)</span>
+<span class="n">rag</span> <span class="o">=</span> <span class="n">RAGSystem</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">)</span>
+<span class="n">rag</span><span class="o">.</span><span class="n">add_documents</span><span class="p">(</span><span class="n">documents</span><span class="p">,</span> <span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">250</span><span class="p">,</span> <span class="n">overlap</span> <span class="o">=</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="c1"># Ask questions</span>
+<span class="n">questions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Who founded TechNova and when?&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;What is MedAssist and how accurate is it?&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;How many researchers work at NovAI Labs?&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;What is the company&#39;s remote work policy?&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;What programming language does TechNova use?&quot;</span><span class="p">,</span>  <span class="c1"># Not in the docs</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">questions</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">rag</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-5-evaluating-rag-quality">
+<h2><span class="section-number">10.6. </span>Part 5: Evaluating RAG Quality<a class="headerlink" href="#part-5-evaluating-rag-quality" title="Permalink to this heading">#</a></h2>
+<section id="rag-vs-llm-without-retrieval">
+<h3><span class="section-number">10.6.1. </span>RAG vs. LLM Without Retrieval<a class="headerlink" href="#rag-vs-llm-without-retrieval" title="Permalink to this heading">#</a></h3>
+<p>A critical question is: <strong>does RAG actually help?</strong> We can evaluate this by comparing answers from the LLM with and without retrieved context.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compare_rag_vs_vanilla</span><span class="p">(</span><span class="n">rag_system</span><span class="p">,</span> <span class="n">question</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compare RAG answer vs. vanilla LLM answer (no retrieval).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># RAG answer</span>
+    <span class="n">rag_result</span> <span class="o">=</span> <span class="n">rag_system</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    
+    <span class="c1"># Vanilla answer (no context)</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a helpful assistant. Answer the question to the best of your knowledge.&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">question</span><span class="p">},</span>
+    <span class="p">]</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="n">rag_system</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">apply_chat_template</span><span class="p">(</span>
+        <span class="n">messages</span><span class="p">,</span> <span class="n">tokenize</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">add_generation_prompt</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">rag_system</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span> <span class="o">=</span> <span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">rag_system</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">rag_system</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+            <span class="o">**</span><span class="n">inputs</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="n">do_sample</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">pad_token_id</span> <span class="o">=</span> <span class="n">rag_system</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="n">vanilla_answer</span> <span class="o">=</span> <span class="n">rag_system</span><span class="o">.</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
+        <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;input_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:],</span> <span class="n">skip_special_tokens</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Question: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  [Vanilla LLM]: </span><span class="si">{</span><span class="n">vanilla_answer</span><span class="o">.</span><span class="n">strip</span><span class="p">()[:</span><span class="mi">200</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  [RAG]:         </span><span class="si">{</span><span class="n">rag_result</span><span class="p">[</span><span class="s1">&#39;answer&#39;</span><span class="p">][:</span><span class="mi">200</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+
+<span class="c1"># Compare on several questions</span>
+<span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Who founded TechNova?&quot;</span><span class="p">,</span> <span class="s2">&quot;What is MedAssist?&quot;</span><span class="p">,</span> <span class="s2">&quot;What are TechNova&#39;s core values?&quot;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">60</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">compare_rag_vs_vanilla</span><span class="p">(</span><span class="n">rag</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="retrieval-quality-metrics">
+<h3><span class="section-number">10.6.2. </span>Retrieval Quality Metrics<a class="headerlink" href="#retrieval-quality-metrics" title="Permalink to this heading">#</a></h3>
+<p>To evaluate retrieval quality, we can check whether the correct source document is among the top-k retrieved chunks:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">evaluate_retrieval</span><span class="p">(</span><span class="n">rag_system</span><span class="p">,</span> <span class="n">test_cases</span><span class="p">,</span> <span class="n">top_k</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluate retrieval quality using known question-source pairs.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        rag_system: The RAG system</span>
+<span class="sd">        test_cases: List of (question, expected_source_title) tuples</span>
+<span class="sd">        top_k: Number of chunks to retrieve</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Retrieval metrics</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hits</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">for</span> <span class="n">question</span><span class="p">,</span> <span class="n">expected_source</span> <span class="ow">in</span> <span class="n">test_cases</span><span class="p">:</span>
+        <span class="n">retrieved</span> <span class="o">=</span> <span class="n">rag_system</span><span class="o">.</span><span class="n">retrieve</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">top_k</span> <span class="o">=</span> <span class="n">top_k</span><span class="p">)</span>
+        <span class="n">retrieved_sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">][</span><span class="s2">&quot;title&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">retrieved</span><span class="p">]</span>
+        
+        <span class="n">hit</span> <span class="o">=</span> <span class="n">expected_source</span> <span class="ow">in</span> <span class="n">retrieved_sources</span>
+        <span class="k">if</span> <span class="n">hit</span><span class="p">:</span>
+            <span class="n">hits</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;HIT&quot;</span> <span class="k">if</span> <span class="n">hit</span> <span class="k">else</span> <span class="s2">&quot;MISS&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">] Q: &#39;</span><span class="si">{</span><span class="n">question</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39; → Expected: </span><span class="si">{</span><span class="n">expected_source</span><span class="si">}</span><span class="s2">, Got: </span><span class="si">{</span><span class="n">retrieved_sources</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">hits</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_cases</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Retrieval Accuracy (top-</span><span class="si">{</span><span class="n">top_k</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">hits</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_cases</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">accuracy</span>
+
+
+<span class="c1"># Test cases: (question, expected source title)</span>
+<span class="n">test_cases</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;Who founded the company?&quot;</span><span class="p">,</span> <span class="s2">&quot;Company Overview&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;How many employees does TechNova have?&quot;</span><span class="p">,</span> <span class="s2">&quot;Company Overview&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;What products does TechNova offer?&quot;</span><span class="p">,</span> <span class="s2">&quot;Products and Services&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;How accurate is MedAssist?&quot;</span><span class="p">,</span> <span class="s2">&quot;Products and Services&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;Who leads the research lab?&quot;</span><span class="p">,</span> <span class="s2">&quot;Research and Innovation&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;How many patents were filed?&quot;</span><span class="p">,</span> <span class="s2">&quot;Research and Innovation&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;What is the remote work policy?&quot;</span><span class="p">,</span> <span class="s2">&quot;Company Culture and Values&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;How much PTO do employees get?&quot;</span><span class="p">,</span> <span class="s2">&quot;Company Culture and Values&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">evaluate_retrieval</span><span class="p">(</span><span class="n">rag</span><span class="p">,</span> <span class="n">test_cases</span><span class="p">,</span> <span class="n">top_k</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercises">
+<h2><span class="section-number">10.7. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<section id="exercise-1-building-and-evaluating-a-rag-system">
+<h3><span class="section-number">10.7.1. </span>Exercise 1: Building and Evaluating a RAG System<a class="headerlink" href="#exercise-1-building-and-evaluating-a-rag-system" title="Permalink to this heading">#</a></h3>
+<section id="objectives">
+<h4><span class="section-number">10.7.1.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h4>
+<p>Build a complete RAG system from scratch, populate it with a custom knowledge base, and evaluate its retrieval and generation quality.</p>
+</section>
+<section id="task-description">
+<h4><span class="section-number">10.7.1.2. </span>Task Description<a class="headerlink" href="#task-description" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Create a knowledge base</strong>: Write or collect <strong>at least 5 documents</strong> (each 200–500 words) on a topic of your choice. Suggested topics: a fictional university’s academic programs, a cooking recipe collection, a travel guide for a city, or documentation for a made-up software tool.</p></li>
+<li><p><strong>Implement the RAG pipeline</strong>: Using the <code class="docutils literal notranslate"><span class="pre">RAGSystem</span></code> class from the tutorial (or your own implementation):</p>
+<ul class="simple">
+<li><p>Chunk your documents with a chunk size of 250 characters and overlap of 40.</p></li>
+<li><p>Build the FAISS index.</p></li>
+<li><p>Implement the <code class="docutils literal notranslate"><span class="pre">query()</span></code> method.</p></li>
+</ul>
+</li>
+<li><p><strong>Evaluate retrieval</strong>: Create at least <strong>10 test question–source pairs</strong> (questions where you know which document should be retrieved). Report the retrieval accuracy at top-1, top-3, and top-5.</p></li>
+<li><p><strong>Compare RAG vs. vanilla</strong>: For at least 5 questions, compare the RAG answer with the vanilla LLM answer (without retrieval). Discuss cases where RAG helps and cases where it does not.</p></li>
+</ol>
+</section>
+<section id="deliverables">
+<h4><span class="section-number">10.7.1.3. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>A Jupyter Notebook with the complete implementation</p></li>
+<li><p>The knowledge base documents (either inline or as separate text files)</p></li>
+<li><p>A retrieval accuracy table (top-1 / top-3 / top-5)</p></li>
+<li><p>A comparison table (RAG vs. vanilla) with qualitative assessment</p></li>
+<li><p>A discussion (2–3 paragraphs) analyzing retrieval quality and generation quality</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercise-2-chunking-strategy-analysis">
+<h3><span class="section-number">10.7.2. </span>Exercise 2: Chunking Strategy Analysis<a class="headerlink" href="#exercise-2-chunking-strategy-analysis" title="Permalink to this heading">#</a></h3>
+<section id="id1">
+<h4><span class="section-number">10.7.2.1. </span>Objectives<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>Investigate how different chunking strategies affect retrieval and generation quality.</p>
+</section>
+<section id="id2">
+<h4><span class="section-number">10.7.2.2. </span>Task Description<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<p>Using the same knowledge base from Exercise 1:</p>
+<ol class="arabic simple">
+<li><p><strong>Implement three chunking strategies</strong>:</p>
+<ul class="simple">
+<li><p><strong>Fixed-size chunks</strong> (200, 400, 600 characters) with 50-character overlap</p></li>
+<li><p><strong>Sentence-based chunks</strong> (group 2, 4, or 6 sentences per chunk)</p></li>
+<li><p><strong>Paragraph-based chunks</strong> (split on double newlines)</p></li>
+</ul>
+</li>
+<li><p><strong>Evaluate each strategy</strong>: For each chunking configuration:</p>
+<ul class="simple">
+<li><p>Report the total number of chunks generated</p></li>
+<li><p>Measure retrieval accuracy on your test set (top-3)</p></li>
+<li><p>Generate answers to 5 questions and assess quality</p></li>
+</ul>
+</li>
+<li><p><strong>Visualize</strong>: Create a plot showing retrieval accuracy vs. chunk size.</p></li>
+</ol>
+</section>
+<section id="id3">
+<h4><span class="section-number">10.7.2.3. </span>Deliverables<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Code for all three chunking strategies</p></li>
+<li><p>A comparison table: chunk strategy × retrieval accuracy × answer quality</p></li>
+<li><p>A plot of retrieval accuracy vs. chunk size</p></li>
+<li><p>A discussion (2–3 paragraphs) analyzing the trade-offs</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercise-3-advanced-rag-features">
+<h3><span class="section-number">10.7.3. </span>Exercise 3: Advanced RAG Features<a class="headerlink" href="#exercise-3-advanced-rag-features" title="Permalink to this heading">#</a></h3>
+<section id="id4">
+<h4><span class="section-number">10.7.3.1. </span>Objectives<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<p>Extend the basic RAG system with advanced features that improve retrieval and generation quality.</p>
+</section>
+<section id="id5">
+<h4><span class="section-number">10.7.3.2. </span>Task Description<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<p>Implement <strong>at least two</strong> of the following enhancements:</p>
+<ol class="arabic simple">
+<li><p><strong>Hybrid search</strong>: Combine semantic search (FAISS) with keyword search (e.g., TF-IDF or simple word matching). Merge the results using a weighted score.</p></li>
+<li><p><strong>Query expansion</strong>: Before searching, use the LLM to generate 2–3 alternative phrasings of the user’s question, retrieve results for all phrasings, and deduplicate.</p></li>
+<li><p><strong>Source citation</strong>: Modify the generation prompt so the LLM explicitly cites which source document each part of the answer comes from. Verify that citations are accurate.</p></li>
+<li><p><strong>Conversational RAG</strong>: Extend the system to handle multi-turn conversations where follow-up questions refer to previous context (e.g., “Tell me more about that” should retrieve documents related to the previous answer).</p></li>
+</ol>
+</section>
+<section id="id6">
+<h4><span class="section-number">10.7.3.3. </span>Deliverables<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>A Jupyter Notebook with the implementations</p></li>
+<li><p>Demonstrations of each feature with example queries</p></li>
+<li><p>A comparison showing improvement over the basic RAG system</p></li>
+<li><p>A discussion (2–3 paragraphs) on the benefits and limitations of each enhancement</p></li>
+</ul>
+</section>
+<section id="evaluation-criteria">
+<h4><span class="section-number">10.7.3.4. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Correctness and robustness of the implementations</p></li>
+<li><p>Quality of the experimental evaluation</p></li>
+<li><p>Depth of analysis in the discussion</p></li>
+<li><p>Code organization and documentation</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="references">
+<h2><span class="section-number">10.8. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Lewis, P., et al. (2020). <em>Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</em>. NeurIPS.</p></li>
+<li><p>Johnson, J., Douze, M., &amp; Jégou, H. (2019). <em>Billion-scale similarity search with GPUs</em>. IEEE Transactions on Big Data.</p></li>
+<li><p>Reimers, N., &amp; Gurevych, I. (2019). <em>Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks</em>. EMNLP.</p></li>
+<li><p>Gao, Y., et al. (2024). <em>Retrieval-Augmented Generation for Large Language Models: A Survey</em>. arXiv.</p></li>
+<li><p>Hugging Face Documentation. <em>Sentence Transformers</em>. <a class="reference external" href="https://www.sbert.net/">https://www.sbert.net/</a></p></li>
+<li><p>FAISS Documentation. <a class="github reference external" href="https://github.com/facebookresearch/faiss">facebookresearch/faiss</a></p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="practice3_1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Intelligent Agents</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-2-retrieval-augmented-generation-rag">10.1. Practical Session 3 — Part 2: Retrieval-Augmented Generation (RAG)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">10.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">10.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-rag-the-problem-with-vanilla-llms">10.1.3. Why RAG? The Problem with Vanilla LLMs</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-text-embeddings">10.2. Part 1: Text Embeddings</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-embeddings">10.2.1. What Are Embeddings?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-an-embedding-model">10.2.2. Loading an Embedding Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-similarities">10.2.3. Computing Similarities</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-vector-search-with-faiss">10.3. Part 2: Vector Search with FAISS</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-faiss">10.3.1. Why FAISS?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-faiss-index">10.3.2. Building a FAISS Index</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-the-index">10.3.3. Querying the Index</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-document-chunking">10.4. Part 3: Document Chunking</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-chunk-documents">10.4.1. Why Chunk Documents?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementing-a-chunker">10.4.2. Implementing a Chunker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-the-complete-rag-pipeline">10.5. Part 4: The Complete RAG Pipeline</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together">10.5.1. Putting It All Together</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-the-rag-system">10.5.2. Testing the RAG System</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-5-evaluating-rag-quality">10.6. Part 5: Evaluating RAG Quality</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-vs-llm-without-retrieval">10.6.1. RAG vs. LLM Without Retrieval</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-quality-metrics">10.6.2. Retrieval Quality Metrics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">10.7. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-building-and-evaluating-a-rag-system">10.7.1. Exercise 1: Building and Evaluating a RAG System</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">10.7.1.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">10.7.1.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">10.7.1.3. Deliverables</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-chunking-strategy-analysis">10.7.2. Exercise 2: Chunking Strategy Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">10.7.2.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">10.7.2.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">10.7.2.3. Deliverables</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-advanced-rag-features">10.7.3. Exercise 3: Advanced RAG Features</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">10.7.3.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">10.7.3.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">10.7.3.3. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">10.7.3.4. Evaluation Criteria</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">10.8. References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Universidad de Alicante
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
