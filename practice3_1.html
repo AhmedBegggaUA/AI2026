@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>10. Intelligent Agents &#8212; Agentes Inteligentes IA</title>
+    <title>11. Intelligent Agents &#8212; Agentes Inteligentes IA</title>
   
   
   
@@ -67,8 +67,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'practice3_1';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="11. Retrieval-Augmented Generation (RAG)" href="practice3_2.html" />
-    <link rel="prev" title="9. Reinforcement Learning" href="practice2.html" />
+    <link rel="next" title="12. Retrieval-Augmented Generation (RAG)" href="practice3_2.html" />
+    <link rel="prev" title="10. Reinforcement Learning" href="practice2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -195,14 +195,15 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="topic3.html">5. LLMs and VLMs</a></li>
 
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 0</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice0.html">7. Graph Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice1.html">8. Clique Problem</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice2.html">9. Reinforcement Learning</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. Intelligent Agents</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice3_2.html">11. Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">8. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice1.html">9. Clique Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice2.html">10. Reinforcement Learning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">11. Intelligent Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_2.html">12. Retrieval-Augmented Generation (RAG)</a></li>
 </ul>
 
     </div>
@@ -398,69 +399,69 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-1-large-language-models-hugging-face-and-prompt-engineering">10.1. Practical Session 3 — Part 1: Large Language Models, Hugging Face, and Prompt Engineering</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">10.1.1. Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">10.1.2. Prerequisites</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background-what-are-large-language-models">10.1.3. Background: What Are Large Language Models?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hugging-face-ecosystem">10.1.4. The Hugging Face Ecosystem</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-precision-and-memory">10.1.5. Model Precision and Memory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-1-large-language-models-hugging-face-and-prompt-engineering">11.1. Practical Session 3 — Part 1: Large Language Models, Hugging Face, and Prompt Engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">11.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">11.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background-what-are-large-language-models">11.1.3. Background: What Are Large Language Models?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hugging-face-ecosystem">11.1.4. The Hugging Face Ecosystem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-precision-and-memory">11.1.5. Model Precision and Memory</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-loading-and-running-a-small-llm">10.2. Part 1: Loading and Running a Small LLM</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-right-model">10.2.1. Choosing the Right Model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-model">10.2.2. Loading the Model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifying-the-model-works">10.2.3. Verifying the Model Works</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-tokenization">10.2.4. Understanding Tokenization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-text">10.2.5. Generating Text</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-chat-templates">10.2.6. Using Chat Templates</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-parameters">10.2.7. Generation Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-loading-and-running-a-small-llm">11.2. Part 1: Loading and Running a Small LLM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-right-model">11.2.1. Choosing the Right Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-model">11.2.2. Loading the Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifying-the-model-works">11.2.3. Verifying the Model Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-tokenization">11.2.4. Understanding Tokenization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-text">11.2.5. Generating Text</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-chat-templates">11.2.6. Using Chat Templates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-parameters">11.2.7. Generation Parameters</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-prompt-engineering-fundamentals">10.3. Part 2: Prompt Engineering Fundamentals</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-prompt-engineering">10.3.1. What Is Prompt Engineering?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-anatomy-of-a-good-prompt">10.3.2. The Anatomy of a Good Prompt</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-shot-prompting">10.3.3. Zero-Shot Prompting</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#few-shot-prompting">10.3.4. Few-Shot Prompting</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chain-of-thought-cot-prompting">10.3.5. Chain-of-Thought (CoT) Prompting</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-output-prompting">10.3.6. Structured Output Prompting</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#role-prompting">10.3.7. Role Prompting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-prompt-engineering-fundamentals">11.3. Part 2: Prompt Engineering Fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-prompt-engineering">11.3.1. What Is Prompt Engineering?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-anatomy-of-a-good-prompt">11.3.2. The Anatomy of a Good Prompt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-shot-prompting">11.3.3. Zero-Shot Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#few-shot-prompting">11.3.4. Few-Shot Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chain-of-thought-cot-prompting">11.3.5. Chain-of-Thought (CoT) Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-output-prompting">11.3.6. Structured Output Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#role-prompting">11.3.7. Role Prompting</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-prompt-chaining">10.4. Part 3: Prompt Chaining</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#breaking-complex-tasks-into-steps">10.4.1. Breaking Complex Tasks into Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-prompt-chaining">11.4. Part 3: Prompt Chaining</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#breaking-complex-tasks-into-steps">11.4.1. Breaking Complex Tasks into Steps</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-evaluating-prompt-strategies">10.5. Part 4: Evaluating Prompt Strategies</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-an-evaluation-framework">10.5.1. Building an Evaluation Framework</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-strategies">10.5.2. Comparing Strategies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-results">10.5.3. Visualizing Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-evaluating-prompt-strategies">11.5. Part 4: Evaluating Prompt Strategies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-an-evaluation-framework">11.5.1. Building an Evaluation Framework</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-strategies">11.5.2. Comparing Strategies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-results">11.5.3. Visualizing Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">10.6. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-model-exploration">10.6.1. Exercise 1: Model Exploration</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">10.6.1.1. Objectives</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">10.6.1.2. Task Description</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">10.6.1.3. Deliverables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">11.6. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-model-exploration">11.6.1. Exercise 1: Model Exploration</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">11.6.1.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">11.6.1.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">11.6.1.3. Deliverables</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-prompt-engineering-challenge">10.6.2. Exercise 2: Prompt Engineering Challenge</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">10.6.2.1. Objectives</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">10.6.2.2. Task Description</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">10.6.2.3. Deliverables</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">10.6.2.4. Evaluation Criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-prompt-engineering-challenge">11.6.2. Exercise 2: Prompt Engineering Challenge</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">11.6.2.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">11.6.2.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.6.2.3. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">11.6.2.4. Evaluation Criteria</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-building-a-prompt-based-application">10.6.3. Exercise 3: Building a Prompt-Based Application</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">10.6.3.1. Objectives</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">10.6.3.2. Task Description</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#test-data">10.6.3.3. Test Data</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">10.6.3.4. Deliverables</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">10.6.3.5. Evaluation Criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-building-a-prompt-based-application">11.6.3. Exercise 3: Building a Prompt-Based Application</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11.6.3.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">11.6.3.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#test-data">11.6.3.3. Test Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">11.6.3.4. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.6.3.5. Evaluation Criteria</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">10.7. References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">11.7. References</a></li>
 </ul>
             </nav>
         </div>
@@ -473,17 +474,17 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="intelligent-agents">
-<h1><span class="section-number">10. </span>Intelligent Agents<a class="headerlink" href="#intelligent-agents" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">11. </span>Intelligent Agents<a class="headerlink" href="#intelligent-agents" title="Permalink to this heading">#</a></h1>
 <section id="practical-session-3-part-1-large-language-models-hugging-face-and-prompt-engineering">
-<h2><span class="section-number">10.1. </span>Practical Session 3 — Part 1: Large Language Models, Hugging Face, and Prompt Engineering<a class="headerlink" href="#practical-session-3-part-1-large-language-models-hugging-face-and-prompt-engineering" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.1. </span>Practical Session 3 — Part 1: Large Language Models, Hugging Face, and Prompt Engineering<a class="headerlink" href="#practical-session-3-part-1-large-language-models-hugging-face-and-prompt-engineering" title="Permalink to this heading">#</a></h2>
 <section id="introduction">
-<h3><span class="section-number">10.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
 <p>In this first part of Practical Session 3, we will explore the foundations of <strong>Large Language Models (LLMs)</strong> and how to interact with them programmatically using the <strong>Hugging Face</strong> ecosystem. LLMs are deep learning models trained on massive text corpora that can generate coherent text, answer questions, summarize documents, translate languages, and perform many other natural language tasks. Their emergence has fundamentally changed the landscape of Artificial Intelligence, enabling the construction of sophisticated <strong>intelligent agents</strong> that reason, plan, and communicate in natural language.</p>
 <p>Rather than training an LLM from scratch — which requires enormous computational resources — we will focus on <strong>loading pre-trained models</strong>, <strong>running inference</strong>, and mastering <strong>prompt engineering</strong>: the art of crafting effective instructions that guide a model toward the desired output. These skills form the essential building blocks for the RAG systems and multi-agent architectures that we will build in Parts 2 and 3.</p>
 <p>Throughout this session we will work with <strong><code class="docutils literal notranslate"><span class="pre">Qwen/Qwen2.5-1.5B-Instruct</span></code></strong>, a small instruction-tuned model with 1.5 billion parameters that runs comfortably on a CPU with approximately <strong>3–6 GB of RAM</strong>.</p>
 </section>
 <section id="prerequisites">
-<h3><span class="section-number">10.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
 <p>Before starting, install the required libraries:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>transformers<span class="w"> </span>accelerate<span class="w"> </span>sentencepiece<span class="w"> </span>protobuf<span class="w"> </span>matplotlib
 </pre></div>
@@ -498,7 +499,7 @@ document.write(`
 </div>
 </section>
 <section id="background-what-are-large-language-models">
-<h3><span class="section-number">10.1.3. </span>Background: What Are Large Language Models?<a class="headerlink" href="#background-what-are-large-language-models" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.1.3. </span>Background: What Are Large Language Models?<a class="headerlink" href="#background-what-are-large-language-models" title="Permalink to this heading">#</a></h3>
 <p>A Large Language Model is, at its core, a <strong>next-token predictor</strong>. Given a sequence of tokens <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_{t-1}\)</span>, the model estimates the probability distribution over the next token:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -513,7 +514,7 @@ P(x_t \mid x_1, x_2, \ldots, x_{t-1}; \theta)
 <p>During text generation, the model produces tokens <strong>autoregressively</strong>: at each step it samples (or selects) a token from the predicted distribution and appends it to the context, repeating the process until a stopping criterion is met (e.g., an end-of-sequence token or a maximum length).</p>
 </section>
 <section id="the-hugging-face-ecosystem">
-<h3><span class="section-number">10.1.4. </span>The Hugging Face Ecosystem<a class="headerlink" href="#the-hugging-face-ecosystem" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.1.4. </span>The Hugging Face Ecosystem<a class="headerlink" href="#the-hugging-face-ecosystem" title="Permalink to this heading">#</a></h3>
 <p><strong>Hugging Face</strong> is the de facto open-source platform for working with pre-trained models. Its core components include:</p>
 <ul class="simple">
 <li><p><strong><code class="docutils literal notranslate"><span class="pre">transformers</span></code></strong>: A Python library providing a unified API (<code class="docutils literal notranslate"><span class="pre">AutoModelForCausalLM</span></code>, <code class="docutils literal notranslate"><span class="pre">AutoTokenizer</span></code>, <code class="docutils literal notranslate"><span class="pre">pipeline</span></code>) to load and run thousands of pre-trained models.</p></li>
@@ -528,7 +529,7 @@ P(x_t \mid x_1, x_2, \ldots, x_{t-1}; \theta)
 </ol>
 </section>
 <section id="model-precision-and-memory">
-<h3><span class="section-number">10.1.5. </span>Model Precision and Memory<a class="headerlink" href="#model-precision-and-memory" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.1.5. </span>Model Precision and Memory<a class="headerlink" href="#model-precision-and-memory" title="Permalink to this heading">#</a></h3>
 <p>Full-precision LLMs store each parameter as a 32-bit floating-point number (FP32). A model with 1.5 billion parameters therefore requires approximately <strong>6 GB</strong> of RAM in FP32. By using <strong><code class="docutils literal notranslate"><span class="pre">bfloat16</span></code></strong> (Brain Floating Point 16), we store each parameter in 16 bits instead, cutting the memory requirement roughly in half to about <strong>3 GB</strong>. Unlike standard <code class="docutils literal notranslate"><span class="pre">float16</span></code>, <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code> preserves the same exponent range as <code class="docutils literal notranslate"><span class="pre">float32</span></code>, which avoids numerical overflow issues that can cause <code class="docutils literal notranslate"><span class="pre">nan</span></code> values during inference.</p>
 <table class="table">
 <thead>
@@ -556,9 +557,9 @@ P(x_t \mid x_1, x_2, \ldots, x_{t-1}; \theta)
 </section>
 <hr class="docutils" />
 <section id="part-1-loading-and-running-a-small-llm">
-<h2><span class="section-number">10.2. </span>Part 1: Loading and Running a Small LLM<a class="headerlink" href="#part-1-loading-and-running-a-small-llm" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.2. </span>Part 1: Loading and Running a Small LLM<a class="headerlink" href="#part-1-loading-and-running-a-small-llm" title="Permalink to this heading">#</a></h2>
 <section id="choosing-the-right-model">
-<h3><span class="section-number">10.2.1. </span>Choosing the Right Model<a class="headerlink" href="#choosing-the-right-model" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.2.1. </span>Choosing the Right Model<a class="headerlink" href="#choosing-the-right-model" title="Permalink to this heading">#</a></h3>
 <p>For this practical session we will use <strong><code class="docutils literal notranslate"><span class="pre">Qwen/Qwen2.5-1.5B-Instruct</span></code></strong>, a 1.5-billion-parameter instruction-tuned language model from the Qwen family. This model provides a good balance between capability and resource requirements:</p>
 <ul class="simple">
 <li><p><strong>BF16</strong>: ~3 GB RAM</p></li>
@@ -567,7 +568,7 @@ P(x_t \mid x_1, x_2, \ldots, x_{t-1}; \theta)
 </ul>
 </section>
 <section id="loading-the-model">
-<h3><span class="section-number">10.2.2. </span>Loading the Model<a class="headerlink" href="#loading-the-model" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.2.2. </span>Loading the Model<a class="headerlink" href="#loading-the-model" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
 
@@ -606,7 +607,7 @@ P(x_t \mid x_1, x_2, \ldots, x_{t-1}; \theta)
 </div>
 </section>
 <section id="verifying-the-model-works">
-<h3><span class="section-number">10.2.3. </span>Verifying the Model Works<a class="headerlink" href="#verifying-the-model-works" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.2.3. </span>Verifying the Model Works<a class="headerlink" href="#verifying-the-model-works" title="Permalink to this heading">#</a></h3>
 <p>After loading, it is good practice to verify that the model produces meaningful output before proceeding:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Quick sanity check</span>
 <span class="n">test_input</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="s2">&quot;The capital of France is&quot;</span><span class="p">,</span> <span class="n">return_tensors</span> <span class="o">=</span> <span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
@@ -626,7 +627,7 @@ P(x_t \mid x_1, x_2, \ldots, x_{t-1}; \theta)
 <p>If you see <code class="docutils literal notranslate"><span class="pre">Contains</span> <span class="pre">NaN:</span> <span class="pre">True</span></code>, your dtype is not compatible with your hardware. Switch to <code class="docutils literal notranslate"><span class="pre">torch.float32</span></code>.</p>
 </section>
 <section id="understanding-tokenization">
-<h3><span class="section-number">10.2.4. </span>Understanding Tokenization<a class="headerlink" href="#understanding-tokenization" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.2.4. </span>Understanding Tokenization<a class="headerlink" href="#understanding-tokenization" title="Permalink to this heading">#</a></h3>
 <p>Before feeding text to the model, it must be converted into <strong>tokens</strong> — integer indices that the model understands. The tokenizer handles this conversion and also applies any special formatting required by the model (e.g., chat templates).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic tokenization</span>
 <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Hello, how are you doing today?&quot;</span>
@@ -640,7 +641,7 @@ P(x_t \mid x_1, x_2, \ldots, x_{t-1}; \theta)
 </div>
 </section>
 <section id="generating-text">
-<h3><span class="section-number">10.2.5. </span>Generating Text<a class="headerlink" href="#generating-text" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.2.5. </span>Generating Text<a class="headerlink" href="#generating-text" title="Permalink to this heading">#</a></h3>
 <p>The simplest way to generate text is using the <code class="docutils literal notranslate"><span class="pre">model.generate()</span></code> method:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate_response</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">256</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -683,7 +684,7 @@ P(x_t \mid x_1, x_2, \ldots, x_{t-1}; \theta)
 </div>
 </section>
 <section id="using-chat-templates">
-<h3><span class="section-number">10.2.6. </span>Using Chat Templates<a class="headerlink" href="#using-chat-templates" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.2.6. </span>Using Chat Templates<a class="headerlink" href="#using-chat-templates" title="Permalink to this heading">#</a></h3>
 <p>Instruction-tuned models expect input formatted according to a specific <strong>chat template</strong>. The Qwen2.5 Instruct model uses a structured format with system, user, and assistant roles. The <code class="docutils literal notranslate"><span class="pre">tokenizer.apply_chat_template()</span></code> method handles this automatically:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">chat</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">user_message</span><span class="p">,</span> <span class="n">system_message</span> <span class="o">=</span> <span class="s2">&quot;You are a helpful assistant.&quot;</span><span class="p">,</span>
          <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">top_p</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">top_k</span> <span class="o">=</span> <span class="mi">50</span><span class="p">):</span>
@@ -743,7 +744,7 @@ P(x_t \mid x_1, x_2, \ldots, x_{t-1}; \theta)
 </div>
 </section>
 <section id="generation-parameters">
-<h3><span class="section-number">10.2.7. </span>Generation Parameters<a class="headerlink" href="#generation-parameters" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.2.7. </span>Generation Parameters<a class="headerlink" href="#generation-parameters" title="Permalink to this heading">#</a></h3>
 <p>The behavior of text generation can be controlled through several important parameters:</p>
 <p><strong>Temperature (<span class="math notranslate nohighlight">\(\tau\)</span>):</strong> Controls the randomness of the output. Given logits <span class="math notranslate nohighlight">\(z_i\)</span> for each token <span class="math notranslate nohighlight">\(i\)</span>, the probability is:</p>
 <div class="math notranslate nohighlight">
@@ -781,14 +782,14 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </section>
 <hr class="docutils" />
 <section id="part-2-prompt-engineering-fundamentals">
-<h2><span class="section-number">10.3. </span>Part 2: Prompt Engineering Fundamentals<a class="headerlink" href="#part-2-prompt-engineering-fundamentals" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.3. </span>Part 2: Prompt Engineering Fundamentals<a class="headerlink" href="#part-2-prompt-engineering-fundamentals" title="Permalink to this heading">#</a></h2>
 <section id="what-is-prompt-engineering">
-<h3><span class="section-number">10.3.1. </span>What Is Prompt Engineering?<a class="headerlink" href="#what-is-prompt-engineering" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.3.1. </span>What Is Prompt Engineering?<a class="headerlink" href="#what-is-prompt-engineering" title="Permalink to this heading">#</a></h3>
 <p><strong>Prompt engineering</strong> is the practice of designing and refining the textual input (prompt) given to a language model in order to elicit the most accurate, relevant, and useful response. Since LLMs are general-purpose models, the quality of their output depends critically on <em>how</em> we ask them to perform a task.</p>
 <p>A well-crafted prompt can dramatically improve performance without changing the model or its weights — it is a form of <strong>in-context learning</strong>, where the model adapts its behavior based solely on the information provided in the input.</p>
 </section>
 <section id="the-anatomy-of-a-good-prompt">
-<h3><span class="section-number">10.3.2. </span>The Anatomy of a Good Prompt<a class="headerlink" href="#the-anatomy-of-a-good-prompt" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.3.2. </span>The Anatomy of a Good Prompt<a class="headerlink" href="#the-anatomy-of-a-good-prompt" title="Permalink to this heading">#</a></h3>
 <p>An effective prompt typically contains some or all of the following components:</p>
 <ol class="arabic simple">
 <li><p><strong>Role / Persona</strong>: Define who the model should act as (e.g., “You are an expert Python programmer”).</p></li>
@@ -801,7 +802,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </ol>
 </section>
 <section id="zero-shot-prompting">
-<h3><span class="section-number">10.3.3. </span>Zero-Shot Prompting<a class="headerlink" href="#zero-shot-prompting" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.3.3. </span>Zero-Shot Prompting<a class="headerlink" href="#zero-shot-prompting" title="Permalink to this heading">#</a></h3>
 <p>In <strong>zero-shot</strong> prompting, we give the model a task description without any examples. The model must rely entirely on its pre-trained knowledge.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Zero-shot sentiment analysis</span>
 <span class="n">zero_shot_prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Classify the sentiment of the following review as POSITIVE, NEGATIVE, or NEUTRAL.</span>
@@ -817,7 +818,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </div>
 </section>
 <section id="few-shot-prompting">
-<h3><span class="section-number">10.3.4. </span>Few-Shot Prompting<a class="headerlink" href="#few-shot-prompting" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.3.4. </span>Few-Shot Prompting<a class="headerlink" href="#few-shot-prompting" title="Permalink to this heading">#</a></h3>
 <p>In <strong>few-shot</strong> prompting, we provide one or more examples (demonstrations) before the actual query. This helps the model understand the expected format and behavior.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Few-shot sentiment analysis</span>
 <span class="n">few_shot_prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Classify the sentiment of each review as POSITIVE, NEGATIVE, or NEUTRAL.</span>
@@ -840,7 +841,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </div>
 </section>
 <section id="chain-of-thought-cot-prompting">
-<h3><span class="section-number">10.3.5. </span>Chain-of-Thought (CoT) Prompting<a class="headerlink" href="#chain-of-thought-cot-prompting" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.3.5. </span>Chain-of-Thought (CoT) Prompting<a class="headerlink" href="#chain-of-thought-cot-prompting" title="Permalink to this heading">#</a></h3>
 <p><strong>Chain-of-Thought</strong> prompting encourages the model to reason step by step before arriving at a final answer. This technique significantly improves performance on tasks that require logical reasoning, arithmetic, or multi-step problem solving.</p>
 <p>The key idea is simple: instead of asking for a direct answer, we ask the model to “think step by step” or provide explicit reasoning examples.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Without Chain-of-Thought</span>
@@ -864,7 +865,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </div>
 </section>
 <section id="structured-output-prompting">
-<h3><span class="section-number">10.3.6. </span>Structured Output Prompting<a class="headerlink" href="#structured-output-prompting" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.3.6. </span>Structured Output Prompting<a class="headerlink" href="#structured-output-prompting" title="Permalink to this heading">#</a></h3>
 <p>For integration into software systems, we often need the model to return output in a specific structured format such as <strong>JSON</strong>. This is particularly important when building agents that must parse model outputs programmatically.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
 
@@ -890,7 +891,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </div>
 </section>
 <section id="role-prompting">
-<h3><span class="section-number">10.3.7. </span>Role Prompting<a class="headerlink" href="#role-prompting" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.3.7. </span>Role Prompting<a class="headerlink" href="#role-prompting" title="Permalink to this heading">#</a></h3>
 <p>By assigning a specific <strong>role</strong> or <strong>persona</strong> to the model through the system message, we can influence its tone, expertise level, and style of response.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Same question, different roles</span>
 <span class="n">question</span> <span class="o">=</span> <span class="s2">&quot;Explain what an API is.&quot;</span>
@@ -918,9 +919,9 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </section>
 <hr class="docutils" />
 <section id="part-3-prompt-chaining">
-<h2><span class="section-number">10.4. </span>Part 3: Prompt Chaining<a class="headerlink" href="#part-3-prompt-chaining" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.4. </span>Part 3: Prompt Chaining<a class="headerlink" href="#part-3-prompt-chaining" title="Permalink to this heading">#</a></h2>
 <section id="breaking-complex-tasks-into-steps">
-<h3><span class="section-number">10.4.1. </span>Breaking Complex Tasks into Steps<a class="headerlink" href="#breaking-complex-tasks-into-steps" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.4.1. </span>Breaking Complex Tasks into Steps<a class="headerlink" href="#breaking-complex-tasks-into-steps" title="Permalink to this heading">#</a></h3>
 <p><strong>Prompt chaining</strong> involves breaking a complex task into a sequence of simpler sub-tasks, where the output of one prompt becomes the input to the next. This is a precursor to the agent architectures we will build in Part 3 of this practical session.</p>
 <p>The advantages of prompt chaining over a single monolithic prompt are:</p>
 <ul class="simple">
@@ -999,9 +1000,9 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </section>
 <hr class="docutils" />
 <section id="part-4-evaluating-prompt-strategies">
-<h2><span class="section-number">10.5. </span>Part 4: Evaluating Prompt Strategies<a class="headerlink" href="#part-4-evaluating-prompt-strategies" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.5. </span>Part 4: Evaluating Prompt Strategies<a class="headerlink" href="#part-4-evaluating-prompt-strategies" title="Permalink to this heading">#</a></h2>
 <section id="building-an-evaluation-framework">
-<h3><span class="section-number">10.5.1. </span>Building an Evaluation Framework<a class="headerlink" href="#building-an-evaluation-framework" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.5.1. </span>Building an Evaluation Framework<a class="headerlink" href="#building-an-evaluation-framework" title="Permalink to this heading">#</a></h3>
 <p>To compare different prompting strategies systematically, we need a small evaluation benchmark. We will create a set of tasks with known correct answers and measure the accuracy of different prompting approaches.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a small evaluation dataset</span>
 <span class="n">eval_dataset</span> <span class="o">=</span> <span class="p">[</span>
@@ -1074,7 +1075,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </div>
 </section>
 <section id="comparing-strategies">
-<h3><span class="section-number">10.5.2. </span>Comparing Strategies<a class="headerlink" href="#comparing-strategies" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.5.2. </span>Comparing Strategies<a class="headerlink" href="#comparing-strategies" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Strategy 1: Direct (zero-shot, no special instructions)</span>
 <span class="k">def</span> <span class="nf">direct_prompt</span><span class="p">(</span><span class="n">question</span><span class="p">):</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Answer concisely:&quot;</span>
@@ -1105,7 +1106,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </div>
 </section>
 <section id="visualizing-results">
-<h3><span class="section-number">10.5.3. </span>Visualizing Results<a class="headerlink" href="#visualizing-results" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.5.3. </span>Visualizing Results<a class="headerlink" href="#visualizing-results" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -1157,15 +1158,15 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </section>
 <hr class="docutils" />
 <section id="exercises">
-<h2><span class="section-number">10.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.6. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
 <section id="exercise-1-model-exploration">
-<h3><span class="section-number">10.6.1. </span>Exercise 1: Model Exploration<a class="headerlink" href="#exercise-1-model-exploration" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.6.1. </span>Exercise 1: Model Exploration<a class="headerlink" href="#exercise-1-model-exploration" title="Permalink to this heading">#</a></h3>
 <section id="objectives">
-<h4><span class="section-number">10.6.1.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.6.1.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h4>
 <p>The objective of this exercise is to familiarize yourself with the Hugging Face <code class="docutils literal notranslate"><span class="pre">transformers</span></code> library, understand tokenization, and explore how generation parameters affect model output.</p>
 </section>
 <section id="task-description">
-<h4><span class="section-number">10.6.1.2. </span>Task Description<a class="headerlink" href="#task-description" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.6.1.2. </span>Task Description<a class="headerlink" href="#task-description" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
 <li><p><strong>Load the model</strong>: Load <code class="docutils literal notranslate"><span class="pre">Qwen/Qwen2.5-1.5B-Instruct</span></code> using <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code> precision. Print the model’s memory footprint and the number of parameters. Verify that the logits do not contain <code class="docutils literal notranslate"><span class="pre">nan</span></code> values.</p></li>
 <li><p><strong>Tokenization analysis</strong>: Choose 5 sentences of varying complexity (short, long, with numbers, with special characters, in different languages). For each sentence:</p>
@@ -1186,7 +1187,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </ol>
 </section>
 <section id="deliverables">
-<h4><span class="section-number">10.6.1.3. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.6.1.3. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Complete code in a Jupyter Notebook</p></li>
 <li><p>A table summarizing the diversity and quality of responses at each temperature</p></li>
@@ -1196,13 +1197,13 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </section>
 <hr class="docutils" />
 <section id="exercise-2-prompt-engineering-challenge">
-<h3><span class="section-number">10.6.2. </span>Exercise 2: Prompt Engineering Challenge<a class="headerlink" href="#exercise-2-prompt-engineering-challenge" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.6.2. </span>Exercise 2: Prompt Engineering Challenge<a class="headerlink" href="#exercise-2-prompt-engineering-challenge" title="Permalink to this heading">#</a></h3>
 <section id="id1">
-<h4><span class="section-number">10.6.2.1. </span>Objectives<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.6.2.1. </span>Objectives<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
 <p>The objective of this exercise is to practice and compare different prompt engineering techniques on a variety of NLP tasks.</p>
 </section>
 <section id="id2">
-<h4><span class="section-number">10.6.2.2. </span>Task Description<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.6.2.2. </span>Task Description<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
 <p>You must implement and evaluate <strong>four</strong> prompting strategies on the following <strong>five</strong> tasks. For each task, design the best prompt you can for each strategy.</p>
 <p><strong>Prompting Strategies:</strong></p>
 <ol class="arabic simple">
@@ -1221,7 +1222,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </ul>
 </section>
 <section id="id3">
-<h4><span class="section-number">10.6.2.3. </span>Deliverables<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.6.2.3. </span>Deliverables<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>A Jupyter Notebook with all implementations</p></li>
 <li><p>A summary table showing accuracy/quality for each strategy × task combination (20 cells)</p></li>
@@ -1235,7 +1236,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </ul>
 </section>
 <section id="evaluation-criteria">
-<h4><span class="section-number">10.6.2.4. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.6.2.4. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Correctness and completeness of the implementations</p></li>
 <li><p>Quality and creativity of the prompts designed</p></li>
@@ -1246,13 +1247,13 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </section>
 <hr class="docutils" />
 <section id="exercise-3-building-a-prompt-based-application">
-<h3><span class="section-number">10.6.3. </span>Exercise 3: Building a Prompt-Based Application<a class="headerlink" href="#exercise-3-building-a-prompt-based-application" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.6.3. </span>Exercise 3: Building a Prompt-Based Application<a class="headerlink" href="#exercise-3-building-a-prompt-based-application" title="Permalink to this heading">#</a></h3>
 <section id="id4">
-<h4><span class="section-number">10.6.3.1. </span>Objectives<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.6.3.1. </span>Objectives<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
 <p>The objective of this exercise is to build a complete, functional application powered by an LLM using only prompt engineering techniques. This exercise bridges the gap between isolated prompting experiments and the agent-based systems you will build in Parts 2 and 3.</p>
 </section>
 <section id="id5">
-<h4><span class="section-number">10.6.3.2. </span>Task Description<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.6.3.2. </span>Task Description<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
 <p>Design and implement a <strong>multi-step text analysis pipeline</strong> that processes a given document through the following stages:</p>
 <ol class="arabic simple">
 <li><p><strong>Language Detection</strong>: Determine the language of the input text.</p></li>
@@ -1270,11 +1271,11 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </ul>
 </section>
 <section id="test-data">
-<h4><span class="section-number">10.6.3.3. </span>Test Data<a class="headerlink" href="#test-data" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.6.3.3. </span>Test Data<a class="headerlink" href="#test-data" title="Permalink to this heading">#</a></h4>
 <p>Run your pipeline on <strong>at least 3 documents</strong> from different domains (e.g., a news article, a scientific abstract, a product review). You can copy-paste real text or create realistic synthetic examples.</p>
 </section>
 <section id="id6">
-<h4><span class="section-number">10.6.3.4. </span>Deliverables<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.6.3.4. </span>Deliverables<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Complete, documented Python code in a Jupyter Notebook</p></li>
 <li><p>The structured output (dictionary/JSON) for each test document</p></li>
@@ -1289,7 +1290,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </ul>
 </section>
 <section id="id7">
-<h4><span class="section-number">10.6.3.5. </span>Evaluation Criteria<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.6.3.5. </span>Evaluation Criteria<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Robustness of the pipeline (error handling, edge cases)</p></li>
 <li><p>Quality of the prompt design at each stage</p></li>
@@ -1301,7 +1302,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
 </section>
 <hr class="docutils" />
 <section id="references">
-<h2><span class="section-number">10.7. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.7. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Vaswani, A., et al. (2017). <em>Attention Is All You Need</em>. NeurIPS.</p></li>
 <li><p>Brown, T. B., et al. (2020). <em>Language Models are Few-Shot Learners</em>. NeurIPS.</p></li>
@@ -1349,7 +1350,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>Reinforcement Learning</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>Reinforcement Learning</p>
       </div>
     </a>
     <a class="right-next"
@@ -1357,7 +1358,7 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>Retrieval-Augmented Generation (RAG)</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>Retrieval-Augmented Generation (RAG)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1377,69 +1378,69 @@ P(x_t = i) = \frac{\exp(z_i / \tau)}{\sum_j \exp(z_j / \tau)}
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-1-large-language-models-hugging-face-and-prompt-engineering">10.1. Practical Session 3 — Part 1: Large Language Models, Hugging Face, and Prompt Engineering</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">10.1.1. Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">10.1.2. Prerequisites</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background-what-are-large-language-models">10.1.3. Background: What Are Large Language Models?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hugging-face-ecosystem">10.1.4. The Hugging Face Ecosystem</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-precision-and-memory">10.1.5. Model Precision and Memory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-1-large-language-models-hugging-face-and-prompt-engineering">11.1. Practical Session 3 — Part 1: Large Language Models, Hugging Face, and Prompt Engineering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">11.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">11.1.2. Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#background-what-are-large-language-models">11.1.3. Background: What Are Large Language Models?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hugging-face-ecosystem">11.1.4. The Hugging Face Ecosystem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-precision-and-memory">11.1.5. Model Precision and Memory</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-loading-and-running-a-small-llm">10.2. Part 1: Loading and Running a Small LLM</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-right-model">10.2.1. Choosing the Right Model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-model">10.2.2. Loading the Model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifying-the-model-works">10.2.3. Verifying the Model Works</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-tokenization">10.2.4. Understanding Tokenization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-text">10.2.5. Generating Text</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-chat-templates">10.2.6. Using Chat Templates</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-parameters">10.2.7. Generation Parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-loading-and-running-a-small-llm">11.2. Part 1: Loading and Running a Small LLM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-the-right-model">11.2.1. Choosing the Right Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-model">11.2.2. Loading the Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verifying-the-model-works">11.2.3. Verifying the Model Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-tokenization">11.2.4. Understanding Tokenization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-text">11.2.5. Generating Text</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-chat-templates">11.2.6. Using Chat Templates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-parameters">11.2.7. Generation Parameters</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-prompt-engineering-fundamentals">10.3. Part 2: Prompt Engineering Fundamentals</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-prompt-engineering">10.3.1. What Is Prompt Engineering?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-anatomy-of-a-good-prompt">10.3.2. The Anatomy of a Good Prompt</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-shot-prompting">10.3.3. Zero-Shot Prompting</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#few-shot-prompting">10.3.4. Few-Shot Prompting</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chain-of-thought-cot-prompting">10.3.5. Chain-of-Thought (CoT) Prompting</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-output-prompting">10.3.6. Structured Output Prompting</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#role-prompting">10.3.7. Role Prompting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-prompt-engineering-fundamentals">11.3. Part 2: Prompt Engineering Fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-prompt-engineering">11.3.1. What Is Prompt Engineering?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-anatomy-of-a-good-prompt">11.3.2. The Anatomy of a Good Prompt</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-shot-prompting">11.3.3. Zero-Shot Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#few-shot-prompting">11.3.4. Few-Shot Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chain-of-thought-cot-prompting">11.3.5. Chain-of-Thought (CoT) Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structured-output-prompting">11.3.6. Structured Output Prompting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#role-prompting">11.3.7. Role Prompting</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-prompt-chaining">10.4. Part 3: Prompt Chaining</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#breaking-complex-tasks-into-steps">10.4.1. Breaking Complex Tasks into Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-prompt-chaining">11.4. Part 3: Prompt Chaining</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#breaking-complex-tasks-into-steps">11.4.1. Breaking Complex Tasks into Steps</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-evaluating-prompt-strategies">10.5. Part 4: Evaluating Prompt Strategies</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-an-evaluation-framework">10.5.1. Building an Evaluation Framework</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-strategies">10.5.2. Comparing Strategies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-results">10.5.3. Visualizing Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-4-evaluating-prompt-strategies">11.5. Part 4: Evaluating Prompt Strategies</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-an-evaluation-framework">11.5.1. Building an Evaluation Framework</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparing-strategies">11.5.2. Comparing Strategies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-results">11.5.3. Visualizing Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">10.6. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-model-exploration">10.6.1. Exercise 1: Model Exploration</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">10.6.1.1. Objectives</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">10.6.1.2. Task Description</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">10.6.1.3. Deliverables</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">11.6. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-model-exploration">11.6.1. Exercise 1: Model Exploration</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">11.6.1.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">11.6.1.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">11.6.1.3. Deliverables</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-prompt-engineering-challenge">10.6.2. Exercise 2: Prompt Engineering Challenge</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">10.6.2.1. Objectives</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">10.6.2.2. Task Description</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">10.6.2.3. Deliverables</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">10.6.2.4. Evaluation Criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-prompt-engineering-challenge">11.6.2. Exercise 2: Prompt Engineering Challenge</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">11.6.2.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">11.6.2.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.6.2.3. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">11.6.2.4. Evaluation Criteria</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-building-a-prompt-based-application">10.6.3. Exercise 3: Building a Prompt-Based Application</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">10.6.3.1. Objectives</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">10.6.3.2. Task Description</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#test-data">10.6.3.3. Test Data</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">10.6.3.4. Deliverables</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">10.6.3.5. Evaluation Criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-building-a-prompt-based-application">11.6.3. Exercise 3: Building a Prompt-Based Application</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11.6.3.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">11.6.3.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#test-data">11.6.3.3. Test Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">11.6.3.4. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.6.3.5. Evaluation Criteria</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">10.7. References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">11.7. References</a></li>
 </ul>
   </nav></div>
 
