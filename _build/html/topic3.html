@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'topic3';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="7. Graph Neural Networks" href="practice0.html" />
+    <link rel="next" title="8. Graph Neural Networks" href="practice0.html" />
     <link rel="prev" title="4. Reinforcement Learning" href="topic2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -195,14 +195,15 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">5. LLMs and VLMs</a></li>
 
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 0</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice0.html">7. Graph Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice1.html">8. Clique Problem</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice2.html">9. Reinforcement Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">10. Intelligent Agents</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice3_2.html">11. Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">8. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice1.html">9. Clique Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice2.html">10. Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">11. Intelligent Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_2.html">12. Retrieval-Augmented Generation (RAG)</a></li>
 </ul>
 
     </div>
@@ -442,6 +443,19 @@ document.write(`
 </li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#paremeter-efficient-fine-tuning-peft">7. Paremeter-Efficient Fine Tuning (PEFT)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-standard-ft">7.1. Beyond Standard FT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prefix-tuning">7.2. Prefix tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lora">7.3. LoRA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora-s-hypothesis">7.3.1. LoRA’s Hypothesis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora-s-method">7.3.2. LoRA’s method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-and-practice">7.3.3. Benefits and practice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-first-adaptation">7.3.4. A first adaptation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perplexity">7.3.5. Perplexity</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             </nav>
@@ -494,7 +508,7 @@ document.write(`
 <p>This is done by addressign the AR-objective:</p>
 <div class="math notranslate nohighlight">
 \[
-\max_{\theta} \log_{\theta} p(\mathbf{x}_1,\ldots,\mathbf{x}_T)\approx \sum_{t=1}^T\log_{\theta}(\mathbf{x}_t|\mathbf{x}_1,\ldots,\mathbf{x}_{t-1})=\sum_{t=1}^T\log\underbrace{\frac{\exp(\mathbf{y}_{\mathbf{x}_1,\ldots,\mathbf{x}_{t-1}}(\mathbf{x}_t))}{\sum_{\mathbf{x}'}\exp(\mathbf{y}_{\mathbf{x}_1,\ldots,\mathbf{x}_{t-1}}(\mathbf{x}'))}}_{\text{Softmax}(\mathbf{y}_{\mathbf{x}_1,\ldots,\mathbf{x}_{t-1}}(\mathbf{x}_t))}\;,
+\max_{\theta} \log p_{\theta}(\mathbf{x}_1,\ldots,\mathbf{x}_T)\approx \sum_{t=1}^T\log p_{\theta}(\mathbf{x}_t|\mathbf{x}_1,\ldots,\mathbf{x}_{t-1})=\sum_{t=1}^T\log\underbrace{\frac{\exp(\mathbf{y}_{\mathbf{x}_1,\ldots,\mathbf{x}_{t-1}}(\mathbf{x}_t))}{\sum_{\mathbf{x}'}\exp(\mathbf{y}_{\mathbf{x}_1,\ldots,\mathbf{x}_{t-1}}(\mathbf{x}'))}}_{\text{Softmax}(\mathbf{y}_{\mathbf{x}_1,\ldots,\mathbf{x}_{t-1}}(\mathbf{x}_t))}\;,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{y}(.)\)</span>  represents the function of a token <span class="math notranslate nohighlight">\(\mathbf{x}_t\)</span> given the previous text sequence <span class="math notranslate nohighlight">\(\mathbf{x}_1,\ldots,\mathbf{x}_{t-1}\)</span>.</p>
 </section>
@@ -827,12 +841,10 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
-
 <span class="k">def</span> <span class="nf">simplified_beam_search</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">num_beams</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">input_ids</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">input_ids</span>
     <span class="k">if</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token_id</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span>
-
 
     <span class="c1"># Step 1: Generate the first candidate  `num_beams`:</span>
     <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
@@ -840,19 +852,15 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
         <span class="n">next_token_logits</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">logits</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
         <span class="n">next_token_probs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">next_token_logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
-
         <span class="n">top_probs</span><span class="p">,</span> <span class="n">top_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">next_token_probs</span><span class="p">,</span> <span class="n">num_beams</span><span class="p">)</span>
-
 
     <span class="c1"># Each &quot;beam&quot; is a tuple (score_log, sequence_ids, parent_sequence_id)</span>
     <span class="n">beams</span> <span class="o">=</span> <span class="p">[(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">prob</span><span class="o">.</span><span class="n">item</span><span class="p">()),</span> <span class="p">[</span><span class="n">idx</span><span class="o">.</span><span class="n">item</span><span class="p">()],</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">prob</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">top_probs</span><span class="p">,</span> <span class="n">top_indices</span><span class="p">)]</span>
-
 
     <span class="c1"># Store the beam scores and sequences history for visualization</span>
     <span class="n">beam_scores_history</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_beams</span><span class="p">)}</span>
     <span class="n">beam_sequences_history</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_beams</span><span class="p">)}</span>
     <span class="n">beam_parents_history</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_beams</span><span class="p">)}</span>
-
 
     <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># To store (step, beam_idx, token_id, score, parent_idx)</span>
     <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
@@ -867,7 +875,6 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
         <span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
     <span class="p">})</span>
     <span class="n">current_node_id_counter</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Unique ID for each generated token sequence</span>
-
 
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Step 0: Start with prompt: &#39;</span><span class="si">{</span><span class="n">prompt</span><span class="si">}</span><span class="s2">&#39; ---&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initial candidates (top </span><span class="si">{</span><span class="n">num_beams</span><span class="si">}</span><span class="s2">):&quot;</span><span class="p">)</span>
@@ -885,51 +892,41 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
         <span class="p">})</span>
         <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parent_node_id</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">([</span><span class="n">seq</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])}))</span>
 
-
         <span class="n">beam_scores_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
         <span class="n">beam_sequences_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
         <span class="n">beam_parents_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_node_id</span><span class="p">)</span>
 
-
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - &#39;</span><span class="si">{</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">full_seq</span><span class="p">,</span><span class="w"> </span><span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39; (Score: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-
 
     <span class="c1"># Step 2: Iterate to extend sequences:</span>
     <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_new_tokens</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">all_candidates</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Store new candidates</span>
 
-
         <span class="k">for</span> <span class="n">beam_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">seq_ids</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">beams</span><span class="p">):</span>
             <span class="n">current_input_ids</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">seq_ids</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-
 
             <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
                 <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">current_input_ids</span><span class="p">)</span>
                 <span class="n">next_token_logits</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">logits</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
                 <span class="n">next_token_probs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">next_token_logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
-
                 <span class="c1"># Obtener los top `num_beams` tokens para extender cada secuencia actual</span>
                 <span class="n">next_top_probs</span><span class="p">,</span> <span class="n">next_top_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">topk</span><span class="p">(</span><span class="n">next_token_probs</span><span class="p">,</span> <span class="n">num_beams</span><span class="p">)</span>
-
 
             <span class="k">for</span> <span class="n">next_prob</span><span class="p">,</span> <span class="n">next_idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">next_top_probs</span><span class="p">,</span> <span class="n">next_top_indices</span><span class="p">):</span>
                 <span class="n">new_score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">next_prob</span><span class="o">.</span><span class="n">item</span><span class="p">())</span> <span class="c1"># Add log-probs</span>
                 <span class="n">new_seq_ids</span> <span class="o">=</span> <span class="n">seq_ids</span> <span class="o">+</span> <span class="p">[</span><span class="n">next_idx</span><span class="o">.</span><span class="n">item</span><span class="p">()]</span>
                 <span class="n">all_candidates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">new_score</span><span class="p">,</span> <span class="n">new_seq_ids</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">seq_ids</span><span class="p">)))</span> <span class="c1"># Store parent sequence ID</span>
 
-
         <span class="c1"># Bound: Select the best `num_beams` among all generated</span>
         <span class="n">all_candidates</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">beams</span> <span class="o">=</span> <span class="n">all_candidates</span><span class="p">[:</span><span class="n">num_beams</span><span class="p">]</span> <span class="c1"># Keep only the top `num_beams`</span>
-
 
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Step </span><span class="si">{</span><span class="n">step</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">: Extension --- (</span><span class="si">{</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="w"> </span><span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="si">}</span><span class="s2">...)&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">seq</span><span class="p">,</span> <span class="n">parent_seq</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">beams</span><span class="p">):</span> <span class="c1"># Fixed: Unpack 3 values</span>
             <span class="n">full_seq</span> <span class="o">=</span> <span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">seq</span>
             <span class="n">node_id</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">full_seq</span><span class="p">)</span>
             <span class="n">parent_node_id</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">parent_seq</span><span class="p">))</span>
-
 
             <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
                 <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">node_id</span><span class="p">,</span>
@@ -940,19 +937,16 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
             <span class="p">})</span>
             <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parent_node_id</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">([</span><span class="n">seq</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])}))</span>
 
-
             <span class="n">beam_scores_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
             <span class="n">beam_sequences_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
             <span class="n">beam_parents_history</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_node_id</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - &#39;</span><span class="si">{</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">full_seq</span><span class="p">,</span><span class="w"> </span><span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="si">}</span><span class="s2">&#39; (Score: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-
 
     <span class="c1"># Final result</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Final generation (Best Beam) ---&quot;</span><span class="p">)</span>
     <span class="n">best_score</span><span class="p">,</span> <span class="n">best_seq_ids</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">beams</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">final_generated_text</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">input_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="o">+</span> <span class="n">best_seq_ids</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">final_generated_text</span><span class="si">}</span><span class="s2">&#39; (Score: </span><span class="si">{</span><span class="n">best_score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-
 
     <span class="k">return</span> <span class="n">beam_scores_history</span><span class="p">,</span> <span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span>
 </pre></div>
@@ -968,13 +962,11 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube?&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.9147</span><span class="p">)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube ?&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.8189</span><span class="p">)</span>
 
-
 <span class="o">---</span> <span class="n">Step</span> <span class="mi">1</span><span class="p">:</span> <span class="n">Extension</span> <span class="o">---</span> <span class="p">(</span><span class="n">Tell</span> <span class="n">me</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">most</span> <span class="n">popular</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">YouTube</span><span class="o">...</span><span class="p">)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...?&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.2316</span><span class="p">)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...</span>
 <span class="s1">&#39; (Score: -1.3814)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...I&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.0739</span><span class="p">)</span>
-
 
 <span class="o">---</span> <span class="n">Step</span> <span class="mi">2</span><span class="p">:</span> <span class="n">Extension</span> <span class="o">---</span> <span class="p">(</span><span class="n">Tell</span> <span class="n">me</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">most</span> <span class="n">popular</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">YouTube</span><span class="o">...</span><span class="p">)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...</span>
@@ -983,14 +975,12 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...?</span>
 <span class="s1">&#39; (Score: -3.1475)</span>
 
-
 <span class="o">---</span> <span class="n">Step</span> <span class="mi">3</span><span class="p">:</span> <span class="n">Extension</span> <span class="o">---</span> <span class="p">(</span><span class="n">Tell</span> <span class="n">me</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">most</span> <span class="n">popular</span> <span class="n">song</span> <span class="ow">in</span> <span class="n">YouTube</span><span class="o">...</span><span class="p">)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...?,(reply&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.4842</span><span class="p">)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...</span>
 <span class="n">This</span><span class="s1">&#39; (Score: -2.6576)</span>
   <span class="o">-</span> <span class="s1">&#39;Tell me what is the most popular song in YouTube...</span>
 <span class="s2">&quot;&#39; (Score: -3.0459)</span>
-
 
 <span class="o">---</span> <span class="n">Final</span> <span class="n">generation</span> <span class="p">(</span><span class="n">Best</span> <span class="n">Beam</span><span class="p">)</span> <span class="o">---</span>
 <span class="s1">&#39;Tell me what is the most popular song in YouTube...?,(reply&#39;</span> <span class="p">(</span><span class="n">Score</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.4842</span><span class="p">)</span>
@@ -999,7 +989,6 @@ p(\mathbf{x}_t)=\text{Softmax}\left(\frac{\ell(\mathbf{x}_t)}{T}\right)\;,
 <p>The complete result is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>--- Original Prompt ---
 Tell me what is the most popular song in YouTube
-
 
 --- Generated Text ---
 Tell me what is the most popular song in YouTube...?,(reply&gt;), Hit me up 👆📩
@@ -1023,7 +1012,6 @@ Tell me what is the most popular song in YouTube...?,(reply&gt;), Hit me up 👆
     <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span> <span class="c1"># Adjust for less random (lower) or more creative (higher) output</span>
 <span class="p">)</span>
-
 
 <span class="c1"># Decode the generated text: Convert the numerical output tokens back into human-readable text.</span>
 <span class="c1"># `skip_special_tokens=True` removes tokens like `[CLS]`, `[SEP]`, etc.</span>
@@ -1272,12 +1260,10 @@ average scores for the same layer. <span style="color:#2f6004">In particular the
 <p>Concering the number of parameters we have:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GPT</span><span class="o">-</span><span class="n">Youtube</span> <span class="p">(</span><span class="n">Single</span> <span class="n">FFN</span> <span class="n">Block</span><span class="p">):</span>
 
-
 <span class="n">dense_h_to_4h</span> <span class="n">layer</span> <span class="n">parameters</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span><span class="mi">362</span><span class="p">,</span><span class="mi">368</span>
 <span class="n">dense_4h_to_h</span> <span class="n">layer</span> <span class="n">parameters</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">064</span>
 <span class="n">Total</span> <span class="n">parameters</span> <span class="ow">in</span> <span class="n">one</span> <span class="n">FFN</span> <span class="n">block</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span><span class="mi">722</span><span class="p">,</span><span class="mi">432</span>
 <span class="n">Qwen</span> <span class="n">MoE</span> <span class="p">(</span><span class="n">Single</span> <span class="n">Expert</span> <span class="o">-</span> <span class="n">shared_expert</span> <span class="n">block</span><span class="p">):</span>
-
 
 <span class="n">gate_proj</span> <span class="n">layer</span> <span class="n">parameters</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span><span class="mi">534</span><span class="p">,</span><span class="mi">336</span>
 <span class="n">up_proj</span> <span class="n">layer</span> <span class="n">parameters</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span><span class="mi">534</span><span class="p">,</span><span class="mi">336</span>
@@ -1358,6 +1344,373 @@ performance:</p>
 </section>
 </section>
 </section>
+<section id="paremeter-efficient-fine-tuning-peft">
+<h1><span class="section-number">7. </span>Paremeter-Efficient Fine Tuning (PEFT)<a class="headerlink" href="#paremeter-efficient-fine-tuning-peft" title="Permalink to this heading">#</a></h1>
+<p><strong>Standard Fine Tuning (SFT)</strong>. SFT consists of modifying <strong>all the weigths</strong> of the LLM model (e.g Transformer or MoE) to <strong>adapt</strong> the LLM architecture two new datasets or tasks. However this is not practical due to hard computational and storage constraints.</p>
+<p><strong>General rationale</strong>. Whatever the complexity of the LLM, remember that it is a NN, i.e. a parametric model (function doing I/O mapping). Therefore, the aim of PEFT is to adapt your pre-trained LLM so that the number of additional parameters for doing so is drastically minimized.</p>
+<section id="beyond-standard-ft">
+<h2><span class="section-number">7.1. </span>Beyond Standard FT<a class="headerlink" href="#beyond-standard-ft" title="Permalink to this heading">#</a></h2>
+<p><strong>Adapters</strong>. <span style="color:#2f6004">The standard procedure for PEFT for a given dataset/task is to (i) replace some layers by other, known as <strong>adapter layers</strong> in to base pre-trained model, (ii) <ins><strong>freeze</strong> the weights of your pre-trained model</ins> and (iii) <ins><strong>update</strong> the weights of those adapter layers only</ins> (see <a class="reference internal" href="#adapters"><span class="std std-numref">Fig. 7.1</span></a>)</span>.</p>
+<figure class="align-center" id="adapters">
+<a class="reference internal image-reference" href="_images/Adapters.png"><img alt="_images/Adapters.png" src="_images/Adapters.png" style="width: 800px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 7.1 </span><span class="caption-text">Adapters. <a class="reference external" href="https://arxiv.org/pdf/1902.00751">Source</a>.</span><a class="headerlink" href="#adapters" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><span style="color:#2f6004">When we <strong>adapt only the last layers</strong> (a very popular approach) of the Transformers (and freeze the remaining ones)</span>, this happens:</p>
+<ol class="arabic simple">
+<li><p><strong>Fixed Feature Extractors</strong>. The earlier layers of a pre-trained model act as general feature extractors. If these early layers are frozen, the model’s ability to extract features relevant to a new, potentially very different, task or dataset is constrained. While they might capture universal features (like edges or textures in images, or grammatical structures in text), they might not be optimal for the specific nuances of the new problem.</p></li>
+<li><p><strong>Limited Capacity for New Learning</strong>. Deep learning models learn hierarchical representations. Early layers capture low-level features, and subsequent layers build upon these to form more abstract, high-level features. If only the last layers are adapted, the model can only recombine the existing high-level features in new ways, but it cannot fundamentally learn new types of intermediate features. This limits its capacity to adapt to entirely new patterns or relationships present in the target data.</p></li>
+<li><p><strong>Suboptimal Feature Alignment</strong>. In <strong>distillation</strong>, the goal is for a smaller student model to mimic the complex behavior of a larger teacher. If the student only adapts its last layers, it might struggle to align its internal feature representations with the teacher’s, especially if the teacher’s early and intermediate layers have learned highly specialized or subtle features that the student’s fixed early layers cannot replicate or approximate.</p></li>
+<li><p><strong>Domain Shift Challenges</strong>. When the target domain is significantly different from the domain the original model was pre-trained on, the early layers might extract features that are not entirely relevant or are even misleading for the new task. Adapting only the last layers in such a scenario would mean building upon a potentially poor foundation.</p></li>
+</ol>
+</section>
+<section id="prefix-tuning">
+<h2><span class="section-number">7.2. </span>Prefix tuning<a class="headerlink" href="#prefix-tuning" title="Permalink to this heading">#</a></h2>
+<p>Adapters are only one of the available methods for PEFT. These methods are described in the <a class="reference external" href="https://arxiv.org/pdf/2110.04366">Review Paper</a>. We summarize their role in <a class="reference internal" href="#adapters"><span class="std std-numref">Fig. 7.1</span></a>:</p>
+<figure class="align-center" id="peft">
+<a class="reference internal image-reference" href="_images/PEFT.png"><img alt="_images/PEFT.png" src="_images/PEFT.png" style="width: 800px; height: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 7.2 </span><span class="caption-text">PEFT methods. <a class="reference external" href="https://arxiv.org/pdf/2110.04366">Source</a>.</span><a class="headerlink" href="#peft" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Among them, we highlight herein the one termed <strong>prefix tuning</strong> (PT). This method is quite intuitive and low parameter consuming. <span style="color:#2f6004">PT basically consists of <strong>learning the more informative input embeddings to contextualize a given input</strong></span>. This icludes:</p>
+<ol class="arabic simple">
+<li><p><strong>Prefix definition</strong>. Put the prefix in the input (left context) and define a <strong>trainable matrix</strong> <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> whose dimension is <span class="math notranslate nohighlight">\(\text{length_of_prefix}\times d\)</span>. This defines a <strong>virtual token</strong>.</p></li>
+<li><p><strong>Training</strong>. Frozen the weights of the LLM and learn <span class="math notranslate nohighlight">\(\mathbf{P}\)</span>. To that end, the embedding of the virtual token is just the output of this matrix. Otherwise, the embedding of a <strong>regular token</strong> is also influenced by the matrix <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> since the other weights are frozen.</p></li>
+</ol>
+<p><strong>Interestingly</strong> the prefix is not necesarily new word of the vocabulary. It may actually mean a specific task. This simply particularizes the obtained embeddings and the working of the LLM (see <a class="reference internal" href="#prefix"><span class="std std-numref">Fig. 7.3</span></a>):</p>
+<figure class="align-center" id="prefix">
+<a class="reference internal image-reference" href="_images/Prefix.png"><img alt="_images/Prefix.png" src="_images/Prefix.png" style="width: 800px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 7.3 </span><span class="caption-text">Prefix and task adaptation. <a class="reference external" href="https://arxiv.org/pdf/2101.00190">Source</a>.</span><a class="headerlink" href="#prefix" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Note</strong> that in <a class="reference internal" href="#adapters"><span class="std std-numref">Fig. 7.1</span></a>, the output of <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> is also concatenated to that the K-V matrices in order to adapt/contextualize keys and values. As the Q-K space is essential for attention, the K-V matrices cannot be far from Q (anchoring effect).</p>
+</section>
+<section id="lora">
+<h2><span class="section-number">7.3. </span>LoRA<a class="headerlink" href="#lora" title="Permalink to this heading">#</a></h2>
+<section id="lora-s-hypothesis">
+<h3><span class="section-number">7.3.1. </span>LoRA’s Hypothesis<a class="headerlink" href="#lora-s-hypothesis" title="Permalink to this heading">#</a></h3>
+<p><span style="color:#2f6004"><strong>Low-Rank Adaptation (LoRA)</strong> stands for <strong>complementing</strong> the original weight matrices, for instance the Q-K-V ones, by <strong>low-rank versions</strong>. During fine-tuning, the Q-K-V matrices are kept <strong>frozen</strong> whereas the complementing low-rank matrices are learnt.</span></p>
+<p>Two basic ideas:</p>
+<ol class="arabic simple">
+<li><p><strong>Low intrinsic dimensions</strong>. The authors of the <a class="reference external" href="https://arxiv.org/abs/2106.09685">LoRA paper</a> draw inspiration from other researchers (e.g.  <a class="reference external" href="https://arxiv.org/pdf/2012.13255">Aghajanyan et al.
+(2020)</a>) showing that the pre-trained language models have a low <strong>instrisic dimension</strong>.  In other words, there <strong>exists an unknown low dimension</strong> <span class="math notranslate nohighlight">\(d\)</span> whose <strong>reparameterization</strong> is as effective for fine-tuning as the full parameter space.</p></li>
+<li><p><strong>More general than adapters</strong>. While adapter-based methods converge to an MLP, LoRA converges to the weights of the <strong>original model</strong>. Indeed, LoRA is more general because it <strong>allows the training of a subset of the pre-trained parameters</strong> such as the Q-K-V matrices in Transformers and MoEs.</p></li>
+</ol>
+</section>
+<section id="lora-s-method">
+<h3><span class="section-number">7.3.2. </span>LoRA’s method<a class="headerlink" href="#lora-s-method" title="Permalink to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(\mathbf{W}_{d\times d}\)</span> the original matrix (for instance a Q-K-V one). The basic idea of LoRA is to <strong>learn</strong> the matrix <span class="math notranslate nohighlight">\(\Delta \mathbf{W}:=\mathbf{B}\mathbf{A}\)</span> <strong>of rank</strong> <span class="math notranslate nohighlight">\(r\ll d\)</span> so that the new model layer is:</p>
+<div class="math notranslate nohighlight">
+\[
+\underbrace{\mathbf{W}}_{\text{frozen}} + \underbrace{\Delta \mathbf{W}}_{\text{learnable}}\;.
+\]</div>
+<p>Then, as we show in the yet classic <a class="reference internal" href="#id3"><span class="std std-numref">Fig. 7.4</span></a>, during fine-tuning an input embedding <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> becomes:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\mathbf{h} &amp;= (\mathbf{W} + \alpha\mathbf{B}_{d\times r}\mathbf{A}_{r\times d})\mathbf{x}\\ 
+           &amp;= \underbrace{\mathbf{W}\mathbf{x}}_{\text{original output}} + \alpha\mathbf{B}\mathbf{A}\mathbf{x}\;,
+\end{align}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha\)</span> controls the trade-off between preserving pre-trained knowledge and incorporating task-specific adaptations.</p>
+<p>Note that <span class="math notranslate nohighlight">\(\mathbf{W}\)</span> is <strong>frozen</strong> and <span class="math notranslate nohighlight">\(\mathbf{B}\mathbf{A}\)</span> is initialized to zero since <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is initialized to normalized Gaussian weights <span class="math notranslate nohighlight">\(N(0,\sigma^2)\)</span>. Then, as fine-tuning progresses</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="_images/LORA.png"><img alt="_images/LORA.png" src="_images/LORA.png" style="width: 400px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 7.4 </span><span class="caption-text">The LoRA method. <a class="reference external" href="https://arxiv.org/abs/2106.09685">Source</a>.</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="benefits-and-practice">
+<h3><span class="section-number">7.3.3. </span>Benefits and practice<a class="headerlink" href="#benefits-and-practice" title="Permalink to this heading">#</a></h3>
+<p><strong>Benefits of using LoRA</strong>. LoRA has been adopted in LLMs since:</p>
+<ol class="arabic simple">
+<li><p><strong>Memory and storage usage</strong>.  For a large Transformer/MoE trained with Adam, LoRA  reduces that VRAM usage by up to 2/3 if <span class="math notranslate nohighlight">\(r\ll d\)</span> as we do not need to store the optimizer states for the frozen parameters. On GPT-3 175B, <strong>LoRA reduces the VRAM consumption during training</strong> from 1.2TB to 350GB. With <span class="math notranslate nohighlight">\(r = 4\)</span> and only the query and value projection matrices being adapted, the checkpoint
+size is reduced by roughly <span class="math notranslate nohighlight">\(10,000\times\)</span> (from 350GB to 35MB).</p></li>
+<li><p><strong>Multi-tasking</strong>. Note that given a model, matrices <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> are <strong>unique for a given task</strong> (a type of fine-tuning). Different tasks for the same model require different matrices <span class="math notranslate nohighlight">\(\mathbf{A}'\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}'\)</span>. In this way you can take a traditional Transformer as base and <strong>build a MoE</strong> by adapting it via differenet As and Bs matrix pairs.</p></li>
+</ol>
+<p><strong>Practical recommendations</strong>. See also the <a class="reference external" href="https://athekunal.medium.com/lora-low-rank-adaptation-paper-in-depth-explanation-417f5fa40668">summary of the LoRA paper</a>:</p>
+<ol class="arabic simple">
+<li><p><strong>Better to have low rank</strong> (<span class="math notranslate nohighlight">\(r=2\)</span>) and <strong>adapt many types of matrices</strong> (e.g <span class="math notranslate nohighlight">\(\mathbf{W}_Q\)</span> and <span class="math notranslate nohighlight">\(\mathbf{W}_K\)</span>) than have larger ranks (<span class="math notranslate nohighlight">\(r=4,8\)</span>) and adapt a single type of matrix (e.g. only <span class="math notranslate nohighlight">\(\mathbf{W}_Q\)</span> or only <span class="math notranslate nohighlight">\(\mathbf{W}_K\)</span>).</p></li>
+<li><p><strong>Original <span class="math notranslate nohighlight">\(\mathbf{W}\)</span> and adapted matrices <span class="math notranslate nohighlight">\(\Delta\mathbf{W}\)</span> are related</strong>. Both matrices do have a <strong>strong correlation</strong>. However, rather than repeating the top singular directions of <span class="math notranslate nohighlight">\(\mathbf{W}\)</span>, <span class="math notranslate nohighlight">\(\Delta\mathbf{W}\)</span> <strong>only amplifies directions that are not emphasized in</strong> <span class="math notranslate nohighlight">\(\mathbf{W}\)</span>. <span style="color:#2f6004">In other words, LoRA <em>amplifies <strong>the important features</strong> for specific downstream tasks that were learned but not emphasized in the general pre-training model</em></span>.</p></li>
+</ol>
+</section>
+<section id="a-first-adaptation">
+<h3><span class="section-number">7.3.4. </span>A first adaptation<a class="headerlink" href="#a-first-adaptation" title="Permalink to this heading">#</a></h3>
+<p>Let us compare the impact of LoRA in an LLM such as <span class="math notranslate nohighlight">\(\text{mistralai/Mistral-7B-Instruct-v0.2}\)</span> <strong>before</strong> and <strong>after LoRA fine-tuning</strong>.</p>
+<p><strong>Before</strong>. In order to preparate the model for fine-tuning, we use the following code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">peft</span> <span class="kn">import</span> <span class="n">LoraConfig</span><span class="p">,</span> <span class="n">get_peft_model</span>
+
+<span class="c1"># LoRA configuration</span>
+<span class="n">lora_config</span> <span class="o">=</span> <span class="n">LoraConfig</span><span class="p">(</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>  <span class="c1"># LoRA attention dimension</span>
+    <span class="n">lora_alpha</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="c1"># Alpha parameter for LoRA scaling</span>
+    <span class="n">target_modules</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;q_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;k_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;v_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;o_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;gate_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;up_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;down_proj&quot;</span><span class="p">,</span> <span class="s2">&quot;lm_head&quot;</span><span class="p">],</span> <span class="c1"># Target specific modules to apply LoRA</span>
+    <span class="n">lora_dropout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="c1"># Dropout probability for LoRA layers</span>
+    <span class="n">bias</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="c1"># Bias type, can be &#39;none&#39;, &#39;all&#39; or &#39;lora_only&#39;</span>
+    <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;CAUSAL_LM&quot;</span><span class="p">,</span> <span class="c1"># Task type for the model</span>
+<span class="p">)</span>
+
+<span class="c1"># Apply LoRA to the base model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_peft_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">lora_config</span><span class="p">)</span>
+
+<span class="c1"># Print the number of trainable parameters</span>
+<span class="n">model</span><span class="o">.</span><span class="n">print_trainable_parameters</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LoRA adapter applied successfully.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Considerations:</p>
+<ol class="arabic">
+<li><p><strong>LoRA <span class="math notranslate nohighlight">\(\alpha\)</span></strong>:<code class="docutils literal notranslate"><span class="pre">lora_alpha=32</span></code>, sets the parameter <span class="math notranslate nohighlight">\(\alpha\)</span> where <span class="math notranslate nohighlight">\(\alpha/r\)</span> scales <span class="math notranslate nohighlight">\(\Delta\mathbf{W}\mathbf{x}\)</span>. When optimizing with Adam, tuning <span class="math notranslate nohighlight">\(\alpha\)</span> is roughly the same as tuning the learning rate if we scale the initialization appropriately. As a result, we simply set <span class="math notranslate nohighlight">\(\alpha\)</span> to the first <span class="math notranslate nohighlight">\(r\)</span> we try
+and do not tune it. <strong>This scaling helps to reduce the need to retune hyperparameters when we vary</strong> <span class="math notranslate nohighlight">\(r\)</span>.</p></li>
+<li><p><strong>Task types</strong>. In the example, we set <code class="docutils literal notranslate"><span class="pre">task_type=&quot;CAUSAL_LM&quot;</span></code>  but there many others:</p>
+<p><code class="docutils literal notranslate"><span class="pre">CAUSAL_LM</span></code>: This is what we are using in this notebook. It stands for Causal Language Modeling. This task type is used for models that <strong>predict the next token in a sequence</strong>, which is typical for generative language models like GPT, Llama, and Mistral. The model learns to generate text autoregressively. <span style="color:#2f6004"><em>[for this task, the target matrix <span class="math notranslate nohighlight">\(\mathbf{W}\)</span> choice are attention heads]</em></span></p>
+<p><code class="docutils literal notranslate"><span class="pre">SEQ_CLS</span></code>: Sequence Classification. Used for tasks where the model classifies an entire sequence, such as <strong>sentiment analysis</strong> (positive/negative), spam detection, or topic classification <span style="color:#2f6004"><em>[for this task, the target matrix should be the classifier]</em></span>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TOKEN_CLS</span></code>: <strong>Token Classification</strong>. Used for tasks where each token in a sequence needs to be classified, such as Named Entity Recognition (NER) or Part-of-Speech (POS) tagging. <span style="color:#2f6004"><em>[for this task, the target matrix should be the token-classifier]</em></span>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SEQ_2_SEQ_LM</span></code>: Sequence-to-Sequence Language Modeling. Used for models that generate an output sequence based on an input sequence, common in <strong>translation, summarization, or question answering</strong> where the answer is a generated sequence. <span style="color:#2f6004"><em>[for this task, the target matrix should be the encoders and the decodes]</em>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">FEATURE_EXTRACTION</span></code>: Used when the goal is to <strong>extract features from the model, rather than perform a specific downstream task</strong>. This is less common for direct fine-tuning and more for using the model as an encoder.</p>
+</li>
+</ol>
+<p><strong>Responses without training</strong>. For the following prompt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;Write a short, engaging advertisement for a new smart home device that cleans your house using AI.&quot;</span>
+</pre></div>
+</div>
+<p>The generated text of the original model vs the one with <ins>LoRA just initialized (random noise)</ins> is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>--- Generated Text (Original Model): ---
+Introducing the newest member of your family: The AI Housekeeper! 🤝 Say goodbye to tedious chores and hello to a cleaner, smarter home. 🏠
+
+Meet your personal home cleaning assistant, designed with advanced AI technology to learn your household habits and preferences. No more scheduling or manual settings, the AI Housekeeper adapts to your lifestyle. 🌟
+
+This innovative device uses high
+
+--- Generated Text (PEFT/LoRA Model): ---
+Introducing the game-changing home device that&#39;s about to revolutionize your daily routine: The AI Home Cleaner! 🤖 Say goodbye to tedious chores and hello to more free time for the things you love.
+
+This advanced, AI-powered machine is engineered to transform your living space into a pristine oasis. With its sophisticated sensors and intelligent navigation, the AI Home Cleaner maps out your home and meticulously cle
+</pre></div>
+</div>
+<p><strong>Responses after training</strong>. The generated texts of the original model wrt to the one <ins>after fine-tuning with LoRA</ins> (used the <span class="math notranslate nohighlight">\(\text{HuggingFaceH4/ultrachat_200k}\)</span> dataset) is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>--- Generated Text (Original Model): ---
+
+🌟 Introducing the revolutionary new smart home device: The AI Housekeeper! 🏠🤖
+
+Tired of coming home to a messy house after a long day? Say goodbye to the chore of cleaning with the game-changing AI Housekeeper! 🧹✨
+
+This state-of-the-art gadget uses advanced Artificial Intelligence to learn your cleaning habits and optimize its routine for your lifestyle
+
+--- Generated Text (PEFT Model): ---
+
+🌟 Introducing the Game-Changing Home Companion: The AI Housekeeper 🏠🤖
+
+Say goodbye to back-breaking chores and endless hours spent scrubbing, mopping, and vacuuming! Welcome to a new era of effortless living with our state-of-the-art AI Housekeeper. This brilliant new smart home device uses advanced Artificial Intelligence to learn your cleaning habits and preferences, adap
+</pre></div>
+</div>
+<p><strong>Qualitative comparison</strong>. After training, the LLM’s response is more complete than before training. Seems obvious that the choice of a chat for training contributes to a better text generation!</p>
+</section>
+<section id="perplexity">
+<h3><span class="section-number">7.3.5. </span>Perplexity<a class="headerlink" href="#perplexity" title="Permalink to this heading">#</a></h3>
+<p><span style="color:#2f6004">In a second LoRA adaptation, we fine-tune the well known <span class="math notranslate nohighlight">\(\text{BreadAi/gpt-Youtube}\)</span> (a classical Transformer). Beyond comparing qualitatively the generate texts we introduce a <strong>quantitative measure</strong>: <strong>perplexity</strong>.</span></p>
+<p>Firstly, the LoRA code is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">peft</span> <span class="kn">import</span> <span class="n">LoraConfig</span><span class="p">,</span> <span class="n">get_peft_model</span>
+
+<span class="n">lora_config</span> <span class="o">=</span> <span class="n">LoraConfig</span><span class="p">(</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>  <span class="c1"># LoRA attention dimension</span>
+    <span class="n">lora_alpha</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="c1"># Alpha parameter for LoRA scaling</span>
+    <span class="n">target_modules</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;query_key_value&quot;</span><span class="p">,</span> <span class="s2">&quot;dense&quot;</span><span class="p">],</span> <span class="c1"># Target attention layers (updated for GPTNeoX model)</span>
+    <span class="n">lora_dropout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="c1"># Dropout probability for LoRA layers</span>
+    <span class="n">bias</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="c1"># Bias type for LoRA layers</span>
+    <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;CAUSAL_LM&quot;</span> <span class="c1"># Task type</span>
+<span class="p">)</span>
+
+<span class="n">lora_model</span> <span class="o">=</span> <span class="n">get_peft_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">lora_config</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Where the percentage of trainable parameters for LoRA are:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trainable</span> <span class="n">params</span><span class="p">:</span> <span class="mi">442</span><span class="p">,</span><span class="mi">368</span> <span class="o">||</span> <span class="nb">all</span> <span class="n">params</span><span class="p">:</span> <span class="mi">162</span><span class="p">,</span><span class="mi">765</span><span class="p">,</span><span class="mi">312</span> <span class="o">||</span> <span class="n">trainable</span><span class="o">%</span><span class="p">:</span> <span class="mf">0.2718</span>
+</pre></div>
+</div>
+<p>Note that the <strong>selected matrices are the Q-K-V matrices and the auxiliary dense layer</strong> in each layer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PeftModelForCausalLM</span><span class="p">(</span>
+  <span class="p">(</span><span class="n">base_model</span><span class="p">):</span> <span class="n">LoraModel</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">model</span><span class="p">):</span> <span class="n">GPTNeoXForCausalLM</span><span class="p">(</span>
+      <span class="p">(</span><span class="n">gpt_neox</span><span class="p">):</span> <span class="n">GPTNeoXModel</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">embed_in</span><span class="p">):</span> <span class="n">Embedding</span><span class="p">(</span><span class="mi">50304</span><span class="p">,</span> <span class="mi">768</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">emb_dropout</span><span class="p">):</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">layers</span><span class="p">):</span> <span class="n">ModuleList</span><span class="p">(</span>
+          <span class="p">(</span><span class="mi">0</span><span class="o">-</span><span class="mi">11</span><span class="p">):</span> <span class="mi">12</span> <span class="n">x</span> <span class="n">GPTNeoXLayer</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">input_layernorm</span><span class="p">):</span> <span class="n">LayerNorm</span><span class="p">((</span><span class="mi">768</span><span class="p">,),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> <span class="n">elementwise_affine</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">post_attention_layernorm</span><span class="p">):</span> <span class="n">LayerNorm</span><span class="p">((</span><span class="mi">768</span><span class="p">,),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> <span class="n">elementwise_affine</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">post_attention_dropout</span><span class="p">):</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">post_mlp_dropout</span><span class="p">):</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">attention</span><span class="p">):</span> <span class="n">GPTNeoXAttention</span><span class="p">(</span>
+              <span class="p">(</span><span class="n">query_key_value</span><span class="p">):</span> <span class="n">lora</span><span class="o">.</span><span class="n">Linear4bit</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">base_layer</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2304</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="p">(</span><span class="n">lora_dropout</span><span class="p">):</span> <span class="n">ModuleDict</span><span class="p">(</span>
+                  <span class="p">(</span><span class="n">default</span><span class="p">):</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="p">(</span><span class="n">lora_A</span><span class="p">):</span> <span class="n">ModuleDict</span><span class="p">(</span>
+                  <span class="p">(</span><span class="n">default</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="p">(</span><span class="n">lora_B</span><span class="p">):</span> <span class="n">ModuleDict</span><span class="p">(</span>
+                  <span class="p">(</span><span class="n">default</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2304</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="p">(</span><span class="n">lora_embedding_A</span><span class="p">):</span> <span class="n">ParameterDict</span><span class="p">()</span>
+                <span class="p">(</span><span class="n">lora_embedding_B</span><span class="p">):</span> <span class="n">ParameterDict</span><span class="p">()</span>
+                <span class="p">(</span><span class="n">lora_magnitude_vector</span><span class="p">):</span> <span class="n">ModuleDict</span><span class="p">()</span>
+              <span class="p">)</span>
+              <span class="p">(</span><span class="n">dense</span><span class="p">):</span> <span class="n">lora</span><span class="o">.</span><span class="n">Linear4bit</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">base_layer</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="p">(</span><span class="n">lora_dropout</span><span class="p">):</span> <span class="n">ModuleDict</span><span class="p">(</span>
+                  <span class="p">(</span><span class="n">default</span><span class="p">):</span> <span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="p">(</span><span class="n">lora_A</span><span class="p">):</span> <span class="n">ModuleDict</span><span class="p">(</span>
+                  <span class="p">(</span><span class="n">default</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="p">(</span><span class="n">lora_B</span><span class="p">):</span> <span class="n">ModuleDict</span><span class="p">(</span>
+                  <span class="p">(</span><span class="n">default</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="p">(</span><span class="n">lora_embedding_A</span><span class="p">):</span> <span class="n">ParameterDict</span><span class="p">()</span>
+                <span class="p">(</span><span class="n">lora_embedding_B</span><span class="p">):</span> <span class="n">ParameterDict</span><span class="p">()</span>
+                <span class="p">(</span><span class="n">lora_magnitude_vector</span><span class="p">):</span> <span class="n">ModuleDict</span><span class="p">()</span>
+              <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="p">(</span><span class="n">mlp</span><span class="p">):</span> <span class="n">GPTNeoXMLP</span><span class="p">(</span>
+              <span class="p">(</span><span class="n">dense_h_to_4h</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">3072</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+              <span class="p">(</span><span class="n">dense_4h_to_h</span><span class="p">):</span> <span class="n">Linear4bit</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">3072</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+              <span class="p">(</span><span class="n">act</span><span class="p">):</span> <span class="n">GELUActivation</span><span class="p">()</span>
+            <span class="p">)</span>
+          <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="p">(</span><span class="n">final_layer_norm</span><span class="p">):</span> <span class="n">LayerNorm</span><span class="p">((</span><span class="mi">768</span><span class="p">,),</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> <span class="n">elementwise_affine</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">rotary_emb</span><span class="p">):</span> <span class="n">GPTNeoXRotaryEmbedding</span><span class="p">()</span>
+      <span class="p">)</span>
+      <span class="p">(</span><span class="n">embed_out</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">50304</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="p">)</span>
+  <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Note the <strong>LoRA matrices</strong> (and their dimensionality):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                <span class="p">(</span><span class="n">lora_A</span><span class="p">):</span> <span class="n">ModuleDict</span><span class="p">(</span>
+                  <span class="p">(</span><span class="n">default</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="p">(</span><span class="n">lora_B</span><span class="p">):</span> <span class="n">ModuleDict</span><span class="p">(</span>
+                  <span class="p">(</span><span class="n">default</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2304</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="p">)</span>
+</pre></div>
+</div>
+<p>Note the <strong>different dimensionality of the second one</strong> (due to dimensionality consistency after attention):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                <span class="p">(</span><span class="n">lora_A</span><span class="p">):</span> <span class="n">ModuleDict</span><span class="p">(</span>
+                  <span class="p">(</span><span class="n">default</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="p">(</span><span class="n">lora_B</span><span class="p">):</span> <span class="n">ModuleDict</span><span class="p">(</span>
+                  <span class="p">(</span><span class="n">default</span><span class="p">):</span> <span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2304</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Fine-tuning</strong>. Note that the original dataset <a class="reference external" href="https://huggingface.co/BreadAi/gpt-Youtube">BreadAi/gpt-Youtube</a> is a text-generator <strong>trained on 180K YouTube comments</strong>. However, we are going to fine-tune it with <a class="reference external" href="https://huggingface.co/datasets/Abirate/english_quotes">Abirate/english_quotes</a> which is rather different. This fine-tuner maps quotes to authors and tags. For instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>“Be yourself; everyone else is already taken.”
+Oscar Wilde
+
+[
+&quot;be-yourself&quot;,
+&quot;gilbert-perreira&quot;,
+&quot;honesty&quot;,
+&quot;inspirational&quot;,
+&quot;misattributed-oscar-wilde&quot;,
+&quot;quote-investigator&quot;
+]
+</pre></div>
+</div>
+<p><strong>Training code</strong>. Given the LoRA model with the defined matrices to fine-tune, the trainer is usually configurated as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define training arguments</span>
+<span class="n">training_args</span> <span class="o">=</span> <span class="n">TrainingArguments</span><span class="p">(</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;./lora_finetuned_model&quot;</span><span class="p">,</span> <span class="c1"># Directory to save checkpoints</span>
+    <span class="n">per_device_train_batch_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>       <span class="c1"># Batch size per device during training</span>
+    <span class="n">gradient_accumulation_steps</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>       <span class="c1"># Number of updates steps to accumulate before performing a backward/update pass</span>
+    <span class="n">learning_rate</span><span class="o">=</span><span class="mf">2e-4</span><span class="p">,</span>                  <span class="c1"># Learning rate</span>
+    <span class="n">num_train_epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>                  <span class="c1"># Total number of training epochs</span>
+    <span class="n">logging_dir</span><span class="o">=</span><span class="s2">&quot;./logs&quot;</span><span class="p">,</span>                <span class="c1"># Directory for storing logs</span>
+    <span class="n">logging_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>                    <span class="c1"># Log every N update steps</span>
+    <span class="n">save_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>                      <span class="c1"># Save checkpoint every N update steps</span>
+    <span class="n">save_total_limit</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>                  <span class="c1"># Only store the last 2 checkpoints</span>
+    <span class="n">fp16</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                           <span class="c1"># Enable mixed precision training (if GPU is available)</span>
+    <span class="n">push_to_hub</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>                   <span class="c1"># Do not push model to Hugging Face Hub</span>
+<span class="p">)</span>
+
+<span class="c1"># Initialize Trainer</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">lora_model</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="n">training_args</span><span class="p">,</span>
+    <span class="n">train_dataset</span><span class="o">=</span><span class="n">tokenized_dataset</span><span class="p">,</span>
+    <span class="n">data_collator</span><span class="o">=</span><span class="n">data_collator</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Start training</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fine-tuning complete!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>What do we expect from this fine-tuning?</strong>. Let us test the following prompt:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;What is the meaning of life?&quot;</span>
+</pre></div>
+</div>
+<p>In qualitative terms we observe:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Setting `pad_token_id` to `eos_token_id`:0 for open-end generation.
+
+--- Original Base Model Output ---
+Setting `pad_token_id` to `eos_token_id`:0 for open-end generation.
+What is the meaning of life?  &lt;br&gt;Are there ever other sentient species in the universe at the moment of the release of us?&lt;br&gt;Are there really life out there?&lt;br&gt;Do we live in a simulation?&lt;br&gt;But how can we
+
+--- Fine-tuned LoRA Model Output ---
+What is the meaning of life?  That consciousness thing, but to me seems the meaning l of life.
+</pre></div>
+</div>
+<p>Note that the fine-tuned response is more concise due to the quoting nature of the trainer. By far, this is less generative than the original model. In other words, part of the generalistic flavor of the original model is lost in favor of specialization. This is due to the <strong>amplification effect</strong> of <span class="math notranslate nohighlight">\(\Delta\mathbf{W}\)</span> matrices!</p>
+<p><span style="color:#2f6004"><strong>Quantitative analysis</strong>. A typical way of evaluating how confident is an LLM in its predictions is to compute <strong>perplexity</strong>.</span></p>
+<p>Perplexity is roughly defined as the uncertainty in predicting the next word. For instance if perplexity is <span class="math notranslate nohighlight">\(k\)</span>, <ins>this means that the model’s predictions are on average as uncertain as choosing from <span class="math notranslate nohighlight">\(k\)</span> possibilities</ins>. See a more detailed description in this <a class="reference external" href="https://medium.com/&#64;shubhamsd100/understanding-perplexity-in-language-models-a-detailed-exploration-2108b6ab85af">Medium’s article</a>.</p>
+<p>More formally, given a <span class="math notranslate nohighlight">\(\theta-\)</span>parameterized probabilistic AR model and a sequence of words <span class="math notranslate nohighlight">\(\mathbf{x}_1,\mathbf{x}_2,\ldots,\mathbf{x}_N\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Perplexity}(p_{\theta})= 2^{-\frac{1}{N}\sum_{t=1}^T \log_2 p_{\theta}(\mathbf{x}_t|\mathbf{x}_1,\ldots,\mathbf{x}_{t-1})}\;.
+\]</div>
+<p>However, for base <span class="math notranslate nohighlight">\(e\)</span>, perplexity can be approximated by the exponential of the average loss:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Perplexity}(p_{\theta})= e^{-\frac{1}{N}\sum_{t=1}^T \log p_{\theta}(\mathbf{x}_t|\mathbf{x}_1,\ldots,\mathbf{x}_{t-1})}\approx  e^{-\frac{1}{N}\sum_{t=1}^T {\cal L}(\mathbf{x}_t)}\;.
+\]</div>
+<p>Then, comparing the Perplexities of both the original and the fine-tuned models we obtain:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Original</span> <span class="n">Model</span> <span class="n">Average</span> <span class="n">Loss</span> <span class="n">on</span> <span class="n">evaluation</span> <span class="n">dataset</span><span class="p">:</span> <span class="mf">4.7968</span>
+<span class="n">Original</span> <span class="n">Model</span> <span class="n">Perplexity</span> <span class="n">on</span> <span class="n">evaluation</span> <span class="n">dataset</span><span class="p">:</span> <span class="mf">121.1279</span>
+</pre></div>
+</div>
+<p>vs</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Average</span> <span class="n">Loss</span> <span class="n">on</span> <span class="n">evaluation</span> <span class="n">dataset</span><span class="p">:</span> <span class="mf">6.8863</span>
+<span class="n">Perplexity</span> <span class="n">on</span> <span class="n">evaluation</span> <span class="n">dataset</span><span class="p">:</span> <span class="mf">978.7332</span>
+</pre></div>
+</div>
+<p>The original model has an average loss of 4.7968 and a perplexity of <strong>121.1279</strong> on the evaluation dataset.</p>
+<p>It’s interesting to compare this with the fine-tuned LoRA model’s perplexity, which was <strong>978.7332</strong>. This indicates that, for the small and general dataset used, the fine-tuning process significantly increased the perplexity, suggesting it might have overfit or was not well-suited for the base model’s pre-trained knowledge on this specific task. Typically, fine-tuning aims to reduce perplexity on the target distribution. This result highlights the importance of choosing a relevant and sufficiently large dataset for effective fine-tuning.</p>
+<p><strong>Note</strong>. Despite the parameter efficiency of LoRA, the above results where obtained after roughly ten hours of A100 GPU!</p>
+<!----
+### Knowledge Distillation 
+<span style="color:#2f6004">Distillation is a **knowledge transfer process**. You take a large, complex model (the **Teacher**) and use it to train a smaller, simpler model (the **Student**).</span>
+
+**Cost function**. Since both the teacher and student usually have **different architectures** our access is limited to their **logits** and their **softmaxed probabilities** and this is why the cost function for training a distiller is 
+
+[Hinton et al.](https://arxiv.org/pdf/1503.02531)
+
+$$
+(1-\alpha)\times\underbrace{\text{KL}(\mathbf{p}_{student}||\mathbf{p}_{teacher})}_{\text{Soft Labels}}\times T^2 + \alpha\times \underbrace{\text{CE}(\mathbf{y}_{student},\mathbf{y}_{teacher})}_{\text{Hard Labels}}\;.
+$$
+----->
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1403,7 +1756,7 @@ performance:</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>Graph Neural Networks</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Graph Neural Networks</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1463,6 +1816,19 @@ performance:</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#jensen-divergence">6.2.1.4. Jensen Divergence</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#paremeter-efficient-fine-tuning-peft">7. Paremeter-Efficient Fine Tuning (PEFT)</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-standard-ft">7.1. Beyond Standard FT</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prefix-tuning">7.2. Prefix tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lora">7.3. LoRA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora-s-hypothesis">7.3.1. LoRA’s Hypothesis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lora-s-method">7.3.2. LoRA’s method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-and-practice">7.3.3. Benefits and practice</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-first-adaptation">7.3.4. A first adaptation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perplexity">7.3.5. Perplexity</a></li>
 </ul>
 </li>
 </ul>
