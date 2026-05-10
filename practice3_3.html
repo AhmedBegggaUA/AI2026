@@ -1,0 +1,1109 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>13. Intelligent Agents &#8212; Agentes Inteligentes IA</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practice3_3';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="12. Retrieval-Augmented Generation (RAG)" href="practice3_2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Agentes Inteligentes IA - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Agentes Inteligentes IA - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    AI2026
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intelligent Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="bloque1_Introducci%C3%B3n.html">1. The Project</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Algorithmic Reasoning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic1.html">2. Graph Neural Networks</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reinforcement Learning</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic2.html">4. Reinforcement Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Generative Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="topic3.html">5. LLMs and VLMs</a></li>
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 0</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">8. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice1.html">9. Clique Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice2.html">10. Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">11. Intelligent Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_2.html">12. Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">13. Intelligent Agents</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fpractice3_3.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/practice3_3.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Intelligent Agents</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-3-multi-agent-systems-with-langchain">13.1. Practical Session 3 — Part 3: Multi-Agent Systems with LangChain</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">13.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">13.1.2. Prerequisites</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-langchain-fundamentals">13.2. Part 1: LangChain Fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-a-local-model">13.2.1. Wrapping a Local Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-templates">13.2.2. Prompt Templates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chains-composing-steps">13.2.3. Chains: Composing Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-chains">13.2.4. Sequential Chains</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-tools-and-agents">13.3. Part 2: Tools and Agents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-custom-tools">13.3.1. Defining Custom Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-react-agent">13.3.2. Building a ReAct Agent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simpler-agent-pattern-for-small-models">13.3.3. A Simpler Agent Pattern for Small Models</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-multi-agent-orchestration">13.4. Part 3: Multi-Agent Orchestration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#router-pattern">13.4.1. Router Pattern</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-pipeline">13.4.2. Sequential Pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-automated-analysis-report">13.4.3. Example: Automated Analysis Report</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">13.5. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-langchain-agent-with-custom-tools">13.5.1. Exercise 1: LangChain Agent with Custom Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">13.5.1.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">13.5.1.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">13.5.1.3. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">13.5.1.4. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">13.5.1.5. Evaluation Criteria</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">13.6. References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="intelligent-agents">
+<h1><span class="section-number">13. </span>Intelligent Agents<a class="headerlink" href="#intelligent-agents" title="Permalink to this heading">#</a></h1>
+<section id="practical-session-3-part-3-multi-agent-systems-with-langchain">
+<h2><span class="section-number">13.1. </span>Practical Session 3 — Part 3: Multi-Agent Systems with LangChain<a class="headerlink" href="#practical-session-3-part-3-multi-agent-systems-with-langchain" title="Permalink to this heading">#</a></h2>
+<section id="introduction">
+<h3><span class="section-number">13.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
+<p>In Parts 1 and 2, we built LLM interactions and RAG pipelines by writing everything from scratch. While this is valuable for understanding the fundamentals, real-world projects use <strong>frameworks</strong> that provide standardized abstractions for models, tools, chains, and agents. <strong>LangChain</strong> is the most widely adopted open-source framework for building LLM-powered applications.</p>
+<p>In this final part, we will learn how to:</p>
+<ol class="arabic simple">
+<li><p>Wrap our local Hugging Face model as a LangChain-compatible LLM.</p></li>
+<li><p>Define <strong>tools</strong> — Python functions that an agent can invoke.</p></li>
+<li><p>Build <strong>chains</strong> — sequential compositions of prompts and models.</p></li>
+<li><p>Construct <strong>agents</strong> — LLM-powered systems that reason, decide which tools to use, and act iteratively.</p></li>
+<li><p>Orchestrate <strong>multi-agent pipelines</strong> where specialized agents collaborate on a task.</p></li>
+</ol>
+</section>
+<section id="prerequisites">
+<h3><span class="section-number">13.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>transformers<span class="w"> </span>accelerate<span class="w"> </span>sentencepiece<span class="w"> </span>protobuf
+pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="w"> </span>langchain-huggingface<span class="w"> </span>langchain-community
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>We reuse the same <strong><code class="docutils literal notranslate"><span class="pre">Qwen/Qwen2.5-1.5B-Instruct</span></code></strong> model in <code class="docutils literal notranslate"><span class="pre">bfloat16</span></code> from Parts 1 and 2.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">langchain-huggingface</span></code></strong> is the official partner package that integrates Hugging Face models into LangChain.</p></li>
+<li><p>No external APIs, GPU, or paid services are required.</p></li>
+<li><p>Small models (1.5B) have <strong>limited ability to follow the ReAct agent format</strong> reliably. This is expected and is itself an important learning outcome — understanding where small models fall short motivates the use of larger models or fine-tuned agents in production.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-1-langchain-fundamentals">
+<h2><span class="section-number">13.2. </span>Part 1: LangChain Fundamentals<a class="headerlink" href="#part-1-langchain-fundamentals" title="Permalink to this heading">#</a></h2>
+<section id="wrapping-a-local-model">
+<h3><span class="section-number">13.2.1. </span>Wrapping a Local Model<a class="headerlink" href="#wrapping-a-local-model" title="Permalink to this heading">#</a></h3>
+<p>LangChain provides <code class="docutils literal notranslate"><span class="pre">HuggingFacePipeline</span></code> to wrap any local Hugging Face model as a LangChain-compatible LLM, and <code class="docutils literal notranslate"><span class="pre">ChatHuggingFace</span></code> to add chat capabilities on top.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">pipeline</span>
+<span class="kn">from</span> <span class="nn">langchain_huggingface</span> <span class="kn">import</span> <span class="n">HuggingFacePipeline</span><span class="p">,</span> <span class="n">ChatHuggingFace</span>
+
+<span class="n">MODEL_ID</span> <span class="o">=</span> <span class="s2">&quot;Qwen/Qwen2.5-1.5B-Instruct&quot;</span>
+
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">MODEL_ID</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">torch</span><span class="p">,</span> <span class="s2">&quot;bfloat16&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># CPU</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">MODEL_ID</span><span class="p">,</span> <span class="n">torch_dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">)</span>
+
+<span class="c1"># Create a transformers pipeline</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+    <span class="s2">&quot;text-generation&quot;</span><span class="p">,</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="p">,</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">,</span>
+    <span class="n">max_new_tokens</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span>
+    <span class="n">do_sample</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">return_full_text</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Wrap as LangChain LLM</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">HuggingFacePipeline</span><span class="p">(</span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">)</span>
+
+<span class="c1"># Wrap as Chat Model (supports system/user/assistant messages)</span>
+<span class="n">chat_model</span> <span class="o">=</span> <span class="n">ChatHuggingFace</span><span class="p">(</span><span class="n">llm</span> <span class="o">=</span> <span class="n">llm</span><span class="p">)</span>
+
+<span class="c1"># Test</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">chat_model</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;What is the capital of France?&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="prompt-templates">
+<h3><span class="section-number">13.2.2. </span>Prompt Templates<a class="headerlink" href="#prompt-templates" title="Permalink to this heading">#</a></h3>
+<p>LangChain’s <code class="docutils literal notranslate"><span class="pre">PromptTemplate</span></code> and <code class="docutils literal notranslate"><span class="pre">ChatPromptTemplate</span></code> provide a structured way to build prompts with variables.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+
+<span class="c1"># Define a reusable prompt template</span>
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;You are a helpful assistant that answers questions concisely.&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{question}</span><span class="s2">&quot;</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="c1"># Create a chain: prompt → model</span>
+<span class="n">chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">chat_model</span>
+
+<span class="c1"># Invoke</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;What is machine learning?&quot;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="chains-composing-steps">
+<h3><span class="section-number">13.2.3. </span>Chains: Composing Steps<a class="headerlink" href="#chains-composing-steps" title="Permalink to this heading">#</a></h3>
+<p>The <strong>LCEL (LangChain Expression Language)</strong> uses the pipe operator (<code class="docutils literal notranslate"><span class="pre">|</span></code>) to compose steps into a chain. Each step transforms the data and passes it to the next.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
+
+<span class="c1"># Chain: prompt → model → parse output to string</span>
+<span class="n">summarize_chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
+        <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;Summarize the following text in one sentence.&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{text}</span><span class="s2">&quot;</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="o">|</span> <span class="n">chat_model</span>
+    <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Artificial intelligence has transformed numerous industries over the past decade.</span>
+<span class="s2">Healthcare systems now use AI for early disease detection. Financial institutions</span>
+<span class="s2">employ machine learning for fraud detection. The transportation sector is being</span>
+<span class="s2">reshaped by autonomous vehicles.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">text</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Summary: </span><span class="si">{</span><span class="n">summary</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="sequential-chains">
+<h3><span class="section-number">13.2.4. </span>Sequential Chains<a class="headerlink" href="#sequential-chains" title="Permalink to this heading">#</a></h3>
+<p>We can compose multiple chains into a pipeline where the output of one feeds into the next:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Chain 1: Summarize</span>
+<span class="n">summarize</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
+        <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;Summarize this text in 2 sentences.&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{text}</span><span class="s2">&quot;</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="o">|</span> <span class="n">chat_model</span>
+    <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># Chain 2: Extract keywords from a summary</span>
+<span class="n">extract_keywords</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
+        <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;Extract 5 keywords from this text. Return only the keywords, comma-separated.&quot;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{summary}</span><span class="s2">&quot;</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="o">|</span> <span class="n">chat_model</span>
+    <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># Run sequentially</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">summarize</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">text</span><span class="p">})</span>
+<span class="n">keywords</span> <span class="o">=</span> <span class="n">extract_keywords</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;summary&quot;</span><span class="p">:</span> <span class="n">summary</span><span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Summary: </span><span class="si">{</span><span class="n">summary</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Keywords: </span><span class="si">{</span><span class="n">keywords</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-2-tools-and-agents">
+<h2><span class="section-number">13.3. </span>Part 2: Tools and Agents<a class="headerlink" href="#part-2-tools-and-agents" title="Permalink to this heading">#</a></h2>
+<section id="defining-custom-tools">
+<h3><span class="section-number">13.3.1. </span>Defining Custom Tools<a class="headerlink" href="#defining-custom-tools" title="Permalink to this heading">#</a></h3>
+<p>A <strong>tool</strong> is a function that an agent can call. In LangChain, tools are defined using the <code class="docutils literal notranslate"><span class="pre">&#64;tool</span></code> decorator.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_core.tools</span> <span class="kn">import</span> <span class="n">tool</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="nd">@tool</span>
+<span class="k">def</span> <span class="nf">calculator</span><span class="p">(</span><span class="n">expression</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Evaluate a mathematical expression and return the result. Example input: &#39;2 + 3 * 4&#39;&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">allowed</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="s2">&quot;0123456789+-*/.() &quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">c</span> <span class="ow">in</span> <span class="n">allowed</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">expression</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s2">&quot;Error: invalid characters&quot;</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="n">expression</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+<span class="nd">@tool</span>
+<span class="k">def</span> <span class="nf">get_current_date</span><span class="p">(</span><span class="n">dummy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the current date and time.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+
+
+<span class="nd">@tool</span>
+<span class="k">def</span> <span class="nf">company_lookup</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Search the company database for information about employees, revenue, or products.&quot;&quot;&quot;</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;revenue_2024&quot;</span><span class="p">:</span> <span class="s2">&quot;58.7 million euros&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;employees&quot;</span><span class="p">:</span> <span class="s2">&quot;342 employees&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ceo&quot;</span><span class="p">:</span> <span class="s2">&quot;Elena Vidal&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;product&quot;</span><span class="p">:</span> <span class="s2">&quot;CloudSync — enterprise cloud management platform&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;founded&quot;</span><span class="p">:</span> <span class="s2">&quot;2018 in Barcelona&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">query_lower</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">db</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">query_lower</span> <span class="ow">in</span> <span class="n">k</span> <span class="ow">or</span> <span class="n">query_lower</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="k">if</span> <span class="n">results</span> <span class="k">else</span> <span class="s2">&quot;No matching information found.&quot;</span>
+
+
+<span class="c1"># Test tools directly</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">calculator</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;15 * 3.5&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">get_current_date</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">company_lookup</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;revenue&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="building-a-react-agent">
+<h3><span class="section-number">13.3.2. </span>Building a ReAct Agent<a class="headerlink" href="#building-a-react-agent" title="Permalink to this heading">#</a></h3>
+<p>The <strong>ReAct</strong> (Reasoning + Acting) pattern is the standard approach for LLM agents. The model iterates through a loop of: <strong>Thought</strong> → <strong>Action</strong> (tool call) → <strong>Observation</strong> (tool result) → <strong>Thought</strong> → … until it has enough information to produce a final answer.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.agents</span> <span class="kn">import</span> <span class="n">create_react_agent</span><span class="p">,</span> <span class="n">AgentExecutor</span>
+<span class="kn">from</span> <span class="nn">langchain</span> <span class="kn">import</span> <span class="n">hub</span>
+
+<span class="c1"># Load the standard ReAct prompt template</span>
+<span class="n">react_prompt</span> <span class="o">=</span> <span class="n">hub</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s2">&quot;hwchase17/react&quot;</span><span class="p">)</span>
+
+<span class="c1"># Define available tools</span>
+<span class="n">tools</span> <span class="o">=</span> <span class="p">[</span><span class="n">calculator</span><span class="p">,</span> <span class="n">get_current_date</span><span class="p">,</span> <span class="n">company_lookup</span><span class="p">]</span>
+
+<span class="c1"># Create the agent</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">create_react_agent</span><span class="p">(</span><span class="n">chat_model</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">react_prompt</span><span class="p">)</span>
+
+<span class="c1"># Create an executor (handles the agent loop)</span>
+<span class="n">agent_executor</span> <span class="o">=</span> <span class="n">AgentExecutor</span><span class="p">(</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="n">agent</span><span class="p">,</span>
+    <span class="n">tools</span> <span class="o">=</span> <span class="n">tools</span><span class="p">,</span>
+    <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>          <span class="c1"># Print the reasoning trace</span>
+    <span class="n">max_iterations</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>      <span class="c1"># Limit iterations to prevent infinite loops</span>
+    <span class="n">handle_parsing_errors</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Gracefully handle malformed output</span>
+<span class="p">)</span>
+
+<span class="c1"># Test</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">agent_executor</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;input&quot;</span><span class="p">:</span> <span class="s2">&quot;What is the company&#39;s revenue for 2024?&quot;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Final Answer: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Small models and ReAct.</strong> A 1.5B parameter model will frequently fail to follow the ReAct format correctly — it may skip the <code class="docutils literal notranslate"><span class="pre">Action:</span></code> line, hallucinate tool names, or enter infinite loops. This is expected. The <code class="docutils literal notranslate"><span class="pre">handle_parsing_errors</span> <span class="pre">=</span> <span class="pre">True</span></code> flag helps recover from some of these issues. In production, ReAct agents require models with 7B+ parameters or models specifically fine-tuned for tool calling. Understanding this limitation is an important learning objective.</p>
+</div>
+</section>
+<section id="a-simpler-agent-pattern-for-small-models">
+<h3><span class="section-number">13.3.3. </span>A Simpler Agent Pattern for Small Models<a class="headerlink" href="#a-simpler-agent-pattern-for-small-models" title="Permalink to this heading">#</a></h3>
+<p>When the ReAct format is too demanding for the model, we can implement a <strong>manual agent loop</strong> that is more forgiving:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SimpleAgent</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A lightweight agent that works reliably with small models.</span>
+<span class="sd">    Instead of requiring strict ReAct formatting, it uses explicit</span>
+<span class="sd">    prompting to decide tool usage step by step.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chat_model</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">system_prompt</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chat_model</span> <span class="o">=</span> <span class="n">chat_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tools</span> <span class="o">=</span> <span class="p">{</span><span class="n">t</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tools</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">system_prompt</span> <span class="o">=</span> <span class="n">system_prompt</span>
+    
+    <span class="k">def</span> <span class="nf">_decide_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Ask the model which tool to use.&quot;&quot;&quot;</span>
+        <span class="n">tool_descriptions</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">t</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+        <span class="p">)</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
+            <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_prompt</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Available tools:</span>
+<span class="si">{</span><span class="n">tool_descriptions</span><span class="si">}</span>
+<span class="s2">- none: Answer directly without tools.</span>
+
+<span class="s2">Question: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span>
+
+<span class="s2">Which tool should I use? Respond with ONLY the tool name.&quot;&quot;&quot;</span><span class="p">),</span>
+        <span class="p">])</span>
+        <span class="n">chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">chat_model</span> <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">_call_tool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tool_name</span><span class="p">,</span> <span class="n">question</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Call a tool with the question as input.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">tool_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">[</span><span class="n">tool_name</span><span class="p">]</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    
+    <span class="k">def</span> <span class="nf">_generate_answer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">tool_result</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a final answer, optionally using tool output.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">tool_result</span><span class="p">:</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Tool result: </span><span class="si">{</span><span class="n">tool_result</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Using this information, answer: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="n">question</span>
+        
+        <span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
+            <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_prompt</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">),</span>
+        <span class="p">])</span>
+        <span class="n">chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">chat_model</span> <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({})</span>
+    
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the agent on a question.&quot;&quot;&quot;</span>
+        <span class="c1"># Step 1: Decide tool</span>
+        <span class="n">tool_choice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decide_tool</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Tool decision: </span><span class="si">{</span><span class="n">tool_choice</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Step 2: Use tool if needed</span>
+        <span class="n">tool_result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">tool_choice</span> <span class="o">!=</span> <span class="s2">&quot;none&quot;</span> <span class="ow">and</span> <span class="n">tool_choice</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
+            <span class="n">tool_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_tool</span><span class="p">(</span><span class="n">tool_choice</span><span class="p">,</span> <span class="n">question</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Tool result: </span><span class="si">{</span><span class="n">tool_result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Step 3: Generate answer</span>
+        <span class="n">answer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_answer</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">tool_result</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Answer: </span><span class="si">{</span><span class="n">answer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">answer</span>
+
+
+<span class="c1"># Create and test the simple agent</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">SimpleAgent</span><span class="p">(</span>
+    <span class="n">chat_model</span> <span class="o">=</span> <span class="n">chat_model</span><span class="p">,</span>
+    <span class="n">tools</span> <span class="o">=</span> <span class="p">[</span><span class="n">calculator</span><span class="p">,</span> <span class="n">get_current_date</span><span class="p">,</span> <span class="n">company_lookup</span><span class="p">],</span>
+    <span class="n">system_prompt</span> <span class="o">=</span> <span class="s2">&quot;You are a helpful business assistant. Use tools when needed.&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;What is the company&#39;s revenue?&quot;</span><span class="p">,</span> <span class="s2">&quot;What is 125 * 48?&quot;</span><span class="p">,</span> <span class="s2">&quot;What day is today?&quot;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Q: </span><span class="si">{</span><span class="n">q</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="part-3-multi-agent-orchestration">
+<h2><span class="section-number">13.4. </span>Part 3: Multi-Agent Orchestration<a class="headerlink" href="#part-3-multi-agent-orchestration" title="Permalink to this heading">#</a></h2>
+<section id="router-pattern">
+<h3><span class="section-number">13.4.1. </span>Router Pattern<a class="headerlink" href="#router-pattern" title="Permalink to this heading">#</a></h3>
+<p>A <strong>router</strong> uses one agent to classify the incoming request and dispatch it to the appropriate specialist agent.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MultiAgentRouter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Route queries to specialized agents based on a coordinator&#39;s decision.&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chat_model</span><span class="p">,</span> <span class="n">specialists</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            chat_model: The LangChain chat model</span>
+<span class="sd">            specialists: Dict of {name: {&quot;prompt&quot;: str, &quot;tools&quot;: list}}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chat_model</span> <span class="o">=</span> <span class="n">chat_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">specialists</span> <span class="o">=</span> <span class="n">specialists</span>
+    
+    <span class="k">def</span> <span class="nf">route</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Decide which specialist handles this query.&quot;&quot;&quot;</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">specialists</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
+            <span class="p">(</span><span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;You are a router. Choose the best specialist from: </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2">. Respond with ONLY the name.&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="n">query</span><span class="p">),</span>
+        <span class="p">])</span>
+        <span class="n">chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">chat_model</span> <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+        <span class="n">decision</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({})</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        
+        <span class="c1"># Match to a specialist</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">specialists</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">decision</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">name</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">specialists</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># fallback</span>
+    
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Route and execute.&quot;&quot;&quot;</span>
+        <span class="n">chosen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">specialists</span><span class="p">[</span><span class="n">chosen</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Routed to: </span><span class="si">{</span><span class="n">chosen</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="n">agent</span> <span class="o">=</span> <span class="n">SimpleAgent</span><span class="p">(</span>
+            <span class="n">chat_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chat_model</span><span class="p">,</span>
+            <span class="n">tools</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span> <span class="p">[]),</span>
+            <span class="n">system_prompt</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;prompt&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="sequential-pipeline">
+<h3><span class="section-number">13.4.2. </span>Sequential Pipeline<a class="headerlink" href="#sequential-pipeline" title="Permalink to this heading">#</a></h3>
+<p>A <strong>pipeline</strong> passes output from one agent to the next, where each agent has a different role.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AgentPipeline</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute agents in sequence, passing each output to the next.&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stages</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            stages: List of dicts with &quot;name&quot;, &quot;prompt&quot;, and optionally &quot;tools&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stages</span> <span class="o">=</span> <span class="n">stages</span>
+    
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_input</span><span class="p">,</span> <span class="n">chat_model</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">initial_input</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+        
+        <span class="k">for</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stages</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;─&#39;</span><span class="o">*</span><span class="mi">40</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;▶ </span><span class="si">{</span><span class="n">stage</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+            <span class="n">agent</span> <span class="o">=</span> <span class="n">SimpleAgent</span><span class="p">(</span>
+                <span class="n">chat_model</span> <span class="o">=</span> <span class="n">chat_model</span><span class="p">,</span>
+                <span class="n">tools</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tools&quot;</span><span class="p">,</span> <span class="p">[]),</span>
+                <span class="n">system_prompt</span> <span class="o">=</span> <span class="n">stage</span><span class="p">[</span><span class="s2">&quot;prompt&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">stage</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">output</span>
+            
+            <span class="n">current</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Previous step (</span><span class="si">{</span><span class="n">stage</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">) output:</span><span class="se">\n</span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">Continue with the next step.&quot;</span>
+        
+        <span class="k">return</span> <span class="n">results</span>
+</pre></div>
+</div>
+</section>
+<section id="example-automated-analysis-report">
+<h3><span class="section-number">13.4.3. </span>Example: Automated Analysis Report<a class="headerlink" href="#example-automated-analysis-report" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">AgentPipeline</span><span class="p">([</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Researcher&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a data researcher. Gather relevant facts using the tools available. List key findings.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tools&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">company_lookup</span><span class="p">,</span> <span class="n">calculator</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Writer&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a report writer. Given research findings, write a professional 3-paragraph summary.&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Reviewer&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="s2">&quot;You are an editor. Review the report for clarity and completeness. Suggest improvements if needed.&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">])</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+    <span class="s2">&quot;Write a brief report about the company&#39;s profile and financials.&quot;</span><span class="p">,</span>
+    <span class="n">chat_model</span> <span class="o">=</span> <span class="n">chat_model</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="exercises">
+<h2><span class="section-number">13.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<section id="exercise-1-langchain-agent-with-custom-tools">
+<h3><span class="section-number">13.5.1. </span>Exercise 1: LangChain Agent with Custom Tools<a class="headerlink" href="#exercise-1-langchain-agent-with-custom-tools" title="Permalink to this heading">#</a></h3>
+<section id="objectives">
+<h4><span class="section-number">13.5.1.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h4>
+<p>Build an agent using LangChain that can answer questions about a fictional scenario by combining reasoning with tool calls.</p>
+</section>
+<section id="task-description">
+<h4><span class="section-number">13.5.1.2. </span>Task Description<a class="headerlink" href="#task-description" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Define at least 4 custom tools</strong> using the <code class="docutils literal notranslate"><span class="pre">&#64;tool</span></code> decorator for a domain of your choice (e.g., a restaurant booking system, a university helpdesk, a travel planner). Examples:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">check_availability(date)</span></code>: Check if a date has openings</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_menu(category)</span></code>: Return menu items for a category</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">calculate_total(items)</span></code>: Calculate the bill</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">make_reservation(details)</span></code>: Confirm a booking</p></li>
+</ul>
+</li>
+<li><p><strong>Build two versions of the agent</strong>:</p>
+<ul class="simple">
+<li><p>A LangChain <code class="docutils literal notranslate"><span class="pre">create_react_agent</span></code> with <code class="docutils literal notranslate"><span class="pre">AgentExecutor</span></code> (may fail with the small model — document the failures)</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">SimpleAgent</span></code> using the manual pattern shown in the tutorial</p></li>
+</ul>
+</li>
+<li><p><strong>Test with at least 6 queries</strong>, including queries that require tool use and queries that do not. Compare the two agent implementations.</p></li>
+</ol>
+</section>
+<section id="deliverables">
+<h4><span class="section-number">13.5.1.3. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>A Jupyter Notebook with both implementations</p></li>
+<li><p>A comparison table showing success/failure for each agent × query</p></li>
+<li><p>A discussion (2–3 paragraphs) analyzing when ReAct works vs. when the simple agent is more reliable, and what model size you think would be needed for reliable ReAct behavior</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id1">
+<h4><span class="section-number">13.5.1.4. </span>Deliverables<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>A Jupyter Notebook with the complete implementation</p></li>
+<li><p>Results for all test queries/topics</p></li>
+<li><p>A timing breakdown for each agent’s execution</p></li>
+<li><p>A discussion (2–3 paragraphs) on orchestration challenges and how output quality degrades through the pipeline</p></li>
+</ul>
+</section>
+<section id="evaluation-criteria">
+<h4><span class="section-number">13.5.1.5. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Correctness and robustness of the implementations</p></li>
+<li><p>Quality and diversity of tools and test cases</p></li>
+<li><p>Honest analysis of where the small model succeeds and fails</p></li>
+<li><p>Code organization and documentation</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="references">
+<h2><span class="section-number">13.6. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Yao, S., et al. (2023). <em>ReAct: Synergizing Reasoning and Acting in Language Models</em>. ICLR.</p></li>
+<li><p>Schick, T., et al. (2023). <em>Toolformer: Language Models Can Teach Themselves to Use Tools</em>. NeurIPS.</p></li>
+<li><p>Chase, H. (2022). <em>LangChain Documentation</em>. <a class="reference external" href="https://docs.langchain.com">https://docs.langchain.com</a></p></li>
+<li><p>LangChain Hugging Face Integration. <a class="reference external" href="https://huggingface.co/blog/langchain">https://huggingface.co/blog/langchain</a></p></li>
+<li><p>Wu, Q., et al. (2023). <em>AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation</em>. arXiv.</p></li>
+<li><p>Wang, L., et al. (2024). <em>A Survey on Large Language Model-Based Autonomous Agents</em>. Frontiers of Computer Science.</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="practice3_2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>Retrieval-Augmented Generation (RAG)</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-3-multi-agent-systems-with-langchain">13.1. Practical Session 3 — Part 3: Multi-Agent Systems with LangChain</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">13.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">13.1.2. Prerequisites</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-langchain-fundamentals">13.2. Part 1: LangChain Fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-a-local-model">13.2.1. Wrapping a Local Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-templates">13.2.2. Prompt Templates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chains-composing-steps">13.2.3. Chains: Composing Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-chains">13.2.4. Sequential Chains</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-tools-and-agents">13.3. Part 2: Tools and Agents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-custom-tools">13.3.1. Defining Custom Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-react-agent">13.3.2. Building a ReAct Agent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simpler-agent-pattern-for-small-models">13.3.3. A Simpler Agent Pattern for Small Models</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-multi-agent-orchestration">13.4. Part 3: Multi-Agent Orchestration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#router-pattern">13.4.1. Router Pattern</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-pipeline">13.4.2. Sequential Pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-automated-analysis-report">13.4.3. Example: Automated Analysis Report</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">13.5. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-langchain-agent-with-custom-tools">13.5.1. Exercise 1: LangChain Agent with Custom Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">13.5.1.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">13.5.1.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">13.5.1.3. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">13.5.1.4. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">13.5.1.5. Evaluation Criteria</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">13.6. References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Universidad de Alicante
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
