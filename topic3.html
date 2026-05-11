@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'topic3';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="8. Graph Neural Networks" href="practice0.html" />
+    <link rel="next" title="9. Graph Neural Networks" href="practice0.html" />
     <link rel="prev" title="4. Reinforcement Learning" href="topic2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -196,15 +196,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">5. LLMs and VLMs</a></li>
 
 
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 0</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice0.html">8. Graph Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice1.html">9. Clique Problem</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice2.html">10. Reinforcement Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">11. Intelligent Agents</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice3_2.html">12. Retrieval-Augmented Generation (RAG)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice3_3.html">13. Intelligent Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">9. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice1.html">10. Clique Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice2.html">11. Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">12. Intelligent Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_2.html">13. Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_3.html">14. Intelligent Agents</a></li>
 </ul>
 
     </div>
@@ -453,6 +454,18 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-and-practice">7.3.3. Benefits and practice</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-first-adaptation">7.3.4. A first adaptation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perplexity">7.3.5. Perplexity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reasoning-in-llms">8. Reasoning in LLMs</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-pe">8.1. Beyond PE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-refine">8.2. Self-Refine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rlhf-rl-with-human-feedback">8.3. RLHF: RL with Human Feedback</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reward-modeling">8.3.1. Reward Modeling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-complete-picture">8.3.2. The Complete Picture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-gradient-in-rlhf">8.3.3. Policy Gradient in RLHF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grpo">8.3.4. GRPO</a></li>
 </ul>
 </li>
 </ul>
@@ -1380,7 +1393,7 @@ performance:</p>
 <li><p><strong>Prefix definition</strong>. Put the prefix in the input (left context) and define a <strong>trainable matrix</strong> <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> whose dimension is <span class="math notranslate nohighlight">\(\text{length_of_prefix}\times d\)</span>. This defines a <strong>virtual token</strong>.</p></li>
 <li><p><strong>Training</strong>. Frozen the weights of the LLM and learn <span class="math notranslate nohighlight">\(\mathbf{P}\)</span>. To that end, the embedding of the virtual token is just the output of this matrix. Otherwise, the embedding of a <strong>regular token</strong> is also influenced by the matrix <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> since the other weights are frozen.</p></li>
 </ol>
-<p><strong>Interestingly</strong> the prefix is not necesarily new word of the vocabulary. It may actually mean a specific task. This simply particularizes the obtained embeddings and the working of the LLM (see <a class="reference internal" href="#prefix"><span class="std std-numref">Fig. 7.3</span></a>):</p>
+<p><strong>Interestingly</strong> the prefix is not necesarily new word of the vocabulary. It may actually mean a specific task (for instance the tokenization of the word ‘Question’). This simply particularizes the obtained embeddings and the working of the LLM (see <a class="reference internal" href="#prefix"><span class="std std-numref">Fig. 7.3</span></a>):</p>
 <figure class="align-center" id="prefix">
 <a class="reference internal image-reference" href="_images/Prefix.png"><img alt="_images/Prefix.png" src="_images/Prefix.png" style="width: 800px; height: 300px;" /></a>
 <figcaption>
@@ -1697,6 +1710,328 @@ What is the meaning of life?  That consciousness thing, but to me seems the mean
 <p>The original model has an average loss of 4.7968 and a perplexity of <strong>121.1279</strong> on the evaluation dataset.</p>
 <p>It’s interesting to compare this with the fine-tuned LoRA model’s perplexity, which was <strong>978.7332</strong>. This indicates that, for the small and general dataset used, the fine-tuning process significantly increased the perplexity, suggesting it might have overfit or was not well-suited for the base model’s pre-trained knowledge on this specific task. Typically, fine-tuning aims to reduce perplexity on the target distribution. This result highlights the importance of choosing a relevant and sufficiently large dataset for effective fine-tuning.</p>
 <p><strong>Note</strong>. Despite the parameter efficiency of LoRA, the above results where obtained after roughly ten hours of A100 GPU!</p>
+</section>
+</section>
+</section>
+<section id="reasoning-in-llms">
+<h1><span class="section-number">8. </span>Reasoning in LLMs<a class="headerlink" href="#reasoning-in-llms" title="Permalink to this heading">#</a></h1>
+<section id="beyond-pe">
+<h2><span class="section-number">8.1. </span>Beyond PE<a class="headerlink" href="#beyond-pe" title="Permalink to this heading">#</a></h2>
+<p><span style="color:#2f6004">In the practical part of this subject, you are learning Prompt Engineering (PE) as a <strong>means of exploting the AR structure of LLMs by designing and refining the textual input (prompt)</strong> is order to extract a more accurate and useful response</span>.</p>
+<p><strong>Can PE be considered a way of reasoning?</strong> Obviously no, and one of the main reasons is because <strong>it does not guarantees correctness</strong>. Quoting a <a class="reference external" href="https://medium.com/&#64;khayyam.h/emergent-reasoning-in-llms-planning-reflection-and-theory-of-mind-1e9c33b061a0">Medium report</a>, “Modern models can decompose problems into steps, reflect on their own failures, and sometimes reason about what other agents might believe. These behaviors stand in contrast to early prompt-completion systems, which typically produced single-shot answers without intermediate reasoning or self-correction”.</p>
+<p><strong>Chain-of-thoughs Prompting</strong> (COT) seems to approaching reasoning by following a set of intermediate steps, and this leads to an increment performance in arithmetic, commonsense and symbolic reasoning tasks. <span style="color:#2f6004">However, <strong>COT is only effective when the LLM scales enough</strong></span> as we see in <a class="reference internal" href="#cotscale"><span class="std std-numref">Fig. 8.1</span></a>:</p>
+<figure class="align-center" id="cotscale">
+<a class="reference internal image-reference" href="_images/COTScale.png"><img alt="_images/COTScale.png" src="_images/COTScale.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8.1 </span><span class="caption-text">COT improves with LLM scaling. <a class="reference external" href="https://arxiv.org/pdf/2201.11903">Source</a>.</span><a class="headerlink" href="#cotscale" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>RAGs: A bit of planning</strong>. Next step consists of build a <span style="color:#2f6004">structured plan which <strong>interleaves reasoning traces</strong> with <strong>concrete actions</strong> (e.g. use search engines) in an environment</span>. The canonical example of this is <a class="reference external" href="https://arxiv.org/pdf/2210.03629">React</a>, where actions allow it to interface with and gather additional information from external sources such as knowledge bases or environments:</p>
+<figure class="align-center" id="react">
+<a class="reference internal image-reference" href="_images/REACT.png"><img alt="_images/REACT.png" src="_images/REACT.png" style="width: 800px; height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8.2 </span><span class="caption-text">REACT example. <a class="reference external" href="https://arxiv.org/pdf/2201.11903">Source</a>.</span><a class="headerlink" href="#react" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="self-refine">
+<h2><span class="section-number">8.2. </span>Self-Refine<a class="headerlink" href="#self-refine" title="Permalink to this heading">#</a></h2>
+<p><strong>Self-Refinement</strong>. Consider now the case where an LLM is driven by iteratively refining their responses. This is the case of <a class="reference external" href="https://arxiv.org/abs/2303.17651">Self-Refine</a>. It works as follows:</p>
+<ol class="arabic simple">
+<li><p><strong>Initial generation</strong>. Given a prompt <span class="math notranslate nohighlight">\(\mathbf{P}_{gen}\)</span>, use the LLM <span class="math notranslate nohighlight">\({\cal M}\)</span> generate an initial output:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{y}_0 = {\cal M}(\mathbf{P}_{gen})\;.
+\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(\mathbf{P}_{gen}\)</span> is a few-shot prompt (or code instruction). In addition, <span class="math notranslate nohighlight">\(\mathbf{P}_{gen}\)</span> contains input-output <strong>pairs</strong> <span class="math notranslate nohighlight">\((\mathbf{x}(k),\mathbf{y}(k))\)</span>.</p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Feedback</strong>. At iteration <span class="math notranslate nohighlight">\(t\)</span>, Self-refine uses the same LLM <span class="math notranslate nohighlight">\({\cal L}\)</span> to provide feedback prompt <span class="math notranslate nohighlight">\(\mathbf{P}_{fb}\)</span>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{fb}_t = {\cal M}(\mathbf{P}_{gen}||\mathbf{y}_t)\;,
+\]</div>
+<p>In other words, the prompt <span class="math notranslate nohighlight">\(\mathbf{P}_{fb}\)</span> contains input-output feeback <strong>triples</strong> <span class="math notranslate nohighlight">\((\mathbf{x}(k),\mathbf{y}(k),\mathbf{fb}(k))\)</span>. The model is instructed to generate feedback that is both actionable and specific based on these examples.</p>
+<p>a) <strong>Actionable</strong>: Feedback should suggest concrete actions that are likely to improve the output.</p>
+<p>b) <strong>Specific</strong>: Feedback should pinpoint specific phrases or elements in the output that require modification.</p>
+<p>For instance, in <a class="reference internal" href="#selfrefine"><span class="std std-numref">Fig. 8.3</span></a>, the feedback reads:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&quot;This code is slow as it uses a for loop, which is brute force. 
+A better approach is to use the formula … n(n+1)/2.”
+</pre></div>
+</div>
+<p>This feedback is <strong>actionable</strong> because it explicitly suggests the action, “use the formula…”. It is also <strong>specific</strong> as it identifies the issue — the “for loop” — in the output.</p>
+<ol class="arabic simple" start="3">
+<li><p><strong>Refinement</strong>. Self-Refine uses <span class="math notranslate nohighlight">\({\cal M}\)</span> to refine its most recent output <span class="math notranslate nohighlight">\(\mathbf{y}_t\)</span> based on its own feedback <span class="math notranslate nohighlight">\(\mathbf{fb}\)</span>​. Given the initial output and the generated feedback, the model produces a re-implementation that is both shorter and significantly faster than the original:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{y}_{t+1} = {\cal M}(\mathbf{P}_{refine}||\mathbf{y}_t||\mathbf{fb}_t)\;,
+\]</div>
+<p>The refinement process is guided by the prompt <span class="math notranslate nohighlight">\(\mathbf{P}_{refine}\)</span>​ that includes examples illustrating how to improve an output using feedback. These examples are presented as input-output-feedback-refined <strong>quadruples</strong>: <span class="math notranslate nohighlight">\((\mathbf{x}(k), \mathbf{y}_t(k), \mathbf{fb}_t(k), \mathbf{y}_{t+1}(k))\)</span>.</p>
+<figure class="align-center" id="selfrefine">
+<a class="reference internal image-reference" href="_images/SelfRefine.png"><img alt="_images/SelfRefine.png" src="_images/SelfRefine.png" style="width: 800px; height: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8.3 </span><span class="caption-text">Self-Refine example. <a class="reference external" href="https://arxiv.org/pdf/2303.17651">Source</a>.</span><a class="headerlink" href="#selfrefine" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Evaluation</strong>. Self-Refine’s performance is evaluated in several tasks such as dialogue-response, code-optimization and math reasoning. The analysis of ehnaced bases such as GPT-3.5, ChatGPT and GPT-4 shows that <strong>math reasoning</strong> offers the smaller increment due to the <strong>difficulty in identifying logic errors</strong>.</p>
+<p><strong>Key Insights</strong>. Some take-to-home messages (see also the <a class="reference external" href="https://medium.com/byte-sized-ai/ai-agents-self-refine-iterative-refinement-with-self-feedback-70943c326bea">Medium report</a>):</p>
+<ol class="arabic simple">
+<li><p><strong>Feedback quality is critical</strong>. We know that because when using a generic feedback (instead of an actionable one) performance decreased from 27.5 (actionable feedback) to 26.0 (generic feedback) and further to 24.8 (no feedback) in <strong>code generation</strong>.</p></li>
+<li><p><strong>Multiple Iterations is crucial</strong>. The significance of multiple iterations in the FEEDBACK-REFINE process is demonstrated by improvements in output quality with each iteration.</p></li>
+<li><p><strong>Self-Refine does not work well in small models</strong>. This finding suggest that small models like <span class="math notranslate nohighlight">\(\text{Vicuna-13B}\)</span>, which are trained on conversational data, may struggle to generalize to instruction-based tasks requiring few-shot learning.</p></li>
+</ol>
+</section>
+<section id="rlhf-rl-with-human-feedback">
+<h2><span class="section-number">8.3. </span>RLHF: RL with Human Feedback<a class="headerlink" href="#rlhf-rl-with-human-feedback" title="Permalink to this heading">#</a></h2>
+<p><span style="color:#2f6004"><strong>How to incorporate human information to bias LLMs?</strong> Given a model that already understands prompts and can follow instructions, it may still <strong>lack alignment with human preferences</strong></span>.</p>
+<p>If so, RLHF trains the model as follows:</p>
+<ol class="arabic simple">
+<li><p>Give the model a <strong>prompt</strong>. For instance <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">dog</span> <span class="pre">is...</span></code></p></li>
+<li><p>Model generates <strong>response</strong>. Two extreme cases: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">loyal</span> <span class="pre">and</span> <span class="pre">friendly</span> <span class="pre">animal</span> <span class="pre">often</span> <span class="pre">kept</span> <span class="pre">as</span> <span class="pre">a</span> <span class="pre">pet</span></code>or <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">dangerous</span> <span class="pre">unpredictable</span> <span class="pre">creature</span></code>. How to bias the LLM towards the response more aligned with human experience?</p></li>
+<li><p>Give a <strong>reward</strong> to each response (positive <code class="docutils literal notranslate"><span class="pre">Reward:</span> <span class="pre">+0.24</span></code> for the first, and negative <code class="docutils literal notranslate"><span class="pre">Reward:</span> <span class="pre">-0.53</span></code> for the second).</p></li>
+<li><p><strong>Update</strong> the model considering the rewards. We use Reinforcement Learning for fine-tuning the model.</p></li>
+</ol>
+<section id="reward-modeling">
+<h3><span class="section-number">8.3.1. </span>Reward Modeling<a class="headerlink" href="#reward-modeling" title="Permalink to this heading">#</a></h3>
+<p><strong>Reward models</strong> (RM) are core to the modern approach to RLHF by being where the complex human preferences are learned. Herein the RM <strong>play the role of the environment in RL</strong> thus providing the signals for the agent. They are a <strong>proxy</strong> of the environment. <span style="color:#2f6004">Therefore, the practice of reward modeling for RLHF is closely related
+to <strong>inverse RL</strong>, where the problem is to approximate an agent’s reward
+function given trajectories of behavior</span>.</p>
+<p><strong>Bradley-Terry</strong>. The simplest method to train a RM is the Bradley-Terry one. Note that, <strong>we do not know the rewards in advance</strong>. All we know that given a prompt <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> we do have a <strong>preferred response</strong> <span class="math notranslate nohighlight">\(\mathbf{y}_c\)</span> (chosen) and a rejected <span class="math notranslate nohighlight">\(\mathbf{y}_r\)</span> response. <span style="color:#2f6004">Then (once we add a linear head to the model’s hidden state that produces a scalar) we <strong>maximize the probability that the model choses the preferred response instead of the rejected once</strong>:</spam></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\max_{\theta} p_{\theta}(y_c&gt;y_r) &amp;= \max_{\theta} \frac{\exp(r_{\theta}(\mathbf{y}_c|\mathbf{x}))}{\exp(r_{\theta}(\mathbf{y}_c|\mathbf{x})) + \exp(r_{\theta}(\mathbf{y}_r|\mathbf{x}))}\\
+&amp;= \max_{\theta} \frac{1}{1 + \frac{\exp(r_{\theta}(\mathbf{y}_r|\mathbf{x}))}{\exp(r_{\theta}(\mathbf{y}_c|\mathbf{x}))}}\\
+&amp;= \max_{\theta} \frac{1}{1 + \exp(-(r_{\theta}(\mathbf{y}_c|\mathbf{x})-r_{\theta}(\mathbf{y}_r|\mathbf{x})))}\\
+\end{align}
+\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\sigma(z)=\frac{1}{1 + e^{-z}}\)</span> is the sigmoid, we have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\max_{\theta} p_{\theta}(y_c&gt;y_r) &amp;= \max_{\theta} \sigma(r_{\theta}(\mathbf{y}_c|\mathbf{x})-r_{\theta}(\mathbf{y}_r|\mathbf{x}))\\
+&amp;= \min_{\theta} -\log(\sigma(r_{\theta}(\mathbf{y}_c|\mathbf{x})-r_{\theta}(\mathbf{y}_r|\mathbf{x})))\;.\\
+\end{align}
+\end{split}\]</div>
+<p>This naturally leads to the loss</p>
+<div class="math notranslate nohighlight">
+\[
+{\cal L}(\theta)=-\log(\sigma(r_{\theta}(\mathbf{y}_c|\mathbf{x})-r_{\theta}(\mathbf{y}_r|\mathbf{x})))
+\]</div>
+<p>which is equivalent to the Softplus function <span class="math notranslate nohighlight">\(\log(1 + e^z)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+{\cal L}(\theta)=\log( 1 + e^{r_{\theta}(\mathbf{y}_c|\mathbf{x})-r_{\theta}(\mathbf{y}_r|\mathbf{x})})\;.
+\]</div>
+<p>In <a class="reference internal" href="#bradley"><span class="std std-numref">Fig. 8.4</span></a>, we show that when both responses reach the EOS (End-Of-Sequence) token, we compute both scores and the so-called <strong>contrastive loss</strong> depends only on the score difference between the two:</p>
+<figure class="align-center" id="bradley">
+<a class="reference internal image-reference" href="_images/Bradley.png"><img alt="_images/Bradley.png" src="_images/Bradley.png" style="width: 800px; height: 200px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8.4 </span><span class="caption-text">Bradley-Terry. Source: <a class="reference external" href="https://arxiv.org/pdf/2504.12501">RLHF Book</a>.</span><a class="headerlink" href="#bradley" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>However, what we <strong>really</strong> do is to <strong>take a batch</strong> from a dataset <span class="math notranslate nohighlight">\({\cal D}\)</span> and compute the expectation:</p>
+<div class="math notranslate nohighlight">
+\[
+{\cal L}_{BT}(r_{\theta},{\cal D})=-\mathbb{E}_{(\mathbf{x},\mathbf{y}_c,\mathbf{y}_r)\sim {\cal D}}\log(\sigma(r_{\theta}(\mathbf{y}_c|\mathbf{x})-r_{\theta}(\mathbf{y}_r|\mathbf{x})))
+\]</div>
+</section>
+<section id="the-complete-picture">
+<h3><span class="section-number">8.3.2. </span>The Complete Picture<a class="headerlink" href="#the-complete-picture" title="Permalink to this heading">#</a></h3>
+<p>In <a class="reference internal" href="#rlhf"><span class="std std-numref">Fig. 8.5</span></a> we show the elements of RLHF:</p>
+<ol class="arabic simple">
+<li><p><strong>Policy Network (Actor)</strong>. This is the <strong>LLM to train</strong>: It takes an input (prompt/state) and outputs actions (tokens/responses). The actor learns to choose actions that lead to high rewards.</p></li>
+<li><p><strong>Reward Model</strong>. A separate neural network (or part of the same network) that estimates the ‘value’ of being in a particular state. The value indicates the expected future reward from that state. In this context, a prompt <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> from the dataset is passed to the tuned policy, which generates a completion <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>. The <strong>reward model</strong> <span class="math notranslate nohighlight">\(r_{\theta}(\mathbf{y}|\mathbf{x})\)</span> <strong>scores this completion</strong>.</p></li>
+</ol>
+<figure class="align-center" id="rlhf">
+<a class="reference internal image-reference" href="_images/RLHF.png"><img alt="_images/RLHF.png" src="_images/RLHF.png" style="width: 800px; height: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8.5 </span><span class="caption-text">The complete picture of RLHF. Source: <a class="reference external" href="https://arxiv.org/pdf/2504.12501">RLHF Book</a>.</span><a class="headerlink" href="#rlhf" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>RLHF Objective</strong>. Given these two elements, the RLHF objective can be formulated in terms of <strong>learning a policy</strong> <span class="math notranslate nohighlight">\(\pi_{\theta}(\mathbf{y}|\mathbf{x})\)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\pi^{\ast}_{\theta}=\max_{\pi_{\theta}}\mathbb{E}_{\mathbf{x}\sim {\cal D},\mathbf{y}\sim \pi_{\theta}(\mathbf{y}|\mathbf{x})}\left[r_{\theta}(\mathbf{y}|\mathbf{x}) -\beta\cdot KL(\pi_{\theta}||\pi_{\text{ref}})\right]\;,
+\]</div>
+<p>where we introduce a KL-based <strong>regularization</strong> for penalizing deviations from the pre-trained LLM (reference/base policy).</p>
+<p><strong>RLHF Challenges</strong>. A block-model interpretation of RLHF (see <a class="reference internal" href="#challenges"><span class="std std-numref">Fig. 8.6</span></a>) leads to the most important RLHF challenges:</p>
+<figure class="align-center" id="challenges">
+<a class="reference internal image-reference" href="_images/Challenges.png"><img alt="_images/Challenges.png" src="_images/Challenges.png" style="width: 600px; height: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8.6 </span><span class="caption-text">RLHF modules reveal the challenges. Source: <a class="reference external" href="https://medium.com/gitconnected/visual-guide-to-llm-preference-tuning-with-rlhf-ppo-05824ff74d27">Medium</a>.</span><a class="headerlink" href="#challenges" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<ol class="arabic simple">
+<li><p><strong>Computational complexity</strong>: The optimization process is computationally intensive. Since it needs to train at least two models, the reward model and the LLM, which can be more costly than perhaps necessary. This is why in practice the <strong>reward model is pre-trained and then frozen</strong>.</p></li>
+<li><p><strong>Non-differentiability</strong>: The sampling of output sequences is not differentiable, necessitating the use of reinforcement learning algorithms like <strong>Proximal Policy Optimization (PPO)</strong>.</p></li>
+<li><p><strong>Instability</strong>: Reinforcement Learning (RL) algorithms can be unstable and sensitive to hyperparameters.</p></li>
+</ol>
+</section>
+<section id="policy-gradient-in-rlhf">
+<h3><span class="section-number">8.3.3. </span>Policy Gradient in RLHF<a class="headerlink" href="#policy-gradient-in-rlhf" title="Permalink to this heading">#</a></h3>
+<p><strong>Policy gradient methods (PG)</strong>. In general, PG methods emerge from the need of estimating the gradient <span class="math notranslate nohighlight">\(\Delta\theta\)</span> of the LLM as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\Delta\theta \approx \psi_t\nabla_{\theta}\log \pi_{\theta}(y_t|x_t)\;,
+\]</div>
+<p>where:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\nabla_{\theta}\log \pi_{\theta}(y_t|x_t)\)</span> is the direction in parameter space making the output <span class="math notranslate nohighlight">\(y_t\)</span> more likely. This is formally the <strong>score function</strong> and it plays a key role in generative AI. Basically, if we use Softmax, we have:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\nabla_{\theta}\log \pi_{\theta}(y_t|x_t) &amp;= \nabla_{\theta}\log\frac{e^{h_{\theta}(y_t|x_t)}}{\sum_{y'_t}e^{h_{\theta}(y'_t|x)}}\\
+&amp;=\phi(y_t|x_t) - \mathbb{E}_{y'_t\sim\pi_{\theta}(.|x_t)}[\phi(y'_t|x_t)]\;,
+\end{align}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi(y_t|x_t)\)</span> are the features leading to the logits <span class="math notranslate nohighlight">\(h_{\theta}(y_t|x_t)=\phi(y_t|x_t)^T\theta\)</span>. In this regard, we are considering that <span class="math notranslate nohighlight">\(\theta\)</span> induces a linear function that facilitates the derivation. In other words, the <strong>gradient is coming from the deviation of the features from the expectation</strong>.</p>
+<ol class="arabic simple" start="2">
+<li><p>A scalar <span class="math notranslate nohighlight">\(\Psi_t\)</span> scoring the outcome. <span class="math notranslate nohighlight">\(\Psi_t&gt;0\)</span> updates parameters to make <span class="math notranslate nohighlight">\(y_t\)</span> more likely and vice versa with <span class="math notranslate nohighlight">\(\Psi_t&lt;0\)</span>. This is formally the <strong>future gain</strong>.</p></li>
+</ol>
+<p><strong>Vanilla PG</strong>. Considering the above definition of gradient, given an input prompt <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, the LLM produces a <strong>sequence of states and actions</strong> <span class="math notranslate nohighlight">\(\tau = (s_0,a_0,a_1,a_1,\ldots)\)</span> where:</p>
+<ul class="simple">
+<li><p><strong>States</strong> are the partial requence yet explored: <span class="math notranslate nohighlight">\(s_t=\mathbf{x}_{i\le t}\)</span>.</p></li>
+<li><p><strong>Actions</strong> produce partial responses <span class="math notranslate nohighlight">\(a_t = y_t\)</span></p></li>
+</ul>
+<p>Not surprisingly, the <strong>objective to maximize</strong> is the expected reward of the sequence:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\theta) = \mathbb{E}_{\tau\sim\pi_{\theta}}[R(\tau)],\;\;\text{where}\; R(\tau)=\sum_{t=0}^{\infty}r_t\;.
+\]</div>
+<p>From the above formula we conclude that the <strong>discount factor</strong> in LLMs is <span class="math notranslate nohighlight">\(\gamma=1\)</span>.</p>
+<p>Therefore, in this general formulation of the PG:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla_{\theta}J(\theta)=\mathbb{E}_{\tau\sim\pi_{\theta}}\left[\sum_{t=0}^{\infty}\nabla_{\theta}\log\pi_{\theta}(a_t|s_t)\psi_t\right]\;,
+\]</div>
+<p><span class="math notranslate nohighlight">\(\Psi_t\)</span> plays the role of the sequence reward <span class="math notranslate nohighlight">\(R(\tau)\)</span>. However, other choices are possible: for instance the <strong>advantage function</strong> <span class="math notranslate nohighlight">\(A_t\)</span> (see definition later), which leads to the <strong>empirical vanilla PG</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla_{\theta}J(\theta)=\mathbb{E}_{\tau}\left[\sum_{t=0}^{T}\nabla_{\theta}\log\pi_{\theta}(a_t|s_t)A_t\right]\;.
+\]</div>
+<p>This kind of gradients are useful for simple RLHF strategies such as REINFORCE.</p>
+</section>
+<section id="grpo">
+<h3><span class="section-number">8.3.4. </span>GRPO<a class="headerlink" href="#grpo" title="Permalink to this heading">#</a></h3>
+<p>Instead of studying PPO (Proximal Policy Optimization) as in the <strong>Aprendizaje Avanzado</strong> subject, we complement herein the state-of-the-art with a simpler and yet more effective method:</p>
+<p><strong>Group Relative Policy Optimization (GRPO)</strong> is the method used for RLHF in the DeepSeek-R1 series models to the public at <a class="reference external" href="https://huggingface.co/deepseek-ai">https://huggingface.co/deepseek-ai</a>. To better understand GRPO, let us track how PPO proceeds:</p>
+<ol class="arabic simple">
+<li><p>A prompt <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is given.</p></li>
+<li><p>The model generates and answer <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>.</p></li>
+<li><p>A reward model assigns a score <span class="math notranslate nohighlight">\(r\)</span>.</p></li>
+<li><p>A value network, or critic, estimates a value such as <span class="math notranslate nohighlight">\(V(\mathbf{x})\)</span> or <span class="math notranslate nohighlight">\(V(\mathbf{x},\mathbf{y})\)</span>.</p></li>
+<li><p>An advantage is computed, often as <span class="math notranslate nohighlight">\(A=r-V\)</span>.</p></li>
+<li><p>The policy is updated the PPO objective.</p></li>
+</ol>
+<p><strong>Practical difficulties of PPO:</strong></p>
+<ol class="arabic simple">
+<li><p>A critic is <ins>hard to train</ins>. This extra network increases computation, memory and engineering complexity</p></li>
+<li><p>Since <ins>outputs are long</ins>, the rewards are sparse, delayed due to latency or mixed from multiple sources.</p></li>
+<li><p><ins>Rewards are also noisy </ins> due to imperfect human preferences or incomplete rule-based rewards.</p></li>
+</ol>
+<p><strong>GPRO changes the source of the learning signal</strong>. It introduces a significant shift from absolute scoring to <ins>within-group comparison</ins> for the same prompt:</p>
+<ol class="arabic simple">
+<li><p>For a prompt <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, the model samples a <strong>group of responses</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+  \mathbf{y}_1,\mathbf{y}_2,\ldots,\mathbf{y}_G\sim \pi_{\theta}(.|\mathbf{x})\;.
+  \]</div>
+<ol class="arabic simple" start="2">
+<li><p>Each response receives an individual reward <span class="math notranslate nohighlight">\(r_i=R(\mathbf{x},\mathbf{y}_i)\)</span>.</p></li>
+<li><p>The GRPO does not train a critic. It computes the <strong>mean reward</strong> and its <strong>standard deviation</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mu = \frac{1}{G}\sum_{i=1}^Gr_i\;\;\text{and}\;\;\sigma = \sqrt{\frac{1}{G}\sum_{i=1}^G(r_i-\mu)^2}
+\]</div>
+<ol class="arabic simple" start="4">
+<li><p>There is no value. The <strong>relative advantage</strong> of each response is:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+A_i = \frac{r_i-\mu}{\sigma + \epsilon}\;,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\epsilon\)</span> is the <strong>exploration constant</strong>. Then:</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(A_i&gt;0\)</span> this answer is better than the group average, so its probability should be increased.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(A_i&lt;0\)</span>, this answer is worse than the group average, so its probability should be decreased.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(A_i\approx 0\)</span>, this answer is around the average, so the update should be small (no surprise).</p></li>
+</ul>
+<p><strong>GRPO Objective</strong>. In short, we have</p>
+<div class="math notranslate nohighlight">
+\[
+J_{GRPO}(\theta) = \mathbb{E}(min(\rho_i\cdot A_i, \text{clip}(\rho_i,1-\epsilon,1+\epsilon)\cdot A_i)) + \beta\cdot\text{KL}(\pi_{\theta}||\pi_{\text{ref}})\;,
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\rho_i = \frac{\pi_{\theta}(\mathbf{y}_i|\mathbf{x})}{\pi_{\theta_{\text{old}}}(\mathbf{y}_i|\mathbf{x})}
+\]</div>
+<p>and <span class="math notranslate nohighlight">\(\text{KL}\)</span> is a modifed/pointwise KL divergence that will be explained later.</p>
+<p>In more detail, if you access to the <a class="reference external" href="https://arxiv.org/pdf/2501.12948">DeepkSeekR1 report</a> you can read</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+J_{GRPO}(\theta) &amp;= \mathbb{E}_{\mathbf{x}\sim P(\mathbf{X}),\{\mathbf{y}_i\}_{i=1}^G\sim \pi_{\theta_{\text{old}}}(\mathbf{Y}|\mathbf{x}) }\\
+&amp; \frac{1}{G}\sum_{i=1}^G\left(\min\left(\frac{\pi_{\theta}(\mathbf{y}_i|\mathbf{x})}{\pi_{\theta_{\text{old}}}(\mathbf{y}_i|\mathbf{x})}\right)\cdot A_i,\text{clip}\left(\frac{\pi_{\theta}(\mathbf{y}_i|\mathbf{x})}{\pi_{\theta_{\text{old}}}(\mathbf{y}_i|\mathbf{x})},1-\epsilon,1+\epsilon\right)\cdot A_i\right)-\beta\cdot \text{KL}(\pi_{\theta}||\pi_{\text{ref}})\,,
+\end{align}
+\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\text{KL}(\pi_{\theta}||\pi_{\text{ref}})=\frac{\pi_{\theta}(\mathbf{y}_i|\mathbf{x})}{\pi_{ref}(\mathbf{y}_i|\mathbf{x})}-\log\frac{\pi_{\theta}(\mathbf{y}_i|\mathbf{x})}{\pi_{ref}(\mathbf{y}_i|\mathbf{x})}-1\;,
+\]</div>
+<p>is the modified KL divergence, rather different from the one in PPO (see the report’s Appendix for more details):</p>
+<ul class="simple">
+<li><p>In GRPO, an <strong>unbiased estimator</strong> of the KL divergence is directly added in
+the loss, while in PPO the <strong>per-token KL penalty</strong> is added as a dense reward
+at each token.</p></li>
+<li><p>Since the optimization goal of RL is to maximize cumulative rewards, <strong>PPO’s approach penalizes the cumulative KL divergence</strong>, which may implicitly penalize the length of the response and thereby prevent the model’s response length from increasing.</p></li>
+<li><p>In addition, as we may train thousands of steps in the scenario of training long chain-of-thought reasoning models, the <strong>trained policy can diverge significantly</strong>
+from the initial reference policy.</p></li>
+<li><p>In order to <strong>balance the scope that the training policy can explore</strong> and <strong>the stability of the training</strong>, we periodically update the reference policy to the latest policy during the actual training process.</p></li>
+</ul>
+<p><strong>Conceptual differences: GRPO vs PPO</strong>. In <a class="reference internal" href="#grpovsppo"><span class="std std-numref">Fig. 8.7</span></a> we show the main differerences:</p>
+<figure class="align-center" id="grpovsppo">
+<a class="reference internal image-reference" href="_images/GRPOvsPPO.png"><img alt="_images/GRPOvsPPO.png" src="_images/GRPOvsPPO.png" style="width: 600px; height: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8.7 </span><span class="caption-text">PPO (top) vs GRPO (bottom). Source: <a class="reference external" href="https://arxiv.org/pdf/2501.12948">DeepkSeekR1 report</a>.</span><a class="headerlink" href="#grpovsppo" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Notice what is missing (from <a class="reference external" href="https://medium.com/data-science-collective/grpo-the-better-alternative-to-ppo-for-training-powerful-llms-dbcd6d6f8a47">Medium</a>):</p>
+<p><strong>There is no critic</strong>. There is no attempt to estimate a separate value for each  prompt. The only question is: inside this set of answers, which outputs are relatively better?</p>
+<p>That is why <strong>GRPO fits mathematics, coding, logic, and other verifiable tasks so well</strong>. The method turns “one question, many candidate trajectories” into a learning signal.</p>
+<p><strong>Why GRPO is especially suitable for large language models</strong>. This fit is not accidental. It follows directly from the structure of LLM tasks.</p>
+<ol class="arabic simple">
+<li><p><ins>LLMs naturally support multiple answers for the same prompt</ins>:
+For a single prompt, a language model can sample many different completions. That is <strong>much easier than in many classical control problems</strong>, where constructing a strong set of candidate actions for the same state can be harder.</p></li>
+<li><p><ins>Relative comparison is often easier than absolute scoring</ins>.
+In many tasks, it is hard to say:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>“This answer is worth 86.7 points”.
+</pre></div>
+</div>
+<p>It is much easier to say:</p>
+<p>a) answer A is better than answer B</p>
+<p>b) answer A is more rigorous</p>
+<p>c) answer A is correct while answer B is not</p>
+<p>d) answer A follows the requested format better</p>
+<ol class="arabic simple" start="3">
+<li><p><ins>Verifiable rewards are common in LLM tasks</ins>. Many large language model tasks come with natural verification signals:</p></li>
+</ol>
+<p>a) math problems can be checked by final answer</p>
+<p>b) code can be evaluated by unit tests</p>
+<p>c) SQL can be executed</p>
+<p>d) structured outputs can be validated by rules</p>
+<p>e) tool calls can be verified against schemas</p>
+<ol class="arabic simple" start="4">
+<li><p><ins>It reduces engineering dependence on a critic</ins>. Removing or avoiding critic training lowers memory cost and simplifies the training loop. That is one of the reasons GRPO became attractive in reasoning-focused large model work.</p></li>
+</ol>
 <!----
 ### Knowledge Distillation 
 <span style="color:#2f6004">Distillation is a **knowledge transfer process**. You take a large, complex model (the **Teacher**) and use it to train a smaller, simpler model (the **Student**).</span>
@@ -1757,7 +2092,7 @@ $$
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">8. </span>Graph Neural Networks</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Graph Neural Networks</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1830,6 +2165,18 @@ $$
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-and-practice">7.3.3. Benefits and practice</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-first-adaptation">7.3.4. A first adaptation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perplexity">7.3.5. Perplexity</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#reasoning-in-llms">8. Reasoning in LLMs</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-pe">8.1. Beyond PE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-refine">8.2. Self-Refine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rlhf-rl-with-human-feedback">8.3. RLHF: RL with Human Feedback</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reward-modeling">8.3.1. Reward Modeling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-complete-picture">8.3.2. The Complete Picture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-gradient-in-rlhf">8.3.3. Policy Gradient in RLHF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#grpo">8.3.4. GRPO</a></li>
 </ul>
 </li>
 </ul>
