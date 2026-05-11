@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13. Intelligent Agents &#8212; Agentes Inteligentes IA</title>
+    <title>14. Intelligent Agents &#8212; Agentes Inteligentes IA</title>
   
   
   
@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'practice3_3';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="12. Retrieval-Augmented Generation (RAG)" href="practice3_2.html" />
+    <link rel="prev" title="13. Retrieval-Augmented Generation (RAG)" href="practice3_2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -193,15 +193,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="topic3.html">5. LLMs and VLMs</a></li>
 
 
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Practice 0</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="practice0.html">8. Graph Neural Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice1.html">9. Clique Problem</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice2.html">10. Reinforcement Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">11. Intelligent Agents</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practice3_2.html">12. Retrieval-Augmented Generation (RAG)</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">13. Intelligent Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice0.html">9. Graph Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice1.html">10. Clique Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice2.html">11. Reinforcement Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_1.html">12. Intelligent Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="practice3_2.html">13. Retrieval-Augmented Generation (RAG)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">14. Intelligent Agents</a></li>
 </ul>
 
     </div>
@@ -397,42 +398,42 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-3-multi-agent-systems-with-langchain">13.1. Practical Session 3 — Part 3: Multi-Agent Systems with LangChain</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">13.1.1. Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">13.1.2. Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-3-multi-agent-systems-with-langchain">14.1. Practical Session 3 — Part 3: Multi-Agent Systems with LangChain</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">14.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">14.1.2. Prerequisites</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-langchain-fundamentals">13.2. Part 1: LangChain Fundamentals</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-a-local-model">13.2.1. Wrapping a Local Model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-templates">13.2.2. Prompt Templates</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chains-composing-steps">13.2.3. Chains: Composing Steps</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-chains">13.2.4. Sequential Chains</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-langchain-fundamentals">14.2. Part 1: LangChain Fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-a-local-model">14.2.1. Wrapping a Local Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-templates">14.2.2. Prompt Templates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chains-composing-steps">14.2.3. Chains: Composing Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-chains">14.2.4. Sequential Chains</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-tools-and-agents">13.3. Part 2: Tools and Agents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-custom-tools">13.3.1. Defining Custom Tools</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-react-agent">13.3.2. Building a ReAct Agent</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simpler-agent-pattern-for-small-models">13.3.3. A Simpler Agent Pattern for Small Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-tools-and-agents">14.3. Part 2: Tools and Agents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-custom-tools">14.3.1. Defining Custom Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-react-agent">14.3.2. Building a ReAct Agent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simpler-agent-pattern-for-small-models">14.3.3. A Simpler Agent Pattern for Small Models</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-multi-agent-orchestration">13.4. Part 3: Multi-Agent Orchestration</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#router-pattern">13.4.1. Router Pattern</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-pipeline">13.4.2. Sequential Pipeline</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-automated-analysis-report">13.4.3. Example: Automated Analysis Report</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-multi-agent-orchestration">14.4. Part 3: Multi-Agent Orchestration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#router-pattern">14.4.1. Router Pattern</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-pipeline">14.4.2. Sequential Pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-automated-analysis-report">14.4.3. Example: Automated Analysis Report</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">13.5. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-langchain-agent-with-custom-tools">13.5.1. Exercise 1: LangChain Agent with Custom Tools</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">13.5.1.1. Objectives</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">13.5.1.2. Task Description</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">13.5.1.3. Deliverables</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">13.5.1.4. Deliverables</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">13.5.1.5. Evaluation Criteria</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">14.5. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-langchain-agent-with-custom-tools">14.5.1. Exercise 1: LangChain Agent with Custom Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">14.5.1.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">14.5.1.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">14.5.1.3. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">14.5.1.4. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">14.5.1.5. Evaluation Criteria</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">13.6. References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">14.6. References</a></li>
 </ul>
             </nav>
         </div>
@@ -445,11 +446,11 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="intelligent-agents">
-<h1><span class="section-number">13. </span>Intelligent Agents<a class="headerlink" href="#intelligent-agents" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">14. </span>Intelligent Agents<a class="headerlink" href="#intelligent-agents" title="Permalink to this heading">#</a></h1>
 <section id="practical-session-3-part-3-multi-agent-systems-with-langchain">
-<h2><span class="section-number">13.1. </span>Practical Session 3 — Part 3: Multi-Agent Systems with LangChain<a class="headerlink" href="#practical-session-3-part-3-multi-agent-systems-with-langchain" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">14.1. </span>Practical Session 3 — Part 3: Multi-Agent Systems with LangChain<a class="headerlink" href="#practical-session-3-part-3-multi-agent-systems-with-langchain" title="Permalink to this heading">#</a></h2>
 <section id="introduction">
-<h3><span class="section-number">13.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.1.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
 <p>In Parts 1 and 2, we built LLM interactions and RAG pipelines by writing everything from scratch. While this is valuable for understanding the fundamentals, real-world projects use <strong>frameworks</strong> that provide standardized abstractions for models, tools, chains, and agents. <strong>LangChain</strong> is the most widely adopted open-source framework for building LLM-powered applications.</p>
 <p>In this final part, we will learn how to:</p>
 <ol class="arabic simple">
@@ -461,7 +462,7 @@ document.write(`
 </ol>
 </section>
 <section id="prerequisites">
-<h3><span class="section-number">13.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>torch<span class="w"> </span>transformers<span class="w"> </span>accelerate<span class="w"> </span>sentencepiece<span class="w"> </span>protobuf
 pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="w"> </span>langchain-huggingface<span class="w"> </span>langchain-community
 </pre></div>
@@ -479,9 +480,9 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </section>
 <hr class="docutils" />
 <section id="part-1-langchain-fundamentals">
-<h2><span class="section-number">13.2. </span>Part 1: LangChain Fundamentals<a class="headerlink" href="#part-1-langchain-fundamentals" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">14.2. </span>Part 1: LangChain Fundamentals<a class="headerlink" href="#part-1-langchain-fundamentals" title="Permalink to this heading">#</a></h2>
 <section id="wrapping-a-local-model">
-<h3><span class="section-number">13.2.1. </span>Wrapping a Local Model<a class="headerlink" href="#wrapping-a-local-model" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.2.1. </span>Wrapping a Local Model<a class="headerlink" href="#wrapping-a-local-model" title="Permalink to this heading">#</a></h3>
 <p>LangChain provides <code class="docutils literal notranslate"><span class="pre">HuggingFacePipeline</span></code> to wrap any local Hugging Face model as a LangChain-compatible LLM, and <code class="docutils literal notranslate"><span class="pre">ChatHuggingFace</span></code> to add chat capabilities on top.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">pipeline</span>
@@ -523,7 +524,7 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </div>
 </section>
 <section id="prompt-templates">
-<h3><span class="section-number">13.2.2. </span>Prompt Templates<a class="headerlink" href="#prompt-templates" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.2.2. </span>Prompt Templates<a class="headerlink" href="#prompt-templates" title="Permalink to this heading">#</a></h3>
 <p>LangChain’s <code class="docutils literal notranslate"><span class="pre">PromptTemplate</span></code> and <code class="docutils literal notranslate"><span class="pre">ChatPromptTemplate</span></code> provide a structured way to build prompts with variables.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
 
@@ -543,7 +544,7 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </div>
 </section>
 <section id="chains-composing-steps">
-<h3><span class="section-number">13.2.3. </span>Chains: Composing Steps<a class="headerlink" href="#chains-composing-steps" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.2.3. </span>Chains: Composing Steps<a class="headerlink" href="#chains-composing-steps" title="Permalink to this heading">#</a></h3>
 <p>The <strong>LCEL (LangChain Expression Language)</strong> uses the pipe operator (<code class="docutils literal notranslate"><span class="pre">|</span></code>) to compose steps into a chain. Each step transforms the data and passes it to the next.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
 <span class="kn">from</span> <span class="nn">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
@@ -571,7 +572,7 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </div>
 </section>
 <section id="sequential-chains">
-<h3><span class="section-number">13.2.4. </span>Sequential Chains<a class="headerlink" href="#sequential-chains" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.2.4. </span>Sequential Chains<a class="headerlink" href="#sequential-chains" title="Permalink to this heading">#</a></h3>
 <p>We can compose multiple chains into a pipeline where the output of one feeds into the next:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Chain 1: Summarize</span>
 <span class="n">summarize</span> <span class="o">=</span> <span class="p">(</span>
@@ -605,9 +606,9 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </section>
 <hr class="docutils" />
 <section id="part-2-tools-and-agents">
-<h2><span class="section-number">13.3. </span>Part 2: Tools and Agents<a class="headerlink" href="#part-2-tools-and-agents" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">14.3. </span>Part 2: Tools and Agents<a class="headerlink" href="#part-2-tools-and-agents" title="Permalink to this heading">#</a></h2>
 <section id="defining-custom-tools">
-<h3><span class="section-number">13.3.1. </span>Defining Custom Tools<a class="headerlink" href="#defining-custom-tools" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.3.1. </span>Defining Custom Tools<a class="headerlink" href="#defining-custom-tools" title="Permalink to this heading">#</a></h3>
 <p>A <strong>tool</strong> is a function that an agent can call. In LangChain, tools are defined using the <code class="docutils literal notranslate"><span class="pre">&#64;tool</span></code> decorator.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_core.tools</span> <span class="kn">import</span> <span class="n">tool</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -654,7 +655,7 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </div>
 </section>
 <section id="building-a-react-agent">
-<h3><span class="section-number">13.3.2. </span>Building a ReAct Agent<a class="headerlink" href="#building-a-react-agent" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.3.2. </span>Building a ReAct Agent<a class="headerlink" href="#building-a-react-agent" title="Permalink to this heading">#</a></h3>
 <p>The <strong>ReAct</strong> (Reasoning + Acting) pattern is the standard approach for LLM agents. The model iterates through a loop of: <strong>Thought</strong> → <strong>Action</strong> (tool call) → <strong>Observation</strong> (tool result) → <strong>Thought</strong> → … until it has enough information to produce a final answer.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain.agents</span> <span class="kn">import</span> <span class="n">create_react_agent</span><span class="p">,</span> <span class="n">AgentExecutor</span>
 <span class="kn">from</span> <span class="nn">langchain</span> <span class="kn">import</span> <span class="n">hub</span>
@@ -688,7 +689,7 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </div>
 </section>
 <section id="a-simpler-agent-pattern-for-small-models">
-<h3><span class="section-number">13.3.3. </span>A Simpler Agent Pattern for Small Models<a class="headerlink" href="#a-simpler-agent-pattern-for-small-models" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.3.3. </span>A Simpler Agent Pattern for Small Models<a class="headerlink" href="#a-simpler-agent-pattern-for-small-models" title="Permalink to this heading">#</a></h3>
 <p>When the ReAct format is too demanding for the model, we can implement a <strong>manual agent loop</strong> that is more forgiving:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SimpleAgent</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -778,9 +779,9 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </section>
 <hr class="docutils" />
 <section id="part-3-multi-agent-orchestration">
-<h2><span class="section-number">13.4. </span>Part 3: Multi-Agent Orchestration<a class="headerlink" href="#part-3-multi-agent-orchestration" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">14.4. </span>Part 3: Multi-Agent Orchestration<a class="headerlink" href="#part-3-multi-agent-orchestration" title="Permalink to this heading">#</a></h2>
 <section id="router-pattern">
-<h3><span class="section-number">13.4.1. </span>Router Pattern<a class="headerlink" href="#router-pattern" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.4.1. </span>Router Pattern<a class="headerlink" href="#router-pattern" title="Permalink to this heading">#</a></h3>
 <p>A <strong>router</strong> uses one agent to classify the incoming request and dispatch it to the appropriate specialist agent.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MultiAgentRouter</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Route queries to specialized agents based on a coordinator&#39;s decision.&quot;&quot;&quot;</span>
@@ -828,7 +829,7 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </div>
 </section>
 <section id="sequential-pipeline">
-<h3><span class="section-number">13.4.2. </span>Sequential Pipeline<a class="headerlink" href="#sequential-pipeline" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.4.2. </span>Sequential Pipeline<a class="headerlink" href="#sequential-pipeline" title="Permalink to this heading">#</a></h3>
 <p>A <strong>pipeline</strong> passes output from one agent to the next, where each agent has a different role.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AgentPipeline</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Execute agents in sequence, passing each output to the next.&quot;&quot;&quot;</span>
@@ -864,7 +865,7 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </div>
 </section>
 <section id="example-automated-analysis-report">
-<h3><span class="section-number">13.4.3. </span>Example: Automated Analysis Report<a class="headerlink" href="#example-automated-analysis-report" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.4.3. </span>Example: Automated Analysis Report<a class="headerlink" href="#example-automated-analysis-report" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">AgentPipeline</span><span class="p">([</span>
     <span class="p">{</span>
         <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Researcher&quot;</span><span class="p">,</span>
@@ -891,15 +892,15 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </section>
 <hr class="docutils" />
 <section id="exercises">
-<h2><span class="section-number">13.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">14.5. </span>Exercises<a class="headerlink" href="#exercises" title="Permalink to this heading">#</a></h2>
 <section id="exercise-1-langchain-agent-with-custom-tools">
-<h3><span class="section-number">13.5.1. </span>Exercise 1: LangChain Agent with Custom Tools<a class="headerlink" href="#exercise-1-langchain-agent-with-custom-tools" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">14.5.1. </span>Exercise 1: LangChain Agent with Custom Tools<a class="headerlink" href="#exercise-1-langchain-agent-with-custom-tools" title="Permalink to this heading">#</a></h3>
 <section id="objectives">
-<h4><span class="section-number">13.5.1.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">14.5.1.1. </span>Objectives<a class="headerlink" href="#objectives" title="Permalink to this heading">#</a></h4>
 <p>Build an agent using LangChain that can answer questions about a fictional scenario by combining reasoning with tool calls.</p>
 </section>
 <section id="task-description">
-<h4><span class="section-number">13.5.1.2. </span>Task Description<a class="headerlink" href="#task-description" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">14.5.1.2. </span>Task Description<a class="headerlink" href="#task-description" title="Permalink to this heading">#</a></h4>
 <ol class="arabic simple">
 <li><p><strong>Define at least 4 custom tools</strong> using the <code class="docutils literal notranslate"><span class="pre">&#64;tool</span></code> decorator for a domain of your choice (e.g., a restaurant booking system, a university helpdesk, a travel planner). Examples:</p>
 <ul class="simple">
@@ -919,7 +920,7 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </ol>
 </section>
 <section id="deliverables">
-<h4><span class="section-number">13.5.1.3. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">14.5.1.3. </span>Deliverables<a class="headerlink" href="#deliverables" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>A Jupyter Notebook with both implementations</p></li>
 <li><p>A comparison table showing success/failure for each agent × query</p></li>
@@ -928,7 +929,7 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </section>
 <hr class="docutils" />
 <section id="id1">
-<h4><span class="section-number">13.5.1.4. </span>Deliverables<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">14.5.1.4. </span>Deliverables<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>A Jupyter Notebook with the complete implementation</p></li>
 <li><p>Results for all test queries/topics</p></li>
@@ -937,7 +938,7 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </ul>
 </section>
 <section id="evaluation-criteria">
-<h4><span class="section-number">13.5.1.5. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">14.5.1.5. </span>Evaluation Criteria<a class="headerlink" href="#evaluation-criteria" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Correctness and robustness of the implementations</p></li>
 <li><p>Quality and diversity of tools and test cases</p></li>
@@ -949,7 +950,7 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
 </section>
 <hr class="docutils" />
 <section id="references">
-<h2><span class="section-number">13.6. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">14.6. </span>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>Yao, S., et al. (2023). <em>ReAct: Synergizing Reasoning and Acting in Language Models</em>. ICLR.</p></li>
 <li><p>Schick, T., et al. (2023). <em>Toolformer: Language Models Can Teach Themselves to Use Tools</em>. NeurIPS.</p></li>
@@ -997,7 +998,7 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">12. </span>Retrieval-Augmented Generation (RAG)</p>
+        <p class="prev-next-title"><span class="section-number">13. </span>Retrieval-Augmented Generation (RAG)</p>
       </div>
     </a>
 </div>
@@ -1016,42 +1017,42 @@ pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-3-multi-agent-systems-with-langchain">13.1. Practical Session 3 — Part 3: Multi-Agent Systems with LangChain</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">13.1.1. Introduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">13.1.2. Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-session-3-part-3-multi-agent-systems-with-langchain">14.1. Practical Session 3 — Part 3: Multi-Agent Systems with LangChain</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">14.1.1. Introduction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">14.1.2. Prerequisites</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-langchain-fundamentals">13.2. Part 1: LangChain Fundamentals</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-a-local-model">13.2.1. Wrapping a Local Model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-templates">13.2.2. Prompt Templates</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chains-composing-steps">13.2.3. Chains: Composing Steps</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-chains">13.2.4. Sequential Chains</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-1-langchain-fundamentals">14.2. Part 1: LangChain Fundamentals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapping-a-local-model">14.2.1. Wrapping a Local Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prompt-templates">14.2.2. Prompt Templates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chains-composing-steps">14.2.3. Chains: Composing Steps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-chains">14.2.4. Sequential Chains</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-tools-and-agents">13.3. Part 2: Tools and Agents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-custom-tools">13.3.1. Defining Custom Tools</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-react-agent">13.3.2. Building a ReAct Agent</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simpler-agent-pattern-for-small-models">13.3.3. A Simpler Agent Pattern for Small Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-2-tools-and-agents">14.3. Part 2: Tools and Agents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-custom-tools">14.3.1. Defining Custom Tools</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-a-react-agent">14.3.2. Building a ReAct Agent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simpler-agent-pattern-for-small-models">14.3.3. A Simpler Agent Pattern for Small Models</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-multi-agent-orchestration">13.4. Part 3: Multi-Agent Orchestration</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#router-pattern">13.4.1. Router Pattern</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-pipeline">13.4.2. Sequential Pipeline</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-automated-analysis-report">13.4.3. Example: Automated Analysis Report</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#part-3-multi-agent-orchestration">14.4. Part 3: Multi-Agent Orchestration</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#router-pattern">14.4.1. Router Pattern</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-pipeline">14.4.2. Sequential Pipeline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-automated-analysis-report">14.4.3. Example: Automated Analysis Report</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">13.5. Exercises</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-langchain-agent-with-custom-tools">13.5.1. Exercise 1: LangChain Agent with Custom Tools</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">13.5.1.1. Objectives</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">13.5.1.2. Task Description</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">13.5.1.3. Deliverables</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">13.5.1.4. Deliverables</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">13.5.1.5. Evaluation Criteria</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">14.5. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-langchain-agent-with-custom-tools">14.5.1. Exercise 1: LangChain Agent with Custom Tools</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objectives">14.5.1.1. Objectives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#task-description">14.5.1.2. Task Description</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deliverables">14.5.1.3. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">14.5.1.4. Deliverables</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-criteria">14.5.1.5. Evaluation Criteria</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">13.6. References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">14.6. References</a></li>
 </ul>
   </nav></div>
 

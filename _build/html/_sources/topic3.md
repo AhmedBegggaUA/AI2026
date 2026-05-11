@@ -1147,7 +1147,7 @@ Among them, we highlight herein the one termed **prefix tuning** (PT). This meth
 1) **Prefix definition**. Put the prefix in the input (left context) and define a **trainable matrix** $\mathbf{P}$ whose dimension is $\text{length_of_prefix}\times d$. This defines a **virtual token**. 
 2) **Training**. Frozen the weights of the LLM and learn $\mathbf{P}$. To that end, the embedding of the virtual token is just the output of this matrix. Otherwise, the embedding of a **regular token** is also influenced by the matrix $\mathbf{P}$ since the other weights are frozen. 
 
-**Interestingly** the prefix is not necesarily new word of the vocabulary. It may actually mean a specific task. This simply particularizes the obtained embeddings and the working of the LLM (see {numref}`Prefix`):
+**Interestingly** the prefix is not necesarily new word of the vocabulary. It may actually mean a specific task (for instance the tokenization of the word 'Question'). This simply particularizes the obtained embeddings and the working of the LLM (see {numref}`Prefix`):
 
 ```{figure} ./images/Topic3/Prefix.png
 ---
@@ -1515,6 +1515,393 @@ The original model has an average loss of 4.7968 and a perplexity of **121.1279*
 It's interesting to compare this with the fine-tuned LoRA model's perplexity, which was **978.7332**. This indicates that, for the small and general dataset used, the fine-tuning process significantly increased the perplexity, suggesting it might have overfit or was not well-suited for the base model's pre-trained knowledge on this specific task. Typically, fine-tuning aims to reduce perplexity on the target distribution. This result highlights the importance of choosing a relevant and sufficiently large dataset for effective fine-tuning.
 
 **Note**. Despite the parameter efficiency of LoRA, the above results where obtained after roughly ten hours of A100 GPU!
+
+## Reasoning in LLMs 
+### Beyond PE
+<span style="color:#2f6004">In the practical part of this subject, you are learning Prompt Engineering (PE) as a **means of exploting the AR structure of LLMs by designing and refining the textual input (prompt)** is order to extract a more accurate and useful response</span>. 
+
+**Can PE be considered a way of reasoning?** Obviously no, and one of the main reasons is because **it does not guarantees correctness**. Quoting a [Medium report](https://medium.com/@khayyam.h/emergent-reasoning-in-llms-planning-reflection-and-theory-of-mind-1e9c33b061a0), "Modern models can decompose problems into steps, reflect on their own failures, and sometimes reason about what other agents might believe. These behaviors stand in contrast to early prompt-completion systems, which typically produced single-shot answers without intermediate reasoning or self-correction".
+
+**Chain-of-thoughs Prompting** (COT) seems to approaching reasoning by following a set of intermediate steps, and this leads to an increment performance in arithmetic, commonsense and symbolic reasoning tasks. <span style="color:#2f6004">However, **COT is only effective when the LLM scales enough**</span> as we see in {numref}`COTScale`:
+
+```{figure} ./images/Topic3/COTScale.png
+---
+name: COTScale
+width: 800px
+align: center
+height: 400px
+---
+COT improves with LLM scaling. [Source](https://arxiv.org/pdf/2201.11903). 
+```
+
+**RAGs: A bit of planning**. Next step consists of build a <span style="color:#2f6004">structured plan which **interleaves reasoning traces** with **concrete actions** (e.g. use search engines) in an environment</span>. The canonical example of this is [React](https://arxiv.org/pdf/2210.03629), where actions allow it to interface with and gather additional information from external sources such as knowledge bases or environments:  
+
+```{figure} ./images/Topic3/REACT.png
+---
+name: REACT
+width: 800px
+align: center
+height: 400px
+---
+REACT example. [Source](https://arxiv.org/pdf/2201.11903). 
+```
+
+### Self-Refine 
+**Self-Refinement**. Consider now the case where an LLM is driven by iteratively refining their responses. This is the case of [Self-Refine](https://arxiv.org/abs/2303.17651). It works as follows: 
+
+1) **Initial generation**. Given a prompt $\mathbf{P}_{gen}$, use the LLM ${\cal M}$ generate an initial output: 
+
+$$
+\mathbf{y}_0 = {\cal M}(\mathbf{P}_{gen})\;.
+$$
+
+Note that $\mathbf{P}_{gen}$ is a few-shot prompt (or code instruction). In addition, $\mathbf{P}_{gen}$ contains input-output **pairs** $(\mathbf{x}(k),\mathbf{y}(k))$.
+
+2. **Feedback**. At iteration $t$, Self-refine uses the same LLM ${\cal L}$ to provide feedback prompt $\mathbf{P}_{fb}$: 
+
+$$
+\mathbf{fb}_t = {\cal M}(\mathbf{P}_{gen}||\mathbf{y}_t)\;,
+$$
+
+In other words, the prompt $\mathbf{P}_{fb}$ contains input-output feeback **triples** $(\mathbf{x}(k),\mathbf{y}(k),\mathbf{fb}(k))$. The model is instructed to generate feedback that is both actionable and specific based on these examples.
+
+a) **Actionable**: Feedback should suggest concrete actions that are likely to improve the output.
+
+b) **Specific**: Feedback should pinpoint specific phrases or elements in the output that require modification.
+
+For instance, in {numref}`SelfRefine`, the feedback reads:
+```
+"This code is slow as it uses a for loop, which is brute force. 
+A better approach is to use the formula … n(n+1)/2.”
+```
+This feedback is **actionable** because it explicitly suggests the action, “use the formula…”. It is also **specific** as it identifies the issue — the “for loop” — in the output.
+
+3. **Refinement**. Self-Refine uses ${\cal M}$ to refine its most recent output $\mathbf{y}_t$ based on its own feedback $\mathbf{fb}$​. Given the initial output and the generated feedback, the model produces a re-implementation that is both shorter and significantly faster than the original: 
+
+$$
+\mathbf{y}_{t+1} = {\cal M}(\mathbf{P}_{refine}||\mathbf{y}_t||\mathbf{fb}_t)\;,
+$$
+
+The refinement process is guided by the prompt $\mathbf{P}_{refine}$​ that includes examples illustrating how to improve an output using feedback. These examples are presented as input-output-feedback-refined **quadruples**: $(\mathbf{x}(k), \mathbf{y}_t(k), \mathbf{fb}_t(k), \mathbf{y}_{t+1}(k))$.
+
+```{figure} ./images/Topic3/SelfRefine.png
+---
+name: SelfRefine
+width: 800px
+align: center
+height: 500px
+---
+Self-Refine example. [Source](https://arxiv.org/pdf/2303.17651). 
+```
+
+**Evaluation**. Self-Refine's performance is evaluated in several tasks such as dialogue-response, code-optimization and math reasoning. The analysis of ehnaced bases such as GPT-3.5, ChatGPT and GPT-4 shows that **math reasoning** offers the smaller increment due to the **difficulty in identifying logic errors**.  
+
+**Key Insights**. Some take-to-home messages (see also the [Medium report](https://medium.com/byte-sized-ai/ai-agents-self-refine-iterative-refinement-with-self-feedback-70943c326bea)): 
+
+1) **Feedback quality is critical**. We know that because when using a generic feedback (instead of an actionable one) performance decreased from 27.5 (actionable feedback) to 26.0 (generic feedback) and further to 24.8 (no feedback) in **code generation**. 
+
+2) **Multiple Iterations is crucial**. The significance of multiple iterations in the FEEDBACK-REFINE process is demonstrated by improvements in output quality with each iteration.
+
+3) **Self-Refine does not work well in small models**. This finding suggest that small models like $\text{Vicuna-13B}$, which are trained on conversational data, may struggle to generalize to instruction-based tasks requiring few-shot learning.
+
+### RLHF: RL with Human Feedback
+<span style="color:#2f6004">**How to incorporate human information to bias LLMs?** Given a model that already understands prompts and can follow instructions, it may still **lack alignment with human preferences**</span>. 
+
+If so, RLHF trains the model as follows: 
+
+1) Give the model a **prompt**. For instance ```The dog is...```
+2) Model generates **response**. Two extreme cases: ```A loyal and friendly animal often kept as a pet```or ```A dangerous unpredictable creature```. How to bias the LLM towards the response more aligned with human experience? 
+3) Give a **reward** to each response (positive ```Reward: +0.24``` for the first, and negative ```Reward: -0.53``` for the second).
+4) **Update** the model considering the rewards. We use Reinforcement Learning for fine-tuning the model. 
+
+#### Reward Modeling 
+**Reward models** (RM) are core to the modern approach to RLHF by being where the complex human preferences are learned. Herein the RM **play the role of the environment in RL** thus providing the signals for the agent. They are a **proxy** of the environment. <span style="color:#2f6004">Therefore, the practice of reward modeling for RLHF is closely related
+to **inverse RL**, where the problem is to approximate an agent’s reward
+function given trajectories of behavior</span>.
+
+**Bradley-Terry**. The simplest method to train a RM is the Bradley-Terry one. Note that, **we do not know the rewards in advance**. All we know that given a prompt $\mathbf{x}$ we do have a **preferred response** $\mathbf{y}_c$ (chosen) and a rejected $\mathbf{y}_r$ response. <span style="color:#2f6004">Then (once we add a linear head to the model's hidden state that produces a scalar) we **maximize the probability that the model choses the preferred response instead of the rejected once**:</spam> 
+
+$$
+\begin{align}
+\max_{\theta} p_{\theta}(y_c>y_r) &= \max_{\theta} \frac{\exp(r_{\theta}(\mathbf{y}_c|\mathbf{x}))}{\exp(r_{\theta}(\mathbf{y}_c|\mathbf{x})) + \exp(r_{\theta}(\mathbf{y}_r|\mathbf{x}))}\\
+&= \max_{\theta} \frac{1}{1 + \frac{\exp(r_{\theta}(\mathbf{y}_r|\mathbf{x}))}{\exp(r_{\theta}(\mathbf{y}_c|\mathbf{x}))}}\\
+&= \max_{\theta} \frac{1}{1 + \exp(-(r_{\theta}(\mathbf{y}_c|\mathbf{x})-r_{\theta}(\mathbf{y}_r|\mathbf{x})))}\\
+\end{align}
+$$
+
+Since $\sigma(z)=\frac{1}{1 + e^{-z}}$ is the sigmoid, we have 
+
+$$
+\begin{align}
+\max_{\theta} p_{\theta}(y_c>y_r) &= \max_{\theta} \sigma(r_{\theta}(\mathbf{y}_c|\mathbf{x})-r_{\theta}(\mathbf{y}_r|\mathbf{x}))\\
+&= \min_{\theta} -\log(\sigma(r_{\theta}(\mathbf{y}_c|\mathbf{x})-r_{\theta}(\mathbf{y}_r|\mathbf{x})))\;.\\
+\end{align}
+$$
+
+This naturally leads to the loss 
+
+$$
+{\cal L}(\theta)=-\log(\sigma(r_{\theta}(\mathbf{y}_c|\mathbf{x})-r_{\theta}(\mathbf{y}_r|\mathbf{x})))
+$$
+
+which is equivalent to the Softplus function $\log(1 + e^z)$:
+
+$$
+{\cal L}(\theta)=\log( 1 + e^{r_{\theta}(\mathbf{y}_c|\mathbf{x})-r_{\theta}(\mathbf{y}_r|\mathbf{x})})\;.
+$$
+
+In {numref}`Bradley`, we show that when both responses reach the EOS (End-Of-Sequence) token, we compute both scores and the so-called **contrastive loss** depends only on the score difference between the two:
+
+```{figure} ./images/Topic3/Bradley.png
+---
+name: Bradley
+width: 800px
+align: center
+height: 200px
+---
+Bradley-Terry. Source: [RLHF Book](https://arxiv.org/pdf/2504.12501). 
+```
+
+However, what we **really** do is to **take a batch** from a dataset ${\cal D}$ and compute the expectation: 
+
+$$
+{\cal L}_{BT}(r_{\theta},{\cal D})=-\mathbb{E}_{(\mathbf{x},\mathbf{y}_c,\mathbf{y}_r)\sim {\cal D}}\log(\sigma(r_{\theta}(\mathbf{y}_c|\mathbf{x})-r_{\theta}(\mathbf{y}_r|\mathbf{x})))
+$$
+
+
+
+#### The Complete Picture
+In {numref}`RLHF` we show the elements of RLHF: 
+
+1) **Policy Network (Actor)**. This is the **LLM to train**: It takes an input (prompt/state) and outputs actions (tokens/responses). The actor learns to choose actions that lead to high rewards.
+
+2) **Reward Model**. A separate neural network (or part of the same network) that estimates the 'value' of being in a particular state. The value indicates the expected future reward from that state. In this context, a prompt $\mathbf{x}$ from the dataset is passed to the tuned policy, which generates a completion $\mathbf{y}$. The **reward model** $r_{\theta}(\mathbf{y}|\mathbf{x})$ **scores this completion**. 
+
+ 
+
+```{figure} ./images/Topic3/RLHF.png
+---
+name: RLHF
+width: 800px
+align: center
+height: 600px
+---
+The complete picture of RLHF. Source: [RLHF Book](https://arxiv.org/pdf/2504.12501). 
+```
+
+**RLHF Objective**. Given these two elements, the RLHF objective can be formulated in terms of **learning a policy** $\pi_{\theta}(\mathbf{y}|\mathbf{x})$ as follows: 
+
+$$
+\pi^{\ast}_{\theta}=\max_{\pi_{\theta}}\mathbb{E}_{\mathbf{x}\sim {\cal D},\mathbf{y}\sim \pi_{\theta}(\mathbf{y}|\mathbf{x})}\left[r_{\theta}(\mathbf{y}|\mathbf{x}) -\beta\cdot KL(\pi_{\theta}||\pi_{\text{ref}})\right]\;,
+$$
+
+where we introduce a KL-based **regularization** for penalizing deviations from the pre-trained LLM (reference/base policy).
+
+**RLHF Challenges**. A block-model interpretation of RLHF (see {numref}`Challenges`) leads to the most important RLHF challenges: 
+
+```{figure} ./images/Topic3/Challenges.png
+---
+name: Challenges
+width: 600px
+align: center
+height: 450px
+---
+RLHF modules reveal the challenges. Source: [Medium](https://medium.com/gitconnected/visual-guide-to-llm-preference-tuning-with-rlhf-ppo-05824ff74d27). 
+```
+
+1) **Computational complexity**: The optimization process is computationally intensive. Since it needs to train at least two models, the reward model and the LLM, which can be more costly than perhaps necessary. This is why in practice the **reward model is pre-trained and then frozen**. 
+
+2) **Non-differentiability**: The sampling of output sequences is not differentiable, necessitating the use of reinforcement learning algorithms like **Proximal Policy Optimization (PPO)**.
+
+3) **Instability**: Reinforcement Learning (RL) algorithms can be unstable and sensitive to hyperparameters.
+
+#### Policy Gradient in RLHF
+**Policy gradient methods (PG)**. In general, PG methods emerge from the need of estimating the gradient $\Delta\theta$ of the LLM as follows: 
+
+$$
+\Delta\theta \approx \psi_t\nabla_{\theta}\log \pi_{\theta}(y_t|x_t)\;,
+$$
+
+where: 
+
+1) $\nabla_{\theta}\log \pi_{\theta}(y_t|x_t)$ is the direction in parameter space making the output $y_t$ more likely. This is formally the **score function** and it plays a key role in generative AI. Basically, if we use Softmax, we have: 
+
+$$
+\begin{align}
+\nabla_{\theta}\log \pi_{\theta}(y_t|x_t) &= \nabla_{\theta}\log\frac{e^{h_{\theta}(y_t|x_t)}}{\sum_{y'_t}e^{h_{\theta}(y'_t|x)}}\\
+&=\phi(y_t|x_t) - \mathbb{E}_{y'_t\sim\pi_{\theta}(.|x_t)}[\phi(y'_t|x_t)]\;,
+\end{align}
+$$
+
+where $\phi(y_t|x_t)$ are the features leading to the logits $h_{\theta}(y_t|x_t)=\phi(y_t|x_t)^T\theta$. In this regard, we are considering that $\theta$ induces a linear function that facilitates the derivation. In other words, the **gradient is coming from the deviation of the features from the expectation**. 
+
+2) A scalar $\Psi_t$ scoring the outcome. $\Psi_t>0$ updates parameters to make $y_t$ more likely and vice versa with $\Psi_t<0$. This is formally the **future gain**.
+
+**Vanilla PG**. Considering the above definition of gradient, given an input prompt $\mathbf{x}$, the LLM produces a **sequence of states and actions** $\tau = (s_0,a_0,a_1,a_1,\ldots)$ where: 
+
+- **States** are the partial requence yet explored: $s_t=\mathbf{x}_{i\le t}$.
+- **Actions** produce partial responses $a_t = y_t$
+
+Not surprisingly, the **objective to maximize** is the expected reward of the sequence: 
+
+$$
+J(\theta) = \mathbb{E}_{\tau\sim\pi_{\theta}}[R(\tau)],\;\;\text{where}\; R(\tau)=\sum_{t=0}^{\infty}r_t\;.
+$$
+
+From the above formula we conclude that the **discount factor** in LLMs is $\gamma=1$.
+
+Therefore, in this general formulation of the PG: 
+
+$$
+\nabla_{\theta}J(\theta)=\mathbb{E}_{\tau\sim\pi_{\theta}}\left[\sum_{t=0}^{\infty}\nabla_{\theta}\log\pi_{\theta}(a_t|s_t)\psi_t\right]\;,
+$$
+
+$\Psi_t$ plays the role of the sequence reward $R(\tau)$. However, other choices are possible: for instance the **advantage function** $A_t$ (see definition later), which leads to the **empirical vanilla PG**:
+
+$$
+\nabla_{\theta}J(\theta)=\mathbb{E}_{\tau}\left[\sum_{t=0}^{T}\nabla_{\theta}\log\pi_{\theta}(a_t|s_t)A_t\right]\;.
+$$
+ 
+This kind of gradients are useful for simple RLHF strategies such as REINFORCE. 
+
+#### GRPO 
+Instead of studying PPO (Proximal Policy Optimization) as in the **Aprendizaje Avanzado** subject, we complement herein the state-of-the-art with a simpler and yet more effective method: 
+
+**Group Relative Policy Optimization (GRPO)** is the method used for RLHF in the DeepSeek-R1 series models to the public at https://huggingface.co/deepseek-ai. To better understand GRPO, let us track how PPO proceeds: 
+
+1) A prompt $\mathbf{x}$ is given. 
+2) The model generates and answer $\mathbf{y}$.
+3) A reward model assigns a score $r$. 
+4) A value network, or critic, estimates a value such as $V(\mathbf{x})$ or $V(\mathbf{x},\mathbf{y})$.
+5) An advantage is computed, often as $A=r-V$. 
+6) The policy is updated the PPO objective. 
+
+**Practical difficulties of PPO:**
+1) A critic is <ins>hard to train</ins>. This extra network increases computation, memory and engineering complexity 
+2) Since <ins>outputs are long</ins>, the rewards are sparse, delayed due to latency or mixed from multiple sources. 
+3) <ins>Rewards are also noisy </ins> due to imperfect human preferences or incomplete rule-based rewards. 
+
+**GPRO changes the source of the learning signal**. It introduces a significant shift from absolute scoring to <ins>within-group comparison</ins> for the same prompt: 
+
+1) For a prompt $\mathbf{x}$, the model samples a **group of responses**:
+
+  $$
+  \mathbf{y}_1,\mathbf{y}_2,\ldots,\mathbf{y}_G\sim \pi_{\theta}(.|\mathbf{x})\;.
+  $$
+
+2) Each response receives an individual reward $r_i=R(\mathbf{x},\mathbf{y}_i)$.
+
+3) The GRPO does not train a critic. It computes the **mean reward** and its **standard deviation**: 
+
+$$
+\mu = \frac{1}{G}\sum_{i=1}^Gr_i\;\;\text{and}\;\;\sigma = \sqrt{\frac{1}{G}\sum_{i=1}^G(r_i-\mu)^2}
+$$
+
+4) There is no value. The **relative advantage** of each response is:
+
+$$
+A_i = \frac{r_i-\mu}{\sigma + \epsilon}\;,
+$$
+
+where $\epsilon$ is the **exploration constant**. Then: 
+- If $A_i>0$ this answer is better than the group average, so its probability should be increased. 
+- If $A_i<0$, this answer is worse than the group average, so its probability should be decreased.
+- If $A_i\approx 0$, this answer is around the average, so the update should be small (no surprise).
+
+**GRPO Objective**. In short, we have 
+
+$$
+J_{GRPO}(\theta) = \mathbb{E}(min(\rho_i\cdot A_i, \text{clip}(\rho_i,1-\epsilon,1+\epsilon)\cdot A_i)) + \beta\cdot\text{KL}(\pi_{\theta}||\pi_{\text{ref}})\;,
+$$
+
+where 
+
+$$
+\rho_i = \frac{\pi_{\theta}(\mathbf{y}_i|\mathbf{x})}{\pi_{\theta_{\text{old}}}(\mathbf{y}_i|\mathbf{x})}
+$$
+
+and $\text{KL}$ is a modifed/pointwise KL divergence that will be explained later. 
+
+In more detail, if you access to the [DeepkSeekR1 report](https://arxiv.org/pdf/2501.12948) you can read 
+
+$$
+\begin{align}
+J_{GRPO}(\theta) &= \mathbb{E}_{\mathbf{x}\sim P(\mathbf{X}),\{\mathbf{y}_i\}_{i=1}^G\sim \pi_{\theta_{\text{old}}}(\mathbf{Y}|\mathbf{x}) }\\
+& \frac{1}{G}\sum_{i=1}^G\left(\min\left(\frac{\pi_{\theta}(\mathbf{y}_i|\mathbf{x})}{\pi_{\theta_{\text{old}}}(\mathbf{y}_i|\mathbf{x})}\right)\cdot A_i,\text{clip}\left(\frac{\pi_{\theta}(\mathbf{y}_i|\mathbf{x})}{\pi_{\theta_{\text{old}}}(\mathbf{y}_i|\mathbf{x})},1-\epsilon,1+\epsilon\right)\cdot A_i\right)-\beta\cdot \text{KL}(\pi_{\theta}||\pi_{\text{ref}})\,,
+\end{align}
+$$
+
+where 
+
+$$
+\text{KL}(\pi_{\theta}||\pi_{\text{ref}})=\frac{\pi_{\theta}(\mathbf{y}_i|\mathbf{x})}{\pi_{ref}(\mathbf{y}_i|\mathbf{x})}-\log\frac{\pi_{\theta}(\mathbf{y}_i|\mathbf{x})}{\pi_{ref}(\mathbf{y}_i|\mathbf{x})}-1\;,
+$$
+
+is the modified KL divergence, rather different from the one in PPO (see the report's Appendix for more details):  
+-  In GRPO, an **unbiased estimator** of the KL divergence is directly added in
+the loss, while in PPO the **per-token KL penalty** is added as a dense reward
+at each token.
+
+- Since the optimization goal of RL is to maximize cumulative rewards, **PPO’s approach penalizes the cumulative KL divergence**, which may implicitly penalize the length of the response and thereby prevent the model’s response length from increasing. 
+
+- In addition, as we may train thousands of steps in the scenario of training long chain-of-thought reasoning models, the **trained policy can diverge significantly**
+from the initial reference policy. 
+
+- In order to **balance the scope that the training policy can explore** and **the stability of the training**, we periodically update the reference policy to the latest policy during the actual training process.
+
+**Conceptual differences: GRPO vs PPO**. In {numref}`GRPOvsPPO` we show the main differerences: 
+
+```{figure} ./images/Topic3/GRPOvsPPO.png
+---
+name: GRPOvsPPO
+width: 600px
+align: center
+height: 300px
+---
+PPO (top) vs GRPO (bottom). Source: [DeepkSeekR1 report](https://arxiv.org/pdf/2501.12948). 
+```
+
+Notice what is missing (from [Medium](https://medium.com/data-science-collective/grpo-the-better-alternative-to-ppo-for-training-powerful-llms-dbcd6d6f8a47)):
+
+**There is no critic**. There is no attempt to estimate a separate value for each  prompt. The only question is: inside this set of answers, which outputs are relatively better?
+
+That is why **GRPO fits mathematics, coding, logic, and other verifiable tasks so well**. The method turns “one question, many candidate trajectories” into a learning signal.
+
+**Why GRPO is especially suitable for large language models**. This fit is not accidental. It follows directly from the structure of LLM tasks.
+
+1) <ins>LLMs naturally support multiple answers for the same prompt</ins>:
+For a single prompt, a language model can sample many different completions. That is **much easier than in many classical control problems**, where constructing a strong set of candidate actions for the same state can be harder.
+
+2) <ins>Relative comparison is often easier than absolute scoring</ins>. 
+In many tasks, it is hard to say:
+```
+“This answer is worth 86.7 points”.
+```
+
+It is much easier to say:
+
+a) answer A is better than answer B
+
+b) answer A is more rigorous
+
+c) answer A is correct while answer B is not
+
+d) answer A follows the requested format better
+
+3) <ins>Verifiable rewards are common in LLM tasks</ins>. Many large language model tasks come with natural verification signals:
+
+a) math problems can be checked by final answer
+
+b) code can be evaluated by unit tests
+
+c) SQL can be executed
+
+d) structured outputs can be validated by rules
+
+e) tool calls can be verified against schemas
+
+4) <ins>It reduces engineering dependence on a critic</ins>. Removing or avoiding critic training lowers memory cost and simplifies the training loop. That is one of the reasons GRPO became attractive in reasoning-focused large model work.
+
 
 <!----
 ### Knowledge Distillation 
